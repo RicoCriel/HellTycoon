@@ -1,18 +1,18 @@
+using Dreamteck.Splines;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SplineView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SplineComputer _mySplineComputer;
+    private SplineMesh _mySplineMesh;
+
+    private void Awake()
     {
-        
+        _mySplineComputer = GetComponent<SplineComputer>();
+        _mySplineMesh = GetComponent<SplineMesh>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
