@@ -14,18 +14,23 @@ namespace Grid
 
         private List<TileGrid> _layers;
 
-        void Awake()
+        private void Awake()
         {
             _layers = new List<TileGrid>();
             for (int i = 0; i != _layerCount; ++i)
             {
-                var newLayer = Instantiate(_layerPrefab, Vector3.zero, Quaternion.identity);
-                newLayer.transform.Translate(_layerWidth * i, i, transform.position.z);
-
-                newLayer.Initialize(_layerWidth, _layerHeight, this, _tilePrefab);
-                newLayer.name = "Layer " + i;
-                _layers.Add(newLayer);
+                AddLayer();
             }
+        }
+
+        private void AddLayer()
+        {
+            var newLayer = Instantiate(_layerPrefab, Vector3.zero, Quaternion.identity);
+            newLayer.transform.Translate(_layerWidth * _layers.Count, _layers.Count, transform.position.z);
+
+            newLayer.Initialize(_layerWidth, _layerHeight, this, _tilePrefab);
+            newLayer.name = "Layer " + _layers.Count;
+            _layers.Add(newLayer);
         }
 
     }

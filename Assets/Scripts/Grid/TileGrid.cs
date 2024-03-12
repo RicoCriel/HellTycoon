@@ -32,16 +32,31 @@ namespace Grid
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    Tile spawnedTile = Instantiate(tilePrefab, transform, false);
-                    spawnedTile.transform.Translate(x, 0, y);
-
-                    
-                    spawnedTile.name = "Tile [" + x + ", " + y + "]";
-                    spawnedTile.Initialize(this);
-
-                    _tiles.Add(new Vector2Int(x, y), spawnedTile);
+                    AddTile(x, y, tilePrefab);
                 }
             }
+        }
+
+        private void AddTile(int x, int y, Tile tilePrefab)
+        {
+            Tile spawnedTile = Instantiate(tilePrefab, transform, false);
+            spawnedTile.transform.Translate(x, 0, y);
+            spawnedTile.name = "Tile [" + x + ", " + y + "]";
+
+            var gridPos = new Vector2Int(x, y);
+            spawnedTile.Initialize(this, gridPos);
+
+            _tiles.Add(gridPos, spawnedTile);
+        }
+
+        public bool GetTileAtGridPosition(int x, int y, out Tile tile)
+        {
+            tile = null;
+            if (_tiles == null || x >= _width || y >= _height) return false;
+
+            tile = _tiles[new Vector2Int(x, y)];
+            if (tile == null) return false;
+            return true;
         }
     }
 }

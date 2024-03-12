@@ -118,3 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8008c7fc165034194f31b307e7b285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultMaterial: {fileID: 2100000, guid: aae2e7addc5e45a4f9324988060004c6, type: 2}
+  _hoverMaterial: {fileID: 2100000, guid: c09be59adb3e5d74c9d39922d7f7ea18, type: 2}
+  _selectedMaterial: {fileID: 2100000, guid: 28f547c349914ae43abf427836eef5c6, type: 2}
