@@ -39,15 +39,39 @@ namespace Splines
         [Range(1f, 20)]
         private float _followSpeed = 1f;
 
+        [Header("SplineConnectors")]
+        [SerializeField]
+        private PlaceholderConnectorHitBox BoxIn;
+        [SerializeField]
+        private PlaceholderConnectorHitBox BoxOut;
+
+        [SerializeField]
+        private Transform middlePoint;
+
         private void Awake()
         {
+            List<Vector3> points = new List<Vector3>();
+            points.Add(BoxIn.GetConnectorPointSpline());
+            points.Add(BoxIn.GetConnectorAnglePointSpline());
+            points.Add(middlePoint.position);
+            points.Add(BoxOut.GetConnectorAnglePointSpline());
+            points.Add(BoxOut.GetConnectorPointSpline());
+
+
             instanciatedSpline = Instantiate(SplineViewPrefab);
+
+            instanciatedSpline.AddPoints(points, 1, Vector3.zero);
+            // instanciatedSpline.SetPointOrientation(BoxIn.GetConnectorPointDirection(), 0);
+            // instanciatedSpline.SetPointOrientation(-BoxOut.GetConnectorPointDirection(), 2);
+
+            // instanciatedSpline.SetSplineType(Spline.Type.Bezier);
 
             SplineMesh.Channel meshChannel = instanciatedSpline.AddMeshToGenerate(_meshToUse);
             float SplineSize = instanciatedSpline.GetSplineUniformSize();
             instanciatedSpline.SetMaterial(_materialToUse);
-            instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 2);
-            instanciatedSpline.SetMeshSize(10);
+            instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 3);
+            // instanciatedSpline.SetMeshSize(10);
+            instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
 
             StartCoroutine(TestsplineFollowers());
         }
@@ -64,11 +88,58 @@ namespace Splines
                 follower.SetFollow(true);
                 follower.SetSpeed(_followSpeed);
                 follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
-                follower.HookUpEndReachedEvent();
+
+                // follower.HookUpEndReachedEvent();
+                // follower.FollowerArrived += (sender, args) => {
+                //     //Call machine code where the object just arrived.
+                //     Destroy(args.GameObject);
+                // };
+                //
+
+                EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
+                followerArrivedHandler = (sender, args) => {
+                    Debug.Log("Follower Arrived");
+                    //Call machine code where the object just arrived.
+                    follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
+                    Destroy(args.GameObject);
+                };
+                follower.FollowerArrived += followerArrivedHandler;
 
                 yield return new WaitForSeconds(_timeBetweenSpawns);
             }
         }
+
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer)
+        {
+            //get relevant data
+            SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
+            Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
+            
+            //instantiate and parent demon to follower
+            SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
+            gameObject.transform.parent = follower.transform;
+            
+            //set up follower logic
+            follower.SetComputer(splineComputer);
+            follower.SetFollow(true);
+            follower.SetSpeed(_followSpeed);
+            follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
+
+            //hook up events
+            EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
+            followerArrivedHandler = (sender, args) => {
+                
+                Debug.Log("Follower Arrived");
+                //todo Call machine code where the object just arrived.
+                
+                follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
+                
+                //unparent get data etc?
+                Destroy(args.GameObject);
+            };
+            follower.FollowerArrived += followerArrivedHandler;
+        }
+
 
         private void Update()
         {
