@@ -55,6 +55,7 @@ namespace Splines
             if (_mySplineComputer.GetPoints().Length <= SplinePointIndex) return;
             SplinePoint[] points = _mySplineComputer.GetPoints();
             points[SplinePointIndex].normal = orientation;
+            
         }
 
         /// <summary>

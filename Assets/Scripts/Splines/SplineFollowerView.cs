@@ -12,18 +12,19 @@ namespace Splines
         {
             if (_mySplineFollower == null)
                 _mySplineFollower = GetComponent<SplineFollower>();
-            // _mySplineFollower.onEndReached += OnEndReached;
-        }
-
-        public void HookUpEndReachedEvent()
-        {
             _mySplineFollower.onEndReached += OnEndReached;
         }
-        
+
+        // public void HookUpEndReachedEvent()
+        // {
+        //     _mySplineFollower.onEndReached += OnEndReached;
+        // }
+        //
         private void OnEndReached(double obj)
         {
             _mySplineFollower.onEndReached -= OnEndReached;
-            Destroy(this.gameObject);
+            OnFollowerArrived(new FollowerArrivedEventArgs(this.gameObject));
+            // Destroy(this.gameObject);
         }
 
         public void SetComputer(SplineComputer splineComputer)
@@ -55,11 +56,24 @@ namespace Splines
         {
             _mySplineFollower.follow = follow;
         }
-        //
-        // public void SetStartPosition(float position)
-        // {
-        //     _mySplineFollower.autoStartPosition = position;
-        // }
+        
+        public event EventHandler<FollowerArrivedEventArgs> FollowerArrived;
+        
+        protected virtual void OnFollowerArrived(FollowerArrivedEventArgs eventargs)
+        {
+            EventHandler<FollowerArrivedEventArgs> handler = FollowerArrived;
+            handler?.Invoke(this, eventargs);
+        }
+      
     
+    }
+    
+    public class FollowerArrivedEventArgs : EventArgs
+    {
+        public GameObject GameObject{ get; }
+        public FollowerArrivedEventArgs(GameObject gameObject)
+        {
+            GameObject = gameObject;
+        }
     }
 }
