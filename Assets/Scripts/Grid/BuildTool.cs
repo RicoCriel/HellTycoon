@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using Grid;
 using UnityEngine;
 
-public class BuildTool : MonoBehaviour
+namespace Grid
 {
-    [SerializeField] private GameObject _currentBuilding;
-
-    public void Build(Tile tile)
+    public class BuildTool : MonoBehaviour
     {
-        if (_currentBuilding == null) return;
-        Instantiate(_currentBuilding, tile.transform.position, Quaternion.identity);
+        [SerializeField] private GameObject _currentBuilding;
+
+        public void Build(Transform tile)
+        {
+            if (_currentBuilding == null) return;
+            Instantiate(_currentBuilding, tile.transform.position, Quaternion.identity);
+        }
     }
 }
+

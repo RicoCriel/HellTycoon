@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Grid
 {
-    public class Tile : MonoBehaviour
+    public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Material _defaultMaterial;
         [SerializeField] private Material _hoverMaterial;
@@ -15,7 +17,7 @@ namespace Grid
         private Material _currentMaterial;
         private Renderer _renderer;
         private Vector2Int _gridPosition;
-        private UnityEvent<Tile> _buildEvent;
+        private UnityEvent<Transform> _buildEvent;
 
         private bool _occupied = false;
         public bool Occupied => _occupied;
@@ -25,14 +27,14 @@ namespace Grid
             _renderer = GetComponent<Renderer>();
             _currentMaterial = _defaultMaterial;
 
-            _buildEvent = new UnityEvent<Tile>();
+            _buildEvent = new UnityEvent<Transform>();
         }
 
         public void Initialize(TileGrid grid, Vector2Int gridPosition, BuildTool buildTool)
         {
             _grid = grid;
             _gridPosition = gridPosition;
-            
+
             _buildEvent.AddListener(buildTool.Build);
         }
 
@@ -45,26 +47,28 @@ namespace Grid
             _occupied = true;
         }
 
-        private void OnMouseEnter()
+        public void OnPointerEnter(PointerEventData eventData)
         {
             if (_occupied) return;
             _renderer.material = _hoverMaterial;
         }
 
-        private void OnMouseExit()
+        public void OnPointerExit(PointerEventData eventData)
         {
             if (_occupied) return;
             _renderer.material = _currentMaterial;
         }
 
-        private void OnMouseDown()
+        public void OnPointerClick(PointerEventData eventData)
         {
             if (_occupied) return;
 
             //TODO: remove
             SetOccupied();
 
-            _buildEvent.Invoke(this);
+            var childTrans = transform.GetChild(0);
+            if (childTrans != null)
+                _buildEvent.Invoke(childTrans);
         }
     }
 }
