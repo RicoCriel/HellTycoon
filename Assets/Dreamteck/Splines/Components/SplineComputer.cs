@@ -613,7 +613,7 @@ namespace Dreamteck.Splines
         /// Get the points from this computer's spline. All points are transformed in world coordinates.
         /// </summary>
         /// <returns></returns>
-        public SplinePoint[] GetPoints(Space getSpace = Space.World)
+        public  SplinePoint[] GetPoints(Space getSpace = Space.World)
         {
             SplinePoint[] points = new SplinePoint[_spline.points.Length];
             for (int i = 0; i < points.Length; i++)
