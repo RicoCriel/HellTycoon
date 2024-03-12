@@ -1,0 +1,17 @@
+# Wavefront MTL file
+# Creator: Ultimate Unwrap3D Pro v3.45
+# URL: http://www.unwrap3d.com
+# Time: Sat Jun 29 13:43:20 2013
+# num_materials: 1
+
+newmtl crownmat
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 0.000000
+map_Kd crown_tex.png
+map_Bump crown_NM.png
+
+# num_materials: 1
