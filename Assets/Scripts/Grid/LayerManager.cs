@@ -11,8 +11,10 @@ namespace Grid
         [SerializeField] private int _layerCount;
         [SerializeField] private int _layerWidth;
         [SerializeField] private int _layerHeight;
+        [SerializeField] private BuildTool _buildTool;
 
         private List<TileGrid> _layers;
+        public List<TileGrid> Layers => _layers;
 
         private void Awake()
         {
@@ -25,14 +27,23 @@ namespace Grid
 
         private void AddLayer()
         {
+            int idx = _layers.Count;
             var newLayer = Instantiate(_layerPrefab, Vector3.zero, Quaternion.identity);
-            newLayer.transform.Translate(_layerWidth * _layers.Count, _layers.Count, transform.position.z);
+            newLayer.transform.Translate(_layerWidth * idx, idx, transform.position.z);
 
-            newLayer.Initialize(_layerWidth, _layerHeight, this, _tilePrefab);
-            newLayer.name = "Layer " + _layers.Count;
+            newLayer.Initialize(_layerWidth, _layerHeight, this, _tilePrefab, idx, _buildTool);
+            newLayer.name = "Layer " + idx;
             _layers.Add(newLayer);
         }
 
+        private void Update()
+        {
+            //TODO: remove
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                AddLayer();
+            }
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Grid
 {
@@ -14,53 +15,56 @@ namespace Grid
         private Material _currentMaterial;
         private Renderer _renderer;
         private Vector2Int _gridPosition;
+        private UnityEvent<Tile> _buildEvent;
 
-        public bool Occupied = false;
+        private bool _occupied = false;
+        public bool Occupied => _occupied;
 
         private void Awake()
         {
             _renderer = GetComponent<Renderer>();
             _currentMaterial = _defaultMaterial;
+
+            _buildEvent = new UnityEvent<Tile>();
         }
 
-        public void Initialize(TileGrid grid, Vector2Int gridPosition)
+        public void Initialize(TileGrid grid, Vector2Int gridPosition, BuildTool buildTool)
         {
             _grid = grid;
             _gridPosition = gridPosition;
+            
+            _buildEvent.AddListener(buildTool.Build);
         }
 
         public void SetOccupied()
         {
-            if(Occupied) return;
+            if (_occupied) return;
 
             _renderer.material = _selectedMaterial;
             _currentMaterial = _selectedMaterial;
-            Occupied = true;
+            _occupied = true;
         }
 
         private void OnMouseEnter()
         {
-            if (Occupied) return;
+            if (_occupied) return;
             _renderer.material = _hoverMaterial;
         }
 
         private void OnMouseExit()
         {
-            if (Occupied) return;
+            if (_occupied) return;
             _renderer.material = _currentMaterial;
         }
 
         private void OnMouseDown()
         {
-            if (Occupied) return;
+            if (_occupied) return;
 
+            //TODO: remove
             SetOccupied();
 
-            Tile tile;
-            if (_grid.GetTileAtGridPosition(_gridPosition.x + 1, _gridPosition.y, out tile))
-            {
-                tile.SetOccupied();
-            }
+            _buildEvent.Invoke(this);
         }
     }
 }

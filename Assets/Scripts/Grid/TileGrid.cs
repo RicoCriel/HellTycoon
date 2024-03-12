@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Grid
 {
@@ -11,17 +12,19 @@ namespace Grid
 
         private Dictionary<Vector2Int, Tile> _tiles;
         private LayerManager _layerManager;
+        private int _gridIdx;
 
-        public void Initialize(int width, int height, LayerManager manager, Tile tilePrefab)
+        public void Initialize(int width, int height, LayerManager manager, Tile tilePrefab, int idx, BuildTool buildTool)
         {
             _width = width;
             _height = height;
             _layerManager = manager;
+            _gridIdx = idx;
 
-            GenerateGrid(tilePrefab);
+            GenerateGrid(tilePrefab, buildTool);
         }
 
-        private void GenerateGrid(Tile tilePrefab)
+        private void GenerateGrid(Tile tilePrefab, BuildTool buildTool)
         {
             if (_tiles == null)
                 _tiles = new Dictionary<Vector2Int, Tile>();
@@ -32,21 +35,24 @@ namespace Grid
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    AddTile(x, y, tilePrefab);
+                    Assert.IsTrue(AddTile(x, y, tilePrefab, buildTool));
                 }
             }
         }
 
-        private void AddTile(int x, int y, Tile tilePrefab)
+        private bool AddTile(int x, int y, Tile tilePrefab, BuildTool buildTool)
         {
+            if (_tiles == null) return false;
+
             Tile spawnedTile = Instantiate(tilePrefab, transform, false);
             spawnedTile.transform.Translate(x, 0, y);
             spawnedTile.name = "Tile [" + x + ", " + y + "]";
 
             var gridPos = new Vector2Int(x, y);
-            spawnedTile.Initialize(this, gridPos);
+            spawnedTile.Initialize(this, gridPos, buildTool);
 
             _tiles.Add(gridPos, spawnedTile);
+            return true;
         }
 
         public bool GetTileAtGridPosition(int x, int y, out Tile tile)
