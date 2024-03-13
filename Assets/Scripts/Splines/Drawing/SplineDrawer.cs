@@ -75,12 +75,13 @@ namespace Splines.Drawing
         [Range(1f, 20)]
         private float _followSpeed = 1f;
 
-        void FixedUpdate()
+        void Update()
         {
             if (hasStartedDrawing)
             {
                 // Debug.Log(points.Count);
                 CapturePoint();
+                
 
                 timer += Time.deltaTime;
                 bool IsNewPointDueToTime = timer >= pointInterval;
@@ -137,6 +138,8 @@ namespace Splines.Drawing
             instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorPointSpline(), 1, Vector3.zero);
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
+
+            // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(instanciatedSpline, currentStartingBox, placeholderConnectorHitBox));
             currentStartingBox = null;
@@ -220,7 +223,8 @@ namespace Splines.Drawing
         private void AddPointAndCallMethod(Vector3 newPoint)
         {
             points.Add(newPoint);
-            mostRecentPoint = newPoint;
+            // mostRecentPoint = newPoint;
+
 
             // Call your method here with the new point
             AddNewSplinePoint(newPoint);
@@ -229,9 +233,12 @@ namespace Splines.Drawing
         private void AddNewSplinePoint(Vector3 point)
         {
             instanciatedSpline.AddOnePoint(point, 1, Vector3.zero);
-            
+
         }
 
+        [SerializeField]
+        public float selfColisionMultiplier = 2.1f;
+        
         private void CapturePoint()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -239,7 +246,24 @@ namespace Splines.Drawing
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                mostRecentPoint = hit.point;
+                
+                
+                Vector3 hitPoint = hit.point;
+
+                Vector3 directionToSecondPoint = (hitPoint - points[^1]).normalized;
+                if (Vector3.Distance(hitPoint, points[^1]) < SelfCollisionRange * selfColisionMultiplier)
+                {
+                    mostRecentPoint = hitPoint;
+                }
+                else
+                {
+                    Vector3 newPoint = points[^1] + directionToSecondPoint * (SelfCollisionRange* selfColisionMultiplier);
+
+                    mostRecentPoint = newPoint;
+                }
+                Debug.DrawLine(points[^1], points[^1] + Vector3.up * 3, Color.red, 0.0f);
+                Debug.DrawLine(mostRecentPoint, mostRecentPoint + Vector3.up * 3, Color.green, 0.0f);
+                Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
                 
                 if (PerformRayCast()) return;
                 if (collisioncheck()) return;
@@ -269,7 +293,7 @@ namespace Splines.Drawing
             float SplineSize = instanciatedSpline.GetSplineUniformSize();
             instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 2);
             instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
-            instanciatedSpline.UpdateColliderInstantly();
+            // instanciatedSpline.UpdateColliderInstantly();
         }
 
         private bool IsTimeForNewPointDistanceWise(Vector3 newPoint)
@@ -325,32 +349,32 @@ namespace Splines.Drawing
 
         private bool PerformRayCast()
         {
-            if (points.Count > 2)
-            {
-                Vector3 direction = (mostRecentPoint - points[^1]).normalized;
-
-                Vector3 newStartPoint = points[^1] + direction * 0.1f;
-                float distance = (mostRecentPoint - newStartPoint).magnitude;
-
-                Debug.DrawLine(points[^1], points[^1] + Vector3.up *3 , Color.red, 0.0f);
-                Debug.DrawLine(mostRecentPoint, mostRecentPoint + Vector3.up *3 , Color.green, 0.0f);
-                Debug.DrawLine(newStartPoint, newStartPoint + Vector3.up *3 , Color.blue, 0.0f);
-                
-                Debug.DrawLine(newStartPoint, newStartPoint + direction * distance, Color.yellow, 0.0f);
-
-                RaycastHit hit;
-
-                if (Physics.Raycast(newStartPoint, direction, out hit, distance, SplineLayer))
-                {
-                    Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
-                    return true;
-                }
-                else
-                {
-                    Debug.Log("No hit detected.");
-                    return false;
-                }
-            }
+            // if (points.Count > 2)
+            // {
+            //     Vector3 direction = (mostRecentPoint - points[^1]).normalized;
+            //
+            //     Vector3 newStartPoint = points[^1] + direction * 0.1f;
+            //     float distance = (mostRecentPoint - newStartPoint).magnitude;
+            //
+            //     Debug.DrawLine(points[^1], points[^1] + Vector3.up *3 , Color.red, 0.0f);
+            //     Debug.DrawLine(mostRecentPoint, mostRecentPoint + Vector3.up *3 , Color.green, 0.0f);
+            //     Debug.DrawLine(newStartPoint, newStartPoint + Vector3.up *3 , Color.blue, 0.0f);
+            //     
+            //     Debug.DrawLine(newStartPoint, newStartPoint + direction * distance, Color.yellow, 0.0f);
+            //
+            //     RaycastHit hit;
+            //
+            //     if (Physics.Raycast(newStartPoint, direction, out hit, distance, SplineLayer))
+            //     {
+            //         Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //         return true;
+            //     }
+            //     else
+            //     {
+            //         Debug.Log("No hit detected.");
+            //         return false;
+            //     }
+            // }
             return false;
         }
 
