@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Product
   - Table
+  - Undefined
+  - Demon
   layers:
   - Default
   - TransparentFX
