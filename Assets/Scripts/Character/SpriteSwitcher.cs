@@ -9,14 +9,15 @@ public class SpriteSwitcher : MonoBehaviour
     public SpriteRenderer Head;
     public SpriteRenderer Face;
     public SpriteRenderer Armor;
-    public SpriteRenderer Wings;
-    
+    public SpriteRenderer LeftWings;
+    public SpriteRenderer RightWings;
 
 
 
-   
 
-    
+
+
+
 
     // head
     public Sprite[] hornsSprites;
