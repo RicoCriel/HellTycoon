@@ -67,9 +67,7 @@ namespace Splines
             {
                 Debug.Log("Literally calling the stop at machine logic");
                 splineDrawer.StopDrawingSplineAtMachine(this);
-
             }
-
         }
         public void OnPointerExit(PointerEventData eventData)
         {
