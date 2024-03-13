@@ -20,3 +20,4 @@ MonoBehaviour:
   _stat1: 0
   _stat2: 0
   _stat3: 1
+  _processTime: 9

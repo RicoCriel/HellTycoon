@@ -19,5 +19,8 @@ public class MachineNode : ScriptableObject
 
     [SerializeField] private int _stat3;
     public int Stat3 => _stat3;
+
+    [SerializeField] private float _processTime;
+    public float ProcessTime => _processTime;
 }
 
