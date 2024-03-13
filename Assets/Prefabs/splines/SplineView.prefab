@@ -73,7 +73,7 @@ MonoBehaviour:
   isNewlyCreated: 0
   editorUpdateMode: 0
   multithreaded: 0
-  updateMode: 0
+  updateMode: 1
   triggerGroups: []
   _spline:
     points: []
@@ -91,7 +91,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    sampleRate: 20
+    sampleRate: 12
     closed: 0
     _knotParametrization: 1
   _originalSamplePercents:
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e405fbab136934590641eb781310b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateMethod: 0
+  updateMethod: 1
   _spline: {fileID: 8409215362539035836}
   _autoUpdate: 1
   _rotationModifier:
@@ -298,7 +298,7 @@ MonoBehaviour:
   _uvRotation: 0
   _meshIndexFormat: 0
   _bakedMesh: {fileID: 0}
-  colliderUpdateRate: 0.2
+  colliderUpdateRate: 0.01
   _channels: []
 --- !u!64 &4342723374602401427
 MeshCollider:

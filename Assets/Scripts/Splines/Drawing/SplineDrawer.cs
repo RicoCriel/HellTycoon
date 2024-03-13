@@ -45,7 +45,7 @@ namespace Splines.Drawing
 
         private PlaceholderConnectorHitBox currentStartingBox;
         private SplineView instanciatedSpline;
-        
+
         //fix later by having more uniform mesh prefabs...
         [Header("size")]
         [Range(0.1f, 100)]
@@ -57,8 +57,8 @@ namespace Splines.Drawing
         [Range(0.1f, 20)]
         [SerializeField]
         private float SelfCollisionRange;
-        
-          
+
+
         [Header("SplineFollowerTest")]
         [SerializeField]
         private SplineFollowerView _followerViewPrefab;
@@ -66,7 +66,7 @@ namespace Splines.Drawing
         [SerializeField]
         [Range(1f, 100)]
         private float _spawnAmount = 1f;
-        
+
         [Header("BeltProperties")]
         [SerializeField]
         [Range(0.1f, 3)]
@@ -75,7 +75,7 @@ namespace Splines.Drawing
         [Range(1f, 20)]
         private float _followSpeed = 1f;
 
-        void Update()
+        void FixedUpdate()
         {
             if (hasStartedDrawing)
             {
@@ -137,8 +137,8 @@ namespace Splines.Drawing
             instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorPointSpline(), 1, Vector3.zero);
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
-            
-            OnSplineCompleted(new SplineConnectionCompletedEventArgs(instanciatedSpline, currentStartingBox,placeholderConnectorHitBox));
+
+            OnSplineCompleted(new SplineConnectionCompletedEventArgs(instanciatedSpline, currentStartingBox, placeholderConnectorHitBox));
             currentStartingBox = null;
             instanciatedSpline = null;
         }
@@ -155,7 +155,7 @@ namespace Splines.Drawing
                 Destroy(instanciatedSpline.gameObject);
             }
         }
-      
+
 
         private IEnumerator TestsplineFollowers()
         {
@@ -171,12 +171,6 @@ namespace Splines.Drawing
                 follower.SetSpeed(_followSpeed);
                 follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
 
-                // follower.HookUpEndReachedEvent();
-                // follower.FollowerArrived += (sender, args) => {
-                //     //Call machine code where the object just arrived.
-                //     Destroy(args.GameObject);
-                // };
-                //
 
                 EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
                 followerArrivedHandler = (sender, args) => {
@@ -190,18 +184,18 @@ namespace Splines.Drawing
                 yield return new WaitForSeconds(_timeBetweenSpawns);
             }
         }
-        
+
         //add speed/ spawnrate parameters to this method if you want...
-        public void SpawnSplineFollower(GameObject gameObject, SplineView computer/*, Machine arrivelMachine*/)
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer /*, Machine arrivelMachine*/)
         {
             //get relevant data
             SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
             Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
-            
+
             //instantiate and parent demon to follower
             SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
             gameObject.transform.parent = follower.transform;
-            
+
             //set up follower logic
             follower.SetComputer(splineComputer);
             follower.SetFollow(true);
@@ -211,12 +205,12 @@ namespace Splines.Drawing
             //hook up events
             EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
             followerArrivedHandler = (sender, args) => {
-                
+
                 Debug.Log("Follower Arrived");
                 //todo Call machine code where the object just arrived.
-                
+
                 follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
-                
+
                 Destroy(args.GameObject);
             };
             follower.FollowerArrived += followerArrivedHandler;
@@ -226,6 +220,7 @@ namespace Splines.Drawing
         private void AddPointAndCallMethod(Vector3 newPoint)
         {
             points.Add(newPoint);
+            mostRecentPoint = newPoint;
 
             // Call your method here with the new point
             AddNewSplinePoint(newPoint);
@@ -234,6 +229,7 @@ namespace Splines.Drawing
         private void AddNewSplinePoint(Vector3 point)
         {
             instanciatedSpline.AddOnePoint(point, 1, Vector3.zero);
+            
         }
 
         private void CapturePoint()
@@ -244,6 +240,7 @@ namespace Splines.Drawing
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
                 mostRecentPoint = hit.point;
+                
                 if (PerformRayCast()) return;
                 if (collisioncheck()) return;
 
@@ -256,12 +253,12 @@ namespace Splines.Drawing
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(mostRecentPoint, SelfCollisionRange);
 
-            if (points.Count > 2)
-            {
-                Gizmos.color = Color.red;
-
-                Gizmos.DrawLine(mostRecentPoint, points[^1] + new Vector3(0, 0.5f, 0));
-            }
+            // if (points.Count > 2)
+            // {
+            //     Gizmos.color = Color.red;
+            //
+            //     Gizmos.DrawLine(mostRecentPoint, points[^1] + new Vector3(0, 0.5f, 0));
+            // }
         }
 
 
@@ -272,6 +269,7 @@ namespace Splines.Drawing
             float SplineSize = instanciatedSpline.GetSplineUniformSize();
             instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 2);
             instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
+            instanciatedSpline.UpdateColliderInstantly();
         }
 
         private bool IsTimeForNewPointDistanceWise(Vector3 newPoint)
@@ -330,33 +328,28 @@ namespace Splines.Drawing
             if (points.Count > 2)
             {
                 Vector3 direction = (mostRecentPoint - points[^1]).normalized;
-                float distance = (mostRecentPoint - points[^1]).magnitude;
 
-                Ray ray = new Ray(points[^1], direction);
-                RaycastHit[] hits = Physics.RaycastAll(ray, distance, SplineLayer);
-                // Debug.Log(hits.Length);
-                if (hits.Length > 1)
+                Vector3 newStartPoint = points[^1] + direction * 0.1f;
+                float distance = (mostRecentPoint - newStartPoint).magnitude;
+
+                Debug.DrawLine(points[^1], points[^1] + Vector3.up *3 , Color.red, 0.0f);
+                Debug.DrawLine(mostRecentPoint, mostRecentPoint + Vector3.up *3 , Color.green, 0.0f);
+                Debug.DrawLine(newStartPoint, newStartPoint + Vector3.up *3 , Color.blue, 0.0f);
+                
+                Debug.DrawLine(newStartPoint, newStartPoint + direction * distance, Color.yellow, 0.0f);
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(newStartPoint, direction, out hit, distance, SplineLayer))
                 {
-                    // Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+                    Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
                     return true;
                 }
                 else
                 {
-                    // Debug.Log("No hit detected.");
+                    Debug.Log("No hit detected.");
                     return false;
                 }
-
-                // RaycastHit hit;
-                // if (Physics.Raycast(points[^1], direction, out hit, distance, SplineLayer))
-                // {
-                //     Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
-                //     return true;
-                // }
-                // else
-                // {
-                //     Debug.Log("No hit detected.");
-                //     return false;
-                // }
             }
             return false;
         }
@@ -365,18 +358,18 @@ namespace Splines.Drawing
         //events
 
         public event EventHandler<SplineConnectionCompletedEventArgs> SplineCompleted;
-        
+
         public void OnSplineCompleted(SplineConnectionCompletedEventArgs eventargs)
         {
             EventHandler<SplineConnectionCompletedEventArgs> handler = SplineCompleted;
             handler?.Invoke(this, eventargs);
         }
     }
-    
+
     public class SplineConnectionCompletedEventArgs : EventArgs
     {
         public SplineView CurrentSpline;
-        
+
         public PlaceholderConnectorHitBox ConnectorStart;
         //Machine start variable
 
@@ -391,7 +384,7 @@ namespace Splines.Drawing
             ConnectorEnd = connectorEnd;
             // Machineend = machineEnd;
         }
-        
+
     }
 
 }
