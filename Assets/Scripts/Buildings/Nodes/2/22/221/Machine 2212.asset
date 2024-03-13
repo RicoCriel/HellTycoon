@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextNodes: []
   _stat0: 0
-  _stat1: 0
-  _stat2: 0
-  _stat3: 0
+  _stat1: 2
+  _stat2: 2
+  _stat3: 1

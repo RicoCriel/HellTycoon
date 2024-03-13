@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Machine 2010
   m_EditorClassIdentifier: 
   _nextNodes: []
-  _stat0: 0
-  _stat1: 0
-  _stat2: 0
+  _stat0: 2
+  _stat1: 1
+  _stat2: 1
   _stat3: 0

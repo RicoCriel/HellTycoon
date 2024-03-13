@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6eb664990a09c4f956384cce773f25, type: 3}
   m_Name: Machine 112
   m_EditorClassIdentifier: 
-  _nextNodes: []
+  _nextNodes:
+  - {fileID: 11400000, guid: eafa71bfbe58d484884cbb0ded1aa39b, type: 2}
+  - {fileID: 11400000, guid: 35fbf607b5de30c4395cf8d58c469b87, type: 2}
+  - {fileID: 11400000, guid: 52ebb6a9a56773945ab8af3f725e1496, type: 2}
   _stat0: 0
-  _stat1: 0
-  _stat2: 0
+  _stat1: 2
+  _stat2: 1
   _stat3: 0
