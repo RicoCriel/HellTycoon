@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 12
-  m_Sprite: {fileID: -4159396750556046284, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 7.23, y: 1.36}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &177483051751595486
@@ -190,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5561391904081043805, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -198,7 +198,7 @@ SpriteRenderer:
   m_Size: {x: 5.7, y: 5.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &632271869641211107
@@ -647,9 +647,11 @@ GameObject:
   - component: {fileID: 45583876617016871}
   - component: {fileID: 4014015233255968243}
   - component: {fileID: 7675849781904450796}
+  - component: {fileID: 6271887971711345460}
+  - component: {fileID: 7823516696607096888}
   m_Layer: 0
   m_Name: DemonSoldiers
-  m_TagString: Untagged
+  m_TagString: Demon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -662,9 +664,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6135848585613011697}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14469276, y: -0, z: -0, w: 0.9894766}
+  m_LocalRotation: {x: 0.21320677, y: -0, z: -0, w: 0.97700715}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.18683, y: 0.18683, z: 0.18683}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3916870832814214310}
@@ -678,7 +680,7 @@ Transform:
   - {fileID: 8322892269579826509}
   - {fileID: 8278864490377966234}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 16.639, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.621, y: 0, z: 0}
 --- !u!114 &4014015233255968243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,12 +693,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46517b1f85f8a664d840a1ba99cdc6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BodyLevel: 0
+  FaceLevel: 0
+  HornLevel: 0
+  ArmorLevel: 0
+  WingsLevel: 0
+  MaxBodyLevel: 2
+  MaxFaceLevel: 2
+  MaxHornLevel: 2
+  MaxArmorLevel: 2
+  MaxWingsLevel: 2
   Horns: {fileID: 5427084344770230518}
   Head: {fileID: 4039055392208183165}
   Face: {fileID: 8121148272788579382}
   Armor: {fileID: 967472162899770600}
-  LeftWings: {fileID: 4648949517468731326}
-  RightWings: {fileID: 6949569570086390689}
+  Wings: {fileID: 0}
   hornsSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -725,6 +736,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &6271887971711345460
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135848585613011697}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &7823516696607096888
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135848585613011697}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.1110435, y: 12.676662, z: 2.1871138}
+  m_Center: {x: 0.46725965, y: 8.308504, z: -0.06603044}
 --- !u!1 &6712088144411519960
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +1025,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5561391904081043805, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -974,7 +1033,7 @@ SpriteRenderer:
   m_Size: {x: 5.7, y: 5.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7299465439826511575
@@ -1050,15 +1109,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 36
-  m_Sprite: {fileID: 4316963716724136749, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.03, y: 1.75}
+  m_Size: {x: 3.33, y: 1.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7431014651551815868

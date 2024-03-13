@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float dragSpeed = 2;
-    public float minZoom = 2f;
-    public float maxZoom = 20f;
+    public float MoveSpeed = 2;
+    public float minZoom = 20f;
+    public float maxZoom = 60f;
+    public float zoomSpeed = 5f; // Adjust this to control zoom speed
 
-    private Vector3 dragOrigin;
+    [SerializeField]
+    private GameObject Parent;
+
     private Camera cam;
 
     void Start()
@@ -18,29 +21,33 @@ public class CameraController : MonoBehaviour
     {
         // Camera zoom controls
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        Vector3 zoom = transform.position + transform.forward * scroll * 10f;
+        float newZoom = cam.fieldOfView - scroll * zoomSpeed;
+        newZoom = Mathf.Clamp(newZoom, minZoom, maxZoom);
+        cam.fieldOfView = newZoom;
 
-        zoom.x = Mathf.Clamp(zoom.x, -maxZoom, maxZoom);
-        zoom.z = Mathf.Clamp(zoom.z, -maxZoom, maxZoom);
-        zoom.y = Mathf.Clamp(zoom.y, minZoom, maxZoom);
-
-        transform.position = zoom;
-        
         // Camera movement controls
-        if (Input.GetMouseButtonDown(0))
+        Vector3 moveDirection = Vector3.zero;
+        if (Input.GetKey(KeyCode.W))
         {
-            dragOrigin = Input.mousePosition;
-            return;
+            moveDirection += Vector3.forward;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            moveDirection -= Vector3.forward;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveDirection += Vector3.right;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveDirection -= Vector3.right;
         }
 
-        if (!Input.GetMouseButton(0)) return;
-
-        Vector3 pos = cam.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
-
-        transform.Translate(move, Space.World);
-        // End of camera movement controls
+        // Convert movement to world space
+        moveDirection = Parent.transform.TransformDirection(moveDirection);
 
         
+        Parent.transform.position += moveDirection.normalized * MoveSpeed * Time.deltaTime;
     }
 }
