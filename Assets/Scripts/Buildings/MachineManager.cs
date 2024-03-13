@@ -4,22 +4,63 @@ using UnityEngine;
 
 public class MachineManager : MonoBehaviour
 {
-    [SerializeField] private MachineNode _currentNode;
+    [SerializeField] private MachineNode _startNode;
+    private List<MachineNode> _machines;
 
-    public void AddMachine(int machineIdx)
+    private void Awake()
     {
-        if (_currentNode == null) return;
+        _machines = new List<MachineNode>();
+        _machines.Add(_startNode);
+    }
 
-        if (_currentNode.NextNodes.Count <= machineIdx) return;
+    public void AddMachine(int machineTypeIdx)
+    {
+        if (_machines == null) return;
 
-        _currentNode = _currentNode.NextNodes[machineIdx];
+        var currentNode = _machines[^1];
 
-        Debug.Log("Stat 0: " + _currentNode.Stat0 + " Stat 3: " + _currentNode.Stat3);
+        if (currentNode == null) return;
+
+        if (currentNode.NextNodes.Count <= machineTypeIdx) return;
+
+        _machines.Add(currentNode.NextNodes[machineTypeIdx]);
+
+        // TODO: remove
+        currentNode = currentNode.NextNodes[machineTypeIdx];
+        Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
+    }
+
+    public void RemoveMachine()
+    {
+        if(_machines == null || _machines.Count <= 1) return;
+
+        _machines.RemoveAt(_machines.Count - 1);
+
+        // TODO: remove
+        var currentNode = _machines[^1];
+        Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
+    }
+
+    public MachineNode GetCurrentNode()
+    {
+        return _machines[^1];
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
             AddMachine(0);
+
+        if(Input.GetKeyDown(KeyCode.R))
+            RemoveMachine();
     }
+}
+
+enum MachineType : int
+{
+    //TODO: change names
+
+    Type0 = 0,
+    Type1 = 1,
+    Type2 = 2
 }
