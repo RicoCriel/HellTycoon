@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6573067573302148761}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: connectorAnglePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6966280892600202940}
   - component: {fileID: 5237309900335243256}
   - component: {fileID: 1524149994418419990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ConnectorHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 623361082956852733}
   - component: {fileID: 1581971853214295904}
   - component: {fileID: 8063458485784276225}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Forward Dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7993385628849237588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: connectorPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4141352756519961151}
   - component: {fileID: 4213883167629200226}
   - component: {fileID: 9196083836378828215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ConnectorHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,6 +281,7 @@ MonoBehaviour:
   ConnectorPoint: {fileID: 623361082956852733}
   ConnectorAnglePoint: {fileID: 6573067573302148761}
   _myMeshRenderer: {fileID: 1524149994418419990}
+  splineDrawer: {fileID: 0}
 --- !u!65 &9196083836378828215
 BoxCollider:
   m_ObjectHideFlags: 0

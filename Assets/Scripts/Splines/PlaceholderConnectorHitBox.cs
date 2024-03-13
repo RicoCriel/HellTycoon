@@ -1,3 +1,4 @@
+using Splines.Drawing;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,8 @@ namespace Splines
     {
         [FormerlySerializedAs("isOutput")]
         public bool IsSplineStart;
+        
+        public bool ImConnected = false;
 
         [SerializeField]
         private Transform ConnectorPoint;
@@ -16,6 +19,11 @@ namespace Splines
 
         [SerializeField]
         private MeshRenderer _myMeshRenderer;
+
+        [SerializeField]
+        private SplineDrawer splineDrawer;
+
+        //MyFactory
 
         private void Awake()
         {
@@ -31,6 +39,8 @@ namespace Splines
             {
                 _myMeshRenderer.material.color = Color.red;
             }
+
+            splineDrawer = FindObjectOfType<SplineDrawer>();
         }
 
         public Vector3 GetConnectorPointSpline()
@@ -52,7 +62,14 @@ namespace Splines
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            throw new NotImplementedException();
+
+            if (!IsSplineStart && !ImConnected)
+            {
+                Debug.Log("Literally calling the stop at machine logic");
+                splineDrawer.StopDrawingSplineAtMachine(this);
+
+            }
+
         }
         public void OnPointerExit(PointerEventData eventData)
         {
@@ -61,26 +78,29 @@ namespace Splines
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-
-                if (!IsSplineStart)
-                {
-                    Debug.Log("StopDrawingSpline");
-                }
-                // Add your mouse down logic here
-            }
+            // if (eventData.button == PointerEventData.InputButton.Left)
+            // {
+            //     if (!IsSplineStart)
+            //     {
+            //         Debug.Log("Literally calling the stop at machine logic");
+            //         splineDrawer.StopDrawingSplineAtMachine(this);
+            //     }
+            //     // Add your mouse down logic here
+            // }
         }
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
-                if (IsSplineStart)
+                if (IsSplineStart && !ImConnected)
                 {
+                    splineDrawer.StartDrawingSpline(this);
                     Debug.Log("StartDrawingSpline");
                 }
                 // Add your mouse down logic here
             }
         }
+
+
     }
 }
