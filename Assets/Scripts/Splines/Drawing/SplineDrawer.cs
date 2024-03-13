@@ -41,16 +41,20 @@ namespace Splines.Drawing
 
 
         private bool hasStartedDrawing = false;
+        private bool CurrentSplineConnected = false;
 
-        [Header("SplineConnectors")]
-        [SerializeField]
-        private PlaceholderConnectorHitBox BoxIn;
-        [SerializeField]
-        private PlaceholderConnectorHitBox BoxOut;
+        private PlaceholderConnectorHitBox currentStartingBox;
+        
+
+        // [Header("SplineConnectors")]
+        // [SerializeField]
+        // private PlaceholderConnectorHitBox BoxIn;
+        // [SerializeField]
+        // private PlaceholderConnectorHitBox BoxOut;
 
         //fix later by having more uniform mesh prefabs...
         [Header("size")]
-        [Range(1, 100)]
+        [Range(0.1f, 100)]
         [SerializeField]
         private float SizeTester;
 
@@ -62,32 +66,32 @@ namespace Splines.Drawing
         private SplineView instanciatedSpline;
 
 
-        
+
 
         void Update()
         {
 
-            if (Input.GetMouseButtonDown(0) && hasStartedDrawing == false)
-            {
-                points.Clear();
-
-                hasStartedDrawing = true;
-                instanciatedSpline = Instantiate(_splineViewPrefab);
-
-                //replace with the actual points
-                points.Add(BoxIn.GetConnectorPointSpline());
-                points.Add(BoxIn.GetConnectorAnglePointSpline());
-                points.Add(BoxIn.GetConnectorAnglePointSpline());
-
-                instanciatedSpline.AddPoints(points, 1, Vector3.zero);
-
-                SplineMesh.Channel meshChannel = instanciatedSpline.AddMeshToGenerate(_meshToUse);
-                float SplineSize = instanciatedSpline.GetSplineUniformSize();
-                instanciatedSpline.SetMaterial(_materialToUse);
-                instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 3);
-                // instanciatedSpline.SetMeshSize(10);
-                instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
-            }
+            // if (Input.GetMouseButtonDown(0) && hasStartedDrawing == false)
+            // {
+            //     points.Clear();
+            //
+            //     hasStartedDrawing = true;
+            //     instanciatedSpline = Instantiate(_splineViewPrefab);
+            //
+            //     //replace with the actual points
+            //     points.Add(BoxIn.GetConnectorPointSpline());
+            //     points.Add(BoxIn.GetConnectorAnglePointSpline());
+            //     points.Add(BoxIn.GetConnectorAnglePointSpline());
+            //
+            //     instanciatedSpline.AddPoints(points, 1, Vector3.zero);
+            //
+            //     SplineMesh.Channel meshChannel = instanciatedSpline.AddMeshToGenerate(_meshToUse);
+            //     float SplineSize = instanciatedSpline.GetSplineUniformSize();
+            //     instanciatedSpline.SetMaterial(_materialToUse);
+            //     instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 3);
+            //     // instanciatedSpline.SetMeshSize(10);
+            //     instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
+            // }
 
             if (hasStartedDrawing)
             {
@@ -112,23 +116,78 @@ namespace Splines.Drawing
                 UpdateMeshWhileDrawing();
             }
 
-            if (Input.GetMouseButtonUp(0) && hasStartedDrawing)
-            {
-                hasStartedDrawing = false;
-                points.Add(BoxOut.GetConnectorAnglePointSpline());
-                points.Add(BoxOut.GetConnectorPointSpline());
-                
-                instanciatedSpline.AddOnePoint(mostRecentPoint, 1 , Vector3.zero);
-                instanciatedSpline.AddOnePoint(BoxOut.GetConnectorAnglePointSpline(), 1 , Vector3.zero);
-                instanciatedSpline.AddOnePoint(BoxOut.GetConnectorPointSpline(), 1 , Vector3.zero);
-                UpdateMeshWhileDrawing();
-                
-                StartCoroutine(TestsplineFollowers());
-                // Destroy(instanciatedSpline.gameObject);
-            }
+            // if (Input.GetMouseButtonUp(0) && hasStartedDrawing)
+            // {
+            //     hasStartedDrawing = false;
+            //     Destroy(instanciatedSpline.gameObject);
+            //     
+            //     // points.Add(BoxOut.GetConnectorAnglePointSpline());
+            //     // points.Add(BoxOut.GetConnectorPointSpline());
+            //     //
+            //     // instanciatedSpline.AddOnePoint(mostRecentPoint, 1 , Vector3.zero);
+            //     // instanciatedSpline.AddOnePoint(BoxOut.GetConnectorAnglePointSpline(), 1 , Vector3.zero);
+            //     // instanciatedSpline.AddOnePoint(BoxOut.GetConnectorPointSpline(), 1 , Vector3.zero);
+            //     // UpdateMeshWhileDrawing();
+            //
+            //     // StartCoroutine(TestsplineFollowers());
+            //     // Destroy(instanciatedSpline.gameObject);
+            // }
 
 
         }
+
+        public void StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
+        {
+            points.Clear();
+            currentStartingBox = placeholderConnectorHitBox;
+
+            CurrentSplineConnected = false;
+            hasStartedDrawing = true;
+            instanciatedSpline = Instantiate(_splineViewPrefab);
+
+            //replace with the actual points
+            points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
+            points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
+            // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
+
+            instanciatedSpline.AddPoints(points, 1, Vector3.zero);
+
+            SplineMesh.Channel meshChannel = instanciatedSpline.AddMeshToGenerate(_meshToUse);
+            float SplineSize = instanciatedSpline.GetSplineUniformSize();
+            instanciatedSpline.SetMaterial(_materialToUse);
+            instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 3);
+            // instanciatedSpline.SetMeshSize(10);
+            instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
+        }
+
+        public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox)
+        {
+            hasStartedDrawing = false;
+            CurrentSplineConnected = true;
+            // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
+            points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
+
+            // instanciatedSpline.AddOnePoint(mostRecentPoint, 1, Vector3.zero);
+            // instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorAnglePointSpline(), 1, Vector3.zero);
+            instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorPointSpline(), 1, Vector3.zero);
+            UpdateMeshWhileDrawing();
+            Debug.Log("Completing spline");
+            
+            
+            
+            instanciatedSpline = null;
+        }
+
+        private void LateUpdate()
+        {
+            if (Input.GetMouseButtonUp(0) && hasStartedDrawing && !CurrentSplineConnected)
+            {
+                hasStartedDrawing = false;
+                Debug.Log("destroying spline");
+                Destroy(instanciatedSpline.gameObject);
+            }
+        }
+
 
         void AddPointAndCallMethod(Vector3 newPoint)
         {
@@ -170,7 +229,7 @@ namespace Splines.Drawing
                 Gizmos.DrawLine(mostRecentPoint, points[^1] + new Vector3(0, 0.5f, 0));
             }
         }
-       
+
 
         private void UpdateMeshWhileDrawing()
         {
@@ -231,7 +290,7 @@ namespace Splines.Drawing
             }
             return false;
         }
-        
+
         private bool PerformRayCast()
         {
             if (points.Count > 2)
@@ -241,7 +300,7 @@ namespace Splines.Drawing
 
                 Ray ray = new Ray(points[^1], direction);
                 RaycastHit[] hits = Physics.RaycastAll(ray, distance, SplineLayer);
-                Debug.Log(hits.Length);
+                // Debug.Log(hits.Length);
                 if (hits.Length > 1)
                 {
                     // Debug.Log("Hit detected on layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
@@ -249,7 +308,7 @@ namespace Splines.Drawing
                 }
                 else
                 {
-                    Debug.Log("No hit detected.");
+                    // Debug.Log("No hit detected.");
                     return false;
                 }
 
@@ -267,8 +326,9 @@ namespace Splines.Drawing
             }
             return false;
         }
-        
-        
+
+
+
         [Header("SplineFollowerTest")]
         [SerializeField]
         private SplineFollowerView _followerViewPrefab;
@@ -284,7 +344,7 @@ namespace Splines.Drawing
         [SerializeField]
         [Range(1f, 20)]
         private float _followSpeed = 1f;
-        
+
         IEnumerator TestsplineFollowers()
         {
             yield return new WaitForSeconds(1f);
@@ -319,6 +379,31 @@ namespace Splines.Drawing
             }
         }
 
+        public event EventHandler<SplineConnectionCompletedEventArgs> SplineCompleted;
+        
+        public void OnSplineCompleted(SplineConnectionCompletedEventArgs eventargs)
+        {
+            EventHandler<SplineConnectionCompletedEventArgs> handler = SplineCompleted;
+            handler?.Invoke(this, eventargs);
+        }
+    }
+    
+    public class SplineConnectionCompletedEventArgs : EventArgs
+    {
+        public PlaceholderConnectorHitBox ConnectorStart;
+        //Machine start variable
+
+        public PlaceholderConnectorHitBox ConnectorEnd;
+        //Machine end variable
+
+        public SplineConnectionCompletedEventArgs(PlaceholderConnectorHitBox connectorStart /*,Machine machineStart */, PlaceholderConnectorHitBox connectorEnd /*,Machine machineEnd */)
+        {
+            ConnectorStart = connectorStart;
+            // Machinestart = machinestart;
+            ConnectorEnd = connectorEnd;
+            // Machineend = machineEnd;
+        }
+        
     }
 
 }
