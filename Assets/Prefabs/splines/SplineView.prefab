@@ -91,7 +91,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    sampleRate: 20
+    sampleRate: 12
     closed: 0
     _knotParametrization: 1
   _originalSamplePercents:

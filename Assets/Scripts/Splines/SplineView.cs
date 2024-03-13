@@ -221,6 +221,10 @@ namespace Splines
         {
             _mySplineMesh.size = size;
         }
-
+        
+        public void UpdateColliderInstantly()
+        {
+            _mySplineMesh.UpdateCollider();
+        }
     }
 }

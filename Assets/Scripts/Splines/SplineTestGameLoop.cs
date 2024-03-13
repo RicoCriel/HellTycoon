@@ -19,7 +19,7 @@ namespace Splines
         private SplineView instanciatedSpline;
 
         [Header("TestStuff")]
-        [Range(1, 100)]
+        [Range(0.1f, 100)]
         [SerializeField]
         private float SizeTester;
 

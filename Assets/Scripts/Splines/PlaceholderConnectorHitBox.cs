@@ -71,7 +71,7 @@ namespace Splines
         }
         public void OnPointerExit(PointerEventData eventData)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public void OnPointerUp(PointerEventData eventData)

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LandersplineTest.unity
+    guid: 7121d9622fc434140bbe5aa3c98cd670
   m_configObjects: {}
