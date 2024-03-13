@@ -62,7 +62,7 @@ namespace Splines.Drawing
         private SplineView instanciatedSpline;
 
 
-
+        
 
         void Update()
         {
