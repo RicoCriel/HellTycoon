@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class DemonPortal : MonoBehaviour
 {
-    [SerializeField] Transform ExitPortal;
+    public Transform ExitPortal;
     [SerializeField] Vector3 ExitRotation;
     [SerializeField] Vector3 Offset;
 
