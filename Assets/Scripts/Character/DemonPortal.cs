@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonPortal : MonoBehaviour
+public class Portal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Transform ExitPortal;
+    [SerializeField] Vector3 ExitRotation;
+    [SerializeField] Vector3 Offset;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Demon"))
+        {
+            other.transform.position = ExitPortal.position + Offset;
+        }
+
+
+        else if (!other.CompareTag("Player"))
+        { return; }
+        else
+        {
+            other.GetComponent<CharacterController>().enabled = false;
+            other.transform.position = ExitPortal.position + Offset;
+            other.GetComponent<CharacterController>().enabled = true;
+
+        }
     }
 }
