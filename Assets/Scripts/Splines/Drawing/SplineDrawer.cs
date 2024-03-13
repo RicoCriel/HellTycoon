@@ -44,55 +44,39 @@ namespace Splines.Drawing
         private bool CurrentSplineConnected = false;
 
         private PlaceholderConnectorHitBox currentStartingBox;
+        private SplineView instanciatedSpline;
         
-
-        // [Header("SplineConnectors")]
-        // [SerializeField]
-        // private PlaceholderConnectorHitBox BoxIn;
-        // [SerializeField]
-        // private PlaceholderConnectorHitBox BoxOut;
-
         //fix later by having more uniform mesh prefabs...
         [Header("size")]
         [Range(0.1f, 100)]
         [SerializeField]
         private float SizeTester;
 
+        [Header("selfCollision")]
         [Header("size")]
         [Range(0.1f, 20)]
         [SerializeField]
         private float SelfCollisionRange;
+        
+          
+        [Header("SplineFollowerTest")]
+        [SerializeField]
+        private SplineFollowerView _followerViewPrefab;
 
-        private SplineView instanciatedSpline;
-
-
-
+        [SerializeField]
+        [Range(1f, 100)]
+        private float _spawnAmount = 1f;
+        
+        [Header("BeltProperties")]
+        [SerializeField]
+        [Range(0.1f, 3)]
+        private float _timeBetweenSpawns = 1f;
+        [SerializeField]
+        [Range(1f, 20)]
+        private float _followSpeed = 1f;
 
         void Update()
         {
-
-            // if (Input.GetMouseButtonDown(0) && hasStartedDrawing == false)
-            // {
-            //     points.Clear();
-            //
-            //     hasStartedDrawing = true;
-            //     instanciatedSpline = Instantiate(_splineViewPrefab);
-            //
-            //     //replace with the actual points
-            //     points.Add(BoxIn.GetConnectorPointSpline());
-            //     points.Add(BoxIn.GetConnectorAnglePointSpline());
-            //     points.Add(BoxIn.GetConnectorAnglePointSpline());
-            //
-            //     instanciatedSpline.AddPoints(points, 1, Vector3.zero);
-            //
-            //     SplineMesh.Channel meshChannel = instanciatedSpline.AddMeshToGenerate(_meshToUse);
-            //     float SplineSize = instanciatedSpline.GetSplineUniformSize();
-            //     instanciatedSpline.SetMaterial(_materialToUse);
-            //     instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)SplineSize * 3);
-            //     // instanciatedSpline.SetMeshSize(10);
-            //     instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
-            // }
-
             if (hasStartedDrawing)
             {
                 // Debug.Log(points.Count);
@@ -115,25 +99,6 @@ namespace Splines.Drawing
                 }
                 UpdateMeshWhileDrawing();
             }
-
-            // if (Input.GetMouseButtonUp(0) && hasStartedDrawing)
-            // {
-            //     hasStartedDrawing = false;
-            //     Destroy(instanciatedSpline.gameObject);
-            //     
-            //     // points.Add(BoxOut.GetConnectorAnglePointSpline());
-            //     // points.Add(BoxOut.GetConnectorPointSpline());
-            //     //
-            //     // instanciatedSpline.AddOnePoint(mostRecentPoint, 1 , Vector3.zero);
-            //     // instanciatedSpline.AddOnePoint(BoxOut.GetConnectorAnglePointSpline(), 1 , Vector3.zero);
-            //     // instanciatedSpline.AddOnePoint(BoxOut.GetConnectorPointSpline(), 1 , Vector3.zero);
-            //     // UpdateMeshWhileDrawing();
-            //
-            //     // StartCoroutine(TestsplineFollowers());
-            //     // Destroy(instanciatedSpline.gameObject);
-            // }
-
-
         }
 
         public void StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
@@ -173,23 +138,92 @@ namespace Splines.Drawing
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
             
-            
-            
+            OnSplineCompleted(new SplineConnectionCompletedEventArgs(instanciatedSpline, currentStartingBox,placeholderConnectorHitBox));
+            currentStartingBox = null;
             instanciatedSpline = null;
         }
 
+        //destroys spline for now when drawing is stopped and not at a relevant point
         private void LateUpdate()
         {
             if (Input.GetMouseButtonUp(0) && hasStartedDrawing && !CurrentSplineConnected)
             {
+                // CurrentSplineConnected = false;
+                currentStartingBox = null;
                 hasStartedDrawing = false;
                 Debug.Log("destroying spline");
                 Destroy(instanciatedSpline.gameObject);
             }
         }
+      
+
+        private IEnumerator TestsplineFollowers()
+        {
+            yield return new WaitForSeconds(1f);
+            SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
+
+            for (int i = 0; i < _spawnAmount; i++)
+            {
+                Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
+                SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
+                follower.SetComputer(splineComputer);
+                follower.SetFollow(true);
+                follower.SetSpeed(_followSpeed);
+                follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
+
+                // follower.HookUpEndReachedEvent();
+                // follower.FollowerArrived += (sender, args) => {
+                //     //Call machine code where the object just arrived.
+                //     Destroy(args.GameObject);
+                // };
+                //
+
+                EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
+                followerArrivedHandler = (sender, args) => {
+                    Debug.Log("Follower Arrived");
+                    //Call machine code where the object just arrived.
+                    follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
+                    Destroy(args.GameObject);
+                };
+                follower.FollowerArrived += followerArrivedHandler;
+
+                yield return new WaitForSeconds(_timeBetweenSpawns);
+            }
+        }
+        
+        //add speed/ spawnrate parameters to this method if you want...
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer/*, Machine arrivelMachine*/)
+        {
+            //get relevant data
+            SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
+            Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
+            
+            //instantiate and parent demon to follower
+            SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
+            gameObject.transform.parent = follower.transform;
+            
+            //set up follower logic
+            follower.SetComputer(splineComputer);
+            follower.SetFollow(true);
+            follower.SetSpeed(_followSpeed);
+            follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
+
+            //hook up events
+            EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
+            followerArrivedHandler = (sender, args) => {
+                
+                Debug.Log("Follower Arrived");
+                //todo Call machine code where the object just arrived.
+                
+                follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
+                
+                Destroy(args.GameObject);
+            };
+            follower.FollowerArrived += followerArrivedHandler;
+        }
 
 
-        void AddPointAndCallMethod(Vector3 newPoint)
+        private void AddPointAndCallMethod(Vector3 newPoint)
         {
             points.Add(newPoint);
 
@@ -197,12 +231,12 @@ namespace Splines.Drawing
             AddNewSplinePoint(newPoint);
         }
 
-        void AddNewSplinePoint(Vector3 point)
+        private void AddNewSplinePoint(Vector3 point)
         {
             instanciatedSpline.AddOnePoint(point, 1, Vector3.zero);
         }
 
-        void CapturePoint()
+        private void CapturePoint()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -217,7 +251,7 @@ namespace Splines.Drawing
             }
         }
 
-        void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(mostRecentPoint, SelfCollisionRange);
@@ -328,56 +362,7 @@ namespace Splines.Drawing
         }
 
 
-
-        [Header("SplineFollowerTest")]
-        [SerializeField]
-        private SplineFollowerView _followerViewPrefab;
-
-        [SerializeField]
-        [Range(0.1f, 3)]
-        private float _timeBetweenSpawns = 1f;
-
-        [SerializeField]
-        [Range(1f, 100)]
-        private float _spawnAmount = 1f;
-
-        [SerializeField]
-        [Range(1f, 20)]
-        private float _followSpeed = 1f;
-
-        IEnumerator TestsplineFollowers()
-        {
-            yield return new WaitForSeconds(1f);
-            SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
-
-            for (int i = 0; i < _spawnAmount; i++)
-            {
-                Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
-                SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
-                follower.SetComputer(splineComputer);
-                follower.SetFollow(true);
-                follower.SetSpeed(_followSpeed);
-                follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
-
-                // follower.HookUpEndReachedEvent();
-                // follower.FollowerArrived += (sender, args) => {
-                //     //Call machine code where the object just arrived.
-                //     Destroy(args.GameObject);
-                // };
-                //
-
-                EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-                followerArrivedHandler = (sender, args) => {
-                    Debug.Log("Follower Arrived");
-                    //Call machine code where the object just arrived.
-                    follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
-                    Destroy(args.GameObject);
-                };
-                follower.FollowerArrived += followerArrivedHandler;
-
-                yield return new WaitForSeconds(_timeBetweenSpawns);
-            }
-        }
+        //events
 
         public event EventHandler<SplineConnectionCompletedEventArgs> SplineCompleted;
         
@@ -390,14 +375,17 @@ namespace Splines.Drawing
     
     public class SplineConnectionCompletedEventArgs : EventArgs
     {
+        public SplineView CurrentSpline;
+        
         public PlaceholderConnectorHitBox ConnectorStart;
         //Machine start variable
 
         public PlaceholderConnectorHitBox ConnectorEnd;
         //Machine end variable
 
-        public SplineConnectionCompletedEventArgs(PlaceholderConnectorHitBox connectorStart /*,Machine machineStart */, PlaceholderConnectorHitBox connectorEnd /*,Machine machineEnd */)
+        public SplineConnectionCompletedEventArgs(SplineView currentSpline, PlaceholderConnectorHitBox connectorStart /*,Machine machineStart */, PlaceholderConnectorHitBox connectorEnd /*,Machine machineEnd */)
         {
+            CurrentSpline = currentSpline;
             ConnectorStart = connectorStart;
             // Machinestart = machinestart;
             ConnectorEnd = connectorEnd;
