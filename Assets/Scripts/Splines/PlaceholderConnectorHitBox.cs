@@ -21,7 +21,7 @@ namespace Splines
         private MeshRenderer _myMeshRenderer;
 
         [SerializeField]
-        private SplineDrawer splineDrawer;
+        private SplineDrawer _splineDrawer;
 
         public SplineView Spline;
 
@@ -42,7 +42,8 @@ namespace Splines
                 _myMeshRenderer.material.color = Color.red;
             }
 
-            //splineDrawer = FindObjectOfType<SplineDrawer>();
+            if(_splineDrawer == null)
+                _splineDrawer = FindObjectOfType<SplineDrawer>();
         }
 
         public Vector3 GetConnectorPointSpline()
@@ -68,7 +69,7 @@ namespace Splines
             if (!IsSplineStart && !ImConnected)
             {
                 Debug.Log("Literally calling the stop at machine logic");
-                splineDrawer.StopDrawingSplineAtMachine(this, out Spline);
+                _splineDrawer.StopDrawingSplineAtMachine(this, out Spline);
                 ImConnected = true;
             }
         }
@@ -95,7 +96,7 @@ namespace Splines
             {
                 if (IsSplineStart && !ImConnected)
                 {
-                    splineDrawer.StartDrawingSpline(this);
+                    _splineDrawer.StartDrawingSpline(this);
                     Debug.Log("StartDrawingSpline");
                 }
                 // Add your mouse down logic here
@@ -104,9 +105,9 @@ namespace Splines
 
         public void SpawnObject(GameObject gameObject)
         {
-            if (splineDrawer == null) return;
+            if (_splineDrawer == null) return;
 
-            splineDrawer.SpawnSplineFollower(gameObject, Spline);
+            _splineDrawer.SpawnSplineFollower(gameObject, Spline);
         }
 
 

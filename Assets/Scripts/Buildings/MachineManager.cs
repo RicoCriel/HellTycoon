@@ -19,6 +19,11 @@ public class MachineManager : MonoBehaviour
         _coroutine = Produce();
     }
 
+    public void Initialize(MachineInput input)
+    {
+        _input = input;
+    }
+
     public void SetOutput(MachineOutput output)
     {
         _output = output;

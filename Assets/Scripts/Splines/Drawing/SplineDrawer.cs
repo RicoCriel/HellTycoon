@@ -212,6 +212,7 @@ namespace Splines.Drawing
             EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
             followerArrivedHandler = (sender, args) =>
             {
+                if(args.GameObject == null) return;
 
                 Debug.Log("Follower Arrived");
                 //todo Call machine code where the object just arrived.
