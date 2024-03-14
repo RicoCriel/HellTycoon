@@ -9,6 +9,7 @@ TagManager:
   - Undefined
   - Demon
   - Portal
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Ground
   - PlacedObjects
   - Connector
-  - 
+  - Exit
   - 
   - 
   - 

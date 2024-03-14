@@ -20,7 +20,7 @@ public class SpriteSwitcher : MonoBehaviour
 
 
     // head
-    public Sprite[] hornsSprites;
+    public Sprite[] HornsSprites;
     public Sprite[] HeadSprites;
     public Sprite[] FaceSprites;
     public Sprite[] ArmorSprites;
@@ -30,19 +30,19 @@ public class SpriteSwitcher : MonoBehaviour
 
 
 
-    private int BodyLevel;
-    private int FaceLevel;
-    private int HornLevel;
-    private int ArmorLevel;
-    private int WingsLevel;
+    private int _bodyLevel;
+    private int _faceLevel;
+    private int _hornLevel;
+    private int _armorLevel;
+    private int _wingsLevel;
 
     private void Start()
     {
-        BodyLevel = 0;
-        FaceLevel = 0;
-        HornLevel = 0;
-        ArmorLevel = 0;
-        WingsLevel = 0;
+        _bodyLevel = 0;
+        _faceLevel = 0;
+        _hornLevel = 0;
+        _armorLevel = 0;
+        _wingsLevel = 0;
     }
 
 
