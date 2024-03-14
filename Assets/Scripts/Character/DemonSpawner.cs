@@ -1,3 +1,4 @@
+using Splines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class DemonSpawner : MonoBehaviour
     [SerializeField] int SpawnCost = 5;
     [SerializeField] EconManager _econManager;
     private float _timeSinceLastSpawn = 0f;
-
+    [SerializeField] private PlaceholderConnectorHitBox _connector;
 
  
 
@@ -25,7 +26,10 @@ public class DemonSpawner : MonoBehaviour
                 float offsetX = Random.Range(-maxOffset, maxOffset);
                 float offsetZ = Random.Range(-maxOffset, maxOffset);
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);
-                Instantiate(DemonPrefab, transform.position + offset, Quaternion.identity);
+
+                var demon = Instantiate(DemonPrefab, transform.position + offset, Quaternion.identity);
+                _connector.SpawnObject(demon);
+
                 _timeSinceLastSpawn = 0f;
             }
         }

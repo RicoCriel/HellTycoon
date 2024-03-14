@@ -7,11 +7,21 @@ public class MachineManager : MonoBehaviour
 {
     [SerializeField] private MachineNode _startNode;
     private List<MachineNode> _machines;
+    private IEnumerator _coroutine;
+    private MachineOutput _output;
+    private MachineInput _input;
 
     private void Awake()
     {
         _machines = new List<MachineNode>();
         _machines.Add(_startNode);
+
+        _coroutine = Produce();
+    }
+
+    public void SetOutput(MachineOutput output)
+    {
+        _output = output;
     }
 
     public void AddMachine(int machineTypeIdx)
@@ -58,7 +68,15 @@ public class MachineManager : MonoBehaviour
 
     public void StartProduction()
     {
+        StartCoroutine(_coroutine);
+    }
 
+    IEnumerator Produce()
+    {
+        yield return new WaitForSeconds(_machines[^1].ProcessTime);
+
+        _output.SpawnDemon(_machines[^1]);
+        _input.Open = true;
     }
 }
 

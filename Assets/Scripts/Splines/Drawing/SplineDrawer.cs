@@ -81,7 +81,7 @@ namespace Splines.Drawing
             {
                 // Debug.Log(points.Count);
                 CapturePoint();
-                
+
 
                 timer += Time.deltaTime;
                 bool IsNewPointDueToTime = timer >= pointInterval;
@@ -126,7 +126,7 @@ namespace Splines.Drawing
             instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(SizeTester, SizeTester, SizeTester));
         }
 
-        public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox)
+        public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
         {
             hasStartedDrawing = false;
             CurrentSplineConnected = true;
@@ -140,6 +140,7 @@ namespace Splines.Drawing
             Debug.Log("Completing spline");
 
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
+            spline = instanciatedSpline;
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(instanciatedSpline, currentStartingBox, placeholderConnectorHitBox));
             currentStartingBox = null;
@@ -176,7 +177,8 @@ namespace Splines.Drawing
 
 
                 EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-                followerArrivedHandler = (sender, args) => {
+                followerArrivedHandler = (sender, args) =>
+                {
                     Debug.Log("Follower Arrived");
                     //Call machine code where the object just arrived.
                     follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
@@ -192,11 +194,11 @@ namespace Splines.Drawing
         public void SpawnSplineFollower(GameObject gameObject, SplineView computer /*, Machine arrivelMachine*/)
         {
             //get relevant data
-            SplineComputer splineComputer = instanciatedSpline.GetSplinecomputer();
-            Vector3 StartPoint = instanciatedSpline.GetSplineStartingPoint();
+            SplineComputer splineComputer = computer.GetSplinecomputer();
+            Vector3 StartPoint = computer.GetSplineStartingPoint();
 
             //instantiate and parent demon to follower
-            SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, instanciatedSpline.transform);
+            SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, computer.transform);
             gameObject.transform.parent = follower.transform;
 
             //set up follower logic
@@ -207,7 +209,8 @@ namespace Splines.Drawing
 
             //hook up events
             EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-            followerArrivedHandler = (sender, args) => {
+            followerArrivedHandler = (sender, args) =>
+            {
 
                 Debug.Log("Follower Arrived");
                 //todo Call machine code where the object just arrived.
@@ -238,7 +241,7 @@ namespace Splines.Drawing
 
         [SerializeField]
         public float selfColisionMultiplier = 2.1f;
-        
+
         private void CapturePoint()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -246,8 +249,8 @@ namespace Splines.Drawing
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                
-                
+
+
                 Vector3 hitPoint = hit.point;
 
                 Vector3 directionToSecondPoint = (hitPoint - points[^1]).normalized;
@@ -257,14 +260,14 @@ namespace Splines.Drawing
                 }
                 else
                 {
-                    Vector3 newPoint = points[^1] + directionToSecondPoint * (SelfCollisionRange* selfColisionMultiplier);
+                    Vector3 newPoint = points[^1] + directionToSecondPoint * (SelfCollisionRange * selfColisionMultiplier);
 
                     mostRecentPoint = newPoint;
                 }
                 Debug.DrawLine(points[^1], points[^1] + Vector3.up * 3, Color.red, 0.0f);
                 Debug.DrawLine(mostRecentPoint, mostRecentPoint + Vector3.up * 3, Color.green, 0.0f);
                 Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
-                
+
                 if (PerformRayCast()) return;
                 if (collisioncheck()) return;
 
