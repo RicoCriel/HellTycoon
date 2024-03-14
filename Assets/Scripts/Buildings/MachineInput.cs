@@ -7,13 +7,13 @@ public class MachineInput : MonoBehaviour
 {
     private BoxCollider _collider;
     private UnityEvent _activated;
-    [SerializeField] private int _demonLayer;
+    [SerializeField] private string _demonTag;
 
-    public bool Open;
+    public bool Open = true;
 
     private void Awake()
     {
-        if( _collider == null )
+        if (_collider == null)
             _collider = GetComponent<BoxCollider>();
     }
 
@@ -24,7 +24,11 @@ public class MachineInput : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-       if(collision.gameObject.layer == _demonLayer)
-           _activated.Invoke();
+        if (collision.gameObject.tag == _demonTag)
+        {
+            _activated.Invoke();
+            Open = false;
+        }
+
     }
 }

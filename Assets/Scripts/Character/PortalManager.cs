@@ -17,7 +17,7 @@ public class PortalManager : MonoBehaviour
     private void Start()
     {
         //TODO : Remove Testing Code
-        PlacePortal(new Vector3(-0.32f, 0.86f, -0.46f), TestingLayer1, TestingLayer2);
+        //PlacePortal(new Vector3(-0.32f, 0.86f, -0.46f), TestingLayer1, TestingLayer2);
     }
 
     public void PlacePortal(Vector3 pos, Transform currLayer, Transform nextLayer)

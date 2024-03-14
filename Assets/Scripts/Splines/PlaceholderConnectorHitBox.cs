@@ -9,7 +9,7 @@ namespace Splines
     {
         [FormerlySerializedAs("isOutput")]
         public bool IsSplineStart;
-        
+
         public bool ImConnected = false;
 
         [SerializeField]
@@ -22,6 +22,8 @@ namespace Splines
 
         [SerializeField]
         private SplineDrawer splineDrawer;
+
+        private SplineView _spline;
 
         //MyFactory
 
@@ -66,7 +68,7 @@ namespace Splines
             if (!IsSplineStart && !ImConnected)
             {
                 Debug.Log("Literally calling the stop at machine logic");
-                splineDrawer.StopDrawingSplineAtMachine(this);
+                splineDrawer.StopDrawingSplineAtMachine(this, out _spline);
             }
         }
         public void OnPointerExit(PointerEventData eventData)
@@ -97,6 +99,13 @@ namespace Splines
                 }
                 // Add your mouse down logic here
             }
+        }
+
+        public void SpawnObject(GameObject gameObject)
+        {
+            if (splineDrawer == null) return;
+
+            splineDrawer.SpawnSplineFollower(gameObject, _spline);
         }
 
 
