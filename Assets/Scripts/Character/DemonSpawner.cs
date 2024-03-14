@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class DemonSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject DemonPrefab;
-    [SerializeField] float SpawnInterval = 5f;
-    [SerializeField] float maxOffset = 0.5f;
-    [SerializeField] int SpawnCost = 5;
+    [SerializeField] GameObject _demonPrefab;
+    [SerializeField] float _spawnInterval = 5f;
+    [SerializeField] float _maxOffset = 0.5f;
+    [SerializeField] int _spawnCost = 5;
     [SerializeField] EconManager _econManager;
     private float _timeSinceLastSpawn = 0f;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
@@ -18,19 +18,22 @@ public class DemonSpawner : MonoBehaviour
         void Update()
     {
         _timeSinceLastSpawn += Time.deltaTime;
-        if (_timeSinceLastSpawn >= SpawnInterval)
+        if (_timeSinceLastSpawn >= _spawnInterval)
         {
-            if (_econManager.GetMoney() >= SpawnCost)
+            if (_econManager.GetMoney() >= _spawnCost)
             {
-                _econManager.SubtractMoney(SpawnCost);
-                float offsetX = Random.Range(-maxOffset, maxOffset);
-                float offsetZ = Random.Range(-maxOffset, maxOffset);
+                _timeSinceLastSpawn = 0f;
+
+                _econManager.SubtractMoney(_spawnCost);
+                float offsetX = Random.Range(-_maxOffset, _maxOffset);
+                float offsetZ = Random.Range(-_maxOffset, _maxOffset);
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);
 
-                var demon = Instantiate(DemonPrefab, transform.position + offset, Quaternion.identity);
+                if(_demonPrefab == null) return;
+                var demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
                 _connector.SpawnObject(demon);
 
-                _timeSinceLastSpawn = 0f;
+                
             }
         }
     }

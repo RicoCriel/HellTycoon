@@ -23,7 +23,7 @@ namespace Splines
         [SerializeField]
         private SplineDrawer splineDrawer;
 
-        private SplineView _spline;
+        public SplineView Spline;
 
         //MyFactory
 
@@ -42,7 +42,7 @@ namespace Splines
                 _myMeshRenderer.material.color = Color.red;
             }
 
-            splineDrawer = FindObjectOfType<SplineDrawer>();
+            //splineDrawer = FindObjectOfType<SplineDrawer>();
         }
 
         public Vector3 GetConnectorPointSpline()
@@ -68,7 +68,8 @@ namespace Splines
             if (!IsSplineStart && !ImConnected)
             {
                 Debug.Log("Literally calling the stop at machine logic");
-                splineDrawer.StopDrawingSplineAtMachine(this, out _spline);
+                splineDrawer.StopDrawingSplineAtMachine(this, out Spline);
+                ImConnected = true;
             }
         }
         public void OnPointerExit(PointerEventData eventData)
@@ -105,7 +106,7 @@ namespace Splines
         {
             if (splineDrawer == null) return;
 
-            splineDrawer.SpawnSplineFollower(gameObject, _spline);
+            splineDrawer.SpawnSplineFollower(gameObject, Spline);
         }
 
 
