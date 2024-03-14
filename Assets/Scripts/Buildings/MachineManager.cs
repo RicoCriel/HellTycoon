@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class MachineManager : MonoBehaviour
@@ -53,6 +54,11 @@ public class MachineManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R))
             RemoveMachine();
+    }
+
+    public void StartProduction()
+    {
+
     }
 }
 
