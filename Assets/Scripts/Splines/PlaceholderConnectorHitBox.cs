@@ -105,7 +105,7 @@ namespace Splines
 
         public void SpawnObject(GameObject gameObject)
         {
-            if (_splineDrawer == null) return;
+            if (_splineDrawer == null || Spline == null) return;
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline);
         }
