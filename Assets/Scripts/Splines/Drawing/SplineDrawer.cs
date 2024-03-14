@@ -200,6 +200,7 @@ namespace Splines.Drawing
             //instantiate and parent demon to follower
             SplineFollowerView follower = Instantiate(_followerViewPrefab, StartPoint, Quaternion.identity, computer.transform);
             gameObject.transform.parent = follower.transform;
+            gameObject.transform.localPosition = Vector3.zero;
 
             //set up follower logic
             follower.SetComputer(splineComputer);
@@ -388,6 +389,8 @@ namespace Splines.Drawing
 
         public void OnSplineCompleted(SplineConnectionCompletedEventArgs eventargs)
         {
+            eventargs.ConnectorStart.Spline = eventargs.CurrentSpline;
+
             EventHandler<SplineConnectionCompletedEventArgs> handler = SplineCompleted;
             handler?.Invoke(this, eventargs);
         }
