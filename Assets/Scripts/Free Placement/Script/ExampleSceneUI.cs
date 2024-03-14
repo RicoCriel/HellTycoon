@@ -36,8 +36,8 @@ public class ExampleSceneUI : MonoBehaviour {
 			case "Table1":
 				cm.CreateGhostObject("table1");
 				break;
-			case "Table2":
-				cm.CreateGhostObject("table2");
+			case "Portal":
+				cm.CreateGhostObject("Portal");
 				break;
 			case "Crown":
 				cm.CreateGhostObject("crown");
