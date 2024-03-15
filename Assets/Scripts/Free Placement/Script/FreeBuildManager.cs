@@ -22,6 +22,7 @@ namespace FreeBuild
         [SerializeField] private LandLayerManager _landLayerManager;
         [SerializeField] private Transform _layer1;
         [SerializeField] private Transform _layer2;
+        [SerializeField] private LayerMask _groundLayer;
         //
         private GameObject _ghostObject;
         private GameObject _realObject;
@@ -39,11 +40,11 @@ namespace FreeBuild
         public void CreateGhostObject(string objName)
         {
             _realObject = ConstructionItems.Find(x => x.name == objName);
-            //if (null == realObject)
-            //{
-            //    Debug.LogError("You have to list the objects you're trying to build on.");
-            //    return;
-            //}
+            if (null == _realObject)
+            {
+                Debug.LogError("You have to list the objects you're trying to build on.");
+                return;
+            }
             if (null == _realObject.GetComponent<FreeBuildObject>())
             {
                 Debug.LogError("The object you are trying to build must have a ConstructionObject Component.");
@@ -95,9 +96,9 @@ namespace FreeBuild
                         // Move
                         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hit;
-                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity);
+                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
 
-                        if (isHit && ghostObject)
+                        if (isHit && _ghostObject)
                         {
                             MoveGhostObject(hit);
                         }
@@ -175,7 +176,7 @@ namespace FreeBuild
                         _ghostObject.transform.SetParent(curr);
                         if (next != null)
                         {
-                            portalManager.PlacePortal(ghostObject.transform.localPosition, curr, next);
+                            _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
                         }
                     }
                     else
