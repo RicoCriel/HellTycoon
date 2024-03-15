@@ -10,28 +10,28 @@ public class DemonHandler : MonoBehaviour
     public int ArmorLevel;
     public int WingsLevel;
     
-    [SerializeField] int MaxBodyLevel = 2;
-    [SerializeField] int MaxFaceLevel = 2;
-    [SerializeField] int MaxHornLevel = 2;
-    [SerializeField] int MaxArmorLevel = 2;
-    [SerializeField] int MaxWingsLevel = 2;
+    [SerializeField] int _maxBodyLevel = 2;
+    [SerializeField] int _maxFaceLevel = 2;
+    [SerializeField] int _maxHornLevel = 2;
+    [SerializeField] int _maxArmorLevel = 2;
+    [SerializeField] int _maxWingsLevel = 2;
 
 
 
 
 
     
-    [SerializeField] SpriteRenderer Horns;
-    [SerializeField] SpriteRenderer Head;
-    [SerializeField] SpriteRenderer Face;
-    [SerializeField] SpriteRenderer Armor;
-    [SerializeField] SpriteRenderer Wings;
+    [SerializeField] SpriteRenderer _horns;
+    [SerializeField] SpriteRenderer _head;
+    [SerializeField] SpriteRenderer _face;
+    [SerializeField] SpriteRenderer _armor;
+    [SerializeField] SpriteRenderer _wings;
 
-    [SerializeField] Sprite[] hornsSprites;
-    [SerializeField] Sprite[] HeadSprites;
-    [SerializeField] Sprite[] FaceSprites;
-    [SerializeField] Sprite[] ArmorSprites;
-    [SerializeField] Sprite[] WingsSprites;
+    [SerializeField] Sprite[] _hornsSprites;
+    [SerializeField] Sprite[] _headSprites;
+    [SerializeField] Sprite[] _faceSprites;
+    [SerializeField] Sprite[] _armorSprites;
+    [SerializeField] Sprite[] _wingsSprites;
 
 
 

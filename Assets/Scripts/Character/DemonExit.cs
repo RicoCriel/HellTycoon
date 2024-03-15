@@ -7,6 +7,8 @@ public class DemonExit : MonoBehaviour
     [SerializeField] EconManager EconManager;
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject == null) return;
+
         string tag = other.tag;
         if (tag == "Demon")
         {

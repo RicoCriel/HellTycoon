@@ -15,6 +15,8 @@ public class MachineInput : MonoBehaviour
     {
         if (_collider == null)
             _collider = GetComponent<BoxCollider>();
+
+        _activated = new UnityEvent();
     }
 
     public void Initialize(MachineManager machine)
