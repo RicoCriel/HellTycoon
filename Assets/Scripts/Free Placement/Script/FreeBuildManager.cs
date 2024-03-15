@@ -23,8 +23,8 @@ namespace FreeBuild
         [SerializeField] private Transform _layer1;
         [SerializeField] private Transform _layer2;
         //
-        private GameObject ghostObject;
-        private GameObject realObject;
+        private GameObject _ghostObject;
+        private GameObject _realObject;
         private bool _locked = false;
 
         // Movement speed
