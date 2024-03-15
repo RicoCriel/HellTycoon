@@ -5,14 +5,14 @@ namespace Splines
 {
     public class SplineView : MonoBehaviour
     {
-        [SerializeField]
-        private SplineComputer _mySplineComputer;
-        [SerializeField]
-        private SplineMesh _mySplineMesh;
-        [SerializeField]
-        private MeshRenderer _myMeshRenderer;
-        [SerializeField]
-        private MeshFilter _myMeshFilter;
+        [SerializeField] private SplineComputer _mySplineComputer;
+
+        [SerializeField] private SplineMesh _mySplineMesh;
+
+        [SerializeField] private MeshRenderer _myMeshRenderer;
+
+        [SerializeField] private MeshFilter _myMeshFilter;
+
 
         public SplineComputer GetSplinecomputer()
         {

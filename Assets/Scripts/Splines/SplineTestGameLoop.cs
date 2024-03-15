@@ -18,35 +18,33 @@ namespace Splines
 
         private SplineView instanciatedSpline;
 
-        [Header("TestStuff")]
-        [Range(0.1f, 100)]
-        [SerializeField]
-        private float SizeTester;
+        [Header("TestStuff")] [Range(0.1f, 100)][SerializeField] private float SizeTester;
 
-        [Header("SplineFollowerTest")]
-        [SerializeField]
-        private SplineFollowerView _followerViewPrefab;
 
-        [SerializeField]
-        [Range(0.1f, 3)]
-        private float _timeBetweenSpawns = 1f;
+        [Header("SplineFollowerTest")][SerializeField]  private SplineFollowerView _followerViewPrefab;
+        
+        
 
-        [SerializeField]
-        [Range(1f, 100)]
-        private float _spawnAmount = 1f;
 
-        [SerializeField]
-        [Range(1f, 20)]
-        private float _followSpeed = 1f;
+        [SerializeField] [Range(0.1f, 3)] private float _timeBetweenSpawns = 1f;
+
+        [SerializeField][Range(1f, 100)] private float _spawnAmount = 1f;
+        
+        
+
+        [SerializeField][Range(1f, 20)] private float _followSpeed = 1f;
+        
+        
+
 
         [Header("SplineConnectors")]
-        [SerializeField]
-        private PlaceholderConnectorHitBox BoxIn;
-        [SerializeField]
-        private PlaceholderConnectorHitBox BoxOut;
+        [SerializeField] private PlaceholderConnectorHitBox BoxIn;
 
-        [SerializeField]
-        private Transform middlePoint;
+        [SerializeField] private PlaceholderConnectorHitBox BoxOut;
+
+
+        [SerializeField] private Transform middlePoint;
+
 
         private void Awake()
         {

@@ -5,9 +5,9 @@ namespace Splines
 {
     public class SplineFollowerView : MonoBehaviour
     {
-       [SerializeField]
-        private SplineFollower _mySplineFollower;
-        
+       [SerializeField] private SplineFollower _mySplineFollower;
+
+
         private void Awake()
         {
             if (_mySplineFollower == null)

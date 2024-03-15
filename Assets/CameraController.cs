@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+   
+
+    [SerializeField] private GameObject Parent;
+
+    private Camera cam;
+
     public float MoveSpeed = 2;
     public float minZoom = 20f;
     public float maxZoom = 60f;
     public float zoomSpeed = 5f; // Adjust this to control zoom speed
-
-    [SerializeField]
-    private GameObject Parent;
-
-    private Camera cam;
 
     void Start()
     {
