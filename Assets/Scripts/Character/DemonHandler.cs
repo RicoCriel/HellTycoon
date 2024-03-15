@@ -6,11 +6,11 @@ public class DemonHandler : MonoBehaviour
 {
    
     
-    [SerializeField] private int _maxBodyLevel = 2;
-    [SerializeField] private int _maxFaceLevel = 2;
-    [SerializeField] private int _maxHornLevel = 2;
-    [SerializeField] private int _maxArmorLevel = 2;
-    [SerializeField] private int _maxWingsLevel = 2;
+    //[SerializeField] private int _maxBodyLevel = 2;
+    //[SerializeField] private int _maxFaceLevel = 2;
+    //[SerializeField] private int _maxHornLevel = 2;
+    //[SerializeField] private int _maxArmorLevel = 2;
+    //[SerializeField] private int _maxWingsLevel = 2;
 
 
 

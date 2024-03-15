@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpriteSwitcher : MonoBehaviour
 {
-   
+
 
 
 
@@ -39,11 +39,11 @@ public class SpriteSwitcher : MonoBehaviour
 
     private void Start()
     {
-        _bodyLevel = 0;
-        _faceLevel = 0;
-        _hornLevel = 0;
-        _armorLevel = 0;
-        _wingsLevel = 0;
+        //_bodyLevel = 0;
+        //_faceLevel = 0;
+        //_hornLevel = 0;
+        //_armorLevel = 0;
+        //_wingsLevel = 0;
     }
 
 
