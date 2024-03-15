@@ -6,9 +6,9 @@ public class LandLayerManager : MonoBehaviour
 
     public List<GameObject> AllPlots = new List<GameObject>();
 
-    [SerializeField] GameObject Prefab;
-    [SerializeField] EconManager EconManager;
-    [SerializeField] int LandPrice = 50;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private EconManager _econManager;
+    [SerializeField] private int _LandPrice = 50;
 
     private int _step = 1;
     private int _landOffsetStep = 500;
@@ -51,10 +51,10 @@ public class LandLayerManager : MonoBehaviour
     
     public void BuyNew()
     {
-        if (  EconManager.GetMoney() >= LandPrice)
+        if (  _econManager.GetMoney() >= _LandPrice)
         {
-            EconManager.SubtractMoney(LandPrice);
-            GameObject newPlot = Instantiate(Prefab, new Vector3(0 + _landOffsetStep * _step, 0, 0), Quaternion.identity);
+            _econManager.SubtractMoney(_LandPrice);
+            GameObject newPlot = Instantiate(_prefab, new Vector3(0 + _landOffsetStep * _step, 0, 0), Quaternion.identity);
             AllPlots.Add(newPlot);
             ++_step;
         }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,49 +7,49 @@ namespace FreeBuild
     public class FreeBuildManager : MonoBehaviour
     {
         // Add Object to be built to list
-        public List<GameObject> constructionItems = new List<GameObject>();
+        public List<GameObject> ConstructionItems = new List<GameObject>();
 
         // can select outline Color.
-        public Color ableAreaColor = new Color(0, 255, 0);
-        public Color notAbleAreaColor = new Color(255, 0, 0);
-
-        public Material transParentMaterial;
-        public FreeBuildUI uiManager;
-        public GameObject rootObject;
-        public static bool constructionMode = false;
-        [SerializeField] PortalManager portalManager;
-        [SerializeField] LandLayerManager landLayerManager;
-        [SerializeField] Transform Layer1;
-        [SerializeField] Transform Layer2;
+        public Color AbleAreaColor = new Color(0, 255, 0);
+        public Color NotAbleAreaColor = new Color(255, 0, 0);
+        
+        public Material TransParentMaterial;
+        public FreeBuildUI UiManager;
+        public GameObject RootObject;
+        public static bool ConstructionMode = false;
+        [SerializeField] private PortalManager _portalManager;
+        [SerializeField] private LandLayerManager _landLayerManager;
+        [SerializeField] private Transform _layer1;
+        [SerializeField] private Transform _layer2;
         //
-        private GameObject ghostObject;
-        private GameObject realObject;
+        private GameObject _ghostObject;
+        private GameObject _realObject;
 
         // Movement speed
-        public float moveSpeed = 5.0f;
+        public float MoveSpeed = 5.0f;
         // Rotation speed
-        public float rotateSpeed = 100.0f;
+        public float RotateSpeed = 100.0f;
         // Height change speed
-        public float heightChangeSpeed = 1.0f;
+        public float HeightChangeSpeed = 1.0f;
 
 
         //
         public void CreateGhostObject(string objName)
         {
-            realObject = constructionItems.Find(x => x.name == objName);
+            _realObject = ConstructionItems.Find(x => x.name == objName);
             //if (null == realObject)
             //{
             //    Debug.LogError("You have to list the objects you're trying to build on.");
             //    return;
             //}
-            if (null == realObject.GetComponent<FreeBuildObject>())
+            if (null == _realObject.GetComponent<FreeBuildObject>())
             {
                 Debug.LogError("The object you are trying to build must have a ConstructionObject Component.");
                 return;
             }
 
-            if (ghostObject)
-                Destroy(ghostObject);
+            if (_ghostObject)
+                Destroy(_ghostObject);
 
             //
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -60,9 +59,9 @@ namespace FreeBuild
             //
             if (isHit)
             {
-                uiManager.OnUI();
+                UiManager.OnUI();
                 CreateGhostObject(hit);
-                constructionMode = true;
+                ConstructionMode = true;
             }
         }   
 
@@ -78,7 +77,7 @@ namespace FreeBuild
                     RaycastHit hit;
                     bool isHit = Physics.Raycast(ray, out hit);
 
-                    if (isHit && ghostObject)
+                    if (isHit && _ghostObject)
                     {
                         MoveGhostObject(hit);
                     }
@@ -94,7 +93,7 @@ namespace FreeBuild
                     heightChange -= 1.0f;
                 }
 
-                if (ghostObject)
+                if (_ghostObject)
                 {
                     // Move
 
@@ -109,16 +108,16 @@ namespace FreeBuild
             // Rotation
             if (Input.GetKey(KeyCode.Q))
             {
-                RotateGhostObject(rotateSpeed * Time.deltaTime);
+                RotateGhostObject(RotateSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.E))
             {
-                RotateGhostObject(-rotateSpeed * Time.deltaTime);
+                RotateGhostObject(-RotateSpeed * Time.deltaTime);
             }
         }
         private void MoveGhostObject(RaycastHit hit)
         {
-            ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
+            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
 
             SetGhostOutLine(hit.transform.gameObject);
             SetUIEvent(hit.transform.gameObject);
@@ -126,15 +125,15 @@ namespace FreeBuild
 
         private void SetGhostOutLine(GameObject areaToBeBuilt)
         {
-            Color color = CanBuild(areaToBeBuilt, ghostObject) ? ableAreaColor : notAbleAreaColor;
-            ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, transParentMaterial);
+            Color color = CanBuild(areaToBeBuilt, _ghostObject) ? AbleAreaColor : NotAbleAreaColor;
+            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, TransParentMaterial);
         }
         // Other methods remain unchanged...
 
 
         private void CreateGhostObject(RaycastHit hit)
         {
-            ghostObject = Instantiate(realObject, new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z), Quaternion.identity);
+            _ghostObject = Instantiate(_realObject, new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z), Quaternion.identity);
 
             SetGhostOutline(hit.transform.gameObject);
             SetUIEvent(hit.transform.gameObject);
@@ -142,43 +141,43 @@ namespace FreeBuild
 
         private void RotateGhostObject(float angle)
         {
-            if (ghostObject)
+            if (_ghostObject)
             {
-                ghostObject.transform.Rotate(0, angle, 0);
+                _ghostObject.transform.Rotate(0, angle, 0);
             }
         }
 
         private void SetUIEvent(GameObject areaToBeBuilt)
         {
-            uiManager.Build = delegate
+            UiManager.Build = delegate
             {
-                if (CanBuild(areaToBeBuilt, ghostObject))
+                if (CanBuild(areaToBeBuilt, _ghostObject))
                 {
-                    if (realObject.GetComponent<DemonPortal>() != null)
+                    if (_realObject.GetComponent<DemonPortal>() != null)
                     {
-                        Transform curr = landLayerManager.GetCurrPlot().transform;
+                        Transform curr = _landLayerManager.GetCurrPlot().transform;
                         Transform next;
-                        if (landLayerManager.NextPlot(curr.gameObject) != null)
+                        if (_landLayerManager.NextPlot(curr.gameObject) != null)
                         {
-                            next = landLayerManager.NextPlot(curr.gameObject).transform;
+                            next = _landLayerManager.NextPlot(curr.gameObject).transform;
                         }
                         else
                         {
                             next = null;
                         }
-                        ghostObject.transform.SetParent(curr);
+                        _ghostObject.transform.SetParent(curr);
                         if(next != null)
                         {
-                        portalManager.PlacePortal(ghostObject.transform.localPosition, curr, next);
+                        _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
                         }
                     }
                     else
                     {
 
 
-                        GameObject go = Instantiate(realObject, ghostObject.transform.position, ghostObject.transform.rotation);
-                        if (rootObject)
-                            go.transform.SetParent(rootObject.transform);
+                        GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
+                        if (RootObject)
+                            go.transform.SetParent(RootObject.transform);
                     }
                 }
                 else
@@ -186,21 +185,21 @@ namespace FreeBuild
                     Debug.LogWarning("you can't build in impossible area");
                 }
                 DestroyGhostObject();
-                constructionMode = false;
+                ConstructionMode = false;
             };
 
-            uiManager.Cancel = delegate
+            UiManager.Cancel = delegate
             {
                 DestroyGhostObject();
-                constructionMode = false;
+                ConstructionMode = false;
             };
         }
 
         // Show Object to be built
         private void SetGhostOutline(GameObject areaToBeBuilt)
         {
-            Color color = CanBuild(areaToBeBuilt, ghostObject) ? ableAreaColor : notAbleAreaColor;
-            ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, transParentMaterial);
+            Color color = CanBuild(areaToBeBuilt, _ghostObject) ? AbleAreaColor : NotAbleAreaColor;
+            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, TransParentMaterial);
         }
 
         private bool CanBuild(GameObject areaToBeBuilt, GameObject go)
@@ -222,9 +221,9 @@ namespace FreeBuild
 
         private void DestroyGhostObject()
         {
-            if (ghostObject)
+            if (_ghostObject)
             {
-                Destroy(ghostObject);
+                Destroy(_ghostObject);
             }
         }
     } // class ConstructionManager

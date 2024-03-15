@@ -6,20 +6,22 @@ public class EconManager : MonoBehaviour
 {
   
     
+   
+
+
+    [SerializeField] private int _startMoney = 200;
+    [SerializeField] private bool _logMoney = false;
+
+    private int _money = 0;
+
     public int HornLevelValue = 100;
     public int BodyLevelValue = 150;
     public int FaceLevelValue = 200;
     public int ArmorLevelValue = 250;
     public int WingLevelValue = 300;
-
-
-    [SerializeField] int StartMoney = 200;
-    [SerializeField] bool LogMoney = false;
-
-    private int _money = 0;
     void Start()
     {
-        _money = StartMoney;
+        _money = _startMoney;
     }
     public int GetMoney()
     {
@@ -28,18 +30,20 @@ public class EconManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         _money += amount;
+        if (_logMoney)
+        {
+            Debug.Log("Money: " + _money);
+        }
     }
 
     public void SubtractMoney(int amount)
     {
         _money -= amount;
-    }
-
-    private void Update()
-    {
-        if(LogMoney)
+        if (_logMoney)
         {
             Debug.Log("Money: " + _money);
         }
     }
+
+   
     }

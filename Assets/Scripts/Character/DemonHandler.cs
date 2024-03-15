@@ -4,34 +4,37 @@ using UnityEngine;
 
 public class DemonHandler : MonoBehaviour
 {
+   
+    
+    [SerializeField] private int _maxBodyLevel = 2;
+    [SerializeField] private int _maxFaceLevel = 2;
+    [SerializeField] private int _maxHornLevel = 2;
+    [SerializeField] private int _maxArmorLevel = 2;
+    [SerializeField] private int _maxWingsLevel = 2;
+
+
+
+
+
+    
+    [SerializeField] private SpriteRenderer _horns;
+    [SerializeField] private SpriteRenderer _head;
+    [SerializeField] private SpriteRenderer _face;
+    [SerializeField] private SpriteRenderer _armor;
+    [SerializeField] private SpriteRenderer _wings;
+
+    [SerializeField] private Sprite[] _hornsSprites;
+    [SerializeField] private Sprite[] _headSprites;
+    [SerializeField] private Sprite[] _faceSprites;
+    [SerializeField] private Sprite[] _armorSprites;
+    [SerializeField] private Sprite[] _wingsSprites;
+
+
     public int BodyLevel;
     public int FaceLevel;
     public int HornLevel;
     public int ArmorLevel;
     public int WingsLevel;
-    
-    [SerializeField] int _maxBodyLevel = 2;
-    [SerializeField] int _maxFaceLevel = 2;
-    [SerializeField] int _maxHornLevel = 2;
-    [SerializeField] int _maxArmorLevel = 2;
-    [SerializeField] int _maxWingsLevel = 2;
-
-
-
-
-
-    
-    [SerializeField] SpriteRenderer _horns;
-    [SerializeField] SpriteRenderer _head;
-    [SerializeField] SpriteRenderer _face;
-    [SerializeField] SpriteRenderer _armor;
-    [SerializeField] SpriteRenderer _wings;
-
-    [SerializeField] Sprite[] _hornsSprites;
-    [SerializeField] Sprite[] _headSprites;
-    [SerializeField] Sprite[] _faceSprites;
-    [SerializeField] Sprite[] _armorSprites;
-    [SerializeField] Sprite[] _wingsSprites;
 
 
 

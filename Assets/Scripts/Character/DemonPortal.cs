@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class DemonPortal : MonoBehaviour
 {
+    
+    [SerializeField] private Vector3 _exitRotation;
+    [SerializeField] private Vector3 _offset;
     public Transform ExitPortal;
-    [SerializeField] Vector3 ExitRotation;
-    [SerializeField] Vector3 Offset;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Demon"))
         {
-            other.transform.position = ExitPortal.position + Offset;
+            other.transform.position = ExitPortal.position + _offset;
         }
 
 
@@ -19,7 +20,7 @@ public class DemonPortal : MonoBehaviour
         else
         {
             other.GetComponent<CharacterController>().enabled = false;
-            other.transform.position = ExitPortal.position + Offset;
+            other.transform.position = ExitPortal.position + _offset;
             other.GetComponent<CharacterController>().enabled = true;
 
         }
