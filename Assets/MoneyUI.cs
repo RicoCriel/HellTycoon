@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class MoneyUI : MonoBehaviour
 {
-    [SerializeField] EconManager economyManager;
-    [SerializeField] Text moneyText;
+    [SerializeField] EconManager _economyManager;
+    [SerializeField] Text _moneyText;
     void Update()
     {
-        moneyText.text = "Money: " + economyManager.GetMoney();
+        _moneyText.text = "Money: " + _economyManager.GetMoney();
         
     }
 }

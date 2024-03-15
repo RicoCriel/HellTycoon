@@ -8,29 +8,24 @@ namespace Splines.Drawing
     public class SplineDrawer : MonoBehaviour
 
     {
-        public LayerMask groundLayer; // Ground layer to interact with
+        public LayerMask GroundLayer; // Ground layer to interact with
         public LayerMask SplineLayer; // Ground layer to interact with
 
         [Header("pointSize")]
         [Range(0.01f, 0.5f)]
         public float pointInterval = 0.2f; // Interval between captured points
         [Space]
-        [SerializeField]
         [Range(0.2f, 5f)]
-        private float maxpointDistanceOfSet = 0.5f;
-        [SerializeField]
+        [SerializeField] private float maxpointDistanceOfSet = 0.5f;
         [Space]
         [Range(0.1f, 1f)]
-        private float minpointDistanceOfSet = 0.05f;
+        [SerializeField] private float minpointDistanceOfSet = 0.05f;
 
         [Header("SplineReferences")]
-        [SerializeField]
-        private SplineView _splineViewPrefab;
+        [SerializeField] private SplineView _splineViewPrefab;
 
-        [SerializeField]
-        private Mesh _meshToUse;
-        [SerializeField]
-        private Material _materialToUse;
+        [SerializeField] private Mesh _meshToUse;
+        [SerializeField] private Material _materialToUse;
 
 
         [HideInInspector]
@@ -49,31 +44,25 @@ namespace Splines.Drawing
         //fix later by having more uniform mesh prefabs...
         [Header("size")]
         [Range(0.1f, 100)]
-        [SerializeField]
-        private float SizeTester;
+        [SerializeField] private float SizeTester;
 
         [Header("selfCollision")]
         [Header("size")]
         [Range(0.1f, 20)]
-        [SerializeField]
-        private float SelfCollisionRange;
+        [SerializeField] private float SelfCollisionRange;
 
 
         [Header("SplineFollowerTest")]
-        [SerializeField]
-        private SplineFollowerView _followerViewPrefab;
+        [SerializeField] private SplineFollowerView _followerViewPrefab;
 
-        [SerializeField]
         [Range(1f, 100)]
-        private float _spawnAmount = 1f;
+        [SerializeField] private float _spawnAmount = 1f;
 
         [Header("BeltProperties")]
-        [SerializeField]
         [Range(0.1f, 3)]
-        private float _timeBetweenSpawns = 1f;
-        [SerializeField]
+        [SerializeField] private float _timeBetweenSpawns = 1f;
         [Range(1f, 20)]
-        private float _followSpeed = 1f;
+        [SerializeField] private float _followSpeed = 1f;
 
         void Update()
         {
@@ -249,7 +238,7 @@ namespace Splines.Drawing
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
             {
 
 

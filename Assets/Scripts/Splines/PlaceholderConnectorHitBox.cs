@@ -12,16 +12,16 @@ namespace Splines
 
         public bool ImConnected = false;
 
-        [SerializeField]
-        private Transform ConnectorPoint;
-        [SerializeField]
-        private Transform ConnectorAnglePoint;
+        [SerializeField] private Transform ConnectorPoint;
 
-        [SerializeField]
-        private MeshRenderer _myMeshRenderer;
+        [SerializeField] private Transform ConnectorAnglePoint;
 
-        [SerializeField]
-        private SplineDrawer _splineDrawer;
+
+        [SerializeField] private MeshRenderer _myMeshRenderer;
+
+
+        [SerializeField] private SplineDrawer _splineDrawer;
+
 
         public SplineView Spline;
 
