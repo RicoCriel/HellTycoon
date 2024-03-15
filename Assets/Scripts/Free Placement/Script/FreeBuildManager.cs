@@ -66,65 +66,71 @@ namespace FreeBuild
             }
         }
 
-       
-            void Update()
+
+        void Update()
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
+                // Check for mouse clicks
+                if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    // Movement
-                    Vector3 moveDirection = Vector3.zero;
-                    if (Input.GetKey(KeyCode.W))
-                    {
-                        moveDirection += Camera.main.transform.up;
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-                        moveDirection -= Camera.main.transform.up;
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-                        moveDirection -= Camera.main.transform.right;
-                    }
-                    if (Input.GetKey(KeyCode.D))
-                    {
-                        moveDirection += Camera.main.transform.right;
-                    }
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    bool isHit = Physics.Raycast(ray, out hit);
 
-                    // Height change
-                    float heightChange = 0.0f;
-                    if (Input.GetKey(KeyCode.Space))
+                    if (isHit && ghostObject)
                     {
-                        heightChange += 1.0f;
-                    }
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        heightChange -= 1.0f;
-                    }
-
-                    if (ghostObject)
-                    {
-                        // Move
-                        ghostObject.transform.position += moveDirection * Time.deltaTime * moveSpeed;
-
-                        // Change height
-                        Vector3 newPosition = ghostObject.transform.position;
-                        newPosition.y += heightChange * Time.deltaTime * heightChangeSpeed;
-                        ghostObject.transform.position = newPosition;
+                        MoveGhostObject(hit);
                     }
                 }
-
-                // Rotation
-                if (Input.GetKey(KeyCode.Q))
+                // Height change
+                float heightChange = 0.0f;
+                if (Input.GetKey(KeyCode.Space))
                 {
-                    RotateGhostObject(rotateSpeed * Time.deltaTime);
+                    heightChange += 1.0f;
                 }
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    RotateGhostObject(-rotateSpeed * Time.deltaTime);
+                    heightChange -= 1.0f;
+                }
+
+                if (ghostObject)
+                {
+                    // Move
+
+
+                    //// Change height
+                    //Vector3 newPosition = ghostObject.transform.position;
+                    //newPosition.y += heightChange * Time.deltaTime * heightChangeSpeed;
+                    //ghostObject.transform.position = newPosition;
                 }
             }
 
-            // Other methods remain unchanged...
+            // Rotation
+            if (Input.GetKey(KeyCode.Q))
+            {
+                RotateGhostObject(rotateSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                RotateGhostObject(-rotateSpeed * Time.deltaTime);
+            }
+        }
+        private void MoveGhostObject(RaycastHit hit)
+        {
+            ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
+
+            SetGhostOutLine(hit.transform.gameObject);
+            SetUIEvent(hit.transform.gameObject);
+        }
+
+        private void SetGhostOutLine(GameObject areaToBeBuilt)
+        {
+            Color color = CanBuild(areaToBeBuilt, ghostObject) ? ableAreaColor : notAbleAreaColor;
+            ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, transParentMaterial);
+        }
+        // Other methods remain unchanged...
+
 
         private void CreateGhostObject(RaycastHit hit)
         {
@@ -148,7 +154,7 @@ namespace FreeBuild
             {
                 if (CanBuild(areaToBeBuilt, ghostObject))
                 {
-                    if(realObject.GetComponent<DemonPortal>() != null)
+                    if (realObject.GetComponent<DemonPortal>() != null)
                     {
                         Transform curr = landLayerManager.GetCurrPlot().transform;
                         Transform next = landLayerManager.NextPlot(curr.gameObject).transform;
@@ -157,11 +163,11 @@ namespace FreeBuild
                     }
                     else
                     {
-                        
-                  
-                    GameObject go = Instantiate(realObject, ghostObject.transform.position, ghostObject.transform.rotation);
-                    if (rootObject)
-                        go.transform.SetParent(rootObject.transform);
+
+
+                        GameObject go = Instantiate(realObject, ghostObject.transform.position, ghostObject.transform.rotation);
+                        if (rootObject)
+                            go.transform.SetParent(rootObject.transform);
                     }
                 }
                 else

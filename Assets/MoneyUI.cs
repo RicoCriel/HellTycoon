@@ -10,5 +10,6 @@ public class MoneyUI : MonoBehaviour
     void Update()
     {
         moneyText.text = "Money: " + economyManager.GetMoney();
+        
     }
 }

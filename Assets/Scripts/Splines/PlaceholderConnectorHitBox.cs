@@ -103,13 +103,17 @@ namespace Splines
             }
         }
 
-        public void SpawnObject(GameObject gameObject)
+
+
+        public bool SpawnObject(GameObject gameObject)
         {
-            if (_splineDrawer == null || Spline == null) return;
+            if (_splineDrawer == null || Spline == null) return false;
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline);
+            return true;
         }
-
+        
 
     }
 }
+

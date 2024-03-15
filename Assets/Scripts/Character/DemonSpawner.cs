@@ -13,9 +13,14 @@ public class DemonSpawner : MonoBehaviour
     private float _timeSinceLastSpawn = 0f;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
 
- 
+    private List<GameObject> _demonHandler;
 
-        void Update()
+    private void Start()
+    {
+        _demonHandler = new List<GameObject>();
+    }
+
+    void Update()
     {
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn >= _spawnInterval)
@@ -29,16 +34,42 @@ public class DemonSpawner : MonoBehaviour
                 float offsetZ = Random.Range(-_maxOffset, _maxOffset);
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);
 
-                if(_demonPrefab == null) return;
+                if (_demonPrefab == null) return;
                 var demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
-                _connector.SpawnObject(demon);
 
-                
+                //if (!_connector.SpawnObject(demon))
+                //{
+                //    _demonHandler.Add(demon);
+                //}
+                //else
+                //{
+                //    StartCoroutine(MoveDemonsToConnector());
+                //}
+                _demonHandler.Add(demon);
+                StartCoroutine(MoveDemonsToConnector());
             }
         }
     }
-    
 
-   
-    
+    IEnumerator MoveDemonsToConnector()
+    {
+        for (int i = 0; i < _demonHandler.Count; ++i)
+        {
+            GameObject demon = _demonHandler[i];
+            Vector3 targetPosition = _connector.transform.position;
+
+            while (Vector3.Distance(demon.transform.position, targetPosition) > 0.1f)
+            {
+                demon.transform.position = Vector3.MoveTowards(demon.transform.position, targetPosition, Time.deltaTime * 2);
+                yield return null;
+            }
+
+            // At this point, the demon has reached the connector
+            // Put the demon in the connector
+            _connector.SpawnObject(demon);
+            _demonHandler.RemoveAt(i);
+        }
+
+        //_demonHandler.Clear();
+    }
 }

@@ -12,6 +12,7 @@ namespace Grid
         [SerializeField] private int _layerWidth;
         [SerializeField] private int _layerHeight;
         [SerializeField] private BuildTool _buildTool;
+       
 
         private List<TileGrid> _layers;
         public List<TileGrid> Layers => _layers;
