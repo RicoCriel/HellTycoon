@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8873391566929811161, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3931564255636233249}
+    - targetCorrespondingSourceObject: {fileID: 8873391566929811161, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1058994397026337289}
   m_SourcePrefab: {fileID: 100100000, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
 --- !u!1 &5002515597761908009 stripped
 GameObject:
@@ -94,4 +97,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _demonTag: Demon
+  _machineManagerPrefab: {fileID: 6368554900265058588, guid: 6f33e72194d9d0e42a29818d890da7ab, type: 3}
   Open: 1
+--- !u!114 &1058994397026337289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002515597761908009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bfbe5c8926df745863c1fe7a23ebce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConstructionAreaTagName: Map

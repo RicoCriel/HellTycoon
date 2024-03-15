@@ -8,6 +8,7 @@ public class MachineInput : MonoBehaviour
     private BoxCollider _collider;
     private UnityEvent _activated;
     [SerializeField] private string _demonTag;
+    [SerializeField] private MachineManager _machineManagerPrefab;
 
     public bool Open = true;
 
@@ -17,11 +18,10 @@ public class MachineInput : MonoBehaviour
             _collider = GetComponent<BoxCollider>();
 
         _activated = new UnityEvent();
-    }
 
-    public void Initialize(MachineManager machine)
-    {
-        _activated.AddListener(machine.StartProduction);
+        var machineManager = Instantiate(_machineManagerPrefab);
+        machineManager.Initialize(this);
+        _activated.AddListener(machineManager.StartProduction);
     }
 
     void OnCollisionEnter(Collision collision)
