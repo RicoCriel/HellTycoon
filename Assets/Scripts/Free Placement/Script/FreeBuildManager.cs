@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace FreeBuild
@@ -25,6 +26,7 @@ namespace FreeBuild
         //
         private GameObject ghostObject;
         private GameObject realObject;
+        private bool _locked = false;
 
         // Movement speed
         public float moveSpeed = 5.0f;
@@ -64,25 +66,13 @@ namespace FreeBuild
                 CreateGhostObject(hit);
                 constructionMode = true;
             }
-        }   
+        }
 
 
         void Update()
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                // Check for mouse clicks
-                if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    bool isHit = Physics.Raycast(ray, out hit);
-
-                    if (isHit && ghostObject)
-                    {
-                        MoveGhostObject(hit);
-                    }
-                }
                 // Height change
                 float heightChange = 0.0f;
                 if (Input.GetKey(KeyCode.Space))
@@ -96,7 +86,23 @@ namespace FreeBuild
 
                 if (ghostObject)
                 {
-                    // Move
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        _locked = !_locked;
+                    }
+
+                    if (!_locked)
+                    {
+                        // Move
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity);
+
+                        if (isHit && ghostObject)
+                        {
+                            MoveGhostObject(hit);
+                        }
+                    }
 
 
                     //// Change height
@@ -116,6 +122,7 @@ namespace FreeBuild
                 RotateGhostObject(-rotateSpeed * Time.deltaTime);
             }
         }
+
         private void MoveGhostObject(RaycastHit hit)
         {
             ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
@@ -167,9 +174,9 @@ namespace FreeBuild
                             next = null;
                         }
                         ghostObject.transform.SetParent(curr);
-                        if(next != null)
+                        if (next != null)
                         {
-                        portalManager.PlacePortal(ghostObject.transform.localPosition, curr, next);
+                            portalManager.PlacePortal(ghostObject.transform.localPosition, curr, next);
                         }
                     }
                     else
@@ -180,6 +187,8 @@ namespace FreeBuild
                         if (rootObject)
                             go.transform.SetParent(rootObject.transform);
                     }
+
+                    _locked = false;
                 }
                 else
                 {

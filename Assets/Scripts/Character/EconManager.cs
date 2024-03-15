@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EconManager : MonoBehaviour
 {
-  
-    
     public int HornLevelValue = 100;
     public int BodyLevelValue = 150;
     public int FaceLevelValue = 200;
@@ -35,11 +33,5 @@ public class EconManager : MonoBehaviour
         _money -= amount;
     }
 
-    private void Update()
-    {
-        if(LogMoney)
-        {
-            Debug.Log("Money: " + _money);
-        }
-    }
-    }
+
+}
