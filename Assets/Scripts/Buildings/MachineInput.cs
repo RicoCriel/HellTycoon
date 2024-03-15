@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class MachineInput : MonoBehaviour
 {
-    private BoxCollider _collider;
-    private UnityEvent _activated;
     [SerializeField] private string _demonTag;
     [SerializeField] private MachineManager _machineManagerPrefab;
+    
+    private BoxCollider _collider;
+    private UnityEvent _activated;
+    
 
     public bool Open = true;
 

@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class SpriteSwitcher : MonoBehaviour
 {
+   
+
+
+
+
+    private int _bodyLevel;
+    private int _faceLevel;
+    private int _hornLevel;
+    private int _armorLevel;
+    private int _wingsLevel;
+
     // head
     public SpriteRenderer Horns;
     public SpriteRenderer Head;
@@ -18,7 +29,6 @@ public class SpriteSwitcher : MonoBehaviour
 
 
 
-
     // head
     public Sprite[] HornsSprites;
     public Sprite[] HeadSprites;
@@ -26,15 +36,6 @@ public class SpriteSwitcher : MonoBehaviour
     public Sprite[] ArmorSprites;
     public Sprite[] WingsSprites;
 
-
-
-
-
-    private int _bodyLevel;
-    private int _faceLevel;
-    private int _hornLevel;
-    private int _armorLevel;
-    private int _wingsLevel;
 
     private void Start()
     {

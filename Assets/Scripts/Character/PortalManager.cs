@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PortalManager : MonoBehaviour
 {
-    [SerializeField] GameObject Portal;
+    [SerializeField] private GameObject _portal;
 
-    [SerializeField] Transform TestingLayer1;
-    [SerializeField] Transform TestingLayer2;
+    [SerializeField] private Transform _testingLayer1;
+    [SerializeField] private Transform _testingLayer2;
 
-    private GameObject portal1;
-    private GameObject portal2;
+    private GameObject _portal1;
+    private GameObject _portal2;
 
 
     private void Start()
@@ -23,15 +23,15 @@ public class PortalManager : MonoBehaviour
     public void PlacePortal(Vector3 pos, Transform currLayer, Transform nextLayer)
     {
         
-        portal1 =  Instantiate(Portal, Vector3.zero, Quaternion.identity);
-        portal1.transform.SetParent(currLayer);
-        portal1.transform.localPosition = pos;
-        portal2 = Instantiate(Portal, Vector3.zero, Quaternion.identity);
-        portal2.transform.SetParent(nextLayer);
-        portal2.transform.localPosition = pos;
+        _portal1 =  Instantiate(_portal, Vector3.zero, Quaternion.identity);
+        _portal1.transform.SetParent(currLayer);
+        _portal1.transform.localPosition = pos;
+        _portal2 = Instantiate(_portal, Vector3.zero, Quaternion.identity);
+        _portal2.transform.SetParent(nextLayer);
+        _portal2.transform.localPosition = pos;
         
-        portal1.GetComponent<DemonPortal>().ExitPortal = portal2.transform;
-        portal2.GetComponent<DemonPortal>().ExitPortal = portal1.transform;
+        _portal1.GetComponent<DemonPortal>().ExitPortal = _portal2.transform;
+        _portal2.GetComponent<DemonPortal>().ExitPortal = _portal1.transform;
 
     }
 

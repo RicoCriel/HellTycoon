@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class DemonSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject _demonPrefab;
-    [SerializeField] float _spawnInterval = 5f;
-    [SerializeField] float _maxOffset = 0.5f;
-    [SerializeField] int _spawnCost = 5;
-    [SerializeField] EconManager _econManager;
-    private float _timeSinceLastSpawn = 0f;
+    [SerializeField] private GameObject _demonPrefab;
+    [SerializeField] private float _spawnInterval = 5f;
+    [SerializeField] private float _maxOffset = 0.5f;
+    [SerializeField] private int _spawnCost = 5;
+    [SerializeField] private EconManager _econManager;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
+    private float _timeSinceLastSpawn = 0f;
+  
 
     private List<GameObject> _demonHandler;
 

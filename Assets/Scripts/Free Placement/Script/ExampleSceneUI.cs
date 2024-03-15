@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ExampleSceneUI : MonoBehaviour {
 
-	public Text money_text;
-	public Transform buildPanel;
-	public FreeBuild.FreeBuildManager cm;
+	public Text MoneyText;
+	public Transform BuildPanel;
+	public FreeBuild.FreeBuildManager CM;
 
 	void Start () 
 	{
@@ -16,14 +16,14 @@ public class ExampleSceneUI : MonoBehaviour {
 
     public void OnOffPanel()
 	{
-		buildPanel.gameObject.SetActive(!buildPanel.gameObject.activeSelf);
+		BuildPanel.gameObject.SetActive(!BuildPanel.gameObject.activeSelf);
 	}
 
 	private void AddButtonEventListener()
 	{
-		for(int i = 0; i < buildPanel.childCount; ++i)
+		for(int i = 0; i < BuildPanel.childCount; ++i)
 		{
-			Button btn = buildPanel.GetChild(i).GetComponent<Button>();
+			Button btn = BuildPanel.GetChild(i).GetComponent<Button>();
 
 			btn.onClick.AddListener(delegate {SetListener(btn.name);});
 		}
@@ -34,16 +34,16 @@ public class ExampleSceneUI : MonoBehaviour {
 		switch(objName)
 		{
 			case "Table1":
-				cm.CreateGhostObject("table1");
+				CM.CreateGhostObject("table1");
 				break;
 			case "Portal":
-				cm.CreateGhostObject("Portal");
+				CM.CreateGhostObject("Portal");
 				break;
 			case "Crown":
-				cm.CreateGhostObject("crown");
+				CM.CreateGhostObject("crown");
 				break;
 			case "Apple":
-				cm.CreateGhostObject("apple");
+				CM.CreateGhostObject("apple");
 				break;
 		}
 

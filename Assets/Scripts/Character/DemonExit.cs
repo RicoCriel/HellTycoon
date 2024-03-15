@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DemonExit : MonoBehaviour
 {
-    [SerializeField] EconManager EconManager;
+    [SerializeField] private EconManager _econManager;
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == null) return;
@@ -12,18 +12,20 @@ public class DemonExit : MonoBehaviour
         string tag = other.tag;
         if (tag == "Demon")
         {
-            EconManager.AddMoney(DemonValue(other.gameObject));
+            _econManager.AddMoney(DemonValue(other.gameObject));
             Destroy(other.gameObject);
         }
     }
     
     private int DemonValue(GameObject devil) 
     {
-        return
-        devil.GetComponent<DemonHandler>().HornLevel * EconManager.HornLevelValue +
-            devil.GetComponent<DemonHandler>().BodyLevel * EconManager.BodyLevelValue +
-                devil.GetComponent<DemonHandler>().FaceLevel * EconManager.FaceLevelValue +
-                    devil.GetComponent<DemonHandler>().ArmorLevel * EconManager.ArmorLevelValue +
-                        devil.GetComponent<DemonHandler>().WingsLevel * EconManager.WingLevelValue;
+        var demoncomp = devil.GetComponent<DemonHandler>();
+        
+        int sum = demoncomp.HornLevel * _econManager.HornLevelValue +
+                    demoncomp.BodyLevel * _econManager.BodyLevelValue +
+                        demoncomp.FaceLevel * _econManager.FaceLevelValue +
+                            demoncomp.ArmorLevel * _econManager.ArmorLevelValue +
+                                demoncomp.WingsLevel * _econManager.WingLevelValue;
+        return sum;
     }
 }
