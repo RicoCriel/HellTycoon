@@ -64,7 +64,7 @@ namespace FreeBuild
                 CreateGhostObject(hit);
                 constructionMode = true;
             }
-        }
+        }   
 
 
         void Update()
@@ -157,9 +157,20 @@ namespace FreeBuild
                     if (realObject.GetComponent<DemonPortal>() != null)
                     {
                         Transform curr = landLayerManager.GetCurrPlot().transform;
-                        Transform next = landLayerManager.NextPlot(curr.gameObject).transform;
+                        Transform next;
+                        if (landLayerManager.NextPlot(curr.gameObject) != null)
+                        {
+                            next = landLayerManager.NextPlot(curr.gameObject).transform;
+                        }
+                        else
+                        {
+                            next = null;
+                        }
                         ghostObject.transform.SetParent(curr);
+                        if(next != null)
+                        {
                         portalManager.PlacePortal(ghostObject.transform.localPosition, curr, next);
+                        }
                     }
                     else
                     {

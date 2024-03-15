@@ -40,8 +40,13 @@ public class LandLayerManager : MonoBehaviour
 
     public GameObject NextPlot(GameObject obj)
     {
+        
         int index = AllPlots.IndexOf(obj);
-        return AllPlots[index + 1];
+        if (AllPlots.Count <= index +1)
+        {
+            return null;
+        }
+            return AllPlots[index + 1];
     }
     
     public void BuyNew()
