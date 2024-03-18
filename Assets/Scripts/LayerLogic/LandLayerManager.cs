@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LandLayerManager : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class LandLayerManager : MonoBehaviour
 
     [SerializeField] private GameObject _prefab;
     [SerializeField] private EconManager _econManager;
+    [SerializeField] private int _landPriceMulti = 2;
     [SerializeField] private int _landPrice = 50;
+    [SerializeField] private int _maxLayers = 9;
+    [SerializeField] private GameObject[] _layerObjets;
 
     private int _step = 1;
     private int _landOffsetStep = 500;
@@ -51,12 +55,21 @@ public class LandLayerManager : MonoBehaviour
     
     public void BuyNew()
     {
-        if (  _econManager.GetMoney() >= _landPrice)
+        if (  _econManager.GetMoney() >= _landPrice * _landPriceMulti)
         {
-            _econManager.SubtractMoney(_landPrice);
-            GameObject newPlot = Instantiate(_prefab, new Vector3(0 + _landOffsetStep * _step, 0, 0), Quaternion.identity);
+           
+            int idx = _step;
+            if (idx >= _maxLayers)
+            {
+                return;
+            }
+            _econManager.SubtractMoney(_landPrice * _landPriceMulti);
+            GameObject newPlot = Instantiate(_layerObjets[_step - 1], new Vector3(0 + _landOffsetStep * _step, 0, 0), Quaternion.identity);
             AllPlots.Add(newPlot);
             ++_step;
+            Debug.Log(_landPrice * _landPriceMulti);
+            _landPriceMulti = _landPriceMulti + _landPriceMulti;
+            
         }
     }
 
