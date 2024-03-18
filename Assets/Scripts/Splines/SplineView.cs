@@ -49,48 +49,48 @@ namespace Splines
         /// Set the orientation of one of the spline Points Manually, this could be usefull when placing we want a manual orientation at the star and end for machines
         /// </summary>
         /// <param name="orientation"></param>
-        /// <param name="SplinePointIndex"></param>
-        public void SetPointOrientation(Vector3 orientation, int SplinePointIndex)
+        /// <param name="splinePointIndex"></param>
+        public void SetPointOrientation(Vector3 orientation, int splinePointIndex)
         {
-            if (_mySplineComputer.GetPoints().Length <= SplinePointIndex) return;
+            if (_mySplineComputer.GetPoints().Length <= splinePointIndex) return;
             SplinePoint[] points = _mySplineComputer.GetPoints();
-            points[SplinePointIndex].normal = orientation;
+            points[splinePointIndex].normal = orientation;
             
         }
 
         /// <summary>
         /// Add a Series op points to the spline
         /// </summary>
-        /// <param name="Points"></param>
-        /// <param name="PointSize"></param>
-        /// <param name="Offset"></param>
-        public void AddPoints(List<Vector3> Points, float PointSize, Vector3 Offset)
+        /// <param name="points"></param>
+        /// <param name="pointSize"></param>
+        /// <param name="offset"></param>
+        public void AddPoints(List<Vector3> points, float pointSize, Vector3 offset)
         {
-            SplinePoint[] points = new SplinePoint[Points.Count];
+            SplinePoint[] newPoints = new SplinePoint[points.Count];
 
-            for (int i = 0; i < points.Length; i++)
+            for (int i = 0; i < newPoints.Length; i++)
             {
-                points[i] = new SplinePoint();
-                points[i].position = Points[i] + Offset;
-                points[i].normal = Vector3.up;
-                points[i].size = PointSize;
-                points[i].color = Color.white;
+                newPoints[i] = new SplinePoint();
+                newPoints[i].position = points[i] + offset;
+                newPoints[i].normal = Vector3.up;
+                newPoints[i].size = pointSize;
+                newPoints[i].color = Color.white;
             }
 
-            _mySplineComputer.SetPoints(points);
+            _mySplineComputer.SetPoints(newPoints);
         }
 
         /// <summary>
         /// Update the splines last point
         /// </summary>
-        /// <param name="Point"></param>
-        /// <param name="Offset"></param>
-        public void UpdateLastPoint(Vector3 Point, Vector3 Offset)
+        /// <param name="point"></param>
+        /// <param name="offset"></param>
+        public void UpdateLastPoint(Vector3 point, Vector3 offset)
         {
             if (_mySplineComputer.GetPoints().Length > 0)
             {
                 SplinePoint[] points = _mySplineComputer.GetPoints();
-                points[points.Length - 1].position = Point + Offset;
+                points[points.Length - 1].position = point + offset;
                 // points[points.Length - 1].size = PointSize;
                 points[points.Length - 1].normal = Vector3.up;
                 points[points.Length - 1].color = Color.white;
@@ -102,10 +102,10 @@ namespace Splines
         /// <summary>
         /// Add one point to the spline at the end
         /// </summary>
-        /// <param name="Point"></param>
-        /// <param name="PointSize"></param>
-        /// <param name="Offset"></param>
-        public void AddOnePoint(Vector3 Point, float PointSize, Vector3 Offset)
+        /// <param name="point"></param>
+        /// <param name="pointSize"></param>
+        /// <param name="offset"></param>
+        public void AddOnePoint(Vector3 point, float pointSize, Vector3 offset)
         {
             SplinePoint[] points = _mySplineComputer.GetPoints();
             SplinePoint[] newPoints = new SplinePoint[points.Length + 1];
@@ -114,8 +114,8 @@ namespace Splines
                 newPoints[i] = points[i];
             }
             newPoints[points.Length] = new SplinePoint();
-            newPoints[points.Length].position = Point + Offset;
-            newPoints[points.Length].size = PointSize;
+            newPoints[points.Length].position = point + offset;
+            newPoints[points.Length].size = pointSize;
             newPoints[points.Length].normal = Vector3.up;
             newPoints[points.Length].color = Color.white;
             _mySplineComputer.SetPoints(newPoints);

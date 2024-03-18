@@ -15,7 +15,7 @@ namespace FreeBuild
         public Color NotAbleAreaColor = new Color(255, 0, 0);
         
         public Material TransParentMaterial;
-        public FreeBuildUI UiManager;
+        public FreeBuildUi UiManager;
         public GameObject RootObject;
         public static bool ConstructionMode = false;
         [SerializeField] private PortalManager _portalManager;
@@ -128,7 +128,7 @@ namespace FreeBuild
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
 
             SetGhostOutLine(hit.transform.gameObject);
-            SetUIEvent(hit.transform.gameObject);
+            SetUiEvent(hit.transform.gameObject);
         }
 
         private void SetGhostOutLine(GameObject areaToBeBuilt)
@@ -144,7 +144,7 @@ namespace FreeBuild
             _ghostObject = Instantiate(_realObject, new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z), Quaternion.identity);
 
             SetGhostOutline(hit.transform.gameObject);
-            SetUIEvent(hit.transform.gameObject);
+            SetUiEvent(hit.transform.gameObject);
         }
 
         private void RotateGhostObject(float angle)
@@ -155,7 +155,7 @@ namespace FreeBuild
             }
         }
 
-        private void SetUIEvent(GameObject areaToBeBuilt)
+        private void SetUiEvent(GameObject areaToBeBuilt)
         {
             UiManager.Build = delegate
             {

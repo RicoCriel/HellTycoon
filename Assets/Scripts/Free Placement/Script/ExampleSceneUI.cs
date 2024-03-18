@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExampleSceneUI : MonoBehaviour {
+public class ExampleSceneUi : MonoBehaviour {
 
 	public Text MoneyText;
 	public Transform BuildPanel;
-	public FreeBuild.FreeBuildManager CM;
+	public FreeBuild.FreeBuildManager Cm;
 
 	void Start () 
 	{
@@ -34,16 +34,16 @@ public class ExampleSceneUI : MonoBehaviour {
 		switch(objName)
 		{
 			case "Table1":
-				CM.CreateGhostObject("table1");
+				Cm.CreateGhostObject("table1");
 				break;
 			case "Portal":
-				CM.CreateGhostObject("Portal");
+				Cm.CreateGhostObject("Portal");
 				break;
 			case "Crown":
-				CM.CreateGhostObject("crown");
+				Cm.CreateGhostObject("crown");
 				break;
 			case "Apple":
-				CM.CreateGhostObject("apple");
+				Cm.CreateGhostObject("apple");
 				break;
 		}
 

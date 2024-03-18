@@ -59,10 +59,10 @@ namespace Splines
         
         public event EventHandler<FollowerArrivedEventArgs> FollowerArrived;
         
-        protected virtual void OnFollowerArrived(FollowerArrivedEventArgs eventargs)
+        protected virtual void OnFollowerArrived(FollowerArrivedEventArgs e)
         {
             EventHandler<FollowerArrivedEventArgs> handler = FollowerArrived;
-            handler?.Invoke(this, eventargs);
+            handler?.Invoke(this, e);
         }
       
     

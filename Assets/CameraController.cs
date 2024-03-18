@@ -4,27 +4,27 @@ public class CameraController : MonoBehaviour
 {
    
 
-    [SerializeField] private GameObject Parent;
+    [SerializeField] private GameObject _parent;
 
-    private Camera cam;
+    private Camera _cam;
 
     public float MoveSpeed = 2;
-    public float minZoom = 20f;
-    public float maxZoom = 60f;
-    public float zoomSpeed = 5f; // Adjust this to control zoom speed
+    public float MinZoom = 20f;
+    public float MaxZoom = 60f;
+    public float ZoomSpeed = 5f; // Adjust this to control zoom speed
 
     void Start()
     {
-        cam = GetComponent<Camera>();
+        _cam = GetComponent<Camera>();
     }
 
     void Update()
     {
         // Camera zoom controls
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        float newZoom = cam.fieldOfView - scroll * zoomSpeed;
-        newZoom = Mathf.Clamp(newZoom, minZoom, maxZoom);
-        cam.fieldOfView = newZoom;
+        float newZoom = _cam.fieldOfView - scroll * ZoomSpeed;
+        newZoom = Mathf.Clamp(newZoom, MinZoom, MaxZoom);
+        _cam.fieldOfView = newZoom;
 
         // Camera movement controls
         Vector3 moveDirection = Vector3.zero;
@@ -46,9 +46,9 @@ public class CameraController : MonoBehaviour
         }
 
         // Convert movement to world space
-        moveDirection = Parent.transform.TransformDirection(moveDirection);
+        moveDirection = _parent.transform.TransformDirection(moveDirection);
 
         
-        Parent.transform.position += moveDirection.normalized * MoveSpeed * Time.deltaTime;
+        _parent.transform.position += moveDirection.normalized * MoveSpeed * Time.deltaTime;
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace FreeBuild
 {
-	public class FreeBuildUI : MonoBehaviour 
+	public class FreeBuildUi : MonoBehaviour 
 	{
-		public Transform buildPanel;
+		public Transform BuildPanel;
 		public delegate void Event();
 		public Event Build;
 		public Event Cancel;
@@ -16,12 +16,12 @@ namespace FreeBuild
 
         public void OnUI()
 		{
-			buildPanel.gameObject.SetActive(true);
+			BuildPanel.gameObject.SetActive(true);
 		}
 
-		public void OffUI()
+		public void OffUi()
 		{
-			buildPanel.gameObject.SetActive(false);
+			BuildPanel.gameObject.SetActive(false);
 		}
 
 		private void Start()
@@ -31,9 +31,9 @@ namespace FreeBuild
 
 		private void AddButtonEventListener()
 		{
-			for(int i = 0; i < buildPanel.childCount; ++i)
+			for(int i = 0; i < BuildPanel.childCount; ++i)
 			{
-				Button btn = buildPanel.GetChild(i).GetComponent<Button>();
+				Button btn = BuildPanel.GetChild(i).GetComponent<Button>();
 
 				btn.onClick.AddListener(delegate {SetListener(btn.name);});
 			}
@@ -45,7 +45,7 @@ namespace FreeBuild
 			{
 				case "Build":
 					Build();
-					OffUI();
+					OffUi();
 					break;
 				case "Rotate":
 					Rotate();
@@ -55,7 +55,7 @@ namespace FreeBuild
                     break;
                 case "Cancel":
 					Cancel();
-					OffUI();			
+					OffUi();			
 					break;
 			}
 		}

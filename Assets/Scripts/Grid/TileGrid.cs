@@ -7,7 +7,8 @@ namespace Grid
 {
     public class TileGrid : MonoBehaviour
     {
-        [SerializeField] private int _width, _height;
+        [SerializeField] private int _width;
+        [SerializeField] private int _height;
         [SerializeField] private Tile _tilePrefab;
 
         private Dictionary<Vector2Int, Tile> _tiles;

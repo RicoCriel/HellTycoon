@@ -12,9 +12,9 @@ namespace Splines
 
         public bool ImConnected = false;
 
-        [SerializeField] private Transform ConnectorPoint;
+        [SerializeField] private Transform _connectorPoint;
 
-        [SerializeField] private Transform ConnectorAnglePoint;
+        [SerializeField] private Transform _connectorAnglePoint;
 
 
         [SerializeField] private MeshRenderer _myMeshRenderer;
@@ -48,19 +48,19 @@ namespace Splines
 
         public Vector3 GetConnectorPointSpline()
         {
-            Vector3 position = ConnectorPoint.position;
+            Vector3 position = _connectorPoint.position;
             return new Vector3(position.x, 0, position.z);
         }
 
         public Vector3 GetConnectorAnglePointSpline()
         {
-            Vector3 position = ConnectorAnglePoint.position;
+            Vector3 position = _connectorAnglePoint.position;
             return new Vector3(position.x, 0, position.z);
         }
 
         public Vector3 GetConnectorPointDirection()
         {
-            return ConnectorPoint.forward;
+            return _connectorPoint.forward;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
