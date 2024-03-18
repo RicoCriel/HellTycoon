@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
 
 public class BuildingData : ScriptableObject
@@ -21,4 +22,16 @@ public class BuildingData : ScriptableObject
     [SerializeField] private int _price;
     public int Price => _price;
 
+    [SerializeField] private PartType _buildingType;
+    public PartType PartType;
+
+    [SerializeField] private string _buildTag;
+    public string BuildTag => _buildTag;
+}
+
+public enum PartType
+{
+    Manufacturing = 0,
+    Power = 1,
+    Logistics = 2
 }
