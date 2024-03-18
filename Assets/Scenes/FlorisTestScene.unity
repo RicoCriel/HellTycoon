@@ -522,6 +522,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768008562544124588, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _economyManager
+      value: 
+      objectReference: {fileID: 1770478770}
     - target: {fileID: 788393301560033878, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _layer1
       value: 
@@ -699,11 +703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865666d03a1ce3a438b8235d863ebc6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parent: {fileID: 2062021168}
   MoveSpeed: 2
   minZoom: 20
   maxZoom: 60
   zoomSpeed: 5
-  Parent: {fileID: 2062021168}
 --- !u!223 &1715748441
 Canvas:
   m_ObjectHideFlags: 0
