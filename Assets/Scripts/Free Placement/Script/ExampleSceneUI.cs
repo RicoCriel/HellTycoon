@@ -31,22 +31,22 @@ public class ExampleSceneUi : MonoBehaviour {
 
 	private void SetListener(string objName)
 	{
-		switch(objName)
-		{
-			case "Table1":
-				Cm.CreateGhostObject("table1");
-				break;
-			case "Portal":
-				Cm.CreateGhostObject("Portal");
-				break;
-			case "Crown":
-				Cm.CreateGhostObject("crown");
-				break;
-			case "Apple":
-				Cm.CreateGhostObject("apple");
-				break;
-		}
+		//switch(objName)
+		//{
+		//	case "Table1":
+		//		Cm.CreateGhostObject("table1");
+		//		break;
+		//	case "Portal":
+		//		Cm.CreateGhostObject("Portal");
+		//		break;
+		//	case "Crown":
+		//		Cm.CreateGhostObject("crown");
+		//		break;
+		//	case "Apple":
+		//		Cm.CreateGhostObject("apple");
+		//		break;
+		//}
 
-		OnOffPanel();
+		//OnOffPanel();
 	}
 }

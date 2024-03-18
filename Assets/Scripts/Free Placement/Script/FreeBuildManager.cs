@@ -13,20 +13,23 @@ namespace FreeBuild
         // can select outline Color.
         public Color AbleAreaColor = new Color(0, 255, 0);
         public Color NotAbleAreaColor = new Color(255, 0, 0);
-        
-        public Material TransParentMaterial;
-        public FreeBuildUi UiManager;
-        public GameObject RootObject;
         public static bool ConstructionMode = false;
+
+        [SerializeField] private Material _transParentMaterial;
+        [SerializeField] private FreeBuildUI _uiManager;
+        [SerializeField] private GameObject _rootObject;
         [SerializeField] private PortalManager _portalManager;
         [SerializeField] private LandLayerManager _landLayerManager;
         [SerializeField] private Transform _layer1;
         [SerializeField] private Transform _layer2;
         [SerializeField] private LayerMask _groundLayer;
+
+        private string _buildTag;
         //
         private GameObject _ghostObject;
         private GameObject _realObject;
         private bool _locked = false;
+        private bool _canBuild = false;
 
         // Movement speed
         public float MoveSpeed = 5.0f;
@@ -36,10 +39,15 @@ namespace FreeBuild
         public float HeightChangeSpeed = 1.0f;
 
 
-        //
-        public void CreateGhostObject(string objName)
+        private void Awake()
         {
-            _realObject = ConstructionItems.Find(x => x.name == objName);
+            BuildingPanelUI._onPartChosen += CreateGhostObject;
+        }
+
+        public void CreateGhostObject(BuildingData data)
+        {
+            _realObject = data.Prefab;
+            _buildTag = data.BuildTag;
             if (null == _realObject)
             {
                 Debug.LogError("You have to list the objects you're trying to build on.");
@@ -62,7 +70,7 @@ namespace FreeBuild
             //
             if (isHit)
             {
-                UiManager.OnUI();
+                _uiManager.EnableUI();
                 CreateGhostObject(hit);
                 ConstructionMode = true;
             }
@@ -128,13 +136,14 @@ namespace FreeBuild
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
 
             SetGhostOutLine(hit.transform.gameObject);
-            SetUiEvent(hit.transform.gameObject);
+            //SetUiEvent(hit.transform.gameObject);
+            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
 
         private void SetGhostOutLine(GameObject areaToBeBuilt)
         {
-            Color color = CanBuild(areaToBeBuilt, _ghostObject) ? AbleAreaColor : NotAbleAreaColor;
-            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, TransParentMaterial);
+            Color color = _canBuild ? AbleAreaColor : NotAbleAreaColor;
+            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, _transParentMaterial);
         }
         // Other methods remain unchanged...
 
@@ -144,7 +153,8 @@ namespace FreeBuild
             _ghostObject = Instantiate(_realObject, new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z), Quaternion.identity);
 
             SetGhostOutline(hit.transform.gameObject);
-            SetUiEvent(hit.transform.gameObject);
+            //SetUiEvent(hit.transform.gameObject);
+            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
 
         private void RotateGhostObject(float angle)
@@ -155,66 +165,107 @@ namespace FreeBuild
             }
         }
 
-        private void SetUiEvent(GameObject areaToBeBuilt)
+        public void Build()
         {
-            UiManager.Build = delegate
+            if (_canBuild)
             {
-                if (CanBuild(areaToBeBuilt, _ghostObject))
+                if (_realObject.GetComponent<DemonPortal>() != null)
                 {
-                    if (_realObject.GetComponent<DemonPortal>() != null)
+                    Transform curr = _landLayerManager.GetCurrPlot().transform;
+                    Transform next;
+                    if (_landLayerManager.NextPlot(curr.gameObject) != null)
                     {
-                        Transform curr = _landLayerManager.GetCurrPlot().transform;
-                        Transform next;
-                        if (_landLayerManager.NextPlot(curr.gameObject) != null)
-                        {
-                            next = _landLayerManager.NextPlot(curr.gameObject).transform;
-                        }
-                        else
-                        {
-                            next = null;
-                        }
-                        _ghostObject.transform.SetParent(curr);
-                        if (next != null)
-                        {
-                            _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
-                        }
+                        next = _landLayerManager.NextPlot(curr.gameObject).transform;
                     }
                     else
                     {
-
-
-                        GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
-                        if (RootObject)
-                            go.transform.SetParent(RootObject.transform);
+                        next = null;
                     }
-
-                    _locked = false;
+                    _ghostObject.transform.SetParent(curr);
+                    if (next != null)
+                    {
+                        _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("you can't build in impossible area");
+                    GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
+                    if (_rootObject)
+                        go.transform.SetParent(_rootObject.transform);
                 }
-                DestroyGhostObject();
-                ConstructionMode = false;
-            };
 
-            UiManager.Cancel = delegate
+                _locked = false;
+            }
+            else
             {
-                DestroyGhostObject();
-                ConstructionMode = false;
-            };
+                Debug.LogWarning("you can't build in impossible area");
+            }
+            DestroyGhostObject();
+            ConstructionMode = false;
         }
+
+        public void CancelBuilding()
+        {
+            DestroyGhostObject();
+            ConstructionMode = false;
+            _uiManager.DisableUI();
+        }
+
+        //private void SetUiEvent(GameObject areaToBeBuilt)
+        //{
+        //    UIManager.Build = delegate
+        //    {
+        //        if (CanBuild(areaToBeBuilt, _ghostObject))
+        //        {
+        //            if (_realObject.GetComponent<DemonPortal>() != null)
+        //            {
+        //                Transform curr = _landLayerManager.GetCurrPlot().transform;
+        //                Transform next;
+        //                if (_landLayerManager.NextPlot(curr.gameObject) != null)
+        //                {
+        //                    next = _landLayerManager.NextPlot(curr.gameObject).transform;
+        //                }
+        //                else
+        //                {
+        //                    next = null;
+        //                }
+        //                _ghostObject.transform.SetParent(curr);
+        //                if (next != null)
+        //                {
+        //                    _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
+        //                }
+        //            }
+        //            else
+        //            {
+
+
+        //                GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
+        //                if (RootObject)
+        //                    go.transform.SetParent(RootObject.transform);
+        //            }
+
+        //            _locked = false;
+        //        }
+        //        else
+        //        {
+        //            Debug.LogWarning("you can't build in impossible area");
+        //        }
+        //        DestroyGhostObject();
+        //        ConstructionMode = false;
+        //    };
+
+        //    UIManager.Cancel = delegate
+        //    {
+        //        DestroyGhostObject();
+        //        ConstructionMode = false;
+        //    };
+        //}
 
         // Show Object to be built
         private void SetGhostOutline(GameObject areaToBeBuilt)
         {
-            Color color = CanBuild(areaToBeBuilt, _ghostObject) ? AbleAreaColor : NotAbleAreaColor;
-            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, TransParentMaterial);
-        }
-
-        private bool CanBuild(GameObject areaToBeBuilt, GameObject go)
-        {
-            return (areaToBeBuilt.transform.gameObject.tag == go.GetComponent<FreeBuildObject>().ConstructionAreaTagName);
+            Color color = _canBuild ? AbleAreaColor : NotAbleAreaColor;
+            _ghostObject.GetComponent<FreeBuildObject>().SetObjectTransparent(color, _transParentMaterial);
         }
 
         private float GetObjectHeight(Transform tf)
@@ -236,5 +287,5 @@ namespace FreeBuild
                 Destroy(_ghostObject);
             }
         }
-    } // class ConstructionManager
+    }
 }

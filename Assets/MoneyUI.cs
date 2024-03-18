@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyUi : MonoBehaviour
+public class MoneyUI : MonoBehaviour
 {
     [SerializeField] EconManager _economyManager;
     [SerializeField] Text _moneyText;

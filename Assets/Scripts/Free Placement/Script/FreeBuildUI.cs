@@ -5,59 +5,59 @@ using UnityEngine.UI;
 
 namespace FreeBuild
 {
-	public class FreeBuildUi : MonoBehaviour 
+	public class FreeBuildUI : MonoBehaviour 
 	{
-		public Transform BuildPanel;
+		[SerializeField] private Transform _buildPanel;
 		public delegate void Event();
 		public Event Build;
 		public Event Cancel;
-		public Event Rotate;
+		public Event RotateR;
         public Event RotateL;
 
-        public void OnUI()
+        public void EnableUI()
 		{
-			BuildPanel.gameObject.SetActive(true);
+			_buildPanel.gameObject.SetActive(true);
 		}
 
-		public void OffUi()
+		public void DisableUI()
 		{
-			BuildPanel.gameObject.SetActive(false);
+			_buildPanel.gameObject.SetActive(false);
 		}
 
-		private void Start()
-		{
-			AddButtonEventListener();
-		}
+		//private void Start()
+		//{
+		//	AddButtonEventListener();
+		//}
 
-		private void AddButtonEventListener()
-		{
-			for(int i = 0; i < BuildPanel.childCount; ++i)
-			{
-				Button btn = BuildPanel.GetChild(i).GetComponent<Button>();
+		//private void AddButtonEventListener()
+		//{
+		//	for (int i = 0; i < _buildPanel.childCount; ++i)
+		//	{
+		//		Button btn = _buildPanel.GetChild(i).GetComponent<Button>();
 
-				btn.onClick.AddListener(delegate {SetListener(btn.name);});
-			}
-		}
+		//		btn.onClick.AddListener(delegate { SetListener(btn.name); });
+		//	}
+		//}
 
-		private void SetListener(string objName)
-		{
-			switch(objName)
-			{
-				case "Build":
-					Build();
-					OffUi();
-					break;
-				case "Rotate":
-					Rotate();
-					break;
-                case "RotateL":
-                    RotateL();
-                    break;
-                case "Cancel":
-					Cancel();
-					OffUi();			
-					break;
-			}
-		}
+		//private void SetListener(string objName)
+		//{
+		//	switch (objName)
+		//	{
+		//		case "Build":
+		//			Build();
+		//			DisableUI();
+		//			break;
+		//		case "Rotate":
+		//			RotateR();
+		//			break;
+		//		case "RotateL":
+		//			RotateL();
+		//			break;
+		//		case "Cancel":
+		//			Cancel();
+		//			DisableUI();
+		//			break;
+		//	}
+		//}
 	}
 }
