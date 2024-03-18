@@ -278,10 +278,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSplineStart: 0
-  ConnectorPoint: {fileID: 623361082956852733}
-  ConnectorAnglePoint: {fileID: 6573067573302148761}
+  ImConnected: 0
+  _connectorPoint: {fileID: 7993385628849237588}
+  _connectorAnglePoint: {fileID: 6573067573302148761}
   _myMeshRenderer: {fileID: 1524149994418419990}
-  splineDrawer: {fileID: 0}
+  _splineDrawer: {fileID: 0}
+  Spline: {fileID: 0}
 --- !u!65 &9196083836378828215
 BoxCollider:
   m_ObjectHideFlags: 0

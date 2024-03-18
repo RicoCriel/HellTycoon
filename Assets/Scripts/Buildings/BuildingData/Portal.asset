@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
+  m_Name: Portal
+  m_EditorClassIdentifier: 
+  _displayName: Portal
+  _icon: {fileID: -8861630638495427532, guid: 83742ef9902093f48984718171c0e60c, type: 3}
+  _prefab: {fileID: 5935795807527634739, guid: 1f51a648710a50a499aca5b2a27c6c40, type: 3}
+  _buildingSize: {x: 10, y: 0}
+  _price: 10
+  _partType: 2
+  _buildTag: Map

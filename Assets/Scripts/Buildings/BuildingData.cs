@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
 
+[CreateAssetMenu]
 public class BuildingData : ScriptableObject
 {
     [SerializeField] private string _displayName;
@@ -22,8 +23,8 @@ public class BuildingData : ScriptableObject
     [SerializeField] private int _price;
     public int Price => _price;
 
-    [SerializeField] private PartType _buildingType;
-    public PartType PartType;
+    [SerializeField] private PartType _partType;
+    public PartType PartType => _partType;
 
     [SerializeField] private string _buildTag;
     public string BuildTag => _buildTag;

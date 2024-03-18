@@ -23,41 +23,5 @@ namespace FreeBuild
 		{
 			_buildPanel.gameObject.SetActive(false);
 		}
-
-		//private void Start()
-		//{
-		//	AddButtonEventListener();
-		//}
-
-		//private void AddButtonEventListener()
-		//{
-		//	for (int i = 0; i < _buildPanel.childCount; ++i)
-		//	{
-		//		Button btn = _buildPanel.GetChild(i).GetComponent<Button>();
-
-		//		btn.onClick.AddListener(delegate { SetListener(btn.name); });
-		//	}
-		//}
-
-		//private void SetListener(string objName)
-		//{
-		//	switch (objName)
-		//	{
-		//		case "Build":
-		//			Build();
-		//			DisableUI();
-		//			break;
-		//		case "Rotate":
-		//			RotateR();
-		//			break;
-		//		case "RotateL":
-		//			RotateL();
-		//			break;
-		//		case "Cancel":
-		//			Cancel();
-		//			DisableUI();
-		//			break;
-		//	}
-		//}
 	}
 }
