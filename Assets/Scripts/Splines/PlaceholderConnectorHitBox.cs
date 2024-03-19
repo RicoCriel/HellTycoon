@@ -26,8 +26,8 @@ namespace Splines
 
         public SplineView Spline;
 
-        public BuildingFactoryBase myBuildingNode;
-        
+        public BuildingBase myBuildingNode;
+
         //MyFactory
 
         private void Awake()
@@ -48,7 +48,7 @@ namespace Splines
             if (_splineDrawer == null)
                 _splineDrawer = FindObjectOfType<SplineDrawer>();
         }
-        
+
 
         public Vector3 GetConnectorPointSpline()
         {
@@ -115,15 +115,23 @@ namespace Splines
             if (_splineDrawer == null || Spline == null) return false;
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline);
-            
-            // _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
-            
-            
+
+            _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
+
+
             return true;
         }
         private void CallBack(GameObject obj)
         {
-            myBuildingNode.AddDemon(myBuildingNode._unprocessedDemonContainer, obj);
+            if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
+            {
+                nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
+            }
+
+            if (myBuildingNode.TryGetComponent(out BuildingPortal NextPortal))
+            {
+                //todo add opslorpcode Portal via buildingportal class.
+            }
         }
 
 
