@@ -6,17 +6,6 @@ using UnityEngine;
 public class DemonExit : BuildingFactoryBase
 {
     [SerializeField] private EconManager _econManager;
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == null) return;
-
-        string tag = other.tag;
-        if (tag == "Demon")
-        {
-            _econManager.AddMoney(DemonValue(other.gameObject));
-            Destroy(other.gameObject);
-        }
-    }
 
     private int DemonValue(GameObject devil)
     {
@@ -33,7 +22,13 @@ public class DemonExit : BuildingFactoryBase
     protected override void ExecuteMachineProcessingBehaviour()
     {
         if (_unprocessedDemonContainer.Count > 0)
+        {
+            foreach (var demon in _unprocessedDemonContainer)
+            {
+                _econManager.AddMoney(DemonValue(demon));
+            }
             _unprocessedDemonContainer.Clear();
+        }
 
     }
 
