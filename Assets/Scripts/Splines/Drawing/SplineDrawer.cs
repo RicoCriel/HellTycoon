@@ -91,15 +91,17 @@ namespace Splines.Drawing
             }
         }
 
-        public void StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
+        public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
         {
             Points.Clear();
             _currentStartingBox = placeholderConnectorHitBox;
-
             _currentSplineConnected = false;
             _hasStartedDrawing = true;
             _instanciatedSpline = Instantiate(_splineViewPrefab);
 
+            //add start Box to spline
+            _instanciatedSpline.StartConnector = placeholderConnectorHitBox;
+            
             //replace with the actual points
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
             Points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
@@ -113,12 +115,18 @@ namespace Splines.Drawing
             _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
             // instanciatedSpline.SetMeshSize(10);
             _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            
+            return _instanciatedSpline;
         }
 
         public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
         {
             _hasStartedDrawing = false;
             _currentSplineConnected = true;
+            
+            //add end box to spline
+            _instanciatedSpline.EndConnector = placeholderConnectorHitBox;
+            
             // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
 

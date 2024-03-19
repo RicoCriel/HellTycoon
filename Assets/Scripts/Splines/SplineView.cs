@@ -13,7 +13,19 @@ namespace Splines
 
         [SerializeField] private MeshFilter _myMeshFilter;
 
+        public PlaceholderConnectorHitBox StartConnector;
+        public PlaceholderConnectorHitBox EndConnector;
 
+        public void setStartConnector(PlaceholderConnectorHitBox startConnector)
+        {
+            StartConnector = startConnector;
+        }
+        
+        public void setEndConnector(PlaceholderConnectorHitBox endConnector)
+        {
+            EndConnector = endConnector;
+        }
+        
         public SplineComputer GetSplinecomputer()
         {
             return _mySplineComputer;
