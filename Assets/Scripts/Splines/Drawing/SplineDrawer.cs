@@ -135,17 +135,22 @@ namespace Splines.Drawing
         }
         private bool SetBeltColourDependingOnPlacementRange()
         {
-            float splineUniformSize = _instanciatedSpline.GetSplineUniformSize();
-            Debug.Log(splineUniformSize);
-            if (_maxBeltLenght < splineUniformSize)
+      
+            if (MaxsizeCheck())
             {
                 _instanciatedSpline.ChangeAllPointColours(_BeltPlacementColorMax);
                 return true;
             }
 
-            float MaxBuildPercentage = splineUniformSize / _maxBeltLenght;
+            float MaxBuildPercentage = _instanciatedSpline.GetSplineUniformSize() / _maxBeltLenght;
             _instanciatedSpline.ChangePercentualPointColours(_BeltPlacementColor, MaxBuildPercentage);
             return false;
+        }
+        private bool MaxsizeCheck()
+        {
+            float splineUniformSize = _instanciatedSpline.GetSplineUniformSize();
+            Debug.Log(splineUniformSize);
+            return _maxBeltLenght < splineUniformSize;
         }
 
         public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
@@ -180,12 +185,18 @@ namespace Splines.Drawing
             return _instanciatedSpline;
         }
 
-        public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
+        public float StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
         {
+            if (MaxsizeCheck())
+            {
+                spline = null;
+                return 0;
+            }
+            
             if (!_hasStartedDrawing)
             {
                 spline = null;
-                return;
+                return 0;
             }
 
             _hasStartedDrawing = false;
@@ -209,8 +220,12 @@ namespace Splines.Drawing
             spline = _instanciatedSpline;
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(_instanciatedSpline, _currentStartingBox, placeholderConnectorHitBox));
+            float splineSizetoReturn = _instanciatedSpline.GetSplineUniformSize();
+            
             _currentStartingBox = null;
             _instanciatedSpline = null;
+
+            return splineSizetoReturn;
         }
 
         //destroys spline for now when drawing is stopped and not at a relevant point
