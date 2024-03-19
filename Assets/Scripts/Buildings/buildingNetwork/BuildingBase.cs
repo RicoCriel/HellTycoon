@@ -30,11 +30,11 @@ namespace Buildings
             {
                 if (Connector.IsSplineStart)
                 {
-                    _entryBoxes.Add(Connector);
+                    _exitBoxes.Add(Connector);
                 }
                 else
                 {
-                    _exitBoxes.Add(Connector);
+                    _entryBoxes.Add(Connector);
                 }
                 Connector.myBuildingNode = this;
             }

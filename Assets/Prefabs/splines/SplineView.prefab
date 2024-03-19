@@ -53,6 +53,8 @@ MonoBehaviour:
   _mySplineMesh: {fileID: 6416557986253783978}
   _myMeshRenderer: {fileID: 3513559369018364281}
   _myMeshFilter: {fileID: 7762696941353260411}
+  StartConnector: {fileID: 0}
+  EndConnector: {fileID: 0}
 --- !u!114 &8409215362539035836
 MonoBehaviour:
   m_ObjectHideFlags: 0

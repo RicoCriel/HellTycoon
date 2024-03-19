@@ -2,6 +2,7 @@ using Buildings;
 using Splines.Drawing;
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 namespace Splines
@@ -114,7 +115,9 @@ namespace Splines
         {
             if (_splineDrawer == null || Spline == null) return false;
 
-            _splineDrawer.SpawnSplineFollower(gameObject, Spline);
+            //_splineDrawer.SpawnSplineFollower(gameObject, Spline);
+            if(!gameObject.activeInHierarchy) 
+                gameObject.SetActive(true);
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
 
@@ -125,6 +128,7 @@ namespace Splines
         {
             if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
             {
+                Assert.IsFalse(obj == null);
                 nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
             }
 

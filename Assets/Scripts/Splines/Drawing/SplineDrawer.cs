@@ -101,7 +101,7 @@ namespace Splines.Drawing
 
             //add start Box to spline
             _instanciatedSpline.StartConnector = placeholderConnectorHitBox;
-            
+
             //replace with the actual points
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
             Points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
@@ -115,7 +115,7 @@ namespace Splines.Drawing
             _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
             // instanciatedSpline.SetMeshSize(10);
             _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
-            
+
             return _instanciatedSpline;
         }
 
@@ -129,12 +129,12 @@ namespace Splines.Drawing
 
             _hasStartedDrawing = false;
             _currentSplineConnected = true;
-            
+
             //add end box to spline
-            
+
             _instanciatedSpline.setEndConnector(placeholderConnectorHitBox);
             _instanciatedSpline.setStartConnector(_currentStartingBox);
-            
+
             // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
 
@@ -228,8 +228,8 @@ namespace Splines.Drawing
             };
             follower.FollowerArrived += followerArrivedHandler;
         }
-        
-        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack )
+
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
         {
             //get relevant data
             SplineComputer splineComputer = computer.GetSplinecomputer();
@@ -257,8 +257,14 @@ namespace Splines.Drawing
 
                 follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
 
-                callBack(args.GameObject);
-                
+                // Detach demon from spline follower
+                DemonHandler demonHandler = args.GameObject.GetComponentInChildren<DemonHandler>();
+                if (demonHandler != null)
+                {
+                    demonHandler.gameObject.transform.parent = null;
+                    callBack(demonHandler.gameObject);
+                }
+
                 Destroy(args.GameObject);
             };
             follower.FollowerArrived += followerArrivedHandler;
