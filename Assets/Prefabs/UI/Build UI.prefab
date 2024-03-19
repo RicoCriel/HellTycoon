@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2996151809656895240}
   - component: {fileID: 235242960500609221}
   - component: {fileID: 7121158642316287275}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 6424497491783664139}
   - component: {fileID: 6980698094927433633}
   - component: {fileID: 208381458350570648}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Side Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 402421075753088722}
   - component: {fileID: 9103819023035936580}
   - component: {fileID: 9170386012304714337}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 6245834890901848326}
   - component: {fileID: 1462272779821349336}
   - component: {fileID: 4477361551422329960}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 3642443647111113113}
   - component: {fileID: 1207134249045143257}
   - component: {fileID: 8694411446657916104}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Logistics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 7725818424386238920}
   - component: {fileID: 3528440716543949232}
   - component: {fileID: 8626438063886819185}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Manufacturing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 6840770178561837107}
   - component: {fileID: 7379318838429705921}
   - component: {fileID: 4961102501278677704}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,6 +879,7 @@ MonoBehaviour:
   _knownBuildingParts:
   - {fileID: 11400000, guid: fde76a8449c0b294e8aeab8bd37b5c5b, type: 2}
   - {fileID: 11400000, guid: a891e4857080e1e4e86b9bfc9ece88a7, type: 2}
+  - {fileID: 11400000, guid: d256c2982db9b4b4caada16d9a40029a, type: 2}
   _buildingButtonPrefab: {fileID: 6673496259469296111, guid: c41bf739684b0094a9682bc95303bb1b, type: 3}
   _itemWindow: {fileID: 4149311974564163036}
 --- !u!1 &4149311974564163036
@@ -893,7 +894,7 @@ GameObject:
   - component: {fileID: 7356760757960188668}
   - component: {fileID: 4647059551954099423}
   - component: {fileID: 3586527484912919736}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Item Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +993,7 @@ GameObject:
   - component: {fileID: 879012131204495730}
   - component: {fileID: 3531689671623060404}
   - component: {fileID: 8479419878560955610}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,7 +1127,7 @@ GameObject:
   - component: {fileID: 4098902354285061059}
   - component: {fileID: 7307848827497727717}
   - component: {fileID: 1352519722812851813}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1261,7 +1262,7 @@ GameObject:
   - component: {fileID: 6097973599732883788}
   - component: {fileID: 9015006762632098181}
   - component: {fileID: 4633479216052315656}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: All
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1393,7 +1394,7 @@ GameObject:
   - component: {fileID: 3064400441998582217}
   - component: {fileID: 5561669008249410449}
   - component: {fileID: 7378552402940029245}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1529,7 +1530,7 @@ GameObject:
   - component: {fileID: 9057285924270048494}
   - component: {fileID: 2634373430845227292}
   - component: {fileID: 8434791243995900873}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Build UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1644,7 +1645,7 @@ GameObject:
   - component: {fileID: 4334475062911747992}
   - component: {fileID: 1557565003483591695}
   - component: {fileID: 5632556746231270110}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Part Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1749,7 @@ GameObject:
   - component: {fileID: 7205478662900123633}
   - component: {fileID: 7318392189700393893}
   - component: {fileID: 1293764672637141981}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
