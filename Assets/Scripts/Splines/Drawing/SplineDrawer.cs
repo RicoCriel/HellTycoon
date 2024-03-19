@@ -117,6 +117,12 @@ namespace Splines.Drawing
 
         public void StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
         {
+            if (!_hasStartedDrawing)
+            {
+                spline = null;
+                return;
+            }
+
             _hasStartedDrawing = false;
             _currentSplineConnected = true;
             // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());

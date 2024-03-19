@@ -7,21 +7,16 @@ namespace FreeBuild
 {
     public class FreeBuildManager : MonoBehaviour
     {
-        // Add Object to be built to list
-        public List<GameObject> ConstructionItems = new List<GameObject>();
-
         // can select outline Color.
         public Color AbleAreaColor = new Color(0, 255, 0);
         public Color NotAbleAreaColor = new Color(255, 0, 0);
         public static bool ConstructionMode = false;
 
         [SerializeField] private Material _transParentMaterial;
-        [SerializeField] private FreeBuildUI _uiManager;
+        //[SerializeField] private FreeBuildUI _uiManager;
         [SerializeField] private GameObject _rootObject;
         [SerializeField] private PortalManager _portalManager;
         [SerializeField] private LandLayerManager _landLayerManager;
-        [SerializeField] private Transform _layer1;
-        [SerializeField] private Transform _layer2;
         [SerializeField] private LayerMask _groundLayer;
 
         private string _buildTag;
@@ -31,8 +26,6 @@ namespace FreeBuild
         private bool _locked = false;
         private bool _canBuild = false;
 
-        // Movement speed
-        public float MoveSpeed = 5.0f;
         // Rotation speed
         public float RotateSpeed = 100.0f;
         // Height change speed
@@ -70,7 +63,7 @@ namespace FreeBuild
             //
             if (isHit)
             {
-                _uiManager.EnableUI();
+                //_uiManager.EnableUI();
                 CreateGhostObject(hit);
                 ConstructionMode = true;
             }
@@ -117,17 +110,17 @@ namespace FreeBuild
             // Rotation
             if (Input.GetKey(KeyCode.Q))
             {
-                RotateGhostObject(RotateSpeed * Time.deltaTime);
+                RotateGhostObject(-RotateSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.E))
             {
-                RotateGhostObject(-RotateSpeed * Time.deltaTime);
+                RotateGhostObject(RotateSpeed * Time.deltaTime);
             }
         }
 
         private void MoveGhostObject(RaycastHit hit)
         {
-            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z);
+            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
 
             SetGhostOutLine(hit.transform.gameObject);
             //SetUiEvent(hit.transform.gameObject);
@@ -142,7 +135,7 @@ namespace FreeBuild
 
         private void CreateGhostObject(RaycastHit hit)
         {
-            _ghostObject = Instantiate(_realObject, new Vector3(hit.point.x, hit.point.y + GetObjectHeight(hit.transform), hit.point.z), Quaternion.identity);
+            _ghostObject = Instantiate(_realObject, new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z), Quaternion.identity);
 
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
@@ -199,7 +192,6 @@ namespace FreeBuild
         {
             DestroyGhostObject();
             ConstructionMode = false;
-            _uiManager.DisableUI();
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)

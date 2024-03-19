@@ -6,8 +6,6 @@ namespace FreeBuild
 {
 	public class FreeBuildObject : MonoBehaviour 
 	{
-		public string ConstructionAreaTagName;
-
 		public void SetObjectTransparent(Color color, Material transParentMaterial)
 		{
 			MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
