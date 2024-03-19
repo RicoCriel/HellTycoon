@@ -597,12 +597,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _sizeTester
+      value: 9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: _spawnAmount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: GroundLayer.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _selfCollisionRange
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1114,11 +1122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865666d03a1ce3a438b8235d863ebc6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parent: {fileID: 2062021168}
   MoveSpeed: 2
-  minZoom: 20
-  maxZoom: 60
-  zoomSpeed: 5
-  Parent: {fileID: 0}
+  MinZoom: 20
+  MaxZoom: 60
+  ZoomSpeed: 5
 --- !u!223 &1715748441
 Canvas:
   m_ObjectHideFlags: 0
