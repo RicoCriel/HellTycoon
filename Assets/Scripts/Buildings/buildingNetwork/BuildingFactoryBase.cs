@@ -7,41 +7,44 @@ namespace Buildings
 {
     public class BuildingFactoryBase : BuildingBase
     {
-        internal Queue<GameObject> UnprocessedDemonContainer = new Queue<GameObject>();
+        internal Queue<GameObject> _unprocessedDemonContainer = new Queue<GameObject>();
         internal Queue<GameObject> _processedDemonContainer = new Queue<GameObject>();
 
         [SerializeField]
         internal int MaxDemons = 10;
 
-        internal int MachineSpawnRatePerSecond = 1;
+        internal int MachineRatePerSecond = 1;
 
         private Coroutine _myspanwingRoutine;
+        
 
         protected void Awake()
         {
             base.Awake();
 
-            _myspanwingRoutine = StartCoroutine(DemonSpawningRoutine());
+            _myspanwingRoutine = StartCoroutine(MachineRoutine());
         }
 
-        protected void ResumeSpawning()
+        protected void ResumeProcessing()
         {
             if (_myspanwingRoutine == null)
             {
-                StartCoroutine(DemonSpawningRoutine());
+                StartCoroutine(MachineRoutine());
             }
         }
 
         protected void StopSpawning()
         {
-            StopCoroutine(DemonSpawningRoutine());
+            StopCoroutine(MachineRoutine());
         }
 
-        private IEnumerator DemonSpawningRoutine()
+        private IEnumerator MachineRoutine()
         {
             while (true)
             {
-                yield return new WaitForSeconds(MachineSpawnRatePerSecond);
+                yield return new WaitForSeconds(MachineRatePerSecond/2f);
+                ExecuteMachineProcessingBehaviour();
+                yield return new WaitForSeconds(MachineRatePerSecond/2f);
                 ExecuteMachineSpawningBehaviour();
             }
         }
@@ -64,13 +67,18 @@ namespace Buildings
 
         protected virtual void ExecuteMachineProcessingBehaviour()
         {
-            if (UnprocessedDemonContainer.Count > 0 && ContainerHasSpace()
+            if (_unprocessedDemonContainer.Count > 0 && ContainerHasSpace(_processedDemonContainer))
             {
-                AddDemon(UnprocessedDemonContainer.Dequeue());
+                AddDemon(_processedDemonContainer,_unprocessedDemonContainer.Dequeue());
+                PlayProcessingAnimation();
             }
-            {
-                //Process demon sprites?
-            }
+            
+        }
+
+        protected virtual void PlayProcessingAnimation()
+        {
+            //todo play animation
+            //hook up aninmator etc preferably make a new class for each factory
         }
 
         protected virtual void ExecuteMachineSpawningBehaviour()
@@ -84,7 +92,7 @@ namespace Buildings
             {
                 if (OutNode.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
                 {
-                    if (nextMachine.ContainerHasSpace())
+                    if (nextMachine.ContainerHasSpace(nextMachine._unprocessedDemonContainer))
                     {
                         //if this machine still has demons
                         if (OutNode.SpawnObject(_processedDemonContainer.Peek()))

@@ -26,7 +26,7 @@ namespace Splines
 
         public SplineView Spline;
 
-        public BuildingBase myBuildingNode;
+        public BuildingFactoryBase myBuildingNode;
         
         //MyFactory
 
@@ -115,7 +115,15 @@ namespace Splines
             if (_splineDrawer == null || Spline == null) return false;
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline);
+            
+            // _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
+            
+            
             return true;
+        }
+        private void CallBack(GameObject obj)
+        {
+            myBuildingNode.AddDemon(myBuildingNode._unprocessedDemonContainer, obj);
         }
 
 
