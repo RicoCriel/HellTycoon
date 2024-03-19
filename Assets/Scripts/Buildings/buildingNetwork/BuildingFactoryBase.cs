@@ -1,4 +1,5 @@
 using Splines;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,40 +7,105 @@ namespace Buildings
 {
     public class BuildingFactoryBase : BuildingBase
     {
-        private Queue<GameObject> demoncontrainer = new Queue<GameObject>();
-        
+        internal Queue<GameObject> _unprocessedDemonContainer = new Queue<GameObject>();
+        internal Queue<GameObject> _processedDemonContainer = new Queue<GameObject>();
+
         [SerializeField]
-        private int MaxDemons = 10;
+        internal int MaxDemons = 10;
+
+        internal int MachineRatePerSecond = 1;
+
+        private Coroutine _myspanwingRoutine;
         
-        private int MachineSpawnRatePerSecond = 1;
-        
-        public bool ContainerHasSpace()
+
+        protected void Awake()
         {
-            return demoncontrainer.Count < MaxDemons;
+            base.Awake();
+
+            _myspanwingRoutine = StartCoroutine(MachineRoutine());
         }
-        
-        public void AddDemon(GameObject demon)
+
+        protected void ResumeProcessing()
         {
-            demoncontrainer.Enqueue(demon);
+            if (_myspanwingRoutine == null)
+            {
+                StartCoroutine(MachineRoutine());
+            }
         }
-        
-        public GameObject GetDemon()
+
+        protected void StopSpawning()
         {
-            return demoncontrainer.Dequeue();
+            StopCoroutine(MachineRoutine());
+        }
+
+        private IEnumerator MachineRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(MachineRatePerSecond/2f);
+                ExecuteMachineProcessingBehaviour();
+                yield return new WaitForSeconds(MachineRatePerSecond/2f);
+                ExecuteMachineSpawningBehaviour();
+            }
+        }
+
+
+        public bool ContainerHasSpace(Queue<GameObject>DemonList)
+        {
+            return DemonList.Count < MaxDemons;
+        }
+
+        public void AddDemon(Queue<GameObject>DemonList, GameObject demon)
+        {
+            DemonList.Enqueue(demon);
+        }
+
+        public GameObject GetDemon(Queue<GameObject>DemonList)
+        {
+            return DemonList.Dequeue();
+        }
+
+        protected virtual void ExecuteMachineProcessingBehaviour()
+        {
+            if (_unprocessedDemonContainer.Count > 0 && ContainerHasSpace(_processedDemonContainer))
+            {
+                AddDemon(_processedDemonContainer,_unprocessedDemonContainer.Dequeue());
+                PlayProcessingAnimation();
+            }
+            
+        }
+
+        protected virtual void PlayProcessingAnimation()
+        {
+            //todo play animation
+            //hook up aninmator etc preferably make a new class for each factory
+        }
+
+        protected virtual void ExecuteMachineSpawningBehaviour()
+        {
+            SpawnDemon(_exitBoxes[0]);
         }
 
         public void SpawnDemon(PlaceholderConnectorHitBox OutNode)
         {
-           //if next machione is not full
-           
-           //if this machine still has demons
-              if (OutNode.SpawnObject(demoncontrainer.Peek()))
-              {
-                demoncontrainer.Dequeue();
-              }
-              
-              
+            if (_processedDemonContainer.Count > 0)
+            {
+                if (OutNode.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
+                {
+                    if (nextMachine.ContainerHasSpace(nextMachine._unprocessedDemonContainer))
+                    {
+                        //if this machine still has demons
+                        if (OutNode.SpawnObject(_processedDemonContainer.Peek()))
+                        {
+                            _processedDemonContainer.Dequeue();
+                        }
+                    }
+                }
+            }
         }
 
+
+
     }
+
 }

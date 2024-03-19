@@ -1,15 +1,23 @@
+using Dreamteck.Splines.Editor;
 using Splines;
 using System.Collections.Generic;
 using UnityEngine;
+using Splines.Drawing;
+using SplineDrawer = Splines.Drawing.SplineDrawer;
 namespace Buildings
 {
     public class BuildingBase : MonoBehaviour
     {
-        List<PlaceholderConnectorHitBox> EntryBoxes = new List<PlaceholderConnectorHitBox>();
-        List<PlaceholderConnectorHitBox> ExitBoxes = new List<PlaceholderConnectorHitBox>();
+        internal List<PlaceholderConnectorHitBox> _entryBoxes = new List<PlaceholderConnectorHitBox>();
+        internal List<PlaceholderConnectorHitBox> _exitBoxes = new List<PlaceholderConnectorHitBox>();
 
-        private void Awake()
+        internal SplineDrawer splineDrawer;
+
+        protected void Awake()
         {
+            if (splineDrawer == null)
+                splineDrawer = FindObjectOfType<SplineDrawer>();
+
             ConnectHitBoxesOnAwake();
 
         }
@@ -18,16 +26,17 @@ namespace Buildings
 
             PlaceholderConnectorHitBox[] hitBoxes = GetComponentsInChildren<PlaceholderConnectorHitBox>();
 
-            foreach (PlaceholderConnectorHitBox VARIABLE in hitBoxes)
+            foreach (PlaceholderConnectorHitBox Connector in hitBoxes)
             {
-                if (VARIABLE.IsSplineStart)
+                if (Connector.IsSplineStart)
                 {
-                    EntryBoxes.Add(VARIABLE);
+                    _entryBoxes.Add(Connector);
                 }
                 else
                 {
-                    ExitBoxes.Add(VARIABLE);
+                    _exitBoxes.Add(Connector);
                 }
+                Connector.myBuildingNode = this;
             }
         }
     }

@@ -1,3 +1,4 @@
+using Buildings;
 using Splines.Drawing;
 using System;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace Splines
 
         public SplineView Spline;
 
+        public BuildingBase myBuildingNode;
+
         //MyFactory
 
         private void Awake()
@@ -42,9 +45,10 @@ namespace Splines
                 _myMeshRenderer.material.color = Color.red;
             }
 
-            if(_splineDrawer == null)
+            if (_splineDrawer == null)
                 _splineDrawer = FindObjectOfType<SplineDrawer>();
         }
+
 
         public Vector3 GetConnectorPointSpline()
         {
@@ -69,7 +73,8 @@ namespace Splines
             if (!IsSplineStart && !ImConnected)
             {
                 Debug.Log("Literally calling the stop at machine logic");
-                _splineDrawer.StopDrawingSplineAtMachine(this, out Spline);
+                _splineDrawer.StopDrawingSplineAtMachine(this, out SplineView splineConnection);
+                Spline = splineConnection;
                 ImConnected = true;
             }
         }
@@ -110,10 +115,25 @@ namespace Splines
             if (_splineDrawer == null || Spline == null) return false;
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline);
+
+            _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
+
+
             return true;
         }
-        
+        private void CallBack(GameObject obj)
+        {
+            if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
+            {
+                nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
+            }
+
+            if (myBuildingNode.TryGetComponent(out BuildingPortal NextPortal))
+            {
+                //todo add opslorpcode Portal via buildingportal class.
+            }
+        }
+
 
     }
 }
-
