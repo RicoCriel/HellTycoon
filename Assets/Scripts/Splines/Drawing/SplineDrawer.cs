@@ -28,6 +28,7 @@ namespace Splines.Drawing
         [SerializeField] private Material _materialToUse;
         [Header("SplineReferences Mesh")]
         [SerializeField] private SplineView _splineViewPrefab;
+        
 
         private SplineView GetSplinePrefab()
         {
@@ -85,6 +86,12 @@ namespace Splines.Drawing
         [Range(1f, 20)]
         [SerializeField] private float _followSpeed = 1f;
 
+        [Header("PlacementVariables")]
+        [Range(0, 100)]
+        [SerializeField] private float _maxBeltLenght = 50;
+        [SerializeField] private Color _BeltPlacementColor;
+        [SerializeField] private Color _BeltPlacementColorMax;
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -102,6 +109,8 @@ namespace Splines.Drawing
         {
             if (_hasStartedDrawing)
             {
+                if (SetBeltColourDependingOnPlacementRange()) return;
+
                 // Debug.Log(points.Count);
                 CapturePoint();
 
@@ -123,6 +132,20 @@ namespace Splines.Drawing
                 }
                 UpdateMeshWhileDrawing();
             }
+        }
+        private bool SetBeltColourDependingOnPlacementRange()
+        {
+            float splineUniformSize = _instanciatedSpline.GetSplineUniformSize();
+            Debug.Log(splineUniformSize);
+            if (_maxBeltLenght < splineUniformSize)
+            {
+                _instanciatedSpline.ChangeAllPointColours(_BeltPlacementColorMax);
+                return true;
+            }
+
+            float MaxBuildPercentage = splineUniformSize / _maxBeltLenght;
+            _instanciatedSpline.ChangePercentualPointColours(_BeltPlacementColor, MaxBuildPercentage);
+            return false;
         }
 
         public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)

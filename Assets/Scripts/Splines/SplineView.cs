@@ -136,6 +136,35 @@ namespace Splines
             newPoints[points.Length].color = Color.white;
             _mySplineComputer.SetPoints(newPoints);
         }
+        
+        public void ChangeAllPointColours(Color color)
+        {
+            SplinePoint[] points = _mySplineComputer.GetPoints();
+            for (int index = 0; index < points.Length; index++)
+            {
+                 points[index].color = color;
+                
+            }
+            _mySplineComputer.SetPoints(points);
+        }
+        
+        public void ChangePercentualPointColours(Color color, float percent)
+        {
+            if (percent >1 )
+            {
+                percent = 1;
+            }
+            
+            SplinePoint[] points = _mySplineComputer.GetPoints();
+            
+            int pointsToColour = (int) (points.Length * percent);
+            
+            for (int index = 0; index < pointsToColour; index++)
+            {
+                points[index].color = color;
+            }
+            _mySplineComputer.SetPoints(points);
+        }
 
         /// <summary>
         /// remove point at any instance
@@ -239,5 +268,6 @@ namespace Splines
         {
             _mySplineMesh.UpdateCollider();
         }
+       
     }
 }
