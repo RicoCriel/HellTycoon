@@ -313,17 +313,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 623361082956852733, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
   m_PrefabInstance: {fileID: 309494825}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &608780484 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4213883167629200226, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
-  m_PrefabInstance: {fileID: 309494825}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9875af8c02ac3d14aab204ec71279e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &685840967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7993385628849237588, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
@@ -506,17 +495,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!114 &777381952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4213883167629200226, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
-  m_PrefabInstance: {fileID: 1070547230}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9875af8c02ac3d14aab204ec71279e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1003892008 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
@@ -728,17 +706,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34280af63f470c14b9d38ee1dbe541f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SplineViewPrefab: {fileID: 1131511274195049740, guid: 2aee9c6de64288c4ba473823aa60659d, type: 3}
+  _splineViewPrefab: {fileID: 0}
   _meshToUse: {fileID: 4068373912626513877, guid: 7311408505ddc9e42ac81bac62f45c48, type: 3}
   _materialToUse: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
-  SizeTester: 9
+  _sizeTester: 0
   _followerViewPrefab: {fileID: 3668791474713164969, guid: fbca92f290601c8428756bbedd98f679, type: 3}
   _timeBetweenSpawns: 0.202
   _spawnAmount: 100
   _followSpeed: 20
-  BoxIn: {fileID: 777381952}
-  BoxOut: {fileID: 608780484}
-  middlePoint: {fileID: 1926464456}
+  _boxIn: {fileID: 0}
+  _boxOut: {fileID: 0}
+  _middlePoint: {fileID: 0}
 --- !u!4 &1331270712
 Transform:
   m_ObjectHideFlags: 0
@@ -799,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 547976462628252207, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7338459849359280560, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: m_LocalPosition.x
