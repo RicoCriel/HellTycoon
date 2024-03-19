@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 namespace Splines.Drawing
 {
     public class SplineDrawer : MonoBehaviour
@@ -20,13 +21,33 @@ namespace Splines.Drawing
         [Space]
         [Range(0.1f, 1f)]
         [SerializeField] private float _minpointDistanceOfSet = 0.05f;
-
-        [Header("SplineReferences")]
+        [Space]
+        [Header("General References")]
+        [SerializeField]
+        private bool UsingPathSpline;
+        [SerializeField] private Material _materialToUse;
+        [Header("SplineReferences Mesh")]
         [SerializeField] private SplineView _splineViewPrefab;
+        
+
+        private SplineView GetSplinePrefab()
+        {
+            return UsingPathSpline ? _splineViewPrefabPath : _splineViewPrefab;
+        }
 
         [SerializeField] private Mesh _meshToUse;
-        [SerializeField] private Material _materialToUse;
 
+        [Header("SplineReferences Path")]
+        [SerializeField] 
+        private SplineView _splineViewPrefabPath;
+        [SerializeField] 
+        [Range(0.01f, 0.5f)]
+        private float _splinePathOffset;
+        [SerializeField]
+        [Range(0.01f, 0.1f)]
+        private float _splinePathOffsetMinMAx;
+
+        private float CurrentPointOffset;
 
         [HideInInspector]
         public List<Vector3> Points = new List<Vector3>();
@@ -39,6 +60,7 @@ namespace Splines.Drawing
         private bool _currentSplineConnected = false;
 
         private PlaceholderConnectorHitBox _currentStartingBox;
+
         private SplineView _instanciatedSpline;
 
         //fix later by having more uniform mesh prefabs...
@@ -64,10 +86,31 @@ namespace Splines.Drawing
         [Range(1f, 20)]
         [SerializeField] private float _followSpeed = 1f;
 
+        [Header("PlacementVariables")]
+        [Range(0, 100)]
+        [SerializeField] private float _maxBeltLenght = 50;
+        [SerializeField] private Color _BeltPlacementColor;
+        [SerializeField] private Color _BeltPlacementColorMax;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(_mostRecentPoint, _selfCollisionRange);
+
+            // if (points.Count > 2)
+            // {
+            //     Gizmos.color = Color.red;
+            //
+            //     Gizmos.DrawLine(mostRecentPoint, points[^1] + new Vector3(0, 0.5f, 0));
+            // }
+        }
+
         void Update()
         {
             if (_hasStartedDrawing)
             {
+                if (SetBeltColourDependingOnPlacementRange()) return;
+
                 // Debug.Log(points.Count);
                 CapturePoint();
 
@@ -90,6 +133,20 @@ namespace Splines.Drawing
                 UpdateMeshWhileDrawing();
             }
         }
+        private bool SetBeltColourDependingOnPlacementRange()
+        {
+            float splineUniformSize = _instanciatedSpline.GetSplineUniformSize();
+            Debug.Log(splineUniformSize);
+            if (_maxBeltLenght < splineUniformSize)
+            {
+                _instanciatedSpline.ChangeAllPointColours(_BeltPlacementColorMax);
+                return true;
+            }
+
+            float MaxBuildPercentage = splineUniformSize / _maxBeltLenght;
+            _instanciatedSpline.ChangePercentualPointColours(_BeltPlacementColor, MaxBuildPercentage);
+            return false;
+        }
 
         public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
         {
@@ -97,7 +154,7 @@ namespace Splines.Drawing
             _currentStartingBox = placeholderConnectorHitBox;
             _currentSplineConnected = false;
             _hasStartedDrawing = true;
-            _instanciatedSpline = Instantiate(_splineViewPrefab);
+            _instanciatedSpline = Instantiate(GetSplinePrefab());
 
             //add start Box to spline
             _instanciatedSpline.StartConnector = placeholderConnectorHitBox;
@@ -109,12 +166,16 @@ namespace Splines.Drawing
 
             _instanciatedSpline.AddPoints(Points, 1, Vector3.zero);
 
-            SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUse);
-            float splineSize = _instanciatedSpline.GetSplineUniformSize();
+            if (!UsingPathSpline)
+            {
+                SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUse);
+                float splineSize = _instanciatedSpline.GetSplineUniformSize();
+                _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
+                _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            }
             _instanciatedSpline.SetMaterial(_materialToUse);
-            _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
+
             // instanciatedSpline.SetMeshSize(10);
-            _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
 
             return _instanciatedSpline;
         }
@@ -182,8 +243,7 @@ namespace Splines.Drawing
 
 
                 EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-                followerArrivedHandler = (sender, args) =>
-                {
+                followerArrivedHandler = (sender, args) => {
                     Debug.Log("Follower Arrived");
                     //Call machine code where the object just arrived.
                     follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
@@ -215,8 +275,7 @@ namespace Splines.Drawing
 
             //hook up events
             EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-            followerArrivedHandler = (sender, args) =>
-            {
+            followerArrivedHandler = (sender, args) => {
                 if (args.GameObject == null) return;
 
                 Debug.Log("Follower Arrived");
@@ -248,8 +307,7 @@ namespace Splines.Drawing
 
             //hook up events
             EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-            followerArrivedHandler = (sender, args) =>
-            {
+            followerArrivedHandler = (sender, args) => {
                 if (args.GameObject == null) return;
 
                 Debug.Log("Follower Arrived");
@@ -283,7 +341,10 @@ namespace Splines.Drawing
 
         private void AddNewSplinePoint(Vector3 point)
         {
-            _instanciatedSpline.AddOnePoint(point, 1, Vector3.zero);
+            float offset = GetNewYOffset();
+            CurrentPointOffset = offset;
+            
+            _instanciatedSpline.AddOnePoint(point, 1, new Vector3(0, CurrentPointOffset, 0));
 
         }
 
@@ -313,34 +374,38 @@ namespace Splines.Drawing
                 Debug.DrawLine(_mostRecentPoint, _mostRecentPoint + Vector3.up * 3, Color.green, 0.0f);
                 Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
 
+
+                // _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, Vector3.zero);
+                // _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset, 0), Color.red);
+
                 if (PerformRayCast()) return;
                 if (Collisioncheck()) return;
 
-                _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, Vector3.zero);
+                _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset, 0), Color.white);
             }
         }
 
-        private void OnDrawGizmos()
+        private float GetNewYOffset()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(_mostRecentPoint, _selfCollisionRange);
+            float offset =  UnityEngine.Random.Range(-_splinePathOffsetMinMAx, _splinePathOffsetMinMAx);
+            
+            float result = _splinePathOffset + offset;
 
-            // if (points.Count > 2)
-            // {
-            //     Gizmos.color = Color.red;
-            //
-            //     Gizmos.DrawLine(mostRecentPoint, points[^1] + new Vector3(0, 0.5f, 0));
-            // }
+            return result;
         }
 
 
         private void UpdateMeshWhileDrawing()
         {
             //updateMeshWhileDrawing
-            SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
-            float splineSize = _instanciatedSpline.GetSplineUniformSize();
-            _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 2);
-            _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            if (!UsingPathSpline)
+            {
+                SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
+                float splineSize = _instanciatedSpline.GetSplineUniformSize();
+                _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 2);
+                _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            }
+
             // instanciatedSpline.UpdateColliderInstantly();
         }
 
