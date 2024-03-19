@@ -10,6 +10,7 @@ TagManager:
   - Demon
   - Portal
   - Map
+  - Snapable
   layers:
   - Default
   - TransparentFX

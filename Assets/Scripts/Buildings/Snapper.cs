@@ -1,26 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(SphereCollider))]
 public class Snapper : MonoBehaviour
 {
-    private SphereCollider _radiusCollider;
-    private BoxCollider _snappingCollider;
+    [SerializeField] private Transform[] snapPoints;
+    [SerializeField] private float _snapRange = 5.5f;
+    [SerializeField] private LayerMask snapLayer;
 
-    private void Awake()
+
+    private Transform _closestSnapPoint = null;
+    [SerializeField] private bool _isPlaced = false;
+
+    void OnTriggerEnter(Collider other)
     {
-        _snappingCollider = GetComponent<BoxCollider>();
-        _radiusCollider = GetComponent<SphereCollider>();
+        if (other.gameObject.layer == snapLayer)
+        {
+            // Check if snapping is possible
+            if (CanSnapTo(other.gameObject))
+            {
+                // Perform snapping
+                SnapTo(other.gameObject);
+            }
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    bool CanSnapTo(GameObject target)
     {
-        var myClosestPoint = _snappingCollider.ClosestPoint(collision.collider.transform.position);
-        var targetClosestPoint = collision.collider.ClosestPoint(myClosestPoint);
-        Vector3 offset = targetClosestPoint - myClosestPoint;
+        float closestDistance = float.MaxValue;
         
-        collision.gameObject.transform.position += offset;
+
+        foreach (Transform snapPoint in snapPoints)
+        {
+            Vector3 snapPointWorldPos = transform.TransformPoint(snapPoint.localPosition);
+
+            foreach (Transform targetSnapPoint in target.GetComponent<Snapper>().snapPoints)
+            {
+                Vector3 targetSnapPointWorldPos = target.transform.TransformPoint(targetSnapPoint.localPosition);
+
+                float distance = Vector3.Distance(snapPointWorldPos, targetSnapPointWorldPos);
+
+                if (distance < _snapRange && distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    _closestSnapPoint = snapPoint;
+                }
+            }
+        }
+
+        if (_closestSnapPoint != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void SnapTo(GameObject target)
+    {
+        if(!_isPlaced)
+        {
+         _isPlaced = true;
+        transform.parent.transform.position = _closestSnapPoint.position;
+
+        }
     }
 }
+
