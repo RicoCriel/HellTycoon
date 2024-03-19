@@ -330,7 +330,13 @@ namespace Splines.Drawing
 
                 follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
 
-                callBack(args.GameObject);
+                // Detach demon from spline follower
+                DemonHandler demonHandler = args.GameObject.GetComponentInChildren<DemonHandler>();
+                if (demonHandler != null)
+                {
+                    demonHandler.gameObject.transform.parent = null;
+                    callBack(demonHandler.gameObject);
+                }
 
                 Destroy(args.GameObject);
             };

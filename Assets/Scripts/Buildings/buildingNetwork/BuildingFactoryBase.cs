@@ -10,24 +10,22 @@ namespace Buildings
         internal Queue<GameObject> _unprocessedDemonContainer = new Queue<GameObject>();
         internal Queue<GameObject> _processedDemonContainer = new Queue<GameObject>();
 
-        [SerializeField]
-        internal int MaxDemons = 10;
+        [SerializeField] internal int MaxDemons = 10;
 
         internal int MachineRatePerSecond = 1;
 
-        private Coroutine _myspanwingRoutine;
-        
+        private Coroutine _mySpawningRoutine;
 
         protected void Awake()
         {
             base.Awake();
 
-            _myspanwingRoutine = StartCoroutine(MachineRoutine());
+            _mySpawningRoutine = StartCoroutine(MachineRoutine());
         }
 
         protected void ResumeProcessing()
         {
-            if (_myspanwingRoutine == null)
+            if (_mySpawningRoutine == null)
             {
                 StartCoroutine(MachineRoutine());
             }
@@ -57,6 +55,7 @@ namespace Buildings
 
         public void AddDemon(Queue<GameObject>DemonList, GameObject demon)
         {
+            demon.SetActive(false);
             DemonList.Enqueue(demon);
         }
 
