@@ -53,14 +53,18 @@ MonoBehaviour:
   PointInterval: 0.2
   _maxpointDistanceOfSet: 0.5
   _minpointDistanceOfSet: 0.05
+  UsingPathSpline: 1
+  _materialToUse: {fileID: 2100000, guid: 479a0e159eeabc4458794c51946b29ba, type: 2}
   _splineViewPrefab: {fileID: 1131511274195049740, guid: 2aee9c6de64288c4ba473823aa60659d, type: 3}
   _meshToUse: {fileID: 4068373912626513877, guid: 7311408505ddc9e42ac81bac62f45c48, type: 3}
-  _materialToUse: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
+  _splineViewPrefabPath: {fileID: 1131511274195049740, guid: 92ec4f5221159a444b5a4a9e70a32eb1, type: 3}
+  _splinePathOffset: 0.15
+  _splinePathOffsetMinMAx: 0.02
   Points: []
   _sizeTester: 9.5
-  _selfCollisionRange: 2
+  _selfCollisionRange: 1
   _followerViewPrefab: {fileID: 3668791474713164969, guid: fbca92f290601c8428756bbedd98f679, type: 3}
   _spawnAmount: 100
   _timeBetweenSpawns: 0.3
   _followSpeed: 10
-  SelfColisionMultiplier: 2.1
+  SelfColisionMultiplier: 2.5

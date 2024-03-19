@@ -5,6 +5,8 @@ namespace Splines
 {
     public class SplineView : MonoBehaviour
     {
+        [SerializeField] private bool IsPathSpline;
+        
         [SerializeField] private SplineComputer _mySplineComputer;
 
         [SerializeField] private SplineMesh _mySplineMesh;
@@ -12,7 +14,9 @@ namespace Splines
         [SerializeField] private MeshRenderer _myMeshRenderer;
 
         [SerializeField] private MeshFilter _myMeshFilter;
-
+        
+        [SerializeField] private PathGenerator _splinePath;
+ 
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
 
@@ -97,7 +101,7 @@ namespace Splines
         /// </summary>
         /// <param name="point"></param>
         /// <param name="offset"></param>
-        public void UpdateLastPoint(Vector3 point, Vector3 offset)
+        public void UpdateLastPoint(Vector3 point, Vector3 offset, Color color)
         {
             if (_mySplineComputer.GetPoints().Length > 0)
             {
@@ -105,7 +109,7 @@ namespace Splines
                 points[points.Length - 1].position = point + offset;
                 // points[points.Length - 1].size = PointSize;
                 points[points.Length - 1].normal = Vector3.up;
-                points[points.Length - 1].color = Color.white;
+                points[points.Length - 1].color = color;
                 _mySplineComputer.SetPoints(points);
             }
         }
@@ -210,9 +214,6 @@ namespace Splines
         {
              return _mySplineMesh.AddChannel(mesh, "Main");
         }
-        
-      
-        
         public SplineMesh.Channel GetMeshChannel(int index)
         {
            return _mySplineMesh.GetChannel(index);

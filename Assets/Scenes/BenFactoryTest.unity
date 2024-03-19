@@ -775,10 +775,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SplineDrawer
       objectReference: {fileID: 0}
-    - target: {fileID: 547976462628252207, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7338459849359280560, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
