@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Input
+  m_Name: Part 1
   m_EditorClassIdentifier: 
-  _displayName: Inserter
-  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
-  _prefab: {fileID: 5002515597761908009, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
+  _displayName: Part 1
+  _icon: {fileID: 21300000, guid: a4fb65b4e2ffecc4ea87b86d91f211f1, type: 3}
+  _prefab: {fileID: 8531093189678575500, guid: ae556977e4e2d974ea623ea90fd41699, type: 3}
   _buildingSize: {x: 0, y: 0}
-  _price: 10
+  _price: 5
   _partType: 0
   _buildTag: Map
