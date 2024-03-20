@@ -22,9 +22,10 @@ public class CameraController : MonoBehaviour
     {
         // Camera zoom controls
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        float newZoom = _cam.fieldOfView - scroll * ZoomSpeed;
-        newZoom = Mathf.Clamp(newZoom, MinZoom, MaxZoom);
-        _cam.fieldOfView = newZoom;
+        float newZoom = - scroll * ZoomSpeed;
+        //newZoom = Mathf.Clamp(newZoom, MinZoom, MaxZoom);
+        //_cam.fieldOfView = newZoom;
+        _cam.orthographicSize += newZoom;
 
         // Camera movement controls
         Vector3 moveDirection = Vector3.zero;

@@ -8,8 +8,8 @@ namespace FreeBuild
 {
     public class FreeBuildManager : MonoBehaviour
     {
-        
-        
+
+
         // can select outline Color.
         //public Color AbleAreaColor = new Color(0, 255, 0);
         //public Color NotAbleAreaColor = new Color(255, 0, 0);
@@ -49,7 +49,7 @@ namespace FreeBuild
         {
             _isSnapped = true;
         }
-   
+
 
         public void SetLocked(bool locked)
         { _locked = locked; }
@@ -111,7 +111,7 @@ namespace FreeBuild
 
                     if (!_locked)
                     {
-                        if(!_isSnapped)
+                        if (!_isSnapped)
                         {
                             // Move
                             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -124,7 +124,7 @@ namespace FreeBuild
                             }
                         }
                     }
-                       
+
                 }
             }
 
@@ -165,6 +165,13 @@ namespace FreeBuild
             if (meshFilter == null)
             {
                 meshFilter = _realObject.GetComponentInChildren<MeshFilter>();
+            }
+            Snapper snapper = _realObject.GetComponent<Snapper>();
+            if (snapper != null)
+            {
+                var ghostSnap = _ghostObject.AddComponent<Snapper>();
+                ghostSnap.snapPoints = snapper.snapPoints;
+                ghostSnap.snapLayer = snapper.snapLayer;
             }
 
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
@@ -224,7 +231,7 @@ namespace FreeBuild
                     {
                         go.GetComponent<Snapper>()._isPlaced = true;
                     }
-                        go.transform.SetParent(_rootObject.transform);
+                    go.transform.SetParent(_rootObject.transform);
                 }
 
                 _locked = false;
@@ -262,5 +269,9 @@ namespace FreeBuild
                 Destroy(_ghostObject);
             }
         }
+
+
+
+
     }
 }
