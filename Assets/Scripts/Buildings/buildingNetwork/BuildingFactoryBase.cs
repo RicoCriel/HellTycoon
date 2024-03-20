@@ -87,7 +87,7 @@ namespace Buildings
 
         public void SpawnDemon(PlaceholderConnectorHitBox OutNode)
         {
-            if (_processedDemonContainer.Count > 0)
+            if (_processedDemonContainer.Count > 0 && OutNode.Spline != null)
             {
                 if (OutNode.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
                 {
