@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
+  m_Name: Part1
+  m_EditorClassIdentifier: 
+  _displayName: Part 1
+  _icon: {fileID: -3352572926724710189, guid: a99599a312b947e4bace09119b860129, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: be71ef1a61817ca4b839435fbc25c943, type: 3}
+  _buildingSize: {x: 0, y: 0}
+  _price: 5
+  _partType: 0
+  _buildTag: Map
