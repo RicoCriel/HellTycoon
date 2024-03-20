@@ -147,6 +147,7 @@ namespace FreeBuild
             }
 
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
+            _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }

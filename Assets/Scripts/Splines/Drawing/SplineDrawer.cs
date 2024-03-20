@@ -188,13 +188,13 @@ namespace Splines.Drawing
 
         public float StopDrawingSplineAtMachine(PlaceholderConnectorHitBox placeholderConnectorHitBox, out SplineView spline)
         {
-            if (MaxsizeCheck())
+            if (!_hasStartedDrawing)
             {
                 spline = null;
                 return 0;
             }
-            
-            if (!_hasStartedDrawing)
+
+            if (MaxsizeCheck())
             {
                 spline = null;
                 return 0;
