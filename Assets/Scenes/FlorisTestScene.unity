@@ -580,6 +580,14 @@ PrefabInstance:
       propertyPath: _selfCollisionRange
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.a
+      value: 0.5568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.g
+      value: 0.5176471
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
