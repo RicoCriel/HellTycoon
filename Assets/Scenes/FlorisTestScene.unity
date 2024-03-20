@@ -331,17 +331,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &552438579 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3931564255636233249, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
-  m_PrefabInstance: {fileID: 1971223540}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbfd9f69edec7b4db9c545964be099b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &588009216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6478518109528217408, guid: b0b0192722f03894f95d8d2bab123108, type: 3}
@@ -585,6 +574,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+--- !u!114 &1526384028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2059994798946925512, guid: b0b0192722f03894f95d8d2bab123108, type: 3}
+  m_PrefabInstance: {fileID: 225346211}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acdad226d67c1f46a6c1eba55d2e9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1556635146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -958,7 +958,7 @@ PrefabInstance:
     - target: {fileID: 712807093406839327, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
       propertyPath: myBuildingNode
       value: 
-      objectReference: {fileID: 552438579}
+      objectReference: {fileID: 0}
     - target: {fileID: 712807093406839327, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
       propertyPath: _connectorPoint
       value: 
@@ -1032,18 +1032,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 302488402097737874, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
-      propertyPath: _splineDrawer
-      value: 
-      objectReference: {fileID: 145404511}
-    - target: {fileID: 302488402097737874, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
-      propertyPath: _connectorPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 302488402097737874, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
-      propertyPath: _connectorAnglePoint
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 518219142722640335, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.38
@@ -1084,10 +1072,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1260010762546150964, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
+    - target: {fileID: 704289195530165076, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
+      propertyPath: _splineDrawer
+      value: 
+      objectReference: {fileID: 145404511}
+    - target: {fileID: 704289195530165076, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
       propertyPath: myBuildingNode
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1526384028}
+    - target: {fileID: 3348819743049093252, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
+      propertyPath: _splineDrawer
+      value: 
+      objectReference: {fileID: 145404511}
     - target: {fileID: 5002515597761908009, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
       propertyPath: m_Name
       value: MachineInput

@@ -40,26 +40,26 @@ namespace Buildings
         {
             while (true)
             {
-                yield return new WaitForSeconds(MachineRatePerSecond/2f);
+                yield return new WaitForSeconds(MachineRatePerSecond / 2f);
                 ExecuteMachineProcessingBehaviour();
-                yield return new WaitForSeconds(MachineRatePerSecond/2f);
+                yield return new WaitForSeconds(MachineRatePerSecond / 2f);
                 ExecuteMachineSpawningBehaviour();
             }
         }
 
 
-        public bool ContainerHasSpace(Queue<GameObject>DemonList)
+        public bool ContainerHasSpace(Queue<GameObject> DemonList)
         {
             return DemonList.Count < MaxDemons;
         }
 
-        public void AddDemon(Queue<GameObject>DemonList, GameObject demon)
+        public void AddDemon(Queue<GameObject> DemonList, GameObject demon)
         {
             demon.SetActive(false);
             DemonList.Enqueue(demon);
         }
 
-        public GameObject GetDemon(Queue<GameObject>DemonList)
+        public GameObject GetDemon(Queue<GameObject> DemonList)
         {
             return DemonList.Dequeue();
         }
@@ -68,10 +68,10 @@ namespace Buildings
         {
             if (_unprocessedDemonContainer.Count > 0 && ContainerHasSpace(_processedDemonContainer))
             {
-                AddDemon(_processedDemonContainer,_unprocessedDemonContainer.Dequeue());
+                AddDemon(_processedDemonContainer, _unprocessedDemonContainer.Dequeue());
                 PlayProcessingAnimation();
             }
-            
+
         }
 
         protected virtual void PlayProcessingAnimation()

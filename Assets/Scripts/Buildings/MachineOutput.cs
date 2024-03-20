@@ -3,31 +3,52 @@ using System.Collections.Generic;
 using Splines;
 using UnityEngine;
 
-public class MachineOutput : MonoBehaviour
+namespace Buildings
 {
-    [SerializeField] private PlaceholderConnectorHitBox _connector;
-    [SerializeField] private GameObject _demonPrefab;
-
-    private void Awake()
+    public class MachineOutput : BuildingFactoryBase
     {
-        if (_connector == null)
-            _connector = GetComponent<PlaceholderConnectorHitBox>();
-    }
+        [SerializeField] private GameObject _demonPrefab;
+        private MachineNode _node;
 
-    public void SpawnDemon(MachineNode node)
-    {
-        if (_demonPrefab == null) return;
+        public MachineNode Node
+        {
+            set => _node = value;
+        }
 
-        var demon = Instantiate(_demonPrefab, transform.position, Quaternion.identity);
-        var handler = demon.GetComponent<DemonHandler>();
+        public void SpawnDemon(MachineNode node)
+        {
+            if (_demonPrefab == null) return;
 
-        if (handler == null) return;
+            var demon = Instantiate(_demonPrefab, transform.position, Quaternion.identity);
+            var handler = demon.GetComponent<DemonHandler>();
 
-        handler.HornLevel = node.Stat0;
-        handler.FaceLevel = node.Stat1;
-        handler.WingsLevel = node.Stat2;
-        handler.ArmorLevel = node.Stat3;
+            if (handler == null) return;
 
-        _connector.SpawnObject(demon);
+            handler.HornLevel = node.Stat0;
+            handler.FaceLevel = node.Stat1;
+            handler.WingsLevel = node.Stat2;
+            handler.ArmorLevel = node.Stat3;
+
+
+        }
+
+        protected override void ExecuteMachineProcessingBehaviour()
+        {
+            if (_unprocessedDemonContainer.Count > 0)
+            {
+                foreach (var demon in _unprocessedDemonContainer)
+                {
+                    if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
+                    {
+                        handler.HornLevel = _node.Stat0;
+                        handler.FaceLevel = _node.Stat1;
+                        handler.WingsLevel = _node.Stat2;
+                        handler.ArmorLevel = _node.Stat3;
+                    }
+                }
+                base.ExecuteMachineProcessingBehaviour();
+            }
+        }
     }
 }
+

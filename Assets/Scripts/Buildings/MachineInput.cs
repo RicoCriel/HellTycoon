@@ -8,16 +8,7 @@ namespace Buildings
 {
     public class MachineInput : BuildingFactoryBase
     {
-        private void Awake()
-        {
-            base.Awake();
 
-        }
-
-        protected override void ExecuteMachineProcessingBehaviour()
-        {
-            base.ExecuteMachineProcessingBehaviour();
-        }
     }
 }
 

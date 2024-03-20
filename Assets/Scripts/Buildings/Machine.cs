@@ -1,90 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Buildings
 {
     public class Machine : MonoBehaviour
     {
         [SerializeField] private MachineNode _startNode;
-        private List<MachineNode> _machines;
+        private List<MachinePart> _machineParts;
         private IEnumerator _coroutine;
         private MachineOutput _output;
-        private MachineInput _input;
         private int _machineIndex;
 
         private void Awake()
         {
-            _machines = new List<MachineNode>();
-            _machines.Add(_startNode);
+            _machineParts = new List<MachinePart>();
+            //_machineParts.Add(_startNode);
 
-            _coroutine = Produce();
+            //_coroutine = Produce();
         }
 
-        public void Initialize(MachineInput input, int index)
+        public void Initialize(int index)
         {
-            _input = input;
             _machineIndex = index;
         }
 
-        public void SetOutput(MachineOutput output)
-        {
-            _output = output;
-        }
+        //public void SetOutput(MachineOutput output)
+        //{
+        //    _output = output;
+        //    output.Node = _machineParts[^1];
+        //}
 
-        public void AddMachine(int machineTypeIdx)
+        public void AddMachine(MachinePart machinePart)
         {
-            if (_machines == null) return;
+            Assert.IsTrue(machinePart);
+            if (_machineParts == null) return;
 
-            var currentNode = _machines[^1];
+            var currentNode = _machineParts.Count == 0 ? _startNode : _machineParts[^1].Node;
 
             if (currentNode == null) return;
 
-            if (currentNode.NextNodes.Count <= machineTypeIdx) return;
+            if (currentNode.NextNodes.Count <= 0) return;
 
-            _machines.Add(currentNode.NextNodes[machineTypeIdx]);
+            machinePart.Node = currentNode.NextNodes[(int)machinePart.MachineType];
+            _machineParts.Add(machinePart);
 
             // TODO: remove
-            currentNode = currentNode.NextNodes[machineTypeIdx];
-            Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
+            //currentNode = currentNode.NextNodes[(int)machineTypeIdx];
+            //Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
         }
 
         public void RemoveMachine()
         {
-            if (_machines == null || _machines.Count <= 1) return;
+            if (_machineParts == null || _machineParts.Count <= 1) return;
 
-            _machines.RemoveAt(_machines.Count - 1);
+            _machineParts.RemoveAt(_machineParts.Count - 1);
 
-            // TODO: remove
-            var currentNode = _machines[^1];
-            Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
+            //// TODO: remove
+            //var currentNode = _machineParts[^1];
+            //Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
         }
 
-        public MachineNode GetCurrentNode()
-        {
-            return _machines[^1];
-        }
+        //public MachineNode GetCurrentNode()
+        //{
+        //    return _machineParts[^1];
+        //}
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
-                AddMachine(0);
+            //if (Input.GetKeyDown(KeyCode.E))
+            //    AddMachine(0);
 
-            if (Input.GetKeyDown(KeyCode.R))
-                RemoveMachine();
+            //if (Input.GetKeyDown(KeyCode.R))
+            //    RemoveMachine();
         }
 
         public void StartProduction()
         {
-            StartCoroutine(_coroutine);
+            //StartCoroutine(_coroutine);
         }
 
-        IEnumerator Produce()
-        {
-            yield return new WaitForSeconds(_machines[^1].ProcessTime);
+        //IEnumerator Produce()
+        //{
+        //    yield return new WaitForSeconds(_machineParts[^1].ProcessTime);
 
-            _output.SpawnDemon(_machines[^1]);
-            //_input.Open = true;
+        //    _output.SpawnDemon(_machineParts[^1]);
+
+        //}
+
+        public MachinePart GetMachineAt(int idx)
+        {
+            return _machineParts[idx];
         }
     }
 }

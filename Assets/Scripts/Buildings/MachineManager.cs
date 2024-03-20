@@ -9,14 +9,17 @@ namespace Buildings
     {
         [SerializeField] private Machine _machinePrefab;
         private List<GameObject> _machines = new List<GameObject>();
+        private Machine _currentMachine;
+        public Machine CurrentMachine => _currentMachine;
 
-        public void AddMachine(MachineInput input)
+        public void AddMachine()
         {
             var machine = Instantiate(_machinePrefab);
             machine.name = "Machine " + _machines.Count;
             machine.transform.SetParent(transform, false);
-            machine.Initialize(input, _machines.Count);
+            machine.Initialize(_machines.Count);
             _machines.Add(machine.gameObject);
+            _currentMachine = machine;
         }
 
         public void removeMachine(int index)
@@ -25,7 +28,7 @@ namespace Buildings
         }
     }
 
-    enum MachineType : int
+    public enum MachineType : int
     {
         //TODO: change names
 

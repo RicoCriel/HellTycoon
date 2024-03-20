@@ -10,6 +10,8 @@ TagManager:
   - Demon
   - Portal
   - Map
+  - Input
+  - Output
   layers:
   - Default
   - TransparentFX
