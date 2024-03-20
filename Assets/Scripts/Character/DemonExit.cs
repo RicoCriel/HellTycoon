@@ -11,7 +11,7 @@ public class DemonExit : BuildingFactoryBase
     {
         var demoncomp = devil.GetComponent<DemonHandler>();
 
-        int sum = demoncomp.HornLevel * _econManager.HornLevelValue +
+        int sum = 5 + demoncomp.HornLevel * _econManager.HornLevelValue +
                     demoncomp.BodyLevel * _econManager.BodyLevelValue +
                         demoncomp.FaceLevel * _econManager.FaceLevelValue +
                             demoncomp.ArmorLevel * _econManager.ArmorLevelValue +
@@ -26,6 +26,7 @@ public class DemonExit : BuildingFactoryBase
             foreach (var demon in _unprocessedDemonContainer)
             {
                 _econManager.AddMoney(DemonValue(demon));
+                Destroy(demon);
             }
             _unprocessedDemonContainer.Clear();
         }

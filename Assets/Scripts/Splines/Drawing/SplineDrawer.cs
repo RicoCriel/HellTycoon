@@ -2,6 +2,7 @@ using Dreamteck.Splines;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
 using UnityEngine;
 using Random = System.Random;
 namespace Splines.Drawing
@@ -218,6 +219,12 @@ namespace Splines.Drawing
 
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
             spline = _instanciatedSpline;
+
+            var nextBuilding = placeholderConnectorHitBox.GetComponentInParent<BuildingFactoryBase>();
+            if (nextBuilding != null)
+            {
+                _currentStartingBox.myBuildingNode = nextBuilding;
+            }
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(_instanciatedSpline, _currentStartingBox, placeholderConnectorHitBox));
             float splineSizetoReturn = _instanciatedSpline.GetSplineUniformSize();
