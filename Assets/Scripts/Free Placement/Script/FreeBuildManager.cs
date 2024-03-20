@@ -8,6 +8,8 @@ namespace FreeBuild
 {
     public class FreeBuildManager : MonoBehaviour
     {
+        
+        
         // can select outline Color.
         //public Color AbleAreaColor = new Color(0, 255, 0);
         //public Color NotAbleAreaColor = new Color(255, 0, 0);
@@ -28,6 +30,7 @@ namespace FreeBuild
         private GameObject _ghostObject;
         private GameObject _realObject;
         private bool _locked = false;
+        private bool _isSnapped = false;
         private bool _canBuild = false;
 
         // Rotation speed
@@ -39,7 +42,17 @@ namespace FreeBuild
         private void Awake()
         {
             BuildingPanelUI._onPartChosen += CreateGhostObject;
+            Snapper.OnStartSnapping += LockObj;
         }
+
+        public void LockObj()
+        {
+            _isSnapped = true;
+        }
+   
+
+        public void SetLocked(bool locked)
+        { _locked = locked; }
 
         public void CreateGhostObject(BuildingData data)
         {
@@ -98,16 +111,20 @@ namespace FreeBuild
 
                     if (!_locked)
                     {
-                        // Move
-                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        RaycastHit hit;
-                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
-
-                        if (isHit && _ghostObject)
+                        if(!_isSnapped)
                         {
-                            MoveGhostObject(hit);
+                            // Move
+                            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                            RaycastHit hit;
+                            bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
+
+                            if (isHit && _ghostObject)
+                            {
+                                MoveGhostObject(hit);
+                            }
                         }
                     }
+                       
                 }
             }
 
@@ -119,6 +136,10 @@ namespace FreeBuild
             if (Input.GetKey(KeyCode.E))
             {
                 RotateGhostObject(RotateSpeed * Time.deltaTime);
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                _isSnapped = false;
             }
         }
 
@@ -199,6 +220,11 @@ namespace FreeBuild
                             _machineManager.CurrentMachine.AddMachine(machinePart);
                         }
                     }
+                    if (go.GetComponent<Snapper>() != null)
+                    {
+                        go.GetComponent<Snapper>()._isPlaced = true;
+                    }
+                        go.transform.SetParent(_rootObject.transform);
                 }
 
                 _locked = false;

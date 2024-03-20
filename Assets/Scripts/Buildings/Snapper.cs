@@ -1,19 +1,31 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
+using FreeBuild;
+using static Snapper;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Snapper : MonoBehaviour
 {
+    public delegate void StartSnapping();
+    public static event StartSnapping OnStartSnapping;
+
     [SerializeField] private Transform[] snapPoints;
     [SerializeField] private float _snapRange = 5.5f;
     [SerializeField] private LayerMask snapLayer;
+    [SerializeField] private FreeBuildManager _freeBuild;
 
 
     private Transform _closestSnapPoint = null;
-    [SerializeField] private bool _isPlaced = false;
+    [SerializeField] public bool _isPlaced = false;
+
+
+
+
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == snapLayer)
+        if ((snapLayer & (1 << other.gameObject.layer)) != 0)
         {
             // Check if snapping is possible
             if (CanSnapTo(other.gameObject))
@@ -27,7 +39,7 @@ public class Snapper : MonoBehaviour
     bool CanSnapTo(GameObject target)
     {
         float closestDistance = float.MaxValue;
-        
+
 
         foreach (Transform snapPoint in snapPoints)
         {
@@ -59,12 +71,12 @@ public class Snapper : MonoBehaviour
 
     void SnapTo(GameObject target)
     {
-        if(!_isPlaced)
+        if (!_isPlaced)
         {
-         _isPlaced = true;
-        transform.parent.transform.position = _closestSnapPoint.position;
 
+            OnStartSnapping();
+            transform.position = (_closestSnapPoint.localPosition * -2) + target.transform.position;
+            //transform.rotation = Quaternion.FromToRotation(transform.forward, -_closestSnapPoint.forward);
         }
     }
 }
-
