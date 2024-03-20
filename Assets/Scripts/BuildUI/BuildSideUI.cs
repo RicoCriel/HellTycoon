@@ -23,4 +23,11 @@ public class BuildSideUI : MonoBehaviour
         BuildingImage.color = Color.white;
         BuildingText.text = data.DisplayName;
     }
+    public void Clear()
+    {
+        BuildingImage.sprite = null;
+        BuildingImage.color = Color.clear;
+        BuildingText.text = string.Empty;
+    }
+        
 }
