@@ -13,6 +13,7 @@ namespace Buildings
         [SerializeField] internal int MaxDemons = 10;
 
         internal int MachineRatePerSecond = 1;
+        internal int _machineIdx = -1;
 
         private Coroutine _mySpawningRoutine;
 
@@ -21,6 +22,11 @@ namespace Buildings
             base.Awake();
 
             _mySpawningRoutine = StartCoroutine(MachineRoutine());
+        }
+
+        public void Initialize(int machineIdx)
+        {
+            _machineIdx = machineIdx;
         }
 
         protected void ResumeProcessing()

@@ -7,8 +7,18 @@ namespace Buildings
     public class MachinePart : BuildingFactoryBase
     {
         [SerializeField] private MachineType _machineType;
+
+        private int _partIndex = -1;
         public MachineType MachineType => _machineType;
         public MachineNode Node;
+
+
+        public void Initialize(MachineNode node, int machineIdx, int partIdx)
+        {
+            Node = node;
+            _partIndex = partIdx;
+            _machineIdx = machineIdx;
+        }
 
         protected override void ExecuteMachineProcessingBehaviour()
         {

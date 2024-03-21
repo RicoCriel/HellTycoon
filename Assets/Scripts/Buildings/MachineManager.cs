@@ -27,7 +27,7 @@ namespace Buildings
             _machines.RemoveAt(index);
         }
 
-        public void FinishMachine(GameObject output)
+        public void FinishMachine()
         {
             _currentMachine = null;
         }
@@ -38,11 +38,21 @@ namespace Buildings
         }
 
         // Set current machine as parent
-        public void AttachToCurrentMachine(GameObject go)
+        public void AttachToCurrentMachine(MachinePart machinePart)
         {
             if (_currentMachine != null)
             {
-                go.transform.parent = _currentMachine.transform;
+                _currentMachine.AddMachinePart(machinePart);
+                machinePart.transform.parent = _currentMachine.transform;
+            }
+        }
+
+        public void AttachToCurrentMachine(BuildingFactoryBase building)
+        {
+            if (_currentMachine != null)
+            {
+                building.transform.parent = _currentMachine.transform;
+                building.Initialize(_currentMachine.MachineIndex);
             }
         }
     }

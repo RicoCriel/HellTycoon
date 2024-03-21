@@ -13,12 +13,11 @@ namespace Buildings
         private MachineOutput _output;
         private int _machineIndex;
 
+        public int MachineIndex => _machineIndex;
+
         private void Awake()
         {
             _machineParts = new List<MachinePart>();
-            //_machineParts.Add(_startNode);
-
-            //_coroutine = Produce();
         }
 
         public void Initialize(int index)
@@ -26,13 +25,7 @@ namespace Buildings
             _machineIndex = index;
         }
 
-        //public void SetOutput(MachineOutput output)
-        //{
-        //    _output = output;
-        //    output.Node = _machineParts[^1];
-        //}
-
-        public void AddMachine(MachinePart machinePart)
+        public void AddMachinePart(MachinePart machinePart)
         {
             Assert.IsTrue(machinePart);
             if (_machineParts == null) return;
@@ -43,53 +36,29 @@ namespace Buildings
 
             if (currentNode.NextNodes.Count <= 0) return;
 
-            machinePart.Node = currentNode.NextNodes[(int)machinePart.MachineType];
+            machinePart.Initialize(currentNode.NextNodes[(int)machinePart.MachineType], _machineIndex,
+                _machineParts.Count - 1);
+
             _machineParts.Add(machinePart);
 
-            // TODO: remove
-            //currentNode = currentNode.NextNodes[(int)machineTypeIdx];
-            //Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
         }
 
-        public void RemoveMachine()
+        public void RemoveMachinePart(int idx)
         {
-            if (_machineParts == null || _machineParts.Count <= 1) return;
+            if (_machineParts == null || _machineParts.Count <= idx) return;
 
-            _machineParts.RemoveAt(_machineParts.Count - 1);
+            _machineParts.RemoveAt(idx);
 
-            //// TODO: remove
-            //var currentNode = _machineParts[^1];
-            //Debug.Log("Stat 0: " + currentNode.Stat0 + " Stat 3: " + currentNode.Stat3);
+            // reset nodes
+            MachineNode currentNode = _startNode;
+            for (int i = 0; i != _machineParts.Count; ++i)
+            {
+                _machineParts[i].Node = currentNode.NextNodes[(int)_machineParts[i].MachineType];
+                currentNode = _machineParts[i].Node;
+            }
         }
 
-        //public MachineNode GetCurrentNode()
-        //{
-        //    return _machineParts[^1];
-        //}
-
-        private void Update()
-        {
-            //if (Input.GetKeyDown(KeyCode.E))
-            //    AddMachine(0);
-
-            //if (Input.GetKeyDown(KeyCode.R))
-            //    RemoveMachine();
-        }
-
-        public void StartProduction()
-        {
-            //StartCoroutine(_coroutine);
-        }
-
-        //IEnumerator Produce()
-        //{
-        //    yield return new WaitForSeconds(_machineParts[^1].ProcessTime);
-
-        //    _output.SpawnDemon(_machineParts[^1]);
-
-        //}
-
-        public MachinePart GetMachineAt(int idx)
+        public MachinePart GetMachinePartAt(int idx)
         {
             return _machineParts[idx];
         }

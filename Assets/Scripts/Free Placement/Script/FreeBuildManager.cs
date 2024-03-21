@@ -27,6 +27,7 @@ namespace FreeBuild
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
         [SerializeField] private EconManager _econManager;
+        [SerializeField] private int _buildingLayer;
 
         private string _buildTag;
         private GameObject _ghostObject;
@@ -196,6 +197,8 @@ namespace FreeBuild
 
         public void Build()
         {
+            DestroyGhostObject();
+
             if (_canBuild)
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
@@ -216,10 +219,12 @@ namespace FreeBuild
                     if (_rootObject)
                         go.transform.SetParent(_rootObject.transform);
 
+                    go.layer = _buildingLayer;
+
                     // Make new machine if an input is placed
-                    if (go.CompareTag(_inputTag))
+                    if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
                     {
-                        _machineManager.AttachToCurrentMachine(go);
+                        _machineManager.AttachToCurrentMachine(building);
                         _machineManager.AddMachine();
                     }
 
@@ -227,6 +232,7 @@ namespace FreeBuild
                     {
                         go.GetComponent<Snapper>()._isPlaced = true;
                     }
+
                 }
 
                 if (_econManager != null)
@@ -242,7 +248,6 @@ namespace FreeBuild
             {
                 Debug.LogWarning("you can't build in impossible area");
             }
-            DestroyGhostObject();
         }
 
         private void BuildPortal()
@@ -271,16 +276,11 @@ namespace FreeBuild
             GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
                 _ghostObject.transform.rotation);
 
-            // Finish machine when output is placed
-            if (go.CompareTag(_outputTag))
+            go.layer = _buildingLayer;
+
+            if (go.TryGetComponent(out MachinePart machinePart))
             {
-                _machineManager.AttachToCurrentMachine(go);
-                _machineManager.FinishMachine(go);
-            }
-            else if (go.TryGetComponent(out MachinePart machinePart))
-            {
-                _machineManager.AttachToCurrentMachine(go);
-                _machineManager.CurrentMachine.AddMachine(machinePart);
+                _machineManager.AttachToCurrentMachine(machinePart);
             }
 
             if (go.GetComponent<Snapper>() != null)
@@ -298,16 +298,19 @@ namespace FreeBuild
             GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
                 _ghostObject.transform.rotation);
 
-            _machineManager.AttachToCurrentMachine(go);
-            _machineManager.FinishMachine(go);
+            go.layer = _buildingLayer;
 
+            if (go.TryGetComponent(out BuildingFactoryBase building))
+            {
+                _machineManager.AttachToCurrentMachine(building);
+                _machineManager.FinishMachine();
+            }
             return true;
         }
 
         public void CancelBuilding()
         {
             DestroyGhostObject();
-            //ConstructionMode = false;
         }
 
         private float GetObjectHeight(Transform tf)
