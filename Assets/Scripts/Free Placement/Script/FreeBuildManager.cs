@@ -169,6 +169,13 @@ namespace FreeBuild
             {
                 meshFilter = _realObject.GetComponentInChildren<MeshFilter>();
             }
+            Snapper snapper = _realObject.GetComponent<Snapper>();
+            if (snapper != null)
+            {
+                var ghostSnap = _ghostObject.AddComponent<Snapper>();
+                ghostSnap.snapPoints = snapper.snapPoints;
+                ghostSnap.snapLayer = snapper.snapLayer;
+            }
 
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
             _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
@@ -312,5 +319,9 @@ namespace FreeBuild
                 Destroy(_ghostObject);
             }
         }
+
+
+
+
     }
 }

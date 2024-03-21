@@ -815,6 +815,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: MaxBeltLenght
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.b
+      value: 0.4198113
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.g
+      value: 0.4198113
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColorMax.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColorMax.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColorMax.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _BeltPlacementColorMax.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

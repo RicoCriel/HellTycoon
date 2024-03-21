@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: WAAAAAA
   _icon: {fileID: 6937815399858175621, guid: a99599a312b947e4bace09119b860129, type: 3}
-  _prefab: {fileID: 40883363927123835, guid: c40da709907725d47b9bdfe24f1ca985, type: 3}
+  _prefab: {fileID: 40883363927123835, guid: c710c71c2347642488e6a1b0a2aa6792, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 10
   _partType: 0

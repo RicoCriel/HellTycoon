@@ -10,10 +10,9 @@ public class Snapper : MonoBehaviour
     public delegate void StartSnapping();
     public static event StartSnapping OnStartSnapping;
 
-    [SerializeField] private Transform[] snapPoints;
-    [SerializeField] private float _snapRange = 5.5f;
-    [SerializeField] private LayerMask snapLayer;
-    [SerializeField] private FreeBuildManager _freeBuild;
+    public  Transform[] snapPoints;
+    public float _snapRange = 5.5f;
+    public LayerMask snapLayer;
 
 
     private Transform _closestSnapPoint = null;
@@ -21,7 +20,10 @@ public class Snapper : MonoBehaviour
 
 
 
-
+    private void Start()
+    {
+        
+    }
 
     void OnTriggerEnter(Collider other)
     {

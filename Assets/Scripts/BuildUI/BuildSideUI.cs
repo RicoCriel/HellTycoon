@@ -37,4 +37,11 @@ public class BuildSideUI : MonoBehaviour
     {
         _onBuild ? .Invoke(_data);
     }
+    public void Clear()
+    {
+        BuildingImage.sprite = null;
+        BuildingImage.color = Color.clear;
+        BuildingText.text = string.Empty;
+    }
+        
 }

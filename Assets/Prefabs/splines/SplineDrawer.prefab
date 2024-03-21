@@ -67,4 +67,7 @@ MonoBehaviour:
   _spawnAmount: 100
   _timeBetweenSpawns: 0.3
   _followSpeed: 10
+  _maxBeltLenght: 50
+  _BeltPlacementColor: {r: 1, g: 0.4198113, b: 0.4198113, a: 1}
+  _BeltPlacementColorMax: {r: 1, g: 0, b: 0, a: 1}
   SelfColisionMultiplier: 2.5
