@@ -10,39 +10,46 @@ namespace PopupSystem
         private Splines.Drawing.SplineDrawer splineDrawer;
 
         [SerializeField]
-        private WorldSpacePopupBase _popup;
+        protected WorldSpacePopupBase _popup;
 
         [SerializeField] private float _popupDelay = 0.8f;
 
 
         private Coroutine PopupSpawningRoutine;
+        
+        public void SetPopupper(WorldSpacePopupBase popper)
+        {
+            _popup = popper;
+        }
 
         private void Awake()
         {
-            if (splineDrawer)
+            if (splineDrawer == null)
             {
                 splineDrawer = FindObjectOfType<Splines.Drawing.SplineDrawer>();
             }
-
-            _popup.DestroyButtonClicked += DestroyBuilding;
-        }
-        private void DestroyBuilding(object sender, PopupClickedEventArgs e)
-        {
-            Destroy(this.gameObject);
         }
 
-        private void OnDisable()
-        {
-            _popup.DestroyButtonClicked -= DestroyBuilding;
-        }
-
-        protected bool IsSplineDrawingActive()
+        private bool IsSplineDrawingActive()
         {
             return splineDrawer.HasStartedDrawing;
         }
-
         public void OnPointerEnter(PointerEventData eventData)
         {
+            PopupActivatorHovered();
+        }
+        public void OnPointerExit(PointerEventData eventData)
+        {
+           //on exit zorgt voor hoofdpijn met clickable UI
+        }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            PopupActivatorClicked();
+        }
+        
+        public void PopupActivatorHovered()
+        {
+
             if (IsSplineDrawingActive()) { return; }
 
             if (!_popup.IsPopupActive())
@@ -64,21 +71,12 @@ namespace PopupSystem
             }
         }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            // Debug.Log("Pointer Exit");
-            // if (PopupSpawningRoutine != null)
-            // {
-            //     StopCoroutine(PopupSpawningRoutine);
-            //     PopupSpawningRoutine = null;
-            // }
-            // DeSpawnPopup();
-        }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void PopupActivatorClicked()
         {
+
             if (IsSplineDrawingActive()) { return; }
-            
+
             if (PopupSpawningRoutine != null)
             {
                 StopCoroutine(PopupSpawningRoutine);

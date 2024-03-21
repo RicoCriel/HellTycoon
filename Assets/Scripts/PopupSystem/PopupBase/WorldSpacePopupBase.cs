@@ -6,15 +6,15 @@ namespace PopupSystem
     public class WorldSpacePopupBase : MonoBehaviour
     {
         [SerializeField]
-        private Canvas _popupCanvas;
+        protected Canvas _popupCanvas;
         [SerializeField]
-        private Transform _popupTransform;
+        protected Transform _popupTransform;
 
         private Camera _mainCamera;
-    
+
         private Tween _currentTween;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_popupTransform == null)
                 _popupTransform = transform.GetChild(0);
@@ -62,8 +62,6 @@ namespace PopupSystem
                 Debug.LogWarning("Main camera not found. Make sure there is an active camera in the scene.");
             }
         }
-        
-        
 
         //Methods to Call in other scripts
         [HideInInspector]
