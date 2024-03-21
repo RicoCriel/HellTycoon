@@ -32,6 +32,27 @@ namespace Splines
         [SerializeField]
         private BuildingPopupActivator _popupActivator;
 
+        public int splineRiders = 0;
+        
+        public void AddSplineRider()
+        {
+            splineRiders++;
+            if (_popupSpline.IsPopupActive())
+            {
+                _popupSpline.SetSoulsOnSplineCounter(splineRiders);
+            }
+        }
+        
+        public void RemoveSplineRider()
+        {
+            splineRiders--;
+            if (_popupSpline.IsPopupActive())
+            {
+                _popupSpline.SetSoulsOnSplineCounter(splineRiders);
+            }
+        }
+        
+        
         //popup stuff
 
         private void Awake()
