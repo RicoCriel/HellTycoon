@@ -14,6 +14,8 @@ namespace PopupSystem
 
         private Tween _currentTween;
 
+        private Vector3 LocalPositionOverride;
+
         protected virtual void Awake()
         {
             if (_popupTransform == null)
@@ -43,7 +45,11 @@ namespace PopupSystem
         {
             return _currentTween != null && _currentTween.IsActive();
         }
-
+        protected void MovePopupToPositionLocal(Vector3 position)
+        {
+            _popupTransform.localPosition = position;
+        }
+        
         //only angled once since it doesnt move?
         private void AnglePopupToCamera()
         {

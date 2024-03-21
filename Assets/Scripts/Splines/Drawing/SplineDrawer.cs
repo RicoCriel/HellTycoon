@@ -228,6 +228,10 @@ namespace Splines.Drawing
             {
                 _currentStartingBox.myBuildingNode = nextBuilding;
             }
+            
+            _currentStartingBox.ImConnected = true;
+            
+            _instanciatedSpline.SetPopupPositionToSplineMiddlePoint();
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(_instanciatedSpline, _currentStartingBox, placeholderConnectorHitBox));
             float splineSizetoReturn = _instanciatedSpline.GetSplineUniformSize();
