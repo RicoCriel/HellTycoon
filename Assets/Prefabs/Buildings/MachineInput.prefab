@@ -93,6 +93,7 @@ MonoBehaviour:
   snapLayer:
     serializedVersion: 2
     m_Bits: 0
+  _freeBuild: {fileID: 0}
   _isPlaced: 0
 --- !u!1 &5002515597761908009
 GameObject:
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bfbe5c8926df745863c1fe7a23ebce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hoverMaterial: {fileID: 0}
 --- !u!114 &5776043623485393278
 MonoBehaviour:
   m_ObjectHideFlags: 0

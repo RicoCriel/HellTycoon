@@ -22,16 +22,34 @@ namespace Buildings
             _currentMachine = machine;
         }
 
-        public void removeMachine(int index)
+        public void RemoveMachine(int index)
         {
             _machines.RemoveAt(index);
         }
+
+        public void FinishMachine(GameObject output)
+        {
+            _currentMachine = null;
+        }
+
+        public bool CanBuildMachinePart()
+        {
+            return _currentMachine != null;
+        }
+
+        // Set current machine as parent
+        public void AttachToCurrentMachine(GameObject go)
+        {
+            if (_currentMachine != null)
+            {
+                go.transform.parent = _currentMachine.transform;
+            }
+        }
     }
 
-    public enum MachineType : int
+    public enum MachineType
     {
         //TODO: change names
-
         Type0 = 0,
         Type1 = 1,
         Type2 = 2
