@@ -13,7 +13,7 @@ namespace FreeBuild
         // can select outline Color.
         //public Color AbleAreaColor = new Color(0, 255, 0);
         //public Color NotAbleAreaColor = new Color(255, 0, 0);
-        public static bool ConstructionMode = false;
+        public static bool DestructionMode = false;
 
         [SerializeField] private Material _transParentMaterial;
         [SerializeField] private GameObject _rootObject;
@@ -22,9 +22,11 @@ namespace FreeBuild
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private MachineManager _machineManager;
         [SerializeField] private string _inputTag;
+        [SerializeField] private string _outputTag;
         [SerializeField] private GameObject _ghostObjectPrefab;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
+        [SerializeField] private EconManager _econManager;
 
         private string _buildTag;
         private GameObject _ghostObject;
@@ -32,6 +34,7 @@ namespace FreeBuild
         private bool _locked = false;
         private bool _isSnapped = false;
         private bool _canBuild = false;
+        private int _currentCost = 0;
 
         // Rotation speed
         public float RotateSpeed = 100.0f;
@@ -41,7 +44,8 @@ namespace FreeBuild
 
         private void Awake()
         {
-            BuildingPanelUI._onPartChosen += CreateGhostObject;
+            //BuildingPanelUI._onPartChosen += CreateGhostObject;
+            BuildSideUI._onBuild += CreateGhostObject;
             Snapper.OnStartSnapping += LockObj;
         }
 
@@ -50,6 +54,10 @@ namespace FreeBuild
             _isSnapped = true;
         }
 
+        public static void ToggleDestruct()
+        {
+            DestructionMode = !DestructionMode;
+        }
 
         public void SetLocked(bool locked)
         { _locked = locked; }
@@ -58,6 +66,7 @@ namespace FreeBuild
         {
             _realObject = data.Prefab;
             _buildTag = data.BuildTag;
+            _currentCost = data.Price;
             if (null == _realObject)
             {
                 Debug.LogError("You have to list the objects you're trying to build on.");
@@ -77,12 +86,9 @@ namespace FreeBuild
             RaycastHit hit;
             bool isHit = Physics.Raycast(ray, out hit);
 
-            //
             if (isHit)
             {
-                //_uiManager.EnableUI();
                 CreateGhostObject(hit);
-                ConstructionMode = true;
             }
         }
 
@@ -194,21 +200,15 @@ namespace FreeBuild
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
-                    Transform curr = _landLayerManager.GetCurrPlot().transform;
-                    Transform next;
-                    if (_landLayerManager.NextPlot(curr.gameObject) != null)
-                    {
-                        next = _landLayerManager.NextPlot(curr.gameObject).transform;
-                    }
-                    else
-                    {
-                        next = null;
-                    }
-                    _ghostObject.transform.SetParent(curr);
-                    if (next != null)
-                    {
-                        _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
-                    }
+                    BuildPortal();
+                }
+                else if (_realObject.GetComponent<MachinePart>() != null)
+                {
+                    if (!BuildMachinePart()) return;
+                }
+                else if (_realObject.CompareTag(_outputTag))
+                {
+                    if (!BuildOutput()) return;
                 }
                 else
                 {
@@ -216,23 +216,25 @@ namespace FreeBuild
                     if (_rootObject)
                         go.transform.SetParent(_rootObject.transform);
 
-                    if (go.CompareTag("Input")) // Check for input to create machine
+                    // Make new machine if an input is placed
+                    if (go.CompareTag(_inputTag))
                     {
+                        _machineManager.AttachToCurrentMachine(go);
                         _machineManager.AddMachine();
                     }
-                    else if (go.TryGetComponent(out MachinePart machinePart))
-                    {
-                        if (_machineManager.CurrentMachine != null)
-                        {
-                            _machineManager.CurrentMachine.AddMachine(machinePart);
-                        }
-                    }
+
                     if (go.GetComponent<Snapper>() != null)
                     {
                         go.GetComponent<Snapper>()._isPlaced = true;
                     }
-                    go.transform.SetParent(_rootObject.transform);
                 }
+
+                if (_econManager != null)
+                {
+                    _econManager.SubtractMoney(_currentCost);
+                    _currentCost = 0;
+                }
+
 
                 _locked = false;
             }
@@ -241,13 +243,71 @@ namespace FreeBuild
                 Debug.LogWarning("you can't build in impossible area");
             }
             DestroyGhostObject();
-            ConstructionMode = false;
+        }
+
+        private void BuildPortal()
+        {
+            Transform curr = _landLayerManager.GetCurrPlot().transform;
+            Transform next;
+            if (_landLayerManager.NextPlot(curr.gameObject) != null)
+            {
+                next = _landLayerManager.NextPlot(curr.gameObject).transform;
+            }
+            else
+            {
+                next = null;
+            }
+            _ghostObject.transform.SetParent(curr);
+            if (next != null)
+            {
+                _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
+            }
+        }
+
+        private bool BuildMachinePart()
+        {
+            if (!_machineManager.CanBuildMachinePart()) return false;
+
+            GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
+                _ghostObject.transform.rotation);
+
+            // Finish machine when output is placed
+            if (go.CompareTag(_outputTag))
+            {
+                _machineManager.AttachToCurrentMachine(go);
+                _machineManager.FinishMachine(go);
+            }
+            else if (go.TryGetComponent(out MachinePart machinePart))
+            {
+                _machineManager.AttachToCurrentMachine(go);
+                _machineManager.CurrentMachine.AddMachine(machinePart);
+            }
+
+            if (go.GetComponent<Snapper>() != null)
+            {
+                go.GetComponent<Snapper>()._isPlaced = true;
+            }
+
+            return true;
+        }
+
+        private bool BuildOutput()
+        {
+            if (!_machineManager.CanBuildMachinePart()) return false;
+
+            GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
+                _ghostObject.transform.rotation);
+
+            _machineManager.AttachToCurrentMachine(go);
+            _machineManager.FinishMachine(go);
+
+            return true;
         }
 
         public void CancelBuilding()
         {
             DestroyGhostObject();
-            ConstructionMode = false;
+            //ConstructionMode = false;
         }
 
         private float GetObjectHeight(Transform tf)

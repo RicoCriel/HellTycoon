@@ -16,7 +16,7 @@ public class BuildingPanelUI : MonoBehaviour
 
     public void OnClick(BuildingData chosenData)
     {
-        _onPartChosen ? .Invoke(chosenData);
+        //_onPartChosen ? .Invoke(chosenData);
         _sideUI.UpdateSideDisplay(chosenData);
     }
 

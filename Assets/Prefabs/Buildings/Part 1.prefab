@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3028889668904387592}
   - component: {fileID: 7818258316941531142}
-  - component: {fileID: 4888431940951358277}
   - component: {fileID: 2971495371097811266}
   m_Layer: 0
   m_Name: Capsule
@@ -42,29 +41,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7022513674655268311}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &4888431940951358277
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7022513674655268311}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2971495371097811266
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -155,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bfbe5c8926df745863c1fe7a23ebce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hoverMaterial: {fileID: 0}
 --- !u!114 &8039047537667507336
 MonoBehaviour:
   m_ObjectHideFlags: 0

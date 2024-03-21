@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bfbe5c8926df745863c1fe7a23ebce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConstructionAreaTagName: Map
+  _hoverMaterial: {fileID: 2100000, guid: 04750f021514b6c47863035f20cd4969, type: 2}
 --- !u!54 &3992367073533328031
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -284,3 +284,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cafc0961cabcb4598113066f158515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapPoints: []
+  _snapRange: 5.5
+  snapLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _freeBuild: {fileID: 0}
+  _isPlaced: 0
