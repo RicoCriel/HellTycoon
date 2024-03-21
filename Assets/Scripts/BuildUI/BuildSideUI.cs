@@ -38,12 +38,15 @@ public class BuildSideUI : MonoBehaviour
         if(_data ==  null) return;
 
         _onBuild ? .Invoke(_data);
+
+        Clear();
     }
-    public void Clear()
+    private void Clear()
     {
         BuildingImage.sprite = null;
         BuildingImage.color = Color.clear;
         BuildingText.text = string.Empty;
+        _data = null;
     }
         
 }

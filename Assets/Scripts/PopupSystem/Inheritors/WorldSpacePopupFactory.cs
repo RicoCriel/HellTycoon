@@ -77,7 +77,7 @@ namespace PopupSystem.Inheritors
         }
 
         //Buttons
-        public void ButtonToggePauzeProcessing()
+        public void ButtonTogglePauseProcessing()
         {
             if (!_isPaused)
             {

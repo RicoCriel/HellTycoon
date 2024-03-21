@@ -38,12 +38,11 @@ namespace Buildings
 
             machinePart.Initialize(currentNode.NextNodes[(int)machinePart.MachineType], _machineIndex,
                 _machineParts.Count - 1);
-
+            //machinePart.OnDestruct.AddListener(RemoveMachinePart);
             _machineParts.Add(machinePart);
-
         }
 
-        public void RemoveMachinePart(int idx)
+        public void RemoveMachinePartAt(int idx)
         {
             if (_machineParts == null || _machineParts.Count <= idx) return;
 
@@ -55,6 +54,14 @@ namespace Buildings
             {
                 _machineParts[i].Node = currentNode.NextNodes[(int)_machineParts[i].MachineType];
                 currentNode = _machineParts[i].Node;
+            }
+        }
+
+        public void RemoveMachinePart(BuildingFactoryBase building)
+        {
+            if (building.TryGetComponent(out MachinePart machinePart))
+            {
+                RemoveMachinePartAt(machinePart.PartIndex);
             }
         }
 

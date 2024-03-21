@@ -50,6 +50,13 @@ namespace Splines
                 _splineDrawer = FindObjectOfType<SplineDrawer>();
         }
 
+        private void OnDestroy()
+        {
+            if (Spline)
+            {
+                Destroy(Spline.gameObject);
+            }
+        }
 
         public Vector3 GetConnectorPointSpline()
         {

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Flame test
+  m_Name: Merger
   m_EditorClassIdentifier: 
-  _displayName: Flame
-  _icon: {fileID: -5025233682184163824, guid: 55233a2414daaee49861cf84fa2e1ba4, type: 3}
-  _prefab: {fileID: 40883363927123835, guid: c710c71c2347642488e6a1b0a2aa6792, type: 3}
-  _buildingSize: {x: 1, y: 1}
+  _displayName: Merger
+  _icon: {fileID: 0}
+  _prefab: {fileID: 0}
+  _buildingSize: {x: 0, y: 0}
   _price: 10
   _partType: 0
-  _buildTag: Map
+  _buildTag: 

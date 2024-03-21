@@ -9,6 +9,7 @@ public class EconManager : MonoBehaviour
 
     [SerializeField] private int _startMoney = 200;
     [SerializeField] private bool _logMoney = false;
+    [SerializeField] private bool _godMode = false;
 
     private int _money = 0;
 
@@ -36,6 +37,8 @@ public class EconManager : MonoBehaviour
 
     public void SubtractMoney(int amount)
     {
+        if (_godMode) return;
+
         _money -= amount;
         if (_logMoney)
         {

@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 namespace Buildings
 {
     public class BuildingFactoryBase : BuildingBase
@@ -17,11 +19,20 @@ namespace Buildings
 
         private Coroutine _mySpawningRoutine;
 
-        protected void Awake()
+        public UnityEvent<BuildingFactoryBase> OnDestruct;
+
+        protected new void Awake()
         {
             base.Awake();
 
+            OnDestruct = new UnityEvent<BuildingFactoryBase>();
+
             _mySpawningRoutine = StartCoroutine(MachineRoutine());
+        }
+
+        private void OnDestroy()
+        {
+            OnDestruct ? .Invoke(this);
         }
 
         public void Initialize(int machineIdx)

@@ -72,12 +72,13 @@ namespace PopupSystem
         }
         private void OnDestroyButtonClicked(object sender, PopupClickedEventArgs e)
         {
+            Destroy(gameObject);
             Debug.Log("Destroy Button Clicked");
         }
 
     }
 
-    public class CodeInBuiildingExampleBase : MonoBehaviour
+    public class CodeInBuildingExampleBase : MonoBehaviour
     {
         //Basically Make a Variable of the type of popup you want in this class
         //Lets say this is the abse implementation
@@ -116,6 +117,7 @@ namespace PopupSystem
 
         private void OnDestroyButtonClicked(object sender, PopupClickedEventArgs e)
         {
+            Destroy(gameObject);
             Debug.Log("Destroy Button Clicked");
         }
 

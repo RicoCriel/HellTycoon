@@ -6,7 +6,7 @@ namespace Splines
     public class SplineView : MonoBehaviour
     {
         [SerializeField] private bool IsPathSpline;
-        
+
         [SerializeField] private SplineComputer _mySplineComputer;
 
         [SerializeField] private SplineMesh _mySplineMesh;
@@ -14,22 +14,37 @@ namespace Splines
         [SerializeField] private MeshRenderer _myMeshRenderer;
 
         [SerializeField] private MeshFilter _myMeshFilter;
-        
+
         [SerializeField] private PathGenerator _splinePath;
- 
+
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
+
+        private void OnDestroy()
+        {
+            if (StartConnector != null)
+            {
+                StartConnector.ImConnected = false;
+                StartConnector.Spline = null;
+            }
+
+            if (EndConnector != null)
+            {
+                EndConnector.ImConnected = false;
+                EndConnector.Spline = null;
+            }
+        }
 
         public void setStartConnector(PlaceholderConnectorHitBox startConnector)
         {
             StartConnector = startConnector;
         }
-        
+
         public void setEndConnector(PlaceholderConnectorHitBox endConnector)
         {
             EndConnector = endConnector;
         }
-        
+
         public SplineComputer GetSplinecomputer()
         {
             return _mySplineComputer;
@@ -38,9 +53,9 @@ namespace Splines
         public Vector3 GetSplineStartingPoint()
         {
             SplinePoint[] splinePoints = _mySplineComputer.GetPoints();
-            return splinePoints.Length>0 ? splinePoints[0].position : Vector3.zero;
+            return splinePoints.Length > 0 ? splinePoints[0].position : Vector3.zero;
         }
-        
+
         private void Awake()
         {
             if (_mySplineComputer == null)
@@ -55,7 +70,7 @@ namespace Splines
             if (_myMeshFilter == null)
                 _myMeshFilter = GetComponent<MeshFilter>();
         }
-        
+
         public float GetSplineUniformSize()
         {
             return _mySplineComputer.CalculateLength();
@@ -71,7 +86,7 @@ namespace Splines
             if (_mySplineComputer.GetPoints().Length <= splinePointIndex) return;
             SplinePoint[] points = _mySplineComputer.GetPoints();
             points[splinePointIndex].normal = orientation;
-            
+
         }
 
         /// <summary>
@@ -136,29 +151,29 @@ namespace Splines
             newPoints[points.Length].color = Color.white;
             _mySplineComputer.SetPoints(newPoints);
         }
-        
+
         public void ChangeAllPointColours(Color color)
         {
             SplinePoint[] points = _mySplineComputer.GetPoints();
             for (int index = 0; index < points.Length; index++)
             {
-                 points[index].color = color;
-                
+                points[index].color = color;
+
             }
             _mySplineComputer.SetPoints(points);
         }
-        
+
         public void ChangePercentualPointColours(Color color, float percent)
         {
-            if (percent >1 )
+            if (percent > 1)
             {
                 percent = 1;
             }
-            
+
             SplinePoint[] points = _mySplineComputer.GetPoints();
-            
-            int pointsToColour = (int) (points.Length * percent);
-            
+
+            int pointsToColour = (int)(points.Length * percent);
+
             for (int index = 0; index < pointsToColour; index++)
             {
                 points[index].color = color;
@@ -199,7 +214,7 @@ namespace Splines
         {
             _myMeshRenderer.enabled = !_myMeshRenderer.enabled;
         }
-        
+
         /// <summary>
         /// Set the spline mesh single material
         /// </summary>
@@ -226,13 +241,13 @@ namespace Splines
         {
             _mySplineComputer.sampleMode = sampleMode;
         }
-        
+
         /// <summary>
         /// Add a splinefollower to the spline, move them manually though.
         /// </summary>
         /// <param name="ObjectThatFollows"></param>
         /// <returns></returns>
-       
+
 
         public void SetMeshUpdateMode(SplineMesh.UpdateMethod mode)
         {
@@ -241,33 +256,33 @@ namespace Splines
 
         public SplineMesh.Channel AddMeshToGenerate(Mesh mesh)
         {
-             return _mySplineMesh.AddChannel(mesh, "Main");
+            return _mySplineMesh.AddChannel(mesh, "Main");
         }
         public SplineMesh.Channel GetMeshChannel(int index)
         {
-           return _mySplineMesh.GetChannel(index);
+            return _mySplineMesh.GetChannel(index);
         }
-        
+
         public void SetMeshGenerationCount(SplineMesh.Channel channel, int count)
         {
             channel.count = count;
         }
-        
+
         public void SetMeshSCale(SplineMesh.Channel channel, Vector3 scale)
         {
             channel.maxScale = scale;
             channel.minScale = scale;
         }
-        
+
         public void SetMeshSize(float size)
         {
             _mySplineMesh.size = size;
         }
-        
+
         public void UpdateColliderInstantly()
         {
             _mySplineMesh.UpdateCollider();
         }
-       
+
     }
 }
