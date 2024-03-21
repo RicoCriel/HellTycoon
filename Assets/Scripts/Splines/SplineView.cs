@@ -24,8 +24,8 @@ namespace Splines
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
 
-		private void OnDestroy()
-    	{
+        private void OnDestroy()
+        {
             if (StartConnector != null)
             {
                 StartConnector.ImConnected = false;
@@ -47,9 +47,9 @@ namespace Splines
         private BuildingPopupActivator _popupActivator;
 
         public int splineRiders = 0;
-        
+
         public void AddSplineRider()
-        
+
 
         {
             splineRiders++;
@@ -72,9 +72,15 @@ namespace Splines
             EndConnector = endConnector;
         }
 
-        
-        //popup stuff
 
+        //popup stuff
+        public SplineComputer GetSplinecomputer()
+        {
+            return _mySplineComputer;
+        }
+        public Vector3 GetSplineStartingPoint()
+        {
+            SplinePoint[] splinePoints = _mySplineComputer.GetPoints();
             return splinePoints.Length > 0 ? splinePoints[0].position : Vector3.zero;
         }
 
@@ -91,7 +97,7 @@ namespace Splines
 
             if (_myMeshFilter == null)
                 _myMeshFilter = GetComponent<MeshFilter>();
-            
+
             _popupActivator.SetPopupper(_popupSpline);
             _popupSpline.DestroyButtonClicked += OnDestroyButtonClicked;
         }
@@ -99,7 +105,7 @@ namespace Splines
         private void OnDisable()
         {
             _popupSpline.DestroyButtonClicked -= OnDestroyButtonClicked;
-       
+
         }
         private void OnDestroyButtonClicked(object sender, PopupClickedEventArgs e)
         {
@@ -122,25 +128,8 @@ namespace Splines
         public void setStartConnector(PlaceholderConnectorHitBox startConnector)
         {
             StartConnector = startConnector;
-        }
 
-        public void setEndConnector(PlaceholderConnectorHitBox endConnector)
-        {
-            EndConnector = endConnector;
         }
-        public SplineComputer GetSplinecomputer()
-        {
-            return _mySplineComputer;
-        }
-
-        public Vector3 GetSplineStartingPoint()
-        {
-            SplinePoint[] splinePoints = _mySplineComputer.GetPoints();
-            return splinePoints.Length > 0 ? splinePoints[0].position : Vector3.zero;
-        }
-
-     
-
         public float GetSplineUniformSize()
         {
             return _mySplineComputer.CalculateLength();
