@@ -228,6 +228,10 @@ namespace Splines.Drawing
             {
                 _currentStartingBox.myBuildingNode = nextBuilding;
             }
+            
+            _currentStartingBox.ImConnected = true;
+            
+            _instanciatedSpline.SetPopupPositionToSplineMiddlePoint();
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(_instanciatedSpline, _currentStartingBox, placeholderConnectorHitBox));
             float splineSizetoReturn = _instanciatedSpline.GetSplineUniformSize();
@@ -281,37 +285,37 @@ namespace Splines.Drawing
         }
 
         //add speed/ spawnrate parameters to this method if you want...
-        public void SpawnSplineFollower(GameObject gameObject, SplineView computer /*, Machine arrivelMachine*/)
-        {
-            //get relevant data
-            SplineComputer splineComputer = computer.GetSplinecomputer();
-            Vector3 startPoint = computer.GetSplineStartingPoint();
-
-            //instantiate and parent demon to follower
-            SplineFollowerView follower = Instantiate(_followerViewPrefab, startPoint, Quaternion.identity, computer.transform);
-            gameObject.transform.parent = follower.transform;
-            gameObject.transform.localPosition = Vector3.zero;
-
-            //set up follower logic
-            follower.SetComputer(splineComputer);
-            follower.SetFollow(true);
-            follower.SetSpeed(_followSpeed);
-            follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
-
-            //hook up events
-            EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-            followerArrivedHandler = (sender, args) => {
-                if (args.GameObject == null) return;
-
-                Debug.Log("Follower Arrived");
-                //todo Call machine code where the object just arrived.
-
-                follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
-
-                Destroy(args.GameObject);
-            };
-            follower.FollowerArrived += followerArrivedHandler;
-        }
+        // public void SpawnSplineFollower(GameObject gameObject, SplineView computer /*, Machine arrivelMachine*/)
+        // {
+        //     //get relevant data
+        //     SplineComputer splineComputer = computer.GetSplinecomputer();
+        //     Vector3 startPoint = computer.GetSplineStartingPoint();
+        //
+        //     //instantiate and parent demon to follower
+        //     SplineFollowerView follower = Instantiate(_followerViewPrefab, startPoint, Quaternion.identity, computer.transform);
+        //     gameObject.transform.parent = follower.transform;
+        //     gameObject.transform.localPosition = Vector3.zero;
+        //
+        //     //set up follower logic
+        //     follower.SetComputer(splineComputer);
+        //     follower.SetFollow(true);
+        //     follower.SetSpeed(_followSpeed);
+        //     follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
+        //
+        //     //hook up events
+        //     EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
+        //     followerArrivedHandler = (sender, args) => {
+        //         if (args.GameObject == null) return;
+        //
+        //         Debug.Log("Follower Arrived");
+        //         //todo Call machine code where the object just arrived.
+        //
+        //         follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
+        //
+        //         Destroy(args.GameObject);
+        //     };
+        //     follower.FollowerArrived += followerArrivedHandler;
+        // }
 
         public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
         {
@@ -323,6 +327,8 @@ namespace Splines.Drawing
             SplineFollowerView follower = Instantiate(_followerViewPrefab, startPoint, Quaternion.identity, computer.transform);
             gameObject.transform.parent = follower.transform;
             gameObject.transform.localPosition = Vector3.zero;
+            
+            computer.AddSplineRider();
 
             //set up follower logic
             follower.SetComputer(splineComputer);
@@ -340,11 +346,13 @@ namespace Splines.Drawing
 
                 follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
 
+                computer.RemoveSplineRider();
                 // Detach demon from spline follower
                 DemonHandler demonHandler = args.GameObject.GetComponentInChildren<DemonHandler>();
                 if (demonHandler != null)
                 {
                     demonHandler.gameObject.transform.parent = null;
+                    
                     callBack(demonHandler.gameObject);
                 }
 

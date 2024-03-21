@@ -50,7 +50,7 @@ namespace Splines
 
             _instanciatedSpline = Instantiate(_splineViewPrefab);
 
-            _instanciatedSpline.AddPoints(points, 1, Vector3.zero);
+            _instanciatedSpline.AddPoints(points, 1, Vector3.up);
             // instanciatedSpline.SetPointOrientation(BoxIn.GetConnectorPointDirection(), 0);
             // instanciatedSpline.SetPointOrientation(-BoxOut.GetConnectorPointDirection(), 2);
 
