@@ -58,6 +58,8 @@ namespace Splines.Drawing
 
 
         private bool _hasStartedDrawing = false;
+        public bool HasStartedDrawing => _hasStartedDrawing;
+
         private bool _currentSplineConnected = false;
 
         private PlaceholderConnectorHitBox _currentStartingBox;
@@ -106,6 +108,7 @@ namespace Splines.Drawing
             // }
         }
 
+        
         void Update()
         {
             if (_hasStartedDrawing)

@@ -1,3 +1,4 @@
+using Dreamteck.Splines.Editor;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +7,7 @@ namespace PopupSystem
     public class BuildingPopupActivator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         //MyBuilding
+        private Splines.Drawing.SplineDrawer splineDrawer;
 
         [SerializeField]
         private WorldSpacePopupBase _popup;
@@ -17,6 +19,11 @@ namespace PopupSystem
 
         private void Awake()
         {
+            if (splineDrawer)
+            {
+                splineDrawer = FindObjectOfType<Splines.Drawing.SplineDrawer>();
+            }
+
             _popup.DestroyButtonClicked += DestroyBuilding;
         }
         private void DestroyBuilding(object sender, PopupClickedEventArgs e)
@@ -29,8 +36,15 @@ namespace PopupSystem
             _popup.DestroyButtonClicked -= DestroyBuilding;
         }
 
+        protected bool IsSplineDrawingActive()
+        {
+            return splineDrawer.HasStartedDrawing;
+        }
+
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (IsSplineDrawingActive()) { return; }
+
             if (!_popup.IsPopupActive())
             {
 
@@ -63,6 +77,8 @@ namespace PopupSystem
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (IsSplineDrawingActive()) { return; }
+            
             if (PopupSpawningRoutine != null)
             {
                 StopCoroutine(PopupSpawningRoutine);
