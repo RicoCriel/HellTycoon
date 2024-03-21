@@ -35,6 +35,8 @@ public class BuildSideUI : MonoBehaviour
 
     private void OnButtonClick()
     {
+        if(_data ==  null) return;
+
         _onBuild ? .Invoke(_data);
     }
     public void Clear()

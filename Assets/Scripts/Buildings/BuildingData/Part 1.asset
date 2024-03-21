@@ -16,6 +16,6 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: a4fb65b4e2ffecc4ea87b86d91f211f1, type: 3}
   _prefab: {fileID: 8531093189678575500, guid: ae556977e4e2d974ea623ea90fd41699, type: 3}
   _buildingSize: {x: 0, y: 0}
-  _price: 5
+  _price: 100
   _partType: 0
   _buildTag: Map

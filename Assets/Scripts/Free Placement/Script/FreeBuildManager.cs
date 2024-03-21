@@ -26,6 +26,7 @@ namespace FreeBuild
         [SerializeField] private GameObject _ghostObjectPrefab;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
+        [SerializeField] private EconManager _econManager;
 
         private string _buildTag;
         private GameObject _ghostObject;
@@ -33,6 +34,7 @@ namespace FreeBuild
         private bool _locked = false;
         private bool _isSnapped = false;
         private bool _canBuild = false;
+        private int _currentCost = 0;
 
         // Rotation speed
         public float RotateSpeed = 100.0f;
@@ -64,6 +66,7 @@ namespace FreeBuild
         {
             _realObject = data.Prefab;
             _buildTag = data.BuildTag;
+            _currentCost = data.Price;
             if (null == _realObject)
             {
                 Debug.LogError("You have to list the objects you're trying to build on.");
@@ -225,6 +228,13 @@ namespace FreeBuild
                         go.GetComponent<Snapper>()._isPlaced = true;
                     }
                 }
+
+                if (_econManager != null)
+                {
+                    _econManager.SubtractMoney(_currentCost);
+                    _currentCost = 0;
+                }
+
 
                 _locked = false;
             }

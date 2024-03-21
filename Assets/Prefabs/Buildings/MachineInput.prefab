@@ -93,7 +93,6 @@ MonoBehaviour:
   snapLayer:
     serializedVersion: 2
     m_Bits: 0
-  _freeBuild: {fileID: 0}
   _isPlaced: 0
 --- !u!1 &5002515597761908009
 GameObject:
@@ -122,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 5002515597761908009}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.38, y: -0.045288086, z: 10.178581}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -175,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4141352756519961151, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4141352756519961151, guid: f236a715f2fae08499ce494ed348b37f, type: 3}
       propertyPath: m_LocalRotation.w
