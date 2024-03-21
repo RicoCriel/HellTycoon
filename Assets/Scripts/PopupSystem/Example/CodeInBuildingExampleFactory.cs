@@ -10,17 +10,29 @@ namespace PopupSystem
 
         [Header("popup")]
         [SerializeField]
-        WorldSpacePopupFactory _popupFactory;
+        private WorldSpacePopupFactory _popupFactory;
         [SerializeField]
-        BuildingPopupActivator _popupActivator;
+        private BuildingPopupActivator _popupActivator;
 
         private void Awake()
         {
+            //nullcheck and find object
+            
             _popupActivator.SetPopupper(_popupFactory);
             _popupFactory.DestroyButtonClicked += OnDestroyButtonClicked;
             _popupFactory.SoulProcessingPaused += OnSoulProcessingPaused;
             _popupFactory.SoulProcessingResumed += OnSoulProcessingResumed;
         }
+        
+            
+        //onenable is also an option instead of awake, might be better for poolng
+        // private void OnEnable()
+        // {
+        //     _popupActivator.SetPopupper(_popupFactory);
+        //     _popupFactory.DestroyButtonClicked += OnDestroyButtonClicked;
+        //     _popupFactory.SoulProcessingPaused += OnSoulProcessingPaused;
+        //     _popupFactory.SoulProcessingResumed += OnSoulProcessingResumed;
+        // }
 
         private void OnDisable()
         {
@@ -35,11 +47,13 @@ namespace PopupSystem
             _popupFactory.ProcessSoulBarUI(time);
         }
         
+        //alot of other methods...
+
         public void DoneUIProcessing()
         {
             _popupFactory.SetUnprocessedSoulsCounter(0);
         }
-        
+
         public void PopupForceClose()
         {
             //manually call closing
@@ -47,7 +61,7 @@ namespace PopupSystem
             //or (this might open if closed)
             _popupActivator.PopupActivatorClicked();
         }
-        
+
         private void OnSoulProcessingPaused(object sender, Inheritors.PopupClickedEventArgs e)
         {
             Debug.Log("Soul Processing Paused");
@@ -68,22 +82,30 @@ namespace PopupSystem
         //Basically Make a Variable of the type of popup you want in this class
         //Lets say this is the abse implementation
         [Header("popup")]
-        WorldSpacePopupBase _popupBase;
-        [Header("popup")]
-        BuildingPopupActivator _popupActivator;
+        [SerializeField]
+        private WorldSpacePopupBase _popupBase;
+        [SerializeField]
+        private BuildingPopupActivator _popupActivator;
 
         private void Awake()
         {
             _popupActivator.SetPopupper(_popupBase);
             _popupBase.DestroyButtonClicked += OnDestroyButtonClicked;
         }
+        
+        //onenable is also an option instead of awake, might be better for poolng
+        // private void OnEnable()
+        // {
+        //     _popupActivator.SetPopupper(_popupBase);
+        //     _popupBase.DestroyButtonClicked += OnDestroyButtonClicked;
+        // }
 
         private void OnDisable()
         {
             _popupBase.DestroyButtonClicked -= OnDestroyButtonClicked;
         }
-        
-          
+
+
         public void PopupForceClose()
         {
             //manually call closing

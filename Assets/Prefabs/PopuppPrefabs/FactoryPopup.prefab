@@ -2080,7 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popupCanvas: {fileID: 5569594891599908709}
-  _popupTransform: {fileID: 0}
+  _popupTransform: {fileID: 3847888459131197888}
   UnprocessedSoulsImage: {fileID: 8582409012107730156}
   UnprocessedSoulsCounter: {fileID: 5476339833336797212}
   ProcessedSoulsImage: {fileID: 8439982700891922582}
