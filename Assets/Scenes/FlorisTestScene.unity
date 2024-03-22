@@ -661,6 +661,10 @@ PrefabInstance:
       propertyPath: _testingLayer2
       value: 
       objectReference: {fileID: 873512151}
+    - target: {fileID: 6181139984300803159, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _godMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6446379277233016310, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: AllPlots.Array.data[0]
       value: 
@@ -747,8 +751,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 25.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

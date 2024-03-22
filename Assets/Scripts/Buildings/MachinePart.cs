@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PopupSystem.Inheritors;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,7 @@ namespace Buildings
     public class MachinePart : BuildingFactoryBase
     {
         [SerializeField] private MachineType _machineType;
+        [SerializeField] private WorldSpacePopupFactory _popup;
 
         private int _partIndex = -1;
         public int PartIndex => _partIndex;
@@ -21,9 +23,8 @@ namespace Buildings
             Node = node;
             _partIndex = partIdx;
             _machineIdx = machineIdx;
-        }
 
-        
+        }
 
         protected override void ExecuteMachineProcessingBehaviour()
         {
@@ -40,6 +41,12 @@ namespace Buildings
                     }
                 }
                 base.ExecuteMachineProcessingBehaviour();
+            }
+
+            if (_popup)
+            {
+                _popup.SetProcessedSoulsCounter(_processedDemonContainer.Count);
+                _popup.SetUnprocessedSoulsCounter(_unprocessedDemonContainer.Count);
             }
         }
     }
