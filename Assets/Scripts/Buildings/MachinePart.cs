@@ -16,6 +16,9 @@ namespace Buildings
         public MachineType MachineType => _machineType;
         public MachineNode Node;
 
+        public delegate void DemonStatsChanged();
+        public static event DemonStatsChanged onDemonStatsChanged;
+
         public void Initialize(MachineNode node, int machineIdx, int partIdx)
         {
             Node = node;
