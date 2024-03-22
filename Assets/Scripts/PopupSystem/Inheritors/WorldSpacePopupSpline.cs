@@ -6,10 +6,8 @@ namespace PopupSystem.Inheritors
     public class WorldSpacePopupSpline : WorldSpacePopupBase
     {
         [Header("unprocessedSouls")]
-        [SerializeField]
-        private Image SoulsImage;
-        [SerializeField]
-        private TextMeshProUGUI SoulsOnSplineCounter;
+        [SerializeField] private Image _soulsImage;
+        [SerializeField] private TextMeshProUGUI _soulsOnSplineCounter;
         
         public void OverRideLocalPosition(Vector3 position)
         {
@@ -18,11 +16,11 @@ namespace PopupSystem.Inheritors
         
         public void SetSoulsOnSplineCounter(int value)
         {
-            SoulsOnSplineCounter.text = value.ToString();
+            _soulsOnSplineCounter.text = value.ToString();
         }
         public void setSoulsOnSplineImage(Sprite sprite)
         {
-            SoulsImage.sprite = sprite;
+            _soulsImage.sprite = sprite;
         }
         
         

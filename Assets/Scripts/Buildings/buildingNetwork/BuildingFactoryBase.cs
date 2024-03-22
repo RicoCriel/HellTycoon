@@ -1,3 +1,5 @@
+using PopupSystem.Inheritors;
+using PopupSystem;
 using Splines;
 using System;
 using System.Collections;
@@ -12,13 +14,19 @@ namespace Buildings
         internal Queue<GameObject> _unprocessedDemonContainer = new Queue<GameObject>();
         internal Queue<GameObject> _processedDemonContainer = new Queue<GameObject>();
 
+
         [SerializeField] internal int MaxDemons = 10;
+
+        [Header("Popup")]
+        [SerializeField] internal WorldSpacePopupBase _popupFactory;
+        [SerializeField] internal BuildingPopupActivator _popupActivator;
 
         internal int MachineRatePerSecond = 1;
         internal int _machineIdx = -1;
 
         private Coroutine _mySpawningRoutine;
 
+        [HideInInspector]
         public UnityEvent<BuildingFactoryBase> OnDestruct;
 
         protected new void Awake()
@@ -28,11 +36,36 @@ namespace Buildings
             OnDestruct = new UnityEvent<BuildingFactoryBase>();
 
             _mySpawningRoutine = StartCoroutine(MachineRoutine());
+
+            //Popup setup
+            if (_popupFactory != null)
+            {
+                if (_popupActivator != null)
+                {
+                    _popupActivator.SetPopupper(_popupFactory);
+                }
+                else
+                {
+                    Debug.LogWarning("Popup activator not assigned");
+                }
+
+                _popupFactory.DestroyButtonClicked += OnDestroyButtonClicked;
+            }
+            else
+            {
+                Debug.LogWarning("Popup not assigned");
+            }
         }
 
         private void OnDestroy()
         {
-            OnDestruct ? .Invoke(this);
+            OnDestruct?.Invoke(this);
+        }
+
+        protected void OnDisable()
+        {
+
+            _popupFactory.DestroyButtonClicked -= OnDestroyButtonClicked;
         }
 
         public void Initialize(int machineIdx)
@@ -120,8 +153,20 @@ namespace Buildings
             }
         }
 
+        // Popup Logic-----------------------------------------------------
+        private void OnDestroyButtonClicked(object sender, PopupSystem.PopupClickedEventArgs e)
+        {
+            Destroy(gameObject);
+            Debug.Log("Destroy Button Clicked");
+        }
 
-
+        public void PopupForceClose()
+        {
+            //manually call closing
+            _popupFactory.ClosePopup();
+            //or (this might open if closed)
+            _popupActivator.PopupActivatorClicked();
+        }
     }
 
 }
