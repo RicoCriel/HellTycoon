@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LandersplineTest.unity
-    guid: 7121d9622fc434140bbe5aa3c98cd670
+    path: Assets/Scenes/Main Menu.unity
+    guid: 695c7fdbf0904a442ae043ddc65257cf
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 612a2f8faaf97d042b79f907ff00df85
   m_configObjects: {}

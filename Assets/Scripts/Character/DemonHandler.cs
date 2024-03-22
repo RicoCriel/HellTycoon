@@ -1,3 +1,5 @@
+using Buildings;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +8,11 @@ public class DemonHandler : MonoBehaviour
 {
    
     
-    //[SerializeField] private int _maxBodyLevel = 2;
-    //[SerializeField] private int _maxFaceLevel = 2;
-    //[SerializeField] private int _maxHornLevel = 2;
-    //[SerializeField] private int _maxArmorLevel = 2;
-    //[SerializeField] private int _maxWingsLevel = 2;
+    [SerializeField] private int _maxBodyLevel = 2;
+    [SerializeField] private int _maxFaceLevel = 2;
+    [SerializeField] private int _maxHornLevel = 2;
+    [SerializeField] private int _maxArmorLevel = 2;
+    [SerializeField] private int _maxWingsLevel = 2;
 
 
 
@@ -45,7 +47,9 @@ public class DemonHandler : MonoBehaviour
         HornLevel = 0;
         ArmorLevel = 0;
         WingsLevel = 0;
-    }
+        MachinePart.onDemonStatsChanged += UpdateSprites;
+      
+}
 
 
     private void Update()
@@ -53,5 +57,20 @@ public class DemonHandler : MonoBehaviour
 
     }
 
+    private void UpdateSprites()
+    {
+        if (_maxBodyLevel > BodyLevel) { BodyLevel = _maxBodyLevel; }
+        if (_maxFaceLevel > FaceLevel) { FaceLevel = _maxFaceLevel; }
+        if (_maxHornLevel > HornLevel) { HornLevel = _maxHornLevel; }
+        if (_maxArmorLevel > ArmorLevel) { ArmorLevel = _maxArmorLevel; }
+        if (_maxWingsLevel > WingsLevel) { WingsLevel = _maxWingsLevel; }
+        
+        _horns.sprite = _hornsSprites[HornLevel];
+        _head.sprite = _headSprites[BodyLevel];
+        _face.sprite = _faceSprites[FaceLevel];
+        _armor.sprite = _armorSprites[ArmorLevel];
+        _wings.sprite = _wingsSprites[WingsLevel];
+
+    }
 
 }
