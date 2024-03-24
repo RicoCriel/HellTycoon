@@ -106,7 +106,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -124,17 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cafc0961cabcb4598113066f158515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoints:
+  SnapPoints:
   - {fileID: 1249731719501862240}
   - {fileID: 774611803077611110}
   - {fileID: 5391369447050320047}
   - {fileID: 401912329021196555}
-  _snapRange: 0.5
-  snapLayer:
+  SnapLayer:
     serializedVersion: 2
     m_Bits: 2048
-  _freeBuild: {fileID: 0}
-  _isPlaced: 0
+  IsPlaced: 1
 --- !u!114 &8606266115417222887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bfbe5c8926df745863c1fe7a23ebce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hoverMaterial: {fileID: 0}
 --- !u!54 &6666575293749412104
 Rigidbody:
   m_ObjectHideFlags: 0
