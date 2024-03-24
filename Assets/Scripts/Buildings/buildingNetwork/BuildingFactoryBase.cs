@@ -53,7 +53,7 @@ namespace Buildings
             }
             else
             {
-                Debug.LogWarning("Popup not assigned");
+                Debug.Log("Popup not assigned");
             }
         }
 
@@ -64,7 +64,7 @@ namespace Buildings
 
         protected void OnDisable()
         {
-
+            if(_popupFactory == null) return;
             _popupFactory.DestroyButtonClicked -= OnDestroyButtonClicked;
         }
 
