@@ -9,17 +9,47 @@ namespace Buildings
 {
     public class MachinePart : BuildingFactoryBase
     {
+        [Header("Machine")]
         [SerializeField] private MachineType _machineType;
-        [SerializeField] private WorldSpacePopupFactory _popup;
+        private WorldSpacePopupFactory _popup;
 
         private int _partIndex = -1;
         public int PartIndex => _partIndex;
 
         public MachineType MachineType => _machineType;
+
+        [HideInInspector]
         public MachineNode Node;
 
         public delegate void DemonStatsChanged();
         public static event DemonStatsChanged onDemonStatsChanged;
+
+        protected new void Awake()
+        {
+            base.Awake();
+
+            if (TryGetComponent(out _popup))
+            {
+                _popup.SoulProcessingPaused += OnSoulProcessingPaused;
+                _popup.SoulProcessingResumed += OnSoulProcessingResumed;
+            }
+            else
+            {
+                Debug.LogWarning("Popup is not factory type");
+            }
+        }
+
+        protected void OnDisable()
+        {
+            base.OnDisable();
+
+            if (_popup != null)
+            {
+                _popup.SoulProcessingPaused -= OnSoulProcessingPaused;
+                _popup.SoulProcessingResumed -= OnSoulProcessingResumed;
+            }
+
+        }
 
         public void Initialize(MachineNode node, int machineIdx, int partIdx)
         {
@@ -51,6 +81,33 @@ namespace Buildings
                 _popup.SetProcessedSoulsCounter(_processedDemonContainer.Count);
                 _popup.SetUnprocessedSoulsCounter(_unprocessedDemonContainer.Count);
             }
+        }
+
+        // Popup Logic-----------------------------------------------------
+        private void OnSoulProcessingPaused(object sender, PopupSystem.Inheritors.PopupClickedEventArgs e)
+        {
+            Debug.Log("Soul Processing Paused");
+        }
+
+        private void OnSoulProcessingResumed(object sender, PopupSystem.Inheritors.PopupClickedEventArgs e)
+        {
+            Debug.Log("Soul Processing Resumed");
+        }
+
+        public void StartUIProcessing(int amount, float time)
+        {
+            if (_popup != null)
+            {
+                _popup.SetUnprocessedSoulsCounter(amount);
+                _popup.ProcessSoulBarUI(time);
+            }
+
+        }
+
+        public void DoneUIProcessing()
+        {
+            if (_popup != null)
+                _popup.SetUnprocessedSoulsCounter(0);
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Portal
   m_EditorClassIdentifier: 
   _displayName: Portal
-  _icon: {fileID: -8861630638495427532, guid: 83742ef9902093f48984718171c0e60c, type: 3}
+  _icon: {fileID: 21300000, guid: 0bbc29b35202b754ea5c9928136bcac1, type: 3}
   _prefab: {fileID: 5935795807527634739, guid: 1f51a648710a50a499aca5b2a27c6c40, type: 3}
   _buildingSize: {x: 10, y: 0}
   _price: 1000

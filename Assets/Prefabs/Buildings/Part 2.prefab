@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1565583326548247162}
   - component: {fileID: 5792544031519356083}
   - component: {fileID: 1794593670034743696}
-  - component: {fileID: 1532076103903967600}
   m_Layer: 0
   m_Name: Part 2
   m_TagString: Untagged
@@ -51,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxDemons: 10
+  _popupFactory: {fileID: 281622845982116544}
+  _popupActivator: {fileID: 1794593670034743696}
   OnDestruct:
     m_PersistentCalls:
       m_Calls: []
@@ -83,20 +84,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popup: {fileID: 281622845982116544}
   _popupDelay: 0.8
---- !u!114 &1532076103903967600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5723718042826909117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 283d6757174a433c854be68e146fab76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _popupFactory: {fileID: 281622845982116544}
-  _popupActivator: {fileID: 1794593670034743696}
 --- !u!1001 &394050568225672481
 PrefabInstance:
   m_ObjectHideFlags: 0

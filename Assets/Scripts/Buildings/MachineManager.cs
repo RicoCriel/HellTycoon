@@ -44,6 +44,8 @@ namespace Buildings
             {
                 _currentMachine.AddMachinePart(machinePart);
                 machinePart.transform.parent = _currentMachine.transform;
+
+                machinePart.OnDestruct.AddListener(SelectMachineWithPart);
             }
         }
 
@@ -53,7 +55,17 @@ namespace Buildings
             {
                 building.transform.parent = _currentMachine.transform;
                 building.Initialize(_currentMachine.MachineIndex);
+
+                building.OnDestruct.AddListener(SelectMachineWithPart);
             }
+        }
+
+        private void SelectMachineWithPart(BuildingFactoryBase building)
+        {
+            if(building == null || building._machineIdx >= _machines.Count) return;
+
+            _currentMachine = _machines[building._machineIdx].GetComponent<Machine>();
+
         }
     }
 
