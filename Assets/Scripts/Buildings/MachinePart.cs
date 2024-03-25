@@ -21,8 +21,7 @@ namespace Buildings
         [HideInInspector]
         public MachineNode Node;
 
-        public delegate void DemonStatsChanged();
-        public static event DemonStatsChanged onDemonStatsChanged;
+       
 
         protected new void Awake()
         {
@@ -88,6 +87,7 @@ namespace Buildings
                         handler.FaceLevel = Node.Stat1;
                         handler.WingsLevel = Node.Stat2;
                         handler.ArmorLevel = Node.Stat3;
+                        
                     }
                 }
                 base.ExecuteMachineProcessingBehaviour();

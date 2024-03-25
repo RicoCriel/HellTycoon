@@ -120,5 +120,6 @@ namespace PopupSystem
     public class PopupClickedEventArgs : EventArgs
     {
         public PopupClickedEventArgs() { }
+        
     }
 }
