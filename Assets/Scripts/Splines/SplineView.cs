@@ -107,12 +107,16 @@ namespace Splines
             _popupSpline.DestroyButtonClicked -= OnDestroyButtonClicked;
 
         }
+
         private void OnDestroyButtonClicked(object sender, PopupClickedEventArgs e)
         {
             //todo UnParent followers and let them run around/try to escape, now they just disappear
 
             StartConnector.ImConnected = false;
+            StartConnector.Spline = null;
             EndConnector.ImConnected = false;
+            EndConnector.Spline = null;
+
             Destroy(gameObject);
         }
 

@@ -57,6 +57,9 @@ MonoBehaviour:
   _splinePath: {fileID: 0}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}
+  _popupSpline: {fileID: 0}
+  _popupActivator: {fileID: 0}
+  splineRiders: 0
 --- !u!114 &8409215362539035836
 MonoBehaviour:
   m_ObjectHideFlags: 0

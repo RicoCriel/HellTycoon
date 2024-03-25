@@ -8,25 +8,27 @@ namespace PopupSystem.Inheritors
         [Header("unprocessedSouls")]
         [SerializeField] private Image _soulsImage;
         [SerializeField] private TextMeshProUGUI _soulsOnSplineCounter;
-        
+
         public void OverRideLocalPosition(Vector3 position)
         {
             MovePopupToPositionLocal(position);
         }
-        
+
         public void SetSoulsOnSplineCounter(int value)
         {
-            _soulsOnSplineCounter.text = value.ToString();
+            if (_soulsOnSplineCounter != null)
+                _soulsOnSplineCounter.text = value.ToString();
         }
         public void setSoulsOnSplineImage(Sprite sprite)
         {
-            _soulsImage.sprite = sprite;
+            if (_soulsImage != null)
+                _soulsImage.sprite = sprite;
         }
-        
-        
-        
+
+
+
     }
-    
-    
-    
+
+
+
 }
