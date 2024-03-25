@@ -3,6 +3,7 @@ using Buildings;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 namespace FreeBuild
 {
@@ -28,6 +29,8 @@ namespace FreeBuild
         [SerializeField] private Material _badMaterial;
         [SerializeField] private EconManager _econManager;
         [SerializeField] private int _buildingLayer;
+        [SerializeField] private LayerMask _snapLayerMask;
+        [SerializeField] private float _snapThreshold = 5.5f;
 
         private string _buildTag;
         private GameObject _ghostObject;
@@ -42,13 +45,26 @@ namespace FreeBuild
         // Height change speed
         public float HeightChangeSpeed = 1.0f;
 
+        public static event Action OnStartSnapping;
+
 
         private void Awake()
         {
             //BuildingPanelUI._onPartChosen += CreateGhostObject;
             BuildSideUI._onBuild += CreateGhostObject;
-            Snapper.OnStartSnapping += LockObj;
         }
+
+
+        void OnEnable()
+        {
+            FreeBuildManager.OnStartSnapping += OnStartSnapping;
+        }
+
+        void OnDisable()
+        {
+            FreeBuildManager.OnStartSnapping -= OnStartSnapping;
+        }
+
 
         public void LockObj()
         {
@@ -133,6 +149,7 @@ namespace FreeBuild
                     }
 
                 }
+
             }
 
             // Rotation
@@ -148,6 +165,60 @@ namespace FreeBuild
             {
                 _isSnapped = false;
             }
+
+            Snapper ghostSnapper = _ghostObject ? _ghostObject.GetComponent<Snapper>() : null;
+            if (_ghostObject && !_locked && ghostSnapper && !ghostSnapper.IsPlaced)
+            {
+                AttemptSnapping();
+            }
+        }
+
+
+
+
+        void AttemptSnapping()
+        {
+            Snapper ghostSnapper = _ghostObject.GetComponent<Snapper>();
+            if (ghostSnapper == null || ghostSnapper.IsPlaced) return; // Added check for isPlaced
+
+            foreach (Transform ghostSnapPoint in ghostSnapper.SnapPoints)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(ghostSnapPoint.position, _snapThreshold, _snapLayerMask);
+                if (hitColliders.Length <= 0) { return; }
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.gameObject == _ghostObject)
+                    {
+                        continue; // Skip this iteration, don't consider the ghost object for snapping to itself
+                    }
+                    Snapper targetSnapper = hitCollider.transform.GetComponent<Snapper>();
+                    if (targetSnapper != null && targetSnapper.IsPlaced)
+                    { // Ensure target isn't already placed
+                        foreach (Transform targetSnapPoint in targetSnapper.SnapPoints)
+                        {
+                            float distance = Vector3.Distance(ghostSnapPoint.position, targetSnapPoint.position);
+                            if (distance <= _snapThreshold)
+                            {
+                                OnStartSnapping?.Invoke();
+                                SnapObject(ghostSnapPoint, targetSnapPoint, ghostSnapper);
+                                return; // Snap to the first match found for simplicity
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        void SnapObject(Transform ghostSnapPoint, Transform targetSnapPoint, Snapper ghostSnapper)
+        {
+            // Calculate offset and rotation required to align the ghost object's snap point with the target snap point
+            Vector3 positionOffset = targetSnapPoint.position - ghostSnapPoint.position;
+            _ghostObject.transform.position += positionOffset;
+
+            // Mark the ghost object as placed to prevent further snapping
+            //ghostSnapper.IsPlaced = true;
+
+            _isSnapped = true; // Prevent further movement until manual unlock or placement
         }
 
         private void MoveGhostObject(RaycastHit hit)
@@ -173,13 +244,13 @@ namespace FreeBuild
             {
                 meshFilter = _realObject.GetComponentInChildren<MeshFilter>();
             }
-            Snapper snapper = _realObject.GetComponent<Snapper>();
-            if (snapper != null)
-            {
-                var ghostSnap = _ghostObject.AddComponent<Snapper>();
-                ghostSnap.snapPoints = snapper.snapPoints;
-                ghostSnap.snapLayer = snapper.snapLayer;
-            }
+            //Snapper snapper = _realObject.GetComponent<Snapper>();
+            //if (snapper != null)
+            //{
+            //    var ghostSnap = _ghostObject.AddComponent<Snapper>();
+            //    ghostSnap.SnapPoints = snapper.SnapPoints;
+            //    ghostSnap.SnapLayer = snapper.SnapLayer;
+            //}
 
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
             _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
@@ -201,6 +272,17 @@ namespace FreeBuild
 
             if (_canBuild)
             {
+                GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
+                Snapper snapper = go.GetComponent<Snapper>();
+                if (_rootObject)
+                    go.transform.SetParent(_rootObject.transform);
+
+                //go.layer = _buildingLayer;
+                if (snapper != null)
+                {
+                    snapper.IsPlaced = true; // Mark the real object as placed
+                }
+
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
                     BuildPortal();
@@ -213,27 +295,22 @@ namespace FreeBuild
                 {
                     if (!BuildOutput()) return;
                 }
-                else
+
+
+
+                // Make new machine if an input is placed
+                if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
                 {
-                    GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
-                    if (_rootObject)
-                        go.transform.SetParent(_rootObject.transform);
-
-                    go.layer = _buildingLayer;
-
-                    // Make new machine if an input is placed
-                    if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
-                    {
-                        _machineManager.AttachToCurrentMachine(building);
-                        _machineManager.AddMachine();
-                    }
-
-                    if (go.GetComponent<Snapper>() != null)
-                    {
-                        go.GetComponent<Snapper>()._isPlaced = true;
-                    }
-
+                    _machineManager.AttachToCurrentMachine(building);
+                    _machineManager.AddMachine();
                 }
+
+                if (go.GetComponent<Snapper>() != null)
+                {
+                    go.GetComponent<Snapper>().IsPlaced = true;
+                }
+
+
 
                 if (_econManager != null)
                 {
@@ -276,7 +353,7 @@ namespace FreeBuild
             GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
                 _ghostObject.transform.rotation);
 
-            go.layer = _buildingLayer;
+            //go.layer = _buildingLayer;
 
             if (go.TryGetComponent(out MachinePart machinePart))
             {
@@ -285,7 +362,7 @@ namespace FreeBuild
 
             if (go.GetComponent<Snapper>() != null)
             {
-                go.GetComponent<Snapper>()._isPlaced = true;
+                go.GetComponent<Snapper>().IsPlaced = true;
             }
 
             return true;
@@ -298,7 +375,7 @@ namespace FreeBuild
             GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
                 _ghostObject.transform.rotation);
 
-            go.layer = _buildingLayer;
+            //go.layer = _buildingLayer;
 
             if (go.TryGetComponent(out BuildingFactoryBase building))
             {
@@ -338,3 +415,5 @@ namespace FreeBuild
 
     }
 }
+
+
