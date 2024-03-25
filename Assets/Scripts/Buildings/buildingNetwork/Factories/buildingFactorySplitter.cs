@@ -1,10 +1,10 @@
 namespace Buildings
 {
-    public class buildingFactorySplitter : BuildingFactoryBase
+    public class BuildingFactorySplitter : BuildingFactoryBase
     {
-        private int CurrentSplitterInt = 0;
+        private int _currentSplitterInt = 0;
 
-        private int MaxAmountOfExitBoxes;
+        private int _maxAmountOfExitBoxes;
 
         protected override void ExecuteMachineProcessingBehaviour()
         {
@@ -16,20 +16,20 @@ namespace Buildings
         }
         protected override void ExecuteMachineSpawningBehaviour()
         {
-            int MaxAmountOfExitBoxes = _exitBoxes.Count;
+            int maxAmountOfExitBoxes = _exitBoxes.Count;
 
-            if (_exitBoxes[CurrentSplitterInt].Spline != null)
+            if (_exitBoxes[_currentSplitterInt].Spline != null)
             {
-                SpawnDemon(_exitBoxes[CurrentSplitterInt]);
+                SpawnDemon(_exitBoxes[_currentSplitterInt]);
             }
-            IncreasesplitterInt(MaxAmountOfExitBoxes);
+            IncreaseSplitterInt(maxAmountOfExitBoxes);
         }
-        private void IncreasesplitterInt(int MaxAmountOfExitBoxes)
+        private void IncreaseSplitterInt(int maxAmountOfExitBoxes)
         {
-            CurrentSplitterInt++;
-            if (CurrentSplitterInt >= MaxAmountOfExitBoxes)
+            _currentSplitterInt++;
+            if (_currentSplitterInt >= maxAmountOfExitBoxes)
             {
-                CurrentSplitterInt = 0;
+                _currentSplitterInt = 0;
             }
         }
     }

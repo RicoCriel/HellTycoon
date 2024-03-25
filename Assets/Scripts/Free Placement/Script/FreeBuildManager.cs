@@ -272,17 +272,6 @@ namespace FreeBuild
 
             if (_canBuild)
             {
-                GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
-                Snapper snapper = go.GetComponent<Snapper>();
-                if (_rootObject)
-                    go.transform.SetParent(_rootObject.transform);
-
-                //go.layer = _buildingLayer;
-                if (snapper != null)
-                {
-                    snapper.IsPlaced = true; // Mark the real object as placed
-                }
-
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
                     BuildPortal();
@@ -295,22 +284,31 @@ namespace FreeBuild
                 {
                     if (!BuildOutput()) return;
                 }
-
-
-
-                // Make new machine if an input is placed
-                if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
+                else
                 {
-                    _machineManager.AttachToCurrentMachine(building);
-                    _machineManager.AddMachine();
+                    GameObject go = Instantiate(_realObject, _ghostObject.transform.position, _ghostObject.transform.rotation);
+                    Snapper snapper = go.GetComponent<Snapper>();
+                    if (_rootObject)
+                        go.transform.SetParent(_rootObject.transform);
+
+                    //go.layer = _buildingLayer;
+                    if (snapper != null)
+                    {
+                        snapper.IsPlaced = true; // Mark the real object as placed
+                    }
+
+                    // Make new machine if an input is placed
+                    if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
+                    {
+                        _machineManager.AttachToCurrentMachine(building);
+                        _machineManager.AddMachine();
+                    }
+
+                    if (go.GetComponent<Snapper>() != null)
+                    {
+                        go.GetComponent<Snapper>().IsPlaced = true;
+                    }
                 }
-
-                if (go.GetComponent<Snapper>() != null)
-                {
-                    go.GetComponent<Snapper>().IsPlaced = true;
-                }
-
-
 
                 if (_econManager != null)
                 {

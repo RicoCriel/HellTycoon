@@ -78,7 +78,7 @@ namespace Splines
         public void OnPointerEnter(PointerEventData eventData)
         {
 
-            if (!IsSplineStart && !ImConnected)
+            if (!IsSplineStart && !ImConnected && _splineDrawer.HasStartedDrawing)
             {
                 Debug.Log("Literally calling the stop at machine logic");
                 _splineDrawer.StopDrawingSplineAtMachine(this, out SplineView splineConnection);
