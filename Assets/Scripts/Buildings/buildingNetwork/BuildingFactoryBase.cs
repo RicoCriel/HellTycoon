@@ -103,7 +103,7 @@ namespace Buildings
             return DemonList.Count < MaxDemons;
         }
 
-        public void AddDemon(Queue<GameObject> DemonList, GameObject demon)
+        public virtual void AddDemon(Queue<GameObject> DemonList, GameObject demon)
         {
             demon.SetActive(false);
             DemonList.Enqueue(demon);

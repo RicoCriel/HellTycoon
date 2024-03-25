@@ -36,7 +36,7 @@ namespace PopupSystem
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
-            PopupActivatorHovered();
+            //PopupActivatorHovered();
         }
         public void OnPointerExit(PointerEventData eventData)
         {

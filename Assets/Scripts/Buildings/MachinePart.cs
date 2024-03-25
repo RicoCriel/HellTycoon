@@ -28,7 +28,8 @@ namespace Buildings
         {
             base.Awake();
 
-            if (TryGetComponent(out _popup))
+            _popup = GetComponentInChildren<WorldSpacePopupFactory>();
+            if (_popup)
             {
                 _popup.SoulProcessingPaused += OnSoulProcessingPaused;
                 _popup.SoulProcessingResumed += OnSoulProcessingResumed;
@@ -59,9 +60,25 @@ namespace Buildings
 
         }
 
+        public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
+        {
+            base.AddDemon(DemonList, demon);
+
+            StartUIProcessing(_unprocessedDemonContainer.Count, MachineRatePerSecond);
+            _popup.SetUnprocessedSoulsCounter(_unprocessedDemonContainer.Count);
+        }
+
+        protected override void ExecuteMachineSpawningBehaviour()
+        {
+            base.ExecuteMachineSpawningBehaviour();
+
+            if(_unprocessedDemonContainer.Count > 0)
+                StartUIProcessing(1, MachineRatePerSecond);
+        }
+
         protected override void ExecuteMachineProcessingBehaviour()
         {
-            if (_unprocessedDemonContainer.Count > 0)
+            if (_unprocessedDemonContainer.Count > 0 && _unprocessedDemonContainer.Count < MaxDemons)
             {
                 foreach (var demon in _unprocessedDemonContainer)
                 {
@@ -86,11 +103,13 @@ namespace Buildings
         // Popup Logic-----------------------------------------------------
         private void OnSoulProcessingPaused(object sender, PopupSystem.Inheritors.PopupClickedEventArgs e)
         {
+            StopSpawning();
             Debug.Log("Soul Processing Paused");
         }
 
         private void OnSoulProcessingResumed(object sender, PopupSystem.Inheritors.PopupClickedEventArgs e)
         {
+            ResumeProcessing();
             Debug.Log("Soul Processing Resumed");
         }
 
@@ -98,7 +117,7 @@ namespace Buildings
         {
             if (_popup != null)
             {
-                _popup.SetUnprocessedSoulsCounter(amount);
+                //_popup.SetUnprocessedSoulsCounter(amount);
                 _popup.ProcessSoulBarUI(time);
             }
 
