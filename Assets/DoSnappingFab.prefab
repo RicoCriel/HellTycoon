@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8606266115417222887}
   - component: {fileID: 6666575293749412104}
   m_Layer: 11
-  m_Name: TestingFab
+  m_Name: DoSnappingFab
   m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

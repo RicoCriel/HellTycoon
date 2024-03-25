@@ -1278,17 +1278,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035712965}
   m_CullTransparentMesh: 1
---- !u!114 &1085269569 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1478239403128614267, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
-  m_PrefabInstance: {fileID: 1870921432012672537}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2e15edad139cb478b2c83c68d08d60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1174036677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,11 +1791,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865666d03a1ce3a438b8235d863ebc6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 5314174}
+  _parent: {fileID: 5314174}
   MoveSpeed: 2
-  minZoom: 2
-  maxZoom: 20
-  zoomSpeed: 5
+  MinZoom: 20
+  MaxZoom: 60
+  ZoomSpeed: 5
 --- !u!114 &1425473626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,28 +1852,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_MaxRayIntersections: 0
---- !u!114 &1425764020 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 788552287885712334, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
-  m_PrefabInstance: {fileID: 1870921432012672537}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32b5ad88a95f3b418ccbd63f7469f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1425764021 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 788393301560033878, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
-  m_PrefabInstance: {fileID: 1870921432012672537}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca38a21112437544bc762f5854ac633, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1431582921 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3247573749863658741, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
@@ -1994,7 +1961,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1085269569}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnOffPanel
         m_Mode: 1
@@ -2380,7 +2347,7 @@ PrefabInstance:
     - target: {fileID: 788393301560033878, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: UiManager
       value: 
-      objectReference: {fileID: 1425764020}
+      objectReference: {fileID: 0}
     - target: {fileID: 788393301560033878, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: RootObject
       value: 
@@ -2432,7 +2399,7 @@ PrefabInstance:
     - target: {fileID: 1478239403128614267, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: CM
       value: 
-      objectReference: {fileID: 1425764021}
+      objectReference: {fileID: 0}
     - target: {fileID: 1478239403128614267, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: BuildPanel
       value: 
