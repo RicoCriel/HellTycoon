@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Output
   m_EditorClassIdentifier: 
   _displayName: Output
-  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
+  _icon: {fileID: 21300000, guid: e51891c2f0a73f44089479d075cec7c6, type: 3}
   _prefab: {fileID: 1674316090822045255, guid: c9cb6ebb749dd7c43ba69c72ab795421, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 50

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Input
   m_EditorClassIdentifier: 
   _displayName: Inserter
-  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
+  _icon: {fileID: 21300000, guid: c12c00cf5b095a049a33f0f90335d980, type: 3}
   _prefab: {fileID: 5002515597761908009, guid: 4c2b4d1c08ea883469f573f20c62bc1a, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 50

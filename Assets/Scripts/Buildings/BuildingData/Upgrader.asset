@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Part 1
+  m_Name: Upgrader
   m_EditorClassIdentifier: 
-  _displayName: Part 1
-  _icon: {fileID: 21300000, guid: a4fb65b4e2ffecc4ea87b86d91f211f1, type: 3}
-  _prefab: {fileID: 8531093189678575500, guid: ae556977e4e2d974ea623ea90fd41699, type: 3}
+  _displayName: Upgrader
+  _icon: {fileID: 21300000, guid: a7ed8ac3d7c45de4b91c4f65f3e618e8, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: be71ef1a61817ca4b839435fbc25c943, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 100
   _partType: 0
