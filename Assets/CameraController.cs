@@ -49,6 +49,9 @@ public class CameraController : MonoBehaviour
         // Convert movement to world space
         moveDirection = _parent.transform.TransformDirection(moveDirection);
 
+        float zoomAmmount = scroll * 5000 * Time.deltaTime;
+
+        this.transform.Translate(Vector3.forward * zoomAmmount);
         
         _parent.transform.position += moveDirection.normalized * MoveSpeed * Time.deltaTime;
     }
