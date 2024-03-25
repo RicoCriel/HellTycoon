@@ -693,28 +693,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46517b1f85f8a664d840a1ba99cdc6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxBodyLevel: 2
+  _maxFaceLevel: 2
+  _maxHornLevel: 2
+  _maxArmorLevel: 2
+  _maxWingsLevel: 2
+  _horns: {fileID: 5427084344770230518}
+  _head: {fileID: 4039055392208183165}
+  _face: {fileID: 8121148272788579382}
+  _armor: {fileID: 967472162899770600}
+  _wings: {fileID: 4648949517468731326}
+  _wingsL: {fileID: 6949569570086390689}
+  _hornsSprites:
+  - {fileID: 21300000, guid: 7779ec2bd11bbf744bcc2095b1f51520, type: 3}
+  - {fileID: -761348144400533299, guid: 80161c327f9c834488d9b003fbc78edd, type: 3}
+  - {fileID: -2736956472970952707, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  _headSprites:
+  - {fileID: -4295479835794913960, guid: 1bf75672d6e44044ebe9adb49ea83e3d, type: 3}
+  - {fileID: 9094147636060988398, guid: 80161c327f9c834488d9b003fbc78edd, type: 3}
+  - {fileID: 5091063961551961432, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  _faceSprites:
+  - {fileID: 4979819643812881863, guid: 1bf75672d6e44044ebe9adb49ea83e3d, type: 3}
+  - {fileID: -7218906687304048703, guid: 3d08d79d27a5ea74f8d9fcb6346011a8, type: 3}
+  - {fileID: 3966431454434167025, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  _armorSprites:
+  - {fileID: 21300000, guid: 7779ec2bd11bbf744bcc2095b1f51520, type: 3}
+  - {fileID: -4159396750556046284, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  - {fileID: -4159396750556046284, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  _wingsSprites:
+  - {fileID: 21300000, guid: 7779ec2bd11bbf744bcc2095b1f51520, type: 3}
+  - {fileID: -6690504313504711966, guid: 7b1bd20fdc98c1745ae481eb562da12b, type: 3}
+  - {fileID: -6071460350887120450, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
+  _wingsSpritesL:
+  - {fileID: 21300000, guid: 7779ec2bd11bbf744bcc2095b1f51520, type: 3}
+  - {fileID: 2964849558974954589, guid: 7b1bd20fdc98c1745ae481eb562da12b, type: 3}
+  - {fileID: -5561391904081043805, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
   BodyLevel: 0
   FaceLevel: 0
   HornLevel: 0
   ArmorLevel: 0
   WingsLevel: 0
-  MaxBodyLevel: 2
-  MaxFaceLevel: 2
-  MaxHornLevel: 2
-  MaxArmorLevel: 2
-  MaxWingsLevel: 2
-  Horns: {fileID: 5427084344770230518}
-  Head: {fileID: 4039055392208183165}
-  Face: {fileID: 8121148272788579382}
-  Armor: {fileID: 967472162899770600}
-  Wings: {fileID: 0}
-  hornsSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  HeadSprites: []
-  FaceSprites: []
-  ArmorSprites: []
-  WingsSprites: []
 --- !u!95 &7675849781904450796
 Animator:
   serializedVersion: 5

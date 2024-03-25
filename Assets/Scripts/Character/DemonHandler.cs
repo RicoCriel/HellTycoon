@@ -24,6 +24,7 @@ public class DemonHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer _face;
     [SerializeField] private SpriteRenderer _armor;
     [SerializeField] private SpriteRenderer _wings;
+    [SerializeField] private SpriteRenderer _wingsL;
 
     [SerializeField] private Sprite[] _hornsSprites;
     [SerializeField] private Sprite[] _headSprites;
@@ -47,9 +48,13 @@ public class DemonHandler : MonoBehaviour
         HornLevel = 0;
         ArmorLevel = 0;
         WingsLevel = 0;
-        MachinePart.onDemonStatsChanged += UpdateSprites;
       
 }
+
+    private void OnEnable()
+    {
+        UpdateSprites();
+    }
 
 
     private void Update()
@@ -59,17 +64,19 @@ public class DemonHandler : MonoBehaviour
 
     private void UpdateSprites()
     {
-        if (_maxBodyLevel > BodyLevel) { BodyLevel = _maxBodyLevel; }
-        if (_maxFaceLevel > FaceLevel) { FaceLevel = _maxFaceLevel; }
-        if (_maxHornLevel > HornLevel) { HornLevel = _maxHornLevel; }
-        if (_maxArmorLevel > ArmorLevel) { ArmorLevel = _maxArmorLevel; }
-        if (_maxWingsLevel > WingsLevel) { WingsLevel = _maxWingsLevel; }
+        if (_maxBodyLevel < BodyLevel) { BodyLevel = _maxBodyLevel -1; }
+        if (_maxFaceLevel < FaceLevel) { FaceLevel = _maxFaceLevel - 1; }
+        if (_maxHornLevel < HornLevel) { HornLevel = _maxHornLevel - 1; }
+        if (_maxArmorLevel < ArmorLevel) { ArmorLevel = _maxArmorLevel - 1; }
+        if (_maxWingsLevel < WingsLevel) { WingsLevel = _maxWingsLevel - 1; }
         
         _horns.sprite = _hornsSprites[HornLevel];
+        //Debug.Log(_horns.sprite);
         _head.sprite = _headSprites[BodyLevel];
         _face.sprite = _faceSprites[FaceLevel];
         _armor.sprite = _armorSprites[ArmorLevel];
         _wings.sprite = _wingsSprites[WingsLevel];
+        _wingsL.sprite = _wingsSprites[WingsLevel];
 
     }
 
