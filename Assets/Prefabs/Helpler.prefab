@@ -627,15 +627,15 @@ MonoBehaviour:
   _machineManager: {fileID: 0}
   _inputTag: Input
   _outputTag: Output
-  _ghostObjectPrefab: {fileID: 3450321865943837944, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
+  _ghostObjectPrefab: {fileID: 4568936789089618933, guid: 932dec010fe925247b6d306910b552a6, type: 3}
   _goodMaterial: {fileID: 2100000, guid: 28f547c349914ae43abf427836eef5c6, type: 2}
   _badMaterial: {fileID: 2100000, guid: a217caa33e1f358498d35df9e371d6f1, type: 2}
   _econManager: {fileID: 6181139984300803159}
   _buildingLayer: 0
   _snapLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  _snapThreshold: 5.5
+    m_Bits: 2048
+  _snapThreshold: 0.5
   RotateSpeed: 100
   HeightChangeSpeed: 1
 --- !u!1 &2188477353996693806
