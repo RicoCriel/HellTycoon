@@ -295,9 +295,16 @@ namespace FreeBuild
 
         public void Build()
         {
+            if (_ghostObject2 != null)
+            {
+                if (_ghostObject2.GetComponent<Snapper>().IsColliding)
+                {
+                    _canBuild = false;
+                }
+            }
+            
             DestroyGhostObject();
-
-            if (_canBuild)
+                if (_canBuild)
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
