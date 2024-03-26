@@ -39,7 +39,7 @@ namespace Buildings
             }
         }
 
-        protected void OnDisable()
+        protected new void OnDisable()
         {
             base.OnDisable();
 

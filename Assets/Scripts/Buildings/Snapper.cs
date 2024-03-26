@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using FreeBuild;
 using static Snapper;
 
-using UnityEngine;
-
 public class Snapper : MonoBehaviour
 {
     // Array to hold snap points. You can manually assign these in the Unity Editor.

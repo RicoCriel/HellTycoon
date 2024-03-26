@@ -81,16 +81,19 @@ namespace PopupSystem
             {
                 StopCoroutine(PopupSpawningRoutine);
                 PopupSpawningRoutine = null;
+                PopupInstanceTracker.CurrentPopupInstance = null;
             }
 
             if (_popup.IsPopupActive())
             {
                 DeSpawnPopup();
+                PopupInstanceTracker.CurrentPopupInstance = null;
             }
             else
             {
                 if (!_popup.IsPopupTweeningOpen())
                 {
+                    PopupInstanceTracker.CurrentPopupInstance = _popup;
                     SpawnPopup();
                 }
             }
