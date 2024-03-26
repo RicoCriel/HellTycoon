@@ -15,14 +15,21 @@ namespace Splines
 
         [SerializeField] private SplineMesh _mySplineMesh;
 
-        [SerializeField] private MeshRenderer _myMeshRenderer;
+        [SerializeField] private MeshRenderer _splineMeshMeshRenderer;
 
-        [SerializeField] private MeshFilter _myMeshFilter;
+        [SerializeField] private MeshFilter _splineMeshMeshFilter;
+
+
+        [SerializeField] private MeshRenderer _splinePathMeshRenderer;
+
+        [SerializeField] private MeshFilter _splinePathFilter;
 
         [SerializeField] private PathGenerator _splinePath;
 
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
+
+
 
         private void OnDestroy()
         {
@@ -92,11 +99,6 @@ namespace Splines
             if (_mySplineMesh == null)
                 _mySplineMesh = GetComponent<SplineMesh>();
 
-            if (_myMeshRenderer == null)
-                _myMeshRenderer = GetComponent<MeshRenderer>();
-
-            if (_myMeshFilter == null)
-                _myMeshFilter = GetComponent<MeshFilter>();
 
             _popupActivator.SetPopupper(_popupSpline);
             _popupSpline.DestroyButtonClicked += OnDestroyButtonClicked;
@@ -137,6 +139,16 @@ namespace Splines
         public float GetSplineUniformSize()
         {
             return _mySplineComputer.CalculateLength();
+        }
+
+        public float CalculateLenghtLastPoints()
+        {
+            int pointAmount = _mySplineComputer.GetPoints().Length;
+
+            double point1 = _mySplineComputer.GetPointPercent(pointAmount -1);
+            double point2 = _mySplineComputer.GetPointPercent(pointAmount -2);
+
+            return _mySplineComputer.CalculateLength(point2, point1);
         }
 
         /// <summary>
@@ -275,16 +287,31 @@ namespace Splines
         /// </summary>
         public void ToggleMeshRenderer()
         {
-            _myMeshRenderer.enabled = !_myMeshRenderer.enabled;
+            _splineMeshMeshRenderer.enabled = !_splineMeshMeshRenderer.enabled;
+            _splinePathMeshRenderer.enabled = !_splinePathMeshRenderer.enabled;
         }
 
         /// <summary>
         /// Set the spline mesh single material
         /// </summary>
         /// <param name="material"></param>
-        public void SetMaterial(Material material)
+        public void SetMaterialMesh(Material material)
         {
-            _myMeshRenderer.material = material;
+            _splineMeshMeshRenderer.material = material;
+        }
+
+        /// <summary>
+        /// Set the spline Path material
+        /// </summary>
+        /// <param name="material"></param>
+        public void SetMaterialPath(Material material)
+        {
+            _splinePathMeshRenderer.material = material;
+        }
+
+        public void DisablePathMeshRenderer()
+        {
+            _splinePathMeshRenderer.enabled = false;
         }
 
         /// <summary>

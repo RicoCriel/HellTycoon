@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3315113940261105979}
   - component: {fileID: 917350109304222471}
   m_Layer: 7
-  m_Name: PathSplineView
+  m_Name: CombinedSpline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,8 +36,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2450251117480849657}
   - {fileID: 4544025553006318431}
-  - {fileID: 2631316863691509877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1131511274195049740
@@ -54,9 +54,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPathSpline: 0
   _mySplineComputer: {fileID: 8409215362539035836}
-  _mySplineMesh: {fileID: 5330247969046855927}
-  _myMeshRenderer: {fileID: 5636563660150824204}
-  _myMeshFilter: {fileID: 4529975421703243596}
+  _mySplineMesh: {fileID: 5727877919354249339}
+  _splineMeshMeshRenderer: {fileID: 2788599266676208296}
+  _splineMeshMeshFilter: {fileID: 9064356671344408234}
+  _splinePathMeshRenderer: {fileID: 5636563660150824204}
+  _splinePathFilter: {fileID: 4529975421703243596}
   _splinePath: {fileID: 3315113940261105979}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}
@@ -101,7 +103,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    sampleRate: 3
+    sampleRate: 4
     closed: 0
     _knotParametrization: 1
   _originalSamplePercents:
@@ -182,10 +184,10 @@ MonoBehaviour:
   hasSamples: 1
   _optimizeAngleThreshold: 0.5
   _space: 1
-  _sampleMode: 1
+  _sampleMode: 0
   _subscribers:
   - {fileID: 3315113940261105979}
-  - {fileID: 5330247969046855927}
+  - {fileID: 5727877919354249339}
   _rawSamples: []
   _nodes: []
 --- !u!64 &4342723374602401427
@@ -315,7 +317,7 @@ MonoBehaviour:
   buildOnEnable: 0
   _baked: 0
   _markDynamic: 1
-  _size: 1
+  _size: 1.3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _offset: {x: 0, y: 0, z: 0}
   _normalMethod: 1
@@ -362,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popup: {fileID: 7823739658469614760}
   _popupDelay: 0.8
---- !u!1 &1897479910980867921
+--- !u!1 &2076275131186198493
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,11 +372,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2631316863691509877}
-  - component: {fileID: 8885121070689687078}
-  - component: {fileID: 2321115869616706084}
-  - component: {fileID: 5330247969046855927}
-  - component: {fileID: 3220243960444581326}
+  - component: {fileID: 2450251117480849657}
+  - component: {fileID: 9064356671344408234}
+  - component: {fileID: 2788599266676208296}
+  - component: {fileID: 5727877919354249339}
   m_Layer: 7
   m_Name: SplineView
   m_TagString: Untagged
@@ -382,13 +383,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2631316863691509877
+--- !u!4 &2450251117480849657
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897479910980867921}
+  m_GameObject: {fileID: 2076275131186198493}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -397,21 +398,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3778724096351703848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8885121070689687078
+--- !u!33 &9064356671344408234
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897479910980867921}
+  m_GameObject: {fileID: 2076275131186198493}
   m_Mesh: {fileID: 0}
---- !u!23 &2321115869616706084
+--- !u!23 &2788599266676208296
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897479910980867921}
+  m_GameObject: {fileID: 2076275131186198493}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -447,13 +448,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5330247969046855927
+--- !u!114 &5727877919354249339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897479910980867921}
+  m_GameObject: {fileID: 2076275131186198493}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8e405fbab136934590641eb781310b4, type: 3}
@@ -520,28 +521,6 @@ MonoBehaviour:
   _bakedMesh: {fileID: 0}
   colliderUpdateRate: 0.2
   _channels: []
---- !u!64 &3220243960444581326
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897479910980867921}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1001 &6541082034304209123
 PrefabInstance:
   m_ObjectHideFlags: 0

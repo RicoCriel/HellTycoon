@@ -58,7 +58,7 @@ namespace Splines
 
             SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUse);
             float splineSize = _instanciatedSpline.GetSplineUniformSize();
-            _instanciatedSpline.SetMaterial(_materialToUse);
+            _instanciatedSpline.SetMaterialMesh(_materialToUse);
             _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
             // instanciatedSpline.SetMeshSize(10);
             _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
