@@ -117,7 +117,7 @@ namespace FreeBuild
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-               
+
                 if (_ghostObject)
                 {
                     if (Input.GetMouseButtonDown(0))
@@ -125,6 +125,7 @@ namespace FreeBuild
                         _locked = !_locked;
                         if (_locked)
                         {
+                            Invoke("Build", 0.5f);
                             return;
                         }
                         _locked = true;
@@ -172,10 +173,6 @@ namespace FreeBuild
             if (_ghostObject && !_locked && ghostSnapper && !ghostSnapper.IsPlaced)
             {
                 AttemptSnapping();
-            }
-            if(Input.GetKey(KeyCode.F))
-            {
-                Build();
             }
         }
 
@@ -309,9 +306,9 @@ namespace FreeBuild
             {
                 _canBuild = false;
             }
-            
+
             DestroyGhostObject();
-                if (_canBuild)
+            if (_canBuild)
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
