@@ -13,11 +13,17 @@ public class BuildingPanelUI : MonoBehaviour
     [SerializeField] private BuildingPartUI _buildingButtonPrefab;
 
     [SerializeField] private GameObject _itemWindow;
+    [SerializeField] private UnityEvent _onPartClick;
+
+    public void OnHover(BuildingData chosenData)
+    {
+        _sideUI.UpdateSideDisplay(chosenData);
+    }
 
     public void OnClick(BuildingData chosenData)
     {
-        //_onPartChosen ? .Invoke(chosenData);
-        _sideUI.UpdateSideDisplay(chosenData);
+        _onPartChosen?.Invoke(chosenData);
+        _onPartClick?.Invoke();
     }
 
     public void OnClickAllParts()

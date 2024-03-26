@@ -17,17 +17,16 @@ public class BuildingPartUI : MonoBehaviour, IPointerEnterHandler
         _parentDisplay = parentDisplay;
         _button = GetComponentInChildren<Button>();
         _button.GetComponent<Image>().sprite = _assignedData.Icon;
-        //_button.onClick.AddListener(OnButtonClick);
+        _button.onClick.AddListener(OnButtonClick);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnButtonClick();
+        _parentDisplay.OnHover(_assignedData);
     }
 
     private void OnButtonClick()
     {
         _parentDisplay.OnClick(_assignedData);
     }
-    
 }

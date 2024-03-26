@@ -22,7 +22,7 @@ public class BuildSideUI : MonoBehaviour
         BuildingText.text = string.Empty;
 
         _button = GetComponentInChildren<Button>();
-        _button.onClick.AddListener(OnButtonClick);
+        //_button.onClick.AddListener(OnButtonClick);
     }
 
     public void UpdateSideDisplay(BuildingData data)
