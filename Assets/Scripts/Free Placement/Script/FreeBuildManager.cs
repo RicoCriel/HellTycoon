@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FreeBuild
 {
@@ -34,11 +35,13 @@ namespace FreeBuild
 
         private string _buildTag;
         private GameObject _ghostObject;
+        private GameObject _ghostObject2;
         private GameObject _realObject;
         private bool _locked = false;
         private bool _isSnapped = false;
         private bool _canBuild = false;
         private int _currentCost = 0;
+        private float _2ghostOffset;
 
         // Rotation speed
         public float RotateSpeed = 100.0f;
@@ -224,7 +227,12 @@ namespace FreeBuild
         private void MoveGhostObject(RaycastHit hit)
         {
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-
+            if (_realObject.GetComponent<DemonPortal>() != null)
+            {
+                    _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+            }
+                
+                
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
@@ -238,6 +246,20 @@ namespace FreeBuild
         private void CreateGhostObject(RaycastHit hit)
         {
             _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z), Quaternion.identity);
+
+
+            if (_realObject.GetComponent<DemonPortal>() != null)
+            {
+                Transform curr = _landLayerManager.GetCurrPlot().transform;
+                Transform next;
+                if (_landLayerManager.NextPlot(curr.gameObject) != null)
+                {
+                    next = _landLayerManager.NextPlot(curr.gameObject).transform;
+                    _2ghostOffset = next.position.x;
+                    _ghostObject2 = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x + next.position.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z), Quaternion.identity);
+
+                }
+            }
 
             var meshFilter = _realObject.GetComponent<MeshFilter>();
             if (meshFilter == null)
@@ -254,6 +276,11 @@ namespace FreeBuild
 
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
             _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
+            if (_realObject.GetComponent<DemonPortal>() != null)
+            {
+                _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
+                _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
+            }
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
@@ -405,6 +432,10 @@ namespace FreeBuild
             if (_ghostObject)
             {
                 Destroy(_ghostObject);
+            }
+            if (_ghostObject2)
+            {
+                Destroy(_ghostObject2);
             }
         }
 
