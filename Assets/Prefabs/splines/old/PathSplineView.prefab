@@ -55,8 +55,10 @@ MonoBehaviour:
   IsPathSpline: 0
   _mySplineComputer: {fileID: 8409215362539035836}
   _mySplineMesh: {fileID: 5330247969046855927}
-  _myMeshRenderer: {fileID: 5636563660150824204}
-  _myMeshFilter: {fileID: 4529975421703243596}
+  _splineMeshMeshRenderer: {fileID: 0}
+  _splineMeshMeshFilter: {fileID: 0}
+  _splinePathMeshRenderer: {fileID: 0}
+  _splinePathFilter: {fileID: 0}
   _splinePath: {fileID: 3315113940261105979}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}

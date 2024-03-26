@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using PopupSystem;
+using Splines.Obstacles;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -97,16 +98,15 @@ namespace Splines.Drawing
         private float _currentMaxBeltLenght = 0;
         [SerializeField] private Color _BeltPlacementColor;
         [SerializeField] private Color _BeltPlacementColorMax;
-        
+
+        [FormerlySerializedAs("_mudLayer")]
         [FormerlySerializedAs("ObstacleLayer")]
         [Header("Mud")]
         [SerializeField]
-        public LayerMask _mudLayer; // Ground layer to interact with
-        [Range(1, 10)]
-        [SerializeField]
-        private float _mudCostMultiplier = 1;
-        private bool IsInTheMud = false;
-        
+        public LayerMask _splineObstacleLayer;
+        private bool IsInObstacle = false;
+        private SplineObstacle _currentSplineObstacle;
+
         // [Header("Energizer")]
         // public LayerMask ObstacleLayer; // Ground layer to interact with
         // [Range(1, 10)]
@@ -166,16 +166,17 @@ namespace Splines.Drawing
         }
         private void LowerBeltSizeWhenDrawingNewPoint()
         {
-            if (IsInTheMud)
+            if (IsInObstacle)
             {
                 Debug.Log(_instanciatedSpline.CalculateLenghtLastPoints());
-                
-              _currentMaxBeltLenght -= (_instanciatedSpline.CalculateLenghtLastPoints() * _mudCostMultiplier);
+
+                _currentMaxBeltLenght -= (_instanciatedSpline.CalculateLenghtLastPoints() * -(_currentSplineObstacle.ObstacleSpeedInfluence));
+                // _currentMaxBeltLenght = Mathf.Clamp(_currentMaxBeltLenght, 0, _maxBeltLenght);
             }
         }
         private bool SetBeltColourDependingOnPlacementRange()
         {
-            MudCheck();
+            ObstacleCheck();
 
             if (MaxsizeCheck())
             {
@@ -193,12 +194,24 @@ namespace Splines.Drawing
             }
             return false;
         }
-        private void MudCheck()
+        private void ObstacleCheck()
         {
 
-            Collider[] colliders = Physics.OverlapSphere(_mostRecentPoint, _selfCollisionRange, _mudLayer);
+            Collider[] colliders = Physics.OverlapSphere(_mostRecentPoint, _selfCollisionRange, _splineObstacleLayer);
 
-            IsInTheMud = colliders.Length > 0;
+            if (colliders.Length > 0)
+            {
+                if (_currentSplineObstacle == null)
+                {
+                    IsInObstacle = true;
+                    _currentSplineObstacle = colliders[0].GetComponent<SplineObstacle>();
+                }
+            }
+            else
+            {
+                _currentSplineObstacle = null;
+                IsInObstacle = false;
+            }
         }
         private bool MaxsizeCheck()
         {

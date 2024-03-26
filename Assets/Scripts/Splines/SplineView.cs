@@ -244,8 +244,17 @@ namespace Splines
             {
                 percent = 1;
             }
+            if (percent < 0)
+            {
+                percent = 0;
+            }
 
             SplinePoint[] points = _mySplineComputer.GetPoints();
+            
+            for (int index = 0; index < points.Length; index++)
+            {
+                points[index].color = Color.white;
+            }
 
             int pointsToColour = (int)(points.Length * percent);
 
