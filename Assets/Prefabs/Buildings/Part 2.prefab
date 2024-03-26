@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1565583326548247162}
   - component: {fileID: 5792544031519356083}
   - component: {fileID: 1794593670034743696}
+  - component: {fileID: 1147040136749780422}
   m_Layer: 0
   m_Name: Part 2
   m_TagString: Untagged
@@ -85,6 +86,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popup: {fileID: 281622845982116544}
   _popupDelay: 0.8
+--- !u!65 &1147040136749780422
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723718042826909117}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &394050568225672481
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -337,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3972976967559434608, guid: 889a18a45c40cd9499a7212a3cb74c21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.733
       objectReference: {fileID: 0}
     - target: {fileID: 3972976967559434608, guid: 889a18a45c40cd9499a7212a3cb74c21, type: 3}
       propertyPath: m_LocalPosition.z
