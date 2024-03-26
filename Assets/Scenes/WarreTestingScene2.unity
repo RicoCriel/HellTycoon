@@ -1243,6 +1243,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1546365831}
     - target: {fileID: 1191212255451296651, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _maxDist
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191212255451296651, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _inputTag
       value: Input
       objectReference: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace FreeBuild
 {
@@ -42,6 +43,10 @@ namespace FreeBuild
         private bool _canBuild = false;
         private int _currentCost = 0;
         private float _2ghostOffset;
+        private bool _startTracking = false;
+        private Vector3 _startPosition;
+        private float _trackedDist = 0f;
+        private float _maxDist = 150f;
 
         // Rotation speed
         public float RotateSpeed = 100.0f;
@@ -57,6 +62,7 @@ namespace FreeBuild
             //BuildSideUI._onBuild += CreateGhostObject;
         }
 
+    
 
         void OnEnable()
         {
@@ -68,6 +74,12 @@ namespace FreeBuild
             FreeBuildManager.OnStartSnapping -= OnStartSnapping;
         }
 
+        public void StartTrackingMouse()
+        {
+            _startTracking = true;
+            _startPosition = Input.mousePosition;
+            _trackedDist = 0f;
+        }
 
         public void LockObj()
         {
@@ -117,7 +129,7 @@ namespace FreeBuild
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-               
+
                 if (_ghostObject)
                 {
                     if (Input.GetMouseButtonDown(0))
@@ -125,14 +137,15 @@ namespace FreeBuild
                         _locked = !_locked;
                         if (_locked)
                         {
+                            Invoke("Build", 0.5f);
                             return;
                         }
                         _locked = true;
                     }
-                    else if (Input.GetMouseButtonDown(1))
-                    {
-                        _locked = false;
-                    }
+                    //else if (Input.GetMouseButtonDown(1))
+                    //{
+                    //    _locked = false;
+                    //}
 
                     if (!_locked)
                     {
@@ -163,19 +176,35 @@ namespace FreeBuild
             {
                 RotateGhostObject(RotateSpeed * Time.deltaTime);
             }
-            if (Input.GetMouseButtonDown(1))
-            {
-                _isSnapped = false;
-            }
 
             Snapper ghostSnapper = _ghostObject ? _ghostObject.GetComponent<Snapper>() : null;
             if (_ghostObject && !_locked && ghostSnapper && !ghostSnapper.IsPlaced)
             {
                 AttemptSnapping();
             }
-            if(Input.GetKey(KeyCode.F))
+
+
+            if (_startTracking)
             {
-                Build();
+                // Calculate the distance moved by the mouse since last frame
+                Vector3 currentPosition = Input.mousePosition;
+                float distanceMoved = Vector3.Distance(currentPosition, _startPosition);
+
+                // Add the distance moved to the total tracked distance
+                _trackedDist += distanceMoved;
+
+                // Update the start position for the next frame
+                _startPosition = currentPosition;
+
+                Debug.Log(_trackedDist);
+
+                if (_trackedDist >= _maxDist)
+                {
+                    _startTracking = false;
+                    _isSnapped = false;
+                    _locked = false;
+                    Debug.Log("Max distance reached!");
+                }
             }
         }
 
@@ -217,14 +246,19 @@ namespace FreeBuild
 
         void SnapObject(Transform ghostSnapPoint, Transform targetSnapPoint, Snapper ghostSnapper)
         {
-            // Calculate offset and rotation required to align the ghost object's snap point with the target snap point
-            Vector3 positionOffset = targetSnapPoint.position - ghostSnapPoint.position;
-            _ghostObject.transform.position += positionOffset;
+            if(!_isSnapped)
+            {
+                // Calculate offset and rotation required to align the ghost object's snap point with the target snap point
+                Vector3 positionOffset = targetSnapPoint.position - ghostSnapPoint.position;
+                _ghostObject.transform.position += positionOffset;
 
-            // Mark the ghost object as placed to prevent further snapping
-            //ghostSnapper.IsPlaced = true;
+                // Mark the ghost object as placed to prevent further snapping
+                //ghostSnapper.IsPlaced = true;
 
-            _isSnapped = true; // Prevent further movement until manual unlock or placement
+                _isSnapped = true; // Prevent further movement until manual unlock or placement
+                StartTrackingMouse();
+            }    
+           
         }
 
         private void MoveGhostObject(RaycastHit hit)
@@ -309,9 +343,9 @@ namespace FreeBuild
             {
                 _canBuild = false;
             }
-            
+
             DestroyGhostObject();
-                if (_canBuild)
+            if (_canBuild)
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
