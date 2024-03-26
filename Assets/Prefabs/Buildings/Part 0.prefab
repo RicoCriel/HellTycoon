@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1527802100752139110}
   - component: {fileID: 6625954683927601274}
   - component: {fileID: 2767641254870562579}
+  - component: {fileID: 8112090300793758397}
   m_Layer: 0
   m_Name: Part 0
   m_TagString: Untagged
@@ -169,6 +170,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popup: {fileID: 8930429472023533590}
   _popupDelay: 0.8
+--- !u!65 &8112090300793758397
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298030720978647833}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &356726761826897042
 PrefabInstance:
   m_ObjectHideFlags: 0

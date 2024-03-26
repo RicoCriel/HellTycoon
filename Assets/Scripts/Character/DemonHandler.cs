@@ -6,19 +6,12 @@ using UnityEngine;
 
 public class DemonHandler : MonoBehaviour
 {
-   
-    
     [SerializeField] private int _maxBodyLevel = 2;
     [SerializeField] private int _maxFaceLevel = 2;
     [SerializeField] private int _maxHornLevel = 2;
     [SerializeField] private int _maxArmorLevel = 2;
     [SerializeField] private int _maxWingsLevel = 2;
 
-
-
-
-
-    
     [SerializeField] private SpriteRenderer _horns;
     [SerializeField] private SpriteRenderer _head;
     [SerializeField] private SpriteRenderer _face;
@@ -32,6 +25,7 @@ public class DemonHandler : MonoBehaviour
     [SerializeField] private Sprite[] _armorSprites;
     [SerializeField] private Sprite[] _wingsSprites;
 
+    private Camera _mainCamera;
 
     public int BodyLevel;
     public int FaceLevel;
@@ -48,8 +42,14 @@ public class DemonHandler : MonoBehaviour
         HornLevel = 0;
         ArmorLevel = 0;
         WingsLevel = 0;
-      
-}
+
+    }
+
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+        AngleToCamera();
+    }
 
     private void OnEnable()
     {
@@ -59,17 +59,17 @@ public class DemonHandler : MonoBehaviour
 
     private void Update()
     {
-
+        AngleToCamera();
     }
 
     private void UpdateSprites()
     {
-        if (_maxBodyLevel < BodyLevel) { BodyLevel = _maxBodyLevel -1; }
+        if (_maxBodyLevel < BodyLevel) { BodyLevel = _maxBodyLevel - 1; }
         if (_maxFaceLevel < FaceLevel) { FaceLevel = _maxFaceLevel - 1; }
         if (_maxHornLevel < HornLevel) { HornLevel = _maxHornLevel - 1; }
         if (_maxArmorLevel < ArmorLevel) { ArmorLevel = _maxArmorLevel - 1; }
         if (_maxWingsLevel < WingsLevel) { WingsLevel = _maxWingsLevel - 1; }
-        
+
         _horns.sprite = _hornsSprites[HornLevel];
         //Debug.Log(_horns.sprite);
         _head.sprite = _headSprites[BodyLevel];
@@ -78,6 +78,20 @@ public class DemonHandler : MonoBehaviour
         _wings.sprite = _wingsSprites[WingsLevel];
         _wingsL.sprite = _wingsSprites[WingsLevel];
 
+    }
+
+    private void AngleToCamera()
+    {
+        if (_mainCamera != null)
+        {
+            Vector3 lookAtDirection = _mainCamera.transform.position - transform.position;
+
+            transform.rotation = Quaternion.LookRotation(lookAtDirection);
+        }
+        else
+        {
+            Debug.LogWarning("No camera assigned");
+        }
     }
 
 }
