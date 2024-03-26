@@ -27,11 +27,18 @@ public class Snapper : MonoBehaviour
     // For instance, enabling or disabling visual indicators for snap points, if you have them.
     private void OnTriggerEnter(Collider other)
     {
-        IsColliding = true;
+        if (other.gameObject.tag != "Map")
+        {
+            IsColliding = true;
+        }    
+        
     }
         private void OnTriggerExit(Collider other)
     {
-        IsColliding = false;
+        if (other.gameObject.tag != "Map")
+        {
+            IsColliding = false;
+        }
     }
 
 }
