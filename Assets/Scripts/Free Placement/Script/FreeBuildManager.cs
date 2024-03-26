@@ -117,32 +117,22 @@ namespace FreeBuild
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                // Height change
-                //float heightChange = 0.0f;
-                //if (Input.GetKey(KeyCode.Space))
-                //{
-                //    heightChange += 1.0f;
-                //}
-                //if (Input.GetKey(KeyCode.LeftShift))
-                //{
-                //    heightChange -= 1.0f;
-                //}
-
+               
                 if (_ghostObject)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        //if (_locked)
-                        //{
-                        Build();
-                        //    return;
-                        //}
-                        //_locked = true;
+                        _locked = !_locked;
+                        if (_locked)
+                        {
+                            return;
+                        }
+                        _locked = true;
                     }
-                    //else if (Input.GetMouseButtonDown(1))
-                    //{
-                    //    _locked = false;
-                    //}
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+                        _locked = false;
+                    }
 
                     if (!_locked)
                     {
@@ -182,6 +172,10 @@ namespace FreeBuild
             if (_ghostObject && !_locked && ghostSnapper && !ghostSnapper.IsPlaced)
             {
                 AttemptSnapping();
+            }
+            if(Input.GetKey(KeyCode.F))
+            {
+                Build();
             }
         }
 
@@ -310,6 +304,10 @@ namespace FreeBuild
                 {
                     _canBuild = false;
                 }
+            }
+            if (_ghostObject.GetComponent<Snapper>().IsColliding)
+            {
+                _canBuild = false;
             }
             
             DestroyGhostObject();
