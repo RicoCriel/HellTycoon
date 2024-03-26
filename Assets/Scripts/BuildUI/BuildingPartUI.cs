@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class BuildingPartUI : MonoBehaviour
+public class BuildingPartUI : MonoBehaviour, IPointerEnterHandler
 {
     private Button _button;
     private BuildingData _assignedData;
@@ -16,11 +17,17 @@ public class BuildingPartUI : MonoBehaviour
         _parentDisplay = parentDisplay;
         _button = GetComponentInChildren<Button>();
         _button.GetComponent<Image>().sprite = _assignedData.Icon;
-        _button.onClick.AddListener(OnButtonClick);
+        //_button.onClick.AddListener(OnButtonClick);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnButtonClick();
     }
 
     private void OnButtonClick()
     {
         _parentDisplay.OnClick(_assignedData);
     }
+    
 }
