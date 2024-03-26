@@ -53,8 +53,8 @@ namespace FreeBuild
 
         private void Awake()
         {
-            //BuildingPanelUI._onPartChosen += CreateGhostObject;
-            BuildSideUI._onBuild += CreateGhostObject;
+            BuildingPanelUI._onPartChosen += CreateGhostObject;
+            //BuildSideUI._onBuild += CreateGhostObject;
         }
 
 
@@ -118,22 +118,31 @@ namespace FreeBuild
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 // Height change
-                float heightChange = 0.0f;
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    heightChange += 1.0f;
-                }
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    heightChange -= 1.0f;
-                }
+                //float heightChange = 0.0f;
+                //if (Input.GetKey(KeyCode.Space))
+                //{
+                //    heightChange += 1.0f;
+                //}
+                //if (Input.GetKey(KeyCode.LeftShift))
+                //{
+                //    heightChange -= 1.0f;
+                //}
 
                 if (_ghostObject)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        _locked = !_locked;
+                        //if (_locked)
+                        //{
+                        Build();
+                        //    return;
+                        //}
+                        //_locked = true;
                     }
+                    //else if (Input.GetMouseButtonDown(1))
+                    //{
+                    //    _locked = false;
+                    //}
 
                     if (!_locked)
                     {
@@ -229,10 +238,10 @@ namespace FreeBuild
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             if (_realObject.GetComponent<DemonPortal>() != null)
             {
-                    _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+                _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             }
-                
-                
+
+
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
@@ -295,9 +304,16 @@ namespace FreeBuild
 
         public void Build()
         {
+            if (_ghostObject2 != null)
+            {
+                if (_ghostObject2.GetComponent<Snapper>().IsColliding)
+                {
+                    _canBuild = false;
+                }
+            }
+            
             DestroyGhostObject();
-
-            if (_canBuild)
+                if (_canBuild)
             {
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {

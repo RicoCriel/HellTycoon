@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using FreeBuild;
 using static Snapper;
 
+using UnityEngine;
+
 public class Snapper : MonoBehaviour
 {
     // Array to hold snap points. You can manually assign these in the Unity Editor.
@@ -15,6 +17,8 @@ public class Snapper : MonoBehaviour
     // This flag indicates whether the object has been placed (and thus should no longer try to snap to others)
     public bool IsPlaced = false;
 
+    public bool IsColliding = false;
+
     private void Awake()
     {
         // Initialize snap points array if needed or perform any setup logic
@@ -23,6 +27,15 @@ public class Snapper : MonoBehaviour
 
     // Any additional methods related to snapping logic could go here.
     // For instance, enabling or disabling visual indicators for snap points, if you have them.
+    private void OnTriggerEnter(Collider other)
+    {
+        IsColliding = true;
+    }
+        private void OnTriggerExit(Collider other)
+    {
+        IsColliding = false;
+    }
+
 }
 
 
