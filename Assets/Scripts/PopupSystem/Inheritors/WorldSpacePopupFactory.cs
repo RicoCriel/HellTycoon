@@ -8,34 +8,30 @@ namespace PopupSystem.Inheritors
     public class WorldSpacePopupFactory : WorldSpacePopupBase
     {
         [Header("unprocessedSouls")]
-        [SerializeField]
-        private Image UnprocessedSoulsImage;
-        [SerializeField]
-        private TextMeshProUGUI UnprocessedSoulsCounter;
+        [SerializeField] private Image _unprocessedSoulsImage;
+        [SerializeField] private TextMeshProUGUI _unprocessedSoulsCounter;
 
         [Header("ProcessedSouls")]
-        [SerializeField]
-        private Image ProcessedSoulsImage;
-        [SerializeField]
-        private TextMeshProUGUI ProcessedSoulsCounter;
+        [SerializeField] private Image _processedSoulsImage;
+        [SerializeField] private TextMeshProUGUI _processedSoulsCounter;
 
         [Space]
         [Header("Processing")]
-        [SerializeField]
-        private Image souldProcessingBar;
-        private TextMeshProUGUI ProcessedSouldText;
+        [SerializeField] private Image _soulsProcessingBar;
+        private TextMeshProUGUI _processedSoulsText;
         
         // [SerializeField]
         // private Image MachineTypeImage;
-        [SerializeField]
-        private TextMeshProUGUI MachineTypeText;
+        [SerializeField] private TextMeshProUGUI _machineTypeText;
 
         private bool _isPaused = false;
         
         protected override void Awake()
         {
             base.Awake();
-            souldProcessingBar.fillAmount = 0;
+            _soulsProcessingBar.fillAmount = 0;
+
+            _processedSoulsText = null;
         }
 
         //callable public methods
@@ -43,35 +39,35 @@ namespace PopupSystem.Inheritors
         public void SetMachineInformation(/*Sprite sprite,*/ string machineType)
         {
             // MachineTypeImage.sprite = sprite;
-            MachineTypeText.text = machineType;
+            _machineTypeText.text = machineType;
         }
         
         //unprocessed souls
         public void SetUnprocessedSoulsCounter(int value)
         {
-            UnprocessedSoulsCounter.text = value.ToString();
+            _unprocessedSoulsCounter.text = value.ToString();
         }
-        public void setUnprocessedSoulsImage(Sprite sprite)
+        public void SetUnprocessedSoulsImage(Sprite sprite)
         {
-            UnprocessedSoulsImage.sprite = sprite;
+            _unprocessedSoulsImage.sprite = sprite;
         }
         
         //processed souls
         public void SetProcessedSoulsCounter(int value)
         {
-            ProcessedSoulsCounter.text = value.ToString();
+            _processedSoulsCounter.text = value.ToString();
         }
-        public void setProcessedSoulsImage(Sprite sprite)
+        public void SetProcessedSoulsImage(Sprite sprite)
         {
-            ProcessedSoulsImage.sprite = sprite;
+            _processedSoulsImage.sprite = sprite;
         }
         
         //Soul processing bar
-        public void ProcessSoulBarUI(float ProcessingTime)
+        public void ProcessSoulBarUI(float processingTime)
         {
-            souldProcessingBar.DOFillAmount(1, ProcessingTime).OnComplete(() =>
+            _soulsProcessingBar.DOFillAmount(1, processingTime).OnComplete(() =>
             {
-                souldProcessingBar.fillAmount = 0;
+                _soulsProcessingBar.fillAmount = 0;
                 // OnSoulProcessingResumed(new PopupClickedEventArgs());
             });
         }
@@ -81,13 +77,13 @@ namespace PopupSystem.Inheritors
         {
             if (!_isPaused)
             {
-                ProcessedSouldText.text = "Paused";
+                _processedSoulsText.text = "Paused";
                 OnSoulProcessingPaused(new PopupClickedEventArgs());
             }
             else
             {
                 OnSoulProcessingPaused(new PopupClickedEventArgs());
-                ProcessedSouldText.text = "Processing";
+                _processedSoulsText.text = "Processing";
             }
         }
 

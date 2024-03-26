@@ -2081,12 +2081,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popupCanvas: {fileID: 5569594891599908709}
   _popupTransform: {fileID: 3847888459131197888}
-  UnprocessedSoulsImage: {fileID: 8582409012107730156}
-  UnprocessedSoulsCounter: {fileID: 5476339833336797212}
-  ProcessedSoulsImage: {fileID: 8439982700891922582}
-  ProcessedSoulsCounter: {fileID: 8225506962846752571}
-  souldProcessingBar: {fileID: 6018179029633297634}
-  MachineTypeText: {fileID: 7052615669926776615}
+  _unprocessedSoulsImage: {fileID: 8582409012107730156}
+  _unprocessedSoulsCounter: {fileID: 5476339833336797212}
+  _processedSoulsImage: {fileID: 8439982700891922582}
+  _processedSoulsCounter: {fileID: 8225506962846752571}
+  _soulsProcessingBar: {fileID: 6018179029633297634}
+  _machineTypeText: {fileID: 7052615669926776615}
 --- !u!224 &3847888459131197888 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5898863560202947234, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
