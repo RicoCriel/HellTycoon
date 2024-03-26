@@ -13,7 +13,7 @@ public class BuildSideUI : MonoBehaviour
 
     public Image BuildingImage;
     public TMP_Text BuildingText;
-    public static UnityAction<BuildingData> _onBuild;
+    //public static UnityAction<BuildingData> _onBuild;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class BuildSideUI : MonoBehaviour
         BuildingImage.color = Color.clear;
         BuildingText.text = string.Empty;
 
-        _button = GetComponentInChildren<Button>();
+        //_button = GetComponentInChildren<Button>();
         //_button.onClick.AddListener(OnButtonClick);
     }
 
@@ -33,14 +33,14 @@ public class BuildSideUI : MonoBehaviour
         BuildingText.text = _data.DisplayName;
     }
 
-    private void OnButtonClick()
-    {
-        if(_data ==  null) return;
+    //private void OnButtonClick()
+    //{
+    //    if(_data ==  null) return;
 
-        _onBuild ? .Invoke(_data);
+    //    _onBuild ? .Invoke(_data);
 
-        Clear();
-    }
+    //    Clear();
+    //}
     private void Clear()
     {
         BuildingImage.sprite = null;

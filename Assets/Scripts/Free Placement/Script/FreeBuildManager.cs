@@ -165,11 +165,11 @@ namespace FreeBuild
             }
 
             // Rotation
-            if (Input.GetKey(KeyCode.Q))
-            {
-                RotateGhostObject(-RotateSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.E))
+            //if (Input.GetKey(KeyCode.Q))
+            //{
+            //    RotateGhostObject(-RotateSpeed * Time.deltaTime);
+            //}
+            if (Input.GetKey(KeyCode.R))
             {
                 RotateGhostObject(RotateSpeed * Time.deltaTime);
             }
