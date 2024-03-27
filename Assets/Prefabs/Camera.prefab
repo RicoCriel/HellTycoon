@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442944831983992188}
-  m_LocalRotation: {x: 0.60638356, y: -0.22571613, z: 0.18504298, w: 0.7396691}
+  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169413, w: 0.8836518}
   m_LocalPosition: {x: 0, y: 0, z: -8.296228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.5832434, y: 51.5}
+  m_AnchoredPosition: {x: 5.5832434, y: 11.569}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!20 &8476278502950068854
@@ -215,8 +215,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870018543249852270}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.60638356, y: -0.22571613, z: 0.18504298, w: 0.7396691}
-  m_LocalPosition: {x: 5.5832434, y: 51.5, z: -8.296228}
+  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169413, w: 0.8836518}
+  m_LocalPosition: {x: 5.5832434, y: 11.569, z: -8.296228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -322,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 7310117852878703934}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.29187083, z: -0, w: 0.9564578}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.569, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -349,17 +349,15 @@ MonoBehaviour:
   _edgeScrollSize: 20
   _zoomSpeed: 5
   _zoomSmoothing: 5
-  _zoomFOV: 0
-  _zoomFollowOffset: 0
-  _zoomLowerY: 1
+  _zoomType: 3
   _targetFieldOfView: 50
-  _minFieldOfView: 15
+  _minFieldOfView: 5.8
   _maxFieldOfView: 100
   _followOffset: {x: 0, y: 10, z: -10}
   _minFollowOffset: 5
   _maxFollowOffset: 40
-  _minY: 5
-  _maxY: 45
+  _minY: 6
+  _maxY: 55
 --- !u!1 &7699010006524236860
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 50, z: -10}
+  m_FollowOffset: {x: 0, y: 10, z: -10}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0

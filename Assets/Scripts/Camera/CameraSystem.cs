@@ -8,39 +8,51 @@ public class CameraSystem : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _camera;
 
-    [Space]
+    [Space(20)]
+    [Range(1, 100)]
     [SerializeField] private float _moveSpeed = 50f;
+    [Range(1, 250)]
     [SerializeField] private float _rotateSpeed = 50f;
 
     [Header("Dragging")]
     [SerializeField] private bool _drag = true;
+    [Range(0f, 1.5f)]
     [SerializeField] private float _dragSpeed = 2f;
 
     [Header("Edge scrolling")]
     [SerializeField] private bool _edgeScrolling = false;
+    [Range(1, 50)]
     [SerializeField] private int _edgeScrollSize = 20;
 
     [Header("Zoom")]
+    [Range(0, 20)]
     [SerializeField] private float _zoomSpeed = 20f;
+    [Range(0, 20)]
     [SerializeField] private float _zoomSmoothing = 5f;
-    [SerializeField] private bool _zoomFOV = false;
-    [SerializeField] private bool _zoomFollowOffset = false;
-    [SerializeField] private bool _zoomLowerY = true;
+
+    [Space(10)]
+    [SerializeField] private ZoomType _zoomType;
 
     [Header("FOV")]
     [SerializeField] private float _targetFieldOfView = 50f;
+    [Range(0, 50)]
     [SerializeField] private float _minFieldOfView = 10f;
+    [Range(30, 180)]
     [SerializeField] private float _maxFieldOfView = 100f;
 
     [Header("Follow Offset")]
     [SerializeField] private Vector3 _followOffset;
+    [Range(0, 30)]
     [SerializeField] private float _minFollowOffset = 2;
+    [Range(5, 50)]
     [SerializeField] private float _maxFollowOffset = 20;
 
-    [Header("Lower Y")] 
+    [Header("Lower Y")]
+    [Range(0, 50)]
     [SerializeField] private float _minY = 5;
+    [Range(1, 200)]
     [SerializeField] private float _maxY = 40f;
-    
+
 
     private bool _dragPanMove = false;
     private Vector2 _lastMousePos = Vector2.zero;
@@ -52,14 +64,33 @@ public class CameraSystem : MonoBehaviour
 
         HandleRotation();
 
-        if (_zoomFOV)
-            HandleCameraZoomFOV();
 
-        if (_zoomFollowOffset)
-            HandleZoomMoveForward();
+        switch (_zoomType)
+        {
+            case ZoomType.FOV:
+                HandleCameraZoomFOV();
+                break;
+            case ZoomType.MoveForward:
+                HandleZoomMoveForward();
+                break;
+            case ZoomType.LowerY:
+                HandleZoomLowerY();
+                break;
+            case ZoomType.Combined:
+                HandleZoomCombined();
+                break;
+        }
+        //if (_zoomFOV)
+        //    HandleCameraZoomFOV();
 
-        if(_zoomLowerY)
-            HandleZoomLowerY();
+        //else if (_zoomFollowOffset)
+        //    HandleZoomMoveForward();
+
+        //else if (_zoomLowerY)
+        //    HandleZoomLowerY();
+
+        //else if(_zoomCombinedMethod)
+        //    HandleZoomCombined();
     }
 
     private void HandleMovement()
@@ -163,6 +194,26 @@ public class CameraSystem : MonoBehaviour
         transposer.m_FollowOffset =
             Vector3.Lerp(transposer.m_FollowOffset, _followOffset, Time.deltaTime * _zoomSmoothing);
     }
+
+    private void HandleZoomCombined()
+    {
+        if (_followOffset.y > _minY)
+        {
+            HandleZoomLowerY();
+        }
+        else
+        {
+            HandleZoomMoveForward();
+        }
+    }
+}
+
+public enum ZoomType
+{
+    FOV,
+    MoveForward,
+    LowerY,
+    Combined
 }
 
 
