@@ -82,10 +82,11 @@ namespace Buildings
             {
                 foreach (var demon in _unprocessedDemonContainer)
                 {
-                    if (demon != null)
+                    if(demon == null) continue;
+
+                    if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
                     {
                         handler.SetStats(_machineType);
-                        
                     }
                 }
                 base.ExecuteMachineProcessingBehaviour();
