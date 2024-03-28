@@ -17,6 +17,11 @@ namespace Buildings
         public MachineType MachineType => _machineType;
 
 
+
+        [HideInInspector]
+        public MachineNode Node;
+
+
         //TODO : calcualte this required fear depending on which layer machine is on
         [SerializeField] private int _requiredFearLevel;
 
@@ -52,6 +57,8 @@ namespace Buildings
             }
 
         }
+
+
 
         public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
         {
