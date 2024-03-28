@@ -4,6 +4,7 @@ using PopupSystem.Inheritors;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 
 namespace Buildings
 {
@@ -15,7 +16,45 @@ namespace Buildings
 
         public MachineType MachineType => _machineType;
 
-       
+
+
+        [HideInInspector]
+        public MachineNode Node;
+
+
+        //TODO : calcualte this required fear depending on which layer machine is on
+        [SerializeField] private int _requiredFearLevel;
+
+        [SerializeField] private int _upkeepCost;
+
+
+        [SerializeField] private int _upkeepInterval = 60;
+
+
+       private EconManager _econManager;
+
+
+        void Start()
+        {
+            _econManager = FindObjectOfType<EconManager>();
+            StartCoroutine(PayUpkeepRoutine());
+        }
+        IEnumerator PayUpkeepRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_upkeepInterval);
+                PayUpkeep();
+            }
+        }
+
+
+        private void PayUpkeep()
+        {
+            _econManager.SubtractMoney(_upkeepCost);
+        }
+
+
 
         protected new void Awake()
         {
@@ -32,7 +71,10 @@ namespace Buildings
                 Debug.LogWarning("Popup is not factory type");
             }
         }
-
+        public int GetReqFearLevel()
+        {
+            return _requiredFearLevel;
+        }
         protected new void OnDisable()
         {
             base.OnDisable();
@@ -44,6 +86,8 @@ namespace Buildings
             }
 
         }
+
+
 
         public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
         {
@@ -67,10 +111,11 @@ namespace Buildings
             {
                 foreach (var demon in _unprocessedDemonContainer)
                 {
+                    if(demon == null) continue;
+
                     if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
                     {
                         handler.SetStats(_machineType);
-                        
                     }
                 }
                 base.ExecuteMachineProcessingBehaviour();
@@ -105,6 +150,8 @@ namespace Buildings
             }
 
         }
+
+ 
 
         public void DoneUIProcessing()
         {

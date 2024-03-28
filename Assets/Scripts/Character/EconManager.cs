@@ -1,3 +1,4 @@
+using Buildings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class EconManager : MonoBehaviour
     [SerializeField] private int _startMoney = 200;
     [SerializeField] private bool _logMoney = false;
     [SerializeField] private bool _godMode = false;
+    [SerializeField] private MachineManager _machineManager;
 
     private int _money = 0;
 
@@ -33,6 +35,14 @@ public class EconManager : MonoBehaviour
         {
             Debug.Log("Money: " + _money);
         }
+    }
+
+    public void PayUpkeep()
+    {
+        //_machineManager.Machines;
+        //loop over all machines
+        //check and sum price ukeep cost for each macihne
+        //pay upkeep (call this fucntion every x seconds)       
     }
 
     public void SubtractMoney(int amount)

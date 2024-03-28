@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 7675849781904450796}
   - component: {fileID: 6271887971711345460}
   - component: {fileID: 7823516696607096888}
+  - component: {fileID: -2467049896681725395}
   m_Layer: 0
   m_Name: DemonSoldiers
   m_TagString: Demon
@@ -798,6 +799,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.1110435, y: 12.676662, z: 2.1871138}
   m_Center: {x: 0.46725965, y: 8.308504, z: -0.06603044}
+--- !u!114 &-2467049896681725395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135848585613011697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba878f67aed8ec48a687679c59b5899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6712088144411519960
 GameObject:
   m_ObjectHideFlags: 0

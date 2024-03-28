@@ -123,7 +123,7 @@ namespace Splines
             if (_splineDrawer == null || Spline == null) return false;
 
             //_splineDrawer.SpawnSplineFollower(gameObject, Spline);
-            if(!gameObject.activeInHierarchy) 
+            if (!gameObject.activeInHierarchy)
                 gameObject.SetActive(true);
 
             _splineDrawer.SpawnSplineFollower(gameObject, Spline, CallBack);
@@ -136,14 +136,27 @@ namespace Splines
             if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
             {
                 Assert.IsFalse(obj == null);
-                nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
+                int fearlevel = obj.GetComponent<DemonFear>().FearLevel;
+                if (fearlevel >= nextMachine.GetComponent<MachinePart>().GetReqFearLevel())
+                {
+                    nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
+                }
+                else
+                {
+                    // Prevent the character from entering the machine
+                    Debug.Log("Character's fear level is too low to enter the machine.");
+                }
             }
+
+
+
+            
 
             if (myBuildingNode.TryGetComponent(out BuildingPortal NextPortal))
             {
                 //todo add opslorpcode Portal via buildingportal class.
             }
-        }
+}
 
 
     }
