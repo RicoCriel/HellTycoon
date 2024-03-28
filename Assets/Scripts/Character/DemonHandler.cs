@@ -33,6 +33,7 @@ public class DemonHandler : MonoBehaviour
     public int ArmorLevel;
     public int WingsLevel;
 
+    [SerializeField] private MachineNode _currentMachineNode;
 
 
     private void Start()
@@ -94,4 +95,15 @@ public class DemonHandler : MonoBehaviour
         }
     }
 
+    public void SetStats(MachineType machineType)
+    {
+        _currentMachineNode = _currentMachineNode.NextNodes[(int)machineType];
+
+        BodyLevel = _currentMachineNode.Body;
+        WingsLevel = _currentMachineNode.Wings;
+        HornLevel = _currentMachineNode.Horns;
+        ArmorLevel = _currentMachineNode.Armor;
+        FaceLevel = _currentMachineNode.Face;
+
+    }
 }

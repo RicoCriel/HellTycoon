@@ -59,10 +59,7 @@ namespace FreeBuild
         private void Awake()
         {
             BuildingPanelUI._onPartChosen += CreateGhostObject;
-            //BuildSideUI._onBuild += CreateGhostObject;
         }
-
-    
 
         void OnEnable()
         {
@@ -120,58 +117,39 @@ namespace FreeBuild
 
             if (isHit)
             {
-                CreateGhostObject(hit);
+                InstantiateGhostObject(hit);
             }
         }
 
 
         void Update()
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
+            if (!EventSystem.current.IsPointerOverGameObject() && _ghostObject)
             {
-
-                if (_ghostObject)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        _locked = !_locked;
-                        if (_locked)
-                        {
-                            Invoke("Build", 0.5f);
-                            return;
-                        }
-                        _locked = true;
-                    }
-                    //else if (Input.GetMouseButtonDown(1))
-                    //{
-                    //    _locked = false;
-                    //}
+                    Build();
+                }
 
-                    if (!_locked)
+                if (!_locked)
+                {
+                    if (!_isSnapped)
                     {
-                        if (!_isSnapped)
-                        {
-                            // Move
-                            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            RaycastHit hit;
-                            bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
+                        // Move
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
 
-                            if (isHit && _ghostObject)
-                            {
-                                MoveGhostObject(hit);
-                            }
+                        if (isHit && _ghostObject)
+                        {
+                            MoveGhostObject(hit);
                         }
                     }
-
                 }
 
             }
 
             // Rotation
-            //if (Input.GetKey(KeyCode.Q))
-            //{
-            //    RotateGhostObject(-RotateSpeed * Time.deltaTime);
-            //}
             if (Input.GetKey(KeyCode.R))
             {
                 RotateGhostObject(RotateSpeed * Time.deltaTime);
@@ -246,7 +224,7 @@ namespace FreeBuild
 
         void SnapObject(Transform ghostSnapPoint, Transform targetSnapPoint, Snapper ghostSnapper)
         {
-            if(!_isSnapped)
+            if (!_isSnapped)
             {
                 // Calculate offset and rotation required to align the ghost object's snap point with the target snap point
                 Vector3 positionOffset = targetSnapPoint.position - ghostSnapPoint.position;
@@ -257,8 +235,8 @@ namespace FreeBuild
 
                 _isSnapped = true; // Prevent further movement until manual unlock or placement
                 StartTrackingMouse();
-            }    
-           
+            }
+
         }
 
         private void MoveGhostObject(RaycastHit hit)
@@ -270,8 +248,9 @@ namespace FreeBuild
             }
 
 
-            SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
+            //CheckForCollision();
+            SetGhostOutline(hit.transform.gameObject);
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
@@ -280,10 +259,19 @@ namespace FreeBuild
             _ghostObject.GetComponent<Renderer>().material = material;
         }
 
-        private void CreateGhostObject(RaycastHit hit)
+        private void InstantiateGhostObject(RaycastHit hit)
         {
-            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z), Quaternion.identity);
+            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z),
+                Quaternion.identity);
 
+            var meshFilter = _realObject.GetComponent<MeshFilter>();
+            if (meshFilter == null)
+            {
+                meshFilter = _realObject.GetComponentInChildren<MeshFilter>();
+            }
+
+            _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
+            _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
 
             if (_realObject.GetComponent<DemonPortal>() != null)
             {
@@ -293,31 +281,15 @@ namespace FreeBuild
                 {
                     next = _landLayerManager.NextPlot(curr.gameObject).transform;
                     _2ghostOffset = next.position.x;
-                    _ghostObject2 = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x + next.position.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z), Quaternion.identity);
-
+                    _ghostObject2 = Instantiate(_ghostObjectPrefab,
+                        new Vector3(hit.point.x + next.position.x, hit.point.y,
+                            hit.point.z), Quaternion.identity);
                 }
-            }
 
-            var meshFilter = _realObject.GetComponent<MeshFilter>();
-            if (meshFilter == null)
-            {
-                meshFilter = _realObject.GetComponentInChildren<MeshFilter>();
-            }
-            //Snapper snapper = _realObject.GetComponent<Snapper>();
-            //if (snapper != null)
-            //{
-            //    var ghostSnap = _ghostObject.AddComponent<Snapper>();
-            //    ghostSnap.SnapPoints = snapper.SnapPoints;
-            //    ghostSnap.SnapLayer = snapper.SnapLayer;
-            //}
-
-            _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
-            _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
-            if (_realObject.GetComponent<DemonPortal>() != null)
-            {
                 _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
                 _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
             }
+
             SetGhostOutline(hit.transform.gameObject);
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
         }
@@ -330,7 +302,7 @@ namespace FreeBuild
             }
         }
 
-        public void Build()
+        private void CheckForCollision()
         {
             if (_ghostObject2 != null)
             {
@@ -343,21 +315,19 @@ namespace FreeBuild
             {
                 _canBuild = false;
             }
+        }
 
-            DestroyGhostObject();
+        public void Build()
+        {
+            CheckForCollision();
+
             if (_canBuild)
             {
+                DestroyGhostObject();
+
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
                     BuildPortal();
-                }
-                else if (_realObject.GetComponent<MachinePart>() != null)
-                {
-                    if (!BuildMachinePart()) return;
-                }
-                else if (_realObject.CompareTag(_outputTag))
-                {
-                    if (!BuildOutput()) return;
                 }
                 else
                 {
@@ -372,13 +342,6 @@ namespace FreeBuild
                         snapper.IsPlaced = true; // Mark the real object as placed
                     }
 
-                    // Make new machine if an input is placed
-                    if (go.CompareTag(_inputTag) && go.TryGetComponent(out BuildingFactoryBase building))
-                    {
-                        _machineManager.AttachToCurrentMachine(building);
-                        _machineManager.AddMachine();
-                    }
-
                     if (go.GetComponent<Snapper>() != null)
                     {
                         go.GetComponent<Snapper>().IsPlaced = true;
@@ -391,12 +354,11 @@ namespace FreeBuild
                     _currentCost = 0;
                 }
 
-
                 _locked = false;
             }
             else
             {
-                Debug.LogWarning("you can't build in impossible area");
+                Debug.LogWarning("Ya can't build in an impossible area matey!");
             }
         }
 
@@ -417,45 +379,6 @@ namespace FreeBuild
             {
                 _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
             }
-        }
-
-        private bool BuildMachinePart()
-        {
-            if (!_machineManager.CanBuildMachinePart()) return false;
-
-            GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
-                _ghostObject.transform.rotation);
-
-            //go.layer = _buildingLayer;
-
-            if (go.TryGetComponent(out MachinePart machinePart))
-            {
-                _machineManager.AttachToCurrentMachine(machinePart);
-            }
-
-            if (go.GetComponent<Snapper>() != null)
-            {
-                go.GetComponent<Snapper>().IsPlaced = true;
-            }
-
-            return true;
-        }
-
-        private bool BuildOutput()
-        {
-            if (!_machineManager.CanBuildMachinePart()) return false;
-
-            GameObject go = Instantiate(_realObject, _ghostObject.transform.position,
-                _ghostObject.transform.rotation);
-
-            //go.layer = _buildingLayer;
-
-            if (go.TryGetComponent(out BuildingFactoryBase building))
-            {
-                _machineManager.AttachToCurrentMachine(building);
-                _machineManager.FinishMachine();
-            }
-            return true;
         }
 
         public void CancelBuilding()
@@ -486,9 +409,6 @@ namespace FreeBuild
                 Destroy(_ghostObject2);
             }
         }
-
-
-
 
     }
 }

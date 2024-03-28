@@ -22,7 +22,6 @@ namespace Buildings
         [SerializeField] internal BuildingPopupActivator _popupActivator;
 
         internal int MachineRatePerSecond = 1;
-        internal int _machineIdx = -1;
 
         private Coroutine _mySpawningRoutine;
 
@@ -68,10 +67,10 @@ namespace Buildings
             _popupFactory.DestroyButtonClicked -= OnDestroyButtonClicked;
         }
 
-        public void Initialize(int machineIdx)
-        {
-            _machineIdx = machineIdx;
-        }
+        //public void Initialize(int machineIdx)
+        //{
+        //    _machineIdx = machineIdx;
+        //}
 
         protected void ResumeProcessing()
         {
