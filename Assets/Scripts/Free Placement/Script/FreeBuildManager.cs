@@ -249,7 +249,7 @@ namespace FreeBuild
 
 
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-            //CheckForCollision();
+            CheckForCollision();
             SetGhostOutline(hit.transform.gameObject);
         }
 
