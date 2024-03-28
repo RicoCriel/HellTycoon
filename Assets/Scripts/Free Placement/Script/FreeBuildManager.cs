@@ -311,9 +311,12 @@ namespace FreeBuild
                     _canBuild = false;
                 }
             }
-            if (_ghostObject.GetComponent<Snapper>().IsColliding)
+            if (_ghostObject.GetComponent<Snapper>() != null)
             {
-                _canBuild = false;
+                if (_ghostObject.GetComponent<Snapper>().IsColliding)
+                {
+                    _canBuild = false;
+                }
             }
         }
 
