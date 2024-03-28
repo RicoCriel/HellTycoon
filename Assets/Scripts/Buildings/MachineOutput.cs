@@ -8,12 +8,7 @@ namespace Buildings
     public class MachineOutput : BuildingFactoryBase
     {
         [SerializeField] private GameObject _demonPrefab;
-        private MachineNode _node;
-
-        public MachineNode Node
-        {
-            set => _node = value;
-        }
+        [SerializeField] private MachineType _machineType;
 
         public void SpawnDemon(MachineNode node)
         {
@@ -24,10 +19,6 @@ namespace Buildings
 
             if (handler == null) return;
 
-            handler.HornLevel = node.Stat0;
-            handler.FaceLevel = node.Stat1;
-            handler.WingsLevel = node.Stat2;
-            handler.ArmorLevel = node.Stat3;
 
 
         }
@@ -40,10 +31,7 @@ namespace Buildings
                 {
                     if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
                     {
-                        handler.HornLevel = _node.Stat0;
-                        handler.FaceLevel = _node.Stat1;
-                        handler.WingsLevel = _node.Stat2;
-                        handler.ArmorLevel = _node.Stat3;
+                        handler.SetStats(_machineType);
                     }
                 }
                 base.ExecuteMachineProcessingBehaviour();

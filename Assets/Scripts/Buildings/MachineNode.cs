@@ -8,17 +8,20 @@ public class MachineNode : ScriptableObject
     [SerializeField] private List<MachineNode> _nextNodes;
     public List<MachineNode> NextNodes => _nextNodes;
 
-    [SerializeField] private int _stat0;
-    public int Stat0 => _stat0;
+    [SerializeField] private int _body;
+    public int Body => _body;
 
-    [SerializeField] private int _stat1;
-    public int Stat1 => _stat1;
+    [SerializeField] private int _wings;
+    public int Wings => _wings;
 
-    [SerializeField] private int _stat2;
-    public int Stat2 => _stat2;
+    [SerializeField] private int _horns;
+    public int Horns => _horns;
 
-    [SerializeField] private int _stat3;
-    public int Stat3 => _stat3;
+    [SerializeField] private int _armor;
+    public int Armor => _armor;
+
+    [SerializeField] private int _face;
+    public int Face => _face;
 
     [SerializeField] private float _processTime;
     public float ProcessTime => _processTime;

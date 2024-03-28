@@ -13,13 +13,7 @@ namespace Buildings
         [SerializeField] private MachineType _machineType;
         private WorldSpacePopupFactory _popup;
 
-        private int _partIndex = -1;
-        public int PartIndex => _partIndex;
-
         public MachineType MachineType => _machineType;
-
-        [HideInInspector]
-        public MachineNode Node;
 
        
 
@@ -51,14 +45,6 @@ namespace Buildings
 
         }
 
-        public void Initialize(MachineNode node, int machineIdx, int partIdx)
-        {
-            Node = node;
-            _partIndex = partIdx;
-            _machineIdx = machineIdx;
-
-        }
-
         public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
         {
             base.AddDemon(DemonList, demon);
@@ -83,10 +69,7 @@ namespace Buildings
                 {
                     if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
                     {
-                        handler.HornLevel = Node.Stat0;
-                        handler.FaceLevel = Node.Stat1;
-                        handler.WingsLevel = Node.Stat2;
-                        handler.ArmorLevel = Node.Stat3;
+                        handler.SetStats(_machineType);
                         
                     }
                 }

@@ -30,14 +30,14 @@ namespace Buildings
             Assert.IsTrue(machinePart);
             if (_machineParts == null) return;
 
-            var currentNode = _machineParts.Count == 0 ? _startNode : _machineParts[^1].Node;
+            //var currentNode = _machineParts.Count == 0 ? _startNode : _machineParts[^1].Node;
 
-            if (currentNode == null) return;
+            //if (currentNode == null) return;
 
-            if (currentNode.NextNodes.Count <= 0) return;
+            //if (currentNode.NextNodes.Count <= 0) return;
 
-            machinePart.Initialize(currentNode.NextNodes[(int)machinePart.MachineType], _machineIndex,
-                _machineParts.Count - 1);
+            //machinePart.Initialize(currentNode.NextNodes[(int)machinePart.MachineType], _machineIndex,
+            //    _machineParts.Count - 1);
             //machinePart.OnDestruct.AddListener(RemoveMachinePart);
             _machineParts.Add(machinePart);
         }
@@ -52,8 +52,8 @@ namespace Buildings
             MachineNode currentNode = _startNode;
             for (int i = 0; i != _machineParts.Count; ++i)
             {
-                _machineParts[i].Node = currentNode.NextNodes[(int)_machineParts[i].MachineType];
-                currentNode = _machineParts[i].Node;
+                //_machineParts[i].Node = currentNode.NextNodes[(int)_machineParts[i].MachineType];
+                //currentNode = _machineParts[i].Node;
             }
         }
 
@@ -61,7 +61,7 @@ namespace Buildings
         {
             if (building.TryGetComponent(out MachinePart machinePart))
             {
-                RemoveMachinePartAt(machinePart.PartIndex);
+                //RemoveMachinePartAt(machinePart.PartIndex);
             }
         }
 
