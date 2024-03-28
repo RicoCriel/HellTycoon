@@ -8,6 +8,7 @@ namespace Buildings
     public class MachineManager : MonoBehaviour
     {
         private List<GameObject> _machines = new List<GameObject>();
+        public List<GameObject> Machines => _machines;
 
         public void AddMachine()
         {
@@ -18,7 +19,7 @@ namespace Buildings
         {
             _machines.RemoveAt(index);
         }
-
+        
         // Set current machine as parent
         public void AttachToCurrentMachine(MachinePart machinePart)
         {

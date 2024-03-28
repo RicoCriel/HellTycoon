@@ -249,7 +249,7 @@ namespace FreeBuild
 
 
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-            //CheckForCollision();
+            CheckForCollision();
             SetGhostOutline(hit.transform.gameObject);
         }
 
@@ -311,9 +311,12 @@ namespace FreeBuild
                     _canBuild = false;
                 }
             }
-            if (_ghostObject.GetComponent<Snapper>().IsColliding)
+            if (_ghostObject.GetComponent<Snapper>() != null)
             {
-                _canBuild = false;
+                if (_ghostObject.GetComponent<Snapper>().IsColliding)
+                {
+                    _canBuild = false;
+                }
             }
         }
 
