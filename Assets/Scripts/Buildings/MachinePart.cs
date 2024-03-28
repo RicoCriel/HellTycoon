@@ -25,6 +25,35 @@ namespace Buildings
         //TODO : calcualte this required fear depending on which layer machine is on
         [SerializeField] private int _requiredFearLevel;
 
+        [SerializeField] private int _upkeepCost;
+
+
+        [SerializeField] private int _upkeepInterval = 60;
+
+
+       private EconManager _econManager;
+
+
+        void Start()
+        {
+            _econManager = FindObjectOfType<EconManager>();
+            StartCoroutine(PayUpkeepRoutine());
+        }
+        IEnumerator PayUpkeepRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_upkeepInterval);
+                PayUpkeep();
+            }
+        }
+
+
+        private void PayUpkeep()
+        {
+            _econManager.SubtractMoney(_upkeepCost);
+        }
+
 
 
         protected new void Awake()
