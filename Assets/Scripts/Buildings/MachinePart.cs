@@ -4,6 +4,7 @@ using PopupSystem.Inheritors;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 
 namespace Buildings
 {
@@ -15,7 +16,11 @@ namespace Buildings
 
         public MachineType MachineType => _machineType;
 
-       
+
+        //TODO : calcualte this required fear depending on which layer machine is on
+        [SerializeField] private int _requiredFearLevel;
+
+
 
         protected new void Awake()
         {
@@ -32,7 +37,10 @@ namespace Buildings
                 Debug.LogWarning("Popup is not factory type");
             }
         }
-
+        public int GetReqFearLevel()
+        {
+            return _requiredFearLevel;
+        }
         protected new void OnDisable()
         {
             base.OnDisable();
@@ -67,7 +75,7 @@ namespace Buildings
             {
                 foreach (var demon in _unprocessedDemonContainer)
                 {
-                    if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
+                    if (demon != null)
                     {
                         handler.SetStats(_machineType);
                         
@@ -105,6 +113,8 @@ namespace Buildings
             }
 
         }
+
+ 
 
         public void DoneUIProcessing()
         {
