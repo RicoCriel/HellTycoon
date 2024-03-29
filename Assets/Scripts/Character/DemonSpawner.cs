@@ -11,6 +11,7 @@ public class DemonSpawner : MonoBehaviour
     [SerializeField] private int _spawnCost = 5;
     [SerializeField] private EconManager _econManager;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
+    [SerializeField] private DemonManager _demonManager;
     private float _timeSinceLastSpawn = 0f;
   
 
@@ -37,6 +38,8 @@ public class DemonSpawner : MonoBehaviour
 
                 if (_demonPrefab == null) return;
                 var demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+                _demonManager.AddDemon(demon);
+
 
                 //if (!_connector.SpawnObject(demon))
                 //{

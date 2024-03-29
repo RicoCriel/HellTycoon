@@ -34,11 +34,14 @@ namespace Buildings
 
 
        private EconManager _econManager;
+       private MachineManager _machineManager;
 
 
         void Start()
         {
             _econManager = FindObjectOfType<EconManager>();
+            _machineManager = FindObjectOfType<MachineManager>();
+            
             StartCoroutine(PayUpkeepRoutine());
         }
         IEnumerator PayUpkeepRoutine()

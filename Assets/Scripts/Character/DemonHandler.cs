@@ -110,4 +110,4 @@ public class DemonHandler : MonoBehaviour
         FaceLevel = _currentMachineNode.Face;
 
     }
-}
+ }
