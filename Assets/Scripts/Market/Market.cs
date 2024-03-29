@@ -8,9 +8,9 @@ namespace Economy
 {
     public class Market : MonoBehaviour
     {
-        [SerializeField] private DemonHandler.DemonStats _demand = new DemonHandler.DemonStats(10);
-        [SerializeField] private DemonHandler.DemonStats _supply;
-        [SerializeField] private DemonHandler.DemonStats _prices;
+        [SerializeField] private DemonStats _demand = new DemonStats(10);
+        [SerializeField] private DemonStats _supply;
+        [SerializeField] private DemonStats _prices;
         [Space(15)]
         [SerializeField] private float _supplyTime = 10f;
 
@@ -19,12 +19,12 @@ namespace Economy
             // TODO: remove test code
             if (Input.GetKeyDown(KeyCode.F))
             {
-                var stats = new DemonHandler.DemonStats(1, 1, 1, 1, 1);
+                var stats = new DemonStats(1, 1, 1, 1, 1);
                 SupplyDemon(stats);
             }
         }
 
-        public void SupplyDemon(DemonHandler.DemonStats demon)
+        public void SupplyDemon(DemonStats demon)
         {
             _supply.Wings += demon.Wings;
             _supply.Horn += demon.Horn;
@@ -38,7 +38,7 @@ namespace Economy
             StartCoroutine(RemoveFromSupply(demon));
         }
 
-        public void BoostDemand(DemonHandler.DemonStats demon, float time)
+        public void BoostDemand(DemonStats demon, float time)
         {
             _demand.Wings += demon.Wings;
             _demand.Horn += demon.Horn;
@@ -49,7 +49,7 @@ namespace Economy
             StartCoroutine(RemoveFromDemand(demon, time));
         }
 
-        private IEnumerator RemoveFromDemand(DemonHandler.DemonStats demon, float time)
+        private IEnumerator RemoveFromDemand(DemonStats demon, float time)
         {
             yield return new WaitForSeconds(time);
 
@@ -60,7 +60,7 @@ namespace Economy
             _demand.Armor -= demon.Armor;
         }
 
-        private IEnumerator RemoveFromSupply(DemonHandler.DemonStats demon)
+        private IEnumerator RemoveFromSupply(DemonStats demon)
         {
             yield return new WaitForSeconds(_supplyTime);
 
