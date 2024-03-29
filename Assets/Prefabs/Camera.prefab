@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442944831983992188}
-  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169413, w: 0.8836518}
+  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169412, w: 0.8836518}
   m_LocalPosition: {x: 0, y: 0, z: -8.296228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -215,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870018543249852270}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169413, w: 0.8836518}
+  m_LocalRotation: {x: 0.3660205, y: -0.26965353, z: 0.11169412, w: 0.8836518}
   m_LocalPosition: {x: 5.5832434, y: 11.569, z: -8.296228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -356,8 +356,15 @@ MonoBehaviour:
   _followOffset: {x: 0, y: 10, z: -10}
   _minFollowOffset: 5
   _maxFollowOffset: 40
+  _minFollowY: 0.5
   _minY: 6
   _maxY: 55
+  _snapPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  _cameraRadius: 50
+  _totalLerpTime: 2
+  _lerpAcceptanceRadius: 1
 --- !u!1 &7699010006524236860
 GameObject:
   m_ObjectHideFlags: 0
