@@ -18,6 +18,8 @@ namespace Splines.Drawing
 
         public LayerMask SplineLayer; // Ground layer to interact with
 
+        public LayerMask SupportBeamLayer; // Ground layer to interact with
+
         [Header("pointSize")]
         [Range(0.01f, 0.5f)]
         public float PointInterval = 0.2f; // Interval between captured points
@@ -120,6 +122,12 @@ namespace Splines.Drawing
         [Header("Height")]
         public int MaxSplineLayers = 4;
 
+        [Header("SplineSupportBeams")]
+        [SerializeField] private GameObject _splineSupportBeamPrefab;
+        [SerializeField] private float _splineSupportBeamHorizontalDistance = 1f;
+
+
+
         private void Awake()
         {
 
@@ -131,7 +139,7 @@ namespace Splines.Drawing
             {
 
                 Gizmos.color = Color.yellow;
-            
+
                 Gizmos.DrawWireSphere(_mostRecentPoint + new Vector3(0, _selfCollisionRange * (2 * i), 0), _selfCollisionRange);
             }
 
@@ -169,19 +177,17 @@ namespace Splines.Drawing
 
                     // if (Collisioncheck()) return;
                     // if (MathBasedSelfCollisionCheck()) return;
-                    Vector3 directionToSecondPoint = (_mostRecentPoint - Points[^1]).normalized;
-                    Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
-
                     // Debug.DrawLine(Points[^1], Points[^1] + Vector3.up * 3, Color.red, 0.0f);
                     // Debug.DrawLine(DistanceCheckPoint, DistanceCheckPoint + Vector3.up * 3, Color.green, 0.0f);
                     // Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
 
-                    if (ExtendedDistanceCheck(_mostRecentPoint, DistanceCheckPoint)) return;
+                    // Vector3 directionToSecondPoint = (_mostRecentPoint - Points[^1]).normalized;
+                    // Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
+                    // if (ExtendedDistanceCheck(_mostRecentPoint, DistanceCheckPoint)) return;
 
-                    if (!ValidHeightFound(out int index))
-                    {
-                        return;
-                    }
+                    List<int> checkableLayers = DistanceBasedSelfCollisionCheck();
+                    if (!ValidHeightFound(out int index, checkableLayers)) return;
+
 
                     AddPointAndCallMethod(_mostRecentPoint, index);
 
@@ -253,6 +259,7 @@ namespace Splines.Drawing
             PopupInstanceTracker.CurrentPopupInstance = null;
             _currentMaxBeltLenght = _maxBeltLenght;
             Points.Clear();
+
             PointsWithHeight.Clear();
             _currentStartingBox = placeholderConnectorHitBox;
             _currentSplineConnected = false;
@@ -324,6 +331,7 @@ namespace Splines.Drawing
 
             // SetLayer(_instanciatedSpline.transform, SplineLayer);
 
+            CreateSupportBeams();
             _instanciatedSpline.TurnOnMeshcollider();
 
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
@@ -338,6 +346,8 @@ namespace Splines.Drawing
             _currentStartingBox.ImConnected = true;
 
             _instanciatedSpline.SetPopupPositionToSplineMiddlePoint();
+            // _instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
+
 
             OnSplineCompleted(new SplineConnectionCompletedEventArgs(_instanciatedSpline, _currentStartingBox, placeholderConnectorHitBox));
             float splineSizetoReturn = _instanciatedSpline.GetSplineUniformSize();
@@ -346,6 +356,29 @@ namespace Splines.Drawing
             _instanciatedSpline = null;
 
             return splineSizetoReturn;
+        }
+
+        public void CreateSupportBeams()
+        {
+            if (_instanciatedSpline == null) return;
+
+            List<Vector3> points = _instanciatedSpline.GetSupportBeamPositions(0.2f);
+
+            foreach (Vector3 point in points)
+            {
+                //raycast down to to check if any other objects are in the way
+                if (Physics.Raycast(point, Vector3.down, out RaycastHit hit, Mathf.Infinity, SupportBeamLayer))
+                {
+                    if (Vector3.Distance(hit.point, point) > 0.3f)
+                    {
+                        Instantiate(_splineSupportBeamPrefab, point, Quaternion.identity, _instanciatedSpline.transform);
+                    }
+
+                    // point.y = hit.point.y;
+                }
+
+
+            }
         }
 
         //destroys spline for now when drawing is stopped and not at a relevant point
@@ -440,6 +473,12 @@ namespace Splines.Drawing
         {
             Points.Add(newPoint);
             PointsWithHeight.Add(newPoint + new Vector3(0, CurrentPointOffset + (_selfCollisionRange * heightIndex * 2), 0));
+
+            // if (heightIndex > 0)
+            // {
+            //     _instanciatedSpline.AddSupportBeamPosition((newPoint + new Vector3(0, CurrentPointOffset + (_selfCollisionRange * heightIndex * 2), 0)));
+            // }
+
             // mostRecentPoint = newPoint;
 
 
@@ -479,23 +518,35 @@ namespace Splines.Drawing
                 }
 
 
-                Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
 
                 // Debug.DrawLine(Points[^1], Points[^1] + Vector3.up * 3, Color.red, 0.0f);
                 // Debug.DrawLine(DistanceCheckPoint, DistanceCheckPoint + Vector3.up * 3, Color.green, 0.0f);
                 // Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
 
-                if (ExtendedDistanceCheck(hitPoint, DistanceCheckPoint)) return;
+                // Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
+                // if (ExtendedDistanceCheck(hitPoint, DistanceCheckPoint)) return;
 
                 // if(MathBasedSelfCollisionCheck()) return;
-                if (!ValidHeightFound(out int index))
-                {
-                    return;
-                }
+                List<int> checkableLayers = DistanceBasedSelfCollisionCheck();
+                if (!ValidHeightFound(out int index, checkableLayers)) return;
+                //
+                // if (!ValidHeightFound(out int index))
+                // {
+                //     return;
+                // }
+                // if (DistanceBasedCollisionCheck(index))
+                // {
+                //     if (!ValidHeightFound(out int index2, index))
+                //     {
+                //             
+                //     }
+                //     else
+                //     {
+                //         return;
+                //     }
+                // }
 
-                // Debug.Log("Valid height found." + index);
 
-                // if (Collisioncheck()) return;
 
                 _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset + (_selfCollisionRange * index * 2), 0), Color.white);
             }
@@ -603,10 +654,39 @@ namespace Splines.Drawing
             return false;
         }
 
-        private bool ValidHeightFound(out int index)
+        private List<int> DistanceBasedSelfCollisionCheck()
+        {
+            int endIndex = PointsWithHeight.Count - 3;
+
+            List<int> selfcollisionLayers = new List<int>();
+
+            for (int i = 0; i < MaxSplineLayers; i++)
+            {
+                Vector3 MRPWithHeight = _mostRecentPoint + new Vector3(0, _selfCollisionRange * (2 * i), 0);
+
+                for (int y = 0; y < endIndex; y++)
+                {
+                    Vector3 point = PointsWithHeight[y];
+                    float distance = Vector3.Distance(MRPWithHeight, point);
+                    if (distance < _selfCollisionRange * SelfColisionMultiplier)
+                    {
+                        Debug.DrawLine(MRPWithHeight, point, Color.red, 0f);
+                        selfcollisionLayers.Add(i);
+                        break;
+                    }
+                }
+            }
+            return selfcollisionLayers;
+        }
+
+        private bool ValidHeightFound(out int index, List<int> CantCheck = null)
         {
             for (int i = 0; i < MaxSplineLayers; i++)
             {
+                if (CantCheck != null && CantCheck.Contains(i))
+                {
+                    continue;
+                }
                 Collider[] colliders = Physics.OverlapSphere(_mostRecentPoint + new Vector3(0, _selfCollisionRange * (2 * i), 0), _selfCollisionRange, SplineLayer);
 
                 if (colliders.Length > 0) continue;

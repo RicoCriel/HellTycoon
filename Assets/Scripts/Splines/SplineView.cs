@@ -25,11 +25,64 @@ namespace Splines
         [SerializeField] private MeshFilter _splinePathFilter;
 
         [SerializeField] private PathGenerator _splinePath;
-        
+
         [SerializeField] private MeshCollider _meshCollider;
 
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
+
+        private List<Vector3> _supportBeamPositions = new List<Vector3>();
+
+        private void CreateSupportBeamPositions()
+        {
+            float LeftRightSize = 5f;
+            SplinePoint[] points = _mySplineComputer.GetPoints();
+            for (int i = 0; i < points.Length; i++)
+            {
+                // Get the tangent and normal vectors at the current point
+                Vector3 tangent = points[i].tangent.normalized;
+                Vector3 normal = points[i].normal.normalized;
+                
+                Debug.Log(tangent + " " + normal);
+
+                // Calculate the left and right points based on the normal vector
+                Vector3 left = Vector3.Cross(tangent, normal).normalized;
+                Vector3 right = -left;
+
+                // Add the left and right points to the support beam positions
+                _supportBeamPositions.Add(points[i].position + left * LeftRightSize);
+                _supportBeamPositions.Add(points[i].position + right * LeftRightSize);
+                
+                // Debug.DrawLine(points[i].position, points[i].position + left * LeftRightSize, Color.green, 1f);
+                // Debug.DrawLine(points[i].position, points[i].position + right * LeftRightSize, Color.red, 1f);
+            }
+        }
+
+        void RemoveRandomPointsSupportBeams(float percentageToRemove)
+        {
+            int totalPointsToRemove = Mathf.RoundToInt(_supportBeamPositions.Count * percentageToRemove);
+
+            for (int i = _supportBeamPositions.Count - 1; i >= 0; i--) // Iterate in reverse order
+            {
+                if (Random.value < percentageToRemove) // Randomly decide whether to remove the point
+                {
+                    _supportBeamPositions.RemoveAt(i);
+                }
+            }
+
+            Debug.Log("Remaining points count: " + _supportBeamPositions.Count);
+        }
+
+        public List<Vector3> GetSupportBeamPositions(float percentageToRemove = 0.5f)
+        {
+            _supportBeamPositions.Clear();
+            CreateSupportBeamPositions();
+            RemoveRandomPointsSupportBeams(percentageToRemove);
+            return _supportBeamPositions;
+        }
+      
+
+
 
 
 
@@ -147,8 +200,8 @@ namespace Splines
         {
             int pointAmount = _mySplineComputer.GetPoints().Length;
 
-            double point1 = _mySplineComputer.GetPointPercent(pointAmount -1);
-            double point2 = _mySplineComputer.GetPointPercent(pointAmount -2);
+            double point1 = _mySplineComputer.GetPointPercent(pointAmount - 1);
+            double point2 = _mySplineComputer.GetPointPercent(pointAmount - 2);
 
             return _mySplineComputer.CalculateLength(point2, point1);
         }
@@ -252,7 +305,7 @@ namespace Splines
             }
 
             SplinePoint[] points = _mySplineComputer.GetPoints();
-            
+
             for (int index = 0; index < points.Length; index++)
             {
                 points[index].color = Color.white;
@@ -387,5 +440,7 @@ namespace Splines
         {
             _meshCollider.enabled = true;
         }
+
+
     }
 }

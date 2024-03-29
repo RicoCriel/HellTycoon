@@ -2463,7 +2463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1346527873
 Transform:
   m_ObjectHideFlags: 0
@@ -3450,9 +3450,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _minpointDistanceOfSet
-      value: 0.15
+      propertyPath: SupportBeamLayer.m_Bits
+      value: 192
       objectReference: {fileID: 0}
+    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+      propertyPath: _splineSupportBeamPrefab
+      value: 
+      objectReference: {fileID: 6317144882611412336, guid: 26a3ca0f95c67c04386c50904eff83e0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
