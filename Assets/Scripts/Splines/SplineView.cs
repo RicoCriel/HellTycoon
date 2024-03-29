@@ -25,6 +25,8 @@ namespace Splines
         [SerializeField] private MeshFilter _splinePathFilter;
 
         [SerializeField] private PathGenerator _splinePath;
+        
+        [SerializeField] private MeshCollider _meshCollider;
 
         public PlaceholderConnectorHitBox StartConnector;
         public PlaceholderConnectorHitBox EndConnector;
@@ -381,5 +383,9 @@ namespace Splines
             _mySplineMesh.UpdateCollider();
         }
 
+        public void TurnOnMeshcollider()
+        {
+            _meshCollider.enabled = true;
+        }
     }
 }

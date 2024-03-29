@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Buildings;
 using PopupSystem;
 using Splines.Obstacles;
+using Splines.Utillity;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -21,10 +22,10 @@ namespace Splines.Drawing
         [Range(0.01f, 0.5f)]
         public float PointInterval = 0.2f; // Interval between captured points
         [Space]
-        [Range(0.2f, 5f)]
+        [Range(0f, 5f)]
         [SerializeField] private float _maxpointDistanceOfSet = 0.5f;
         [Space]
-        [Range(0.1f, 1f)]
+        [Range(0f, 1f)]
         [SerializeField] private float _minpointDistanceOfSet = 0.05f;
         [Space]
         [Header("General References")]
@@ -44,16 +45,17 @@ namespace Splines.Drawing
         // [SerializeField]
         // private SplineView _splineViewPrefabPath;
         [SerializeField]
-        [Range(0.01f, 0.5f)]
+        [Range(0f, 0.5f)]
         private float _splinePathOffset;
         [SerializeField]
-        [Range(0.01f, 0.1f)]
+        [Range(0f, 0.1f)]
         private float _splinePathOffsetMinMAx;
 
         private float CurrentPointOffset;
 
         [HideInInspector]
         public List<Vector3> Points = new List<Vector3>();
+        public List<Vector3> PointsWithHeight = new List<Vector3>();
         private float _timer = 0f;
         private Vector3 _lastPosition;
         private Vector3 _mostRecentPoint;
@@ -78,6 +80,7 @@ namespace Splines.Drawing
         [Header("size")]
         [Range(0.1f, 20)]
         [SerializeField] private float _selfCollisionRange;
+        public float SelfColisionMultiplier = 2.1f;
 
 
         [Header("SplineFollowerTest")]
@@ -113,6 +116,9 @@ namespace Splines.Drawing
         // [SerializeField]
         // private float _mudCostMultiplier = 1;
 
+        [FormerlySerializedAs("MAxSplineLayers")]
+        [Header("Height")]
+        public int MaxSplineLayers = 4;
 
         private void Awake()
         {
@@ -121,8 +127,14 @@ namespace Splines.Drawing
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(_mostRecentPoint, _selfCollisionRange);
+            for (int i = 0; i < MaxSplineLayers; i++)
+            {
+
+                Gizmos.color = Color.yellow;
+            
+                Gizmos.DrawWireSphere(_mostRecentPoint + new Vector3(0, _selfCollisionRange * (2 * i), 0), _selfCollisionRange);
+            }
+
 
             // if (points.Count > 2)
             // {
@@ -152,10 +164,26 @@ namespace Splines.Drawing
 
                 if ((isNewPointDueToTime && isNotYetTimeForNewPointMinDistanceWise) || isTimeForNewPointDistanceWise)
                 {
-                    if (PerformRayCast()) return;
-                    if (Collisioncheck()) return;
+                    // if (PerformRayCast()) return;
+                    // Debug.Log(ValidHeightFound(out int index) + "" + index);
 
-                    AddPointAndCallMethod(_mostRecentPoint);
+                    // if (Collisioncheck()) return;
+                    // if (MathBasedSelfCollisionCheck()) return;
+                    Vector3 directionToSecondPoint = (_mostRecentPoint - Points[^1]).normalized;
+                    Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
+
+                    // Debug.DrawLine(Points[^1], Points[^1] + Vector3.up * 3, Color.red, 0.0f);
+                    // Debug.DrawLine(DistanceCheckPoint, DistanceCheckPoint + Vector3.up * 3, Color.green, 0.0f);
+                    // Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
+
+                    if (ExtendedDistanceCheck(_mostRecentPoint, DistanceCheckPoint)) return;
+
+                    if (!ValidHeightFound(out int index))
+                    {
+                        return;
+                    }
+
+                    AddPointAndCallMethod(_mostRecentPoint, index);
 
                     LowerBeltSizeWhenDrawingNewPoint();
 
@@ -176,7 +204,7 @@ namespace Splines.Drawing
         }
         private bool SetBeltColourDependingOnPlacementRange()
         {
-            ObstacleCheck();
+            // ObstacleCheck();
 
             if (MaxsizeCheck())
             {
@@ -225,6 +253,7 @@ namespace Splines.Drawing
             PopupInstanceTracker.CurrentPopupInstance = null;
             _currentMaxBeltLenght = _maxBeltLenght;
             Points.Clear();
+            PointsWithHeight.Clear();
             _currentStartingBox = placeholderConnectorHitBox;
             _currentSplineConnected = false;
             _hasStartedDrawing = true;
@@ -235,7 +264,9 @@ namespace Splines.Drawing
 
             //replace with the actual points
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
-            Points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
+            // Points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
+            PointsWithHeight.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
+            // PointsWithHeight.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
             // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
 
             _instanciatedSpline.AddPoints(Points, 1, Vector3.zero);
@@ -283,6 +314,7 @@ namespace Splines.Drawing
 
             // points.Add(placeholderConnectorHitBox.GetConnectorAnglePointSpline());
             Points.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
+            PointsWithHeight.Add(placeholderConnectorHitBox.GetConnectorPointSpline());
 
             // instanciatedSpline.AddOnePoint(mostRecentPoint, 1, Vector3.zero);
             // instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorAnglePointSpline(), 1, Vector3.zero);
@@ -290,6 +322,9 @@ namespace Splines.Drawing
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
 
+            // SetLayer(_instanciatedSpline.transform, SplineLayer);
+
+            _instanciatedSpline.TurnOnMeshcollider();
 
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
             spline = _instanciatedSpline;
@@ -326,7 +361,6 @@ namespace Splines.Drawing
             }
         }
 
-
         private IEnumerator TestsplineFollowers()
         {
             yield return new WaitForSeconds(1f);
@@ -355,38 +389,7 @@ namespace Splines.Drawing
             }
         }
 
-        //add speed/ spawnrate parameters to this method if you want...
-        // public void SpawnSplineFollower(GameObject gameObject, SplineView computer /*, Machine arrivelMachine*/)
-        // {
-        //     //get relevant data
-        //     SplineComputer splineComputer = computer.GetSplinecomputer();
-        //     Vector3 startPoint = computer.GetSplineStartingPoint();
-        //
-        //     //instantiate and parent demon to follower
-        //     SplineFollowerView follower = Instantiate(_followerViewPrefab, startPoint, Quaternion.identity, computer.transform);
-        //     gameObject.transform.parent = follower.transform;
-        //     gameObject.transform.localPosition = Vector3.zero;
-        //
-        //     //set up follower logic
-        //     follower.SetComputer(splineComputer);
-        //     follower.SetFollow(true);
-        //     follower.SetSpeed(_followSpeed);
-        //     follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
-        //
-        //     //hook up events
-        //     EventHandler<FollowerArrivedEventArgs> followerArrivedHandler = null;
-        //     followerArrivedHandler = (sender, args) => {
-        //         if (args.GameObject == null) return;
-        //
-        //         Debug.Log("Follower Arrived");
-        //         //todo Call machine code where the object just arrived.
-        //
-        //         follower.FollowerArrived -= followerArrivedHandler; // Unsubscribe after arrival
-        //
-        //         Destroy(args.GameObject);
-        //     };
-        //     follower.FollowerArrived += followerArrivedHandler;
-        // }
+
 
         public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
         {
@@ -433,26 +436,26 @@ namespace Splines.Drawing
         }
 
 
-        private void AddPointAndCallMethod(Vector3 newPoint)
+        private void AddPointAndCallMethod(Vector3 newPoint, int heightIndex)
         {
             Points.Add(newPoint);
+            PointsWithHeight.Add(newPoint + new Vector3(0, CurrentPointOffset + (_selfCollisionRange * heightIndex * 2), 0));
             // mostRecentPoint = newPoint;
 
 
             // Call your method here with the new point
-            AddNewSplinePoint(newPoint);
+            AddNewSplinePoint(newPoint, heightIndex);
         }
 
-        private void AddNewSplinePoint(Vector3 point)
+        private void AddNewSplinePoint(Vector3 point, int heightIndex)
         {
             float offset = GetNewYOffset();
             CurrentPointOffset = offset;
 
-            _instanciatedSpline.AddOnePoint(point, 1, new Vector3(0, CurrentPointOffset, 0));
+            _instanciatedSpline.AddOnePoint(point, 1, new Vector3(0, CurrentPointOffset + (_selfCollisionRange * heightIndex * 2), 0));
 
         }
 
-        public float SelfColisionMultiplier = 2.1f;
 
         private void CapturePoint()
         {
@@ -475,21 +478,46 @@ namespace Splines.Drawing
                     _mostRecentPoint = newPoint;
                 }
 
-                Debug.DrawLine(Points[^1], Points[^1] + Vector3.up * 3, Color.red, 0.0f);
-                Debug.DrawLine(_mostRecentPoint, _mostRecentPoint + Vector3.up * 3, Color.green, 0.0f);
-                Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
 
+                Vector3 DistanceCheckPoint = Points[^1] + directionToSecondPoint * (_selfCollisionRange * SelfColisionMultiplier);
 
+                // Debug.DrawLine(Points[^1], Points[^1] + Vector3.up * 3, Color.red, 0.0f);
+                // Debug.DrawLine(DistanceCheckPoint, DistanceCheckPoint + Vector3.up * 3, Color.green, 0.0f);
+                // Debug.DrawLine(hitPoint, hitPoint + Vector3.up * 3, Color.blue, 0.0f);
 
+                if (ExtendedDistanceCheck(hitPoint, DistanceCheckPoint)) return;
 
-                // _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, Vector3.zero);
-                // _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset, 0), Color.red);
+                // if(MathBasedSelfCollisionCheck()) return;
+                if (!ValidHeightFound(out int index))
+                {
+                    return;
+                }
 
-                if (PerformRayCast()) return;
-                if (Collisioncheck()) return;
+                // Debug.Log("Valid height found." + index);
 
-                _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset, 0), Color.white);
+                // if (Collisioncheck()) return;
+
+                _instanciatedSpline.UpdateLastPoint(_mostRecentPoint, new Vector3(0, CurrentPointOffset + (_selfCollisionRange * index * 2), 0), Color.white);
             }
+        }
+        private bool ExtendedDistanceCheck(Vector3 hitPoint, Vector3 DistanceCheckPoint)
+        {
+
+            if (Vector3.Distance(hitPoint, DistanceCheckPoint) > 0.01f)
+            {
+                if (MathBasedSelfCollisionCheck(hitPoint, DistanceCheckPoint))
+                {
+                    Debug.Log("Collision detected. Cannot add point.");
+                    return true;
+                }
+                Debug.Log("no collision detected add point.");
+            }
+            else
+            {
+                Debug.Log("distance not big enough.");
+                return true;
+            }
+            return false;
         }
 
         private float GetNewYOffset()
@@ -508,7 +536,7 @@ namespace Splines.Drawing
 
             SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
             float splineSize = _instanciatedSpline.GetSplineUniformSize();
-            _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 2);
+            _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
             _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
 
 
@@ -553,9 +581,18 @@ namespace Splines.Drawing
             return false;
         }
 
+        private bool MathBasedSelfCollisionCheck()
+        {
+            return MathBasedIntersection.LineIntersectsItself3D(PointsWithHeight, out int pointIndex, true);
+        }
+
+        private bool MathBasedSelfCollisionCheck(Vector3 MostRecentPoint, Vector3 PredictionPoint)
+        {
+            return MathBasedIntersection.LineIntersectsItself3D(PointsWithHeight, MostRecentPoint, PredictionPoint, out int pointIndex, true);
+        }
+
         private bool Collisioncheck()
         {
-
             Collider[] colliders = Physics.OverlapSphere(_mostRecentPoint, _selfCollisionRange, SplineLayer);
 
             if (colliders.Length > 0)
@@ -563,6 +600,22 @@ namespace Splines.Drawing
                 Debug.LogWarning("Collision detected. Cannot add point.");
                 return true;
             }
+            return false;
+        }
+
+        private bool ValidHeightFound(out int index)
+        {
+            for (int i = 0; i < MaxSplineLayers; i++)
+            {
+                Collider[] colliders = Physics.OverlapSphere(_mostRecentPoint + new Vector3(0, _selfCollisionRange * (2 * i), 0), _selfCollisionRange, SplineLayer);
+
+                if (colliders.Length > 0) continue;
+
+                index = i;
+                return true;
+                // break;
+            }
+            index = 5;
             return false;
         }
 
