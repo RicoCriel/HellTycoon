@@ -23,7 +23,7 @@ namespace Buildings
 
 
         //TODO : calcualte this required fear depending on which layer machine is on
-        [SerializeField] private int _requiredFearLevel;
+        [SerializeField] private float _requiredFearLevel;
 
         [SerializeField] private int _upkeepCost;
 
@@ -76,7 +76,7 @@ namespace Buildings
                 Debug.LogWarning("Popup is not factory type");
             }
         }
-        public int GetReqFearLevel()
+        public float GetReqFearLevel()
         {
             return _requiredFearLevel;
         }

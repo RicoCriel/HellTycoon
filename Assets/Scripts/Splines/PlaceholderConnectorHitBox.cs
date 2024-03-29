@@ -135,7 +135,7 @@ namespace Splines
         {
             if (myBuildingNode.TryGetComponent(out MachinePart nextMachinePart))
             {
-                int fearlevel = obj.GetComponent<DemonFear>().FearLevel;
+                float fearlevel = obj.GetComponent<DemonFear>().FearLevel;
                 if (fearlevel >= nextMachinePart.GetComponent<MachinePart>().GetReqFearLevel())
                 {
                     nextMachinePart.AddDemon(nextMachinePart._unprocessedDemonContainer, obj);
