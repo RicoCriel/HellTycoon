@@ -17,9 +17,13 @@ public class DemonSpawner : MonoBehaviour
 
     private List<GameObject> _demonHandler;
 
-    private void Start()
+    private void Awake()
     {
         _demonHandler = new List<GameObject>();
+        if(_demonManager == null)
+        {
+            _demonManager = FindObjectOfType<DemonManager>();
+        }
     }
 
     void Update()
@@ -37,7 +41,8 @@ public class DemonSpawner : MonoBehaviour
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);
 
                 if (_demonPrefab == null) return;
-                var demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+                GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+                if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
                 _demonManager.AddDemon(demon);
 
 
