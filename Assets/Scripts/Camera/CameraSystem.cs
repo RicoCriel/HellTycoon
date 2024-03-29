@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CameraSystem : MonoBehaviour
 {
@@ -55,14 +56,38 @@ public class CameraSystem : MonoBehaviour
     [Range(1, 200)]
     [SerializeField] private float _maxY = 40f;
 
+    [Header("Snapping points")]
+    [SerializeField] private List<Transform> _snapPoints = new List<Transform>();
+    [SerializeField] private float _cameraRadius;
+    [Range(0.1f, 10f)]
+    [SerializeField] private float _totalLerpTime;
+    [SerializeField] private float _lerpAcceptanceRadius;
+
+    private bool _lerping = true;
+    private float _lerpTimePassed = 0f;
+    private Transform _currentSnapPoint;
 
     private bool _dragPanMove = false;
     private Vector2 _lastMousePos = Vector2.zero;
 
+    private void Awake()
+    {
+        if (_snapPoints.Count > 0)
+            _currentSnapPoint = _snapPoints[0];
+    }
+
     // Update is called once per frame
     void Update()
     {
-        HandleMovement();
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SwitchToLayer(1);
+        }
+
+        if (!_lerping)
+            HandleMovement();
+        else
+            HandleLerp();
 
         HandleRotation();
 
@@ -82,17 +107,15 @@ public class CameraSystem : MonoBehaviour
                 HandleZoomCombined();
                 break;
         }
-        //if (_zoomFOV)
-        //    HandleCameraZoomFOV();
+    }
 
-        //else if (_zoomFollowOffset)
-        //    HandleZoomMoveForward();
+    public void SwitchToLayer(int layerIdx)
+    {
+        if (_snapPoints.Count <= layerIdx) return;
 
-        //else if (_zoomLowerY)
-        //    HandleZoomLowerY();
+        _currentSnapPoint = _snapPoints[layerIdx];
 
-        //else if(_zoomCombinedMethod)
-        //    HandleZoomCombined();
+        _lerping = true;
     }
 
     private void HandleMovement()
@@ -111,7 +134,29 @@ public class CameraSystem : MonoBehaviour
             HandleDrag(ref inputDir);
 
         Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x;
-        transform.position += moveDir * _moveSpeed * Time.deltaTime;
+        var newPos = transform.position + moveDir * _moveSpeed * Time.deltaTime;
+
+        Assert.IsTrue(_currentSnapPoint);
+
+        var currentSnap = _currentSnapPoint.position;
+        if (Vector3.Distance(newPos, _currentSnapPoint.position) > _cameraRadius)
+            return;
+
+        transform.position = newPos;
+    }
+
+    private void HandleLerp()
+    {
+        Assert.IsTrue(_currentSnapPoint);
+
+        _lerpTimePassed += Time.deltaTime / _totalLerpTime;
+        transform.position = Vector3.Lerp(transform.position, _currentSnapPoint.position, _lerpTimePassed);
+
+        if (Vector3.Distance(transform.position, _currentSnapPoint.position) <= _lerpAcceptanceRadius)
+        {
+            _lerping = false;
+            _lerpTimePassed = 0f;
+        }
     }
 
     private void HandleEdgeScrolling(ref Vector3 inputDir)

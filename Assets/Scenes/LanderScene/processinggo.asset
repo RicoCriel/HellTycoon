@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -99,11 +99,11 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -13
   tint:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 29.9
   colorFilter:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -118,7 +118,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 0
-    value: 0
+    value: 0.01
   contrast:
     overrideState: 0
     value: 0
@@ -1396,7 +1396,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.5
+    value: 0.69
   color:
     overrideState: 0
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -1413,11 +1413,11 @@ MonoBehaviour:
     overrideState: 0
     value: -12
   thicknessModifier:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 2.59
   zBias:
     overrideState: 0
-    value: 0.0001
+    value: 0.00004
   directLightingStrength:
     overrideState: 0
     value: 0
@@ -1448,7 +1448,7 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0.33962262, g: 0.16966383, b: 0.10573154, a: 1}
+    value: {r: 0.26444608, g: 0.105882354, b: 0.34117648, a: 1}
   center:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
