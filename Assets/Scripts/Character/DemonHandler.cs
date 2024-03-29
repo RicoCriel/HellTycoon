@@ -25,7 +25,9 @@ public class DemonHandler : MonoBehaviour
     [SerializeField] private Sprite[] _armorSprites;
     [SerializeField] private Sprite[] _wingsSprites;
 
-    private Camera _mainCamera;
+    [SerializeField] private int _layertHightDiff = 100;
+
+     private Camera _mainCamera;
 
     public int BodyLevel;
     public int FaceLevel;
@@ -34,6 +36,8 @@ public class DemonHandler : MonoBehaviour
     public int WingsLevel;
 
     [SerializeField] private MachineNode _currentMachineNode;
+    private int _layer;
+    public int Layer => _layer;
 
 
     private void Start()
@@ -43,8 +47,14 @@ public class DemonHandler : MonoBehaviour
         HornLevel = 0;
         ArmorLevel = 0;
         WingsLevel = 0;
-
+        SetLayer();
     }
+
+    public void SetLayer()
+    {
+        _layer = (int)(transform.position.y) / _layertHightDiff;
+    }
+    
 
     private void Awake()
     {
