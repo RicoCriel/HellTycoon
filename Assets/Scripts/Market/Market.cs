@@ -8,7 +8,7 @@ namespace Economy
 {
     public class Market : MonoBehaviour
     {
-        [SerializeField] private DemonHandler.DemonStats _demand;
+        [SerializeField] private DemonHandler.DemonStats _demand = new DemonHandler.DemonStats(10);
         [SerializeField] private DemonHandler.DemonStats _supply;
         [SerializeField] private DemonHandler.DemonStats _prices;
         [Space(15)]
@@ -16,6 +16,7 @@ namespace Economy
 
         private void Update()
         {
+            // TODO: remove test code
             if (Input.GetKeyDown(KeyCode.F))
             {
                 var stats = new DemonHandler.DemonStats(1, 1, 1, 1, 1);
@@ -37,6 +38,28 @@ namespace Economy
             StartCoroutine(RemoveFromSupply(demon));
         }
 
+        public void BoostDemand(DemonHandler.DemonStats demon, float time)
+        {
+            _demand.Wings += demon.Wings;
+            _demand.Horn += demon.Horn;
+            _demand.Face += demon.Face;
+            _demand.Body += demon.Body;
+            _demand.Armor += demon.Armor;
+
+            StartCoroutine(RemoveFromDemand(demon, time));
+        }
+
+        private IEnumerator RemoveFromDemand(DemonHandler.DemonStats demon, float time)
+        {
+            yield return new WaitForSeconds(time);
+
+            _demand.Wings -= demon.Wings;
+            _demand.Horn -= demon.Horn;
+            _demand.Face -= demon.Face;
+            _demand.Body -= demon.Body;
+            _demand.Armor -= demon.Armor;
+        }
+
         private IEnumerator RemoveFromSupply(DemonHandler.DemonStats demon)
         {
             yield return new WaitForSeconds(_supplyTime);
@@ -50,7 +73,6 @@ namespace Economy
             Debug.Log("Wings: " + _supply.Wings + " Horn: " + _supply.Horn + "  Face: " + _supply.Face + "  Body: " +
                       _supply.Body + "  Armor: " + _supply.Armor);
 
-            yield break;
         }
     }
 

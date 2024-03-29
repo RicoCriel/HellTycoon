@@ -117,5 +117,14 @@ public class DemonHandler : MonoBehaviour
             Armor = armor;
             Face = face;
         }
+
+        public DemonStats(int value)
+        {
+            Body = value;
+            Horn = value;
+            Wings = value;
+            Armor = value;
+            Face = value;
+        }
     }
 }
