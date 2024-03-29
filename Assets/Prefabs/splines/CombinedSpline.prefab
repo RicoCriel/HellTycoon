@@ -104,7 +104,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    sampleRate: 4
+    sampleRate: 5
     closed: 0
     _knotParametrization: 1
   _originalSamplePercents:
@@ -185,7 +185,7 @@ MonoBehaviour:
   hasSamples: 1
   _optimizeAngleThreshold: 0.5
   _space: 1
-  _sampleMode: 0
+  _sampleMode: 1
   _subscribers:
   - {fileID: 3315113940261105979}
   - {fileID: 5727877919354249339}
@@ -506,7 +506,7 @@ MonoBehaviour:
   _markDynamic: 1
   _size: 1
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _offset: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0.3, z: 0}
   _normalMethod: 1
   _calculateTangents: 1
   _useSplineSize: 1

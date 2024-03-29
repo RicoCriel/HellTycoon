@@ -11,6 +11,14 @@ public class DemonExit : BuildingFactoryBase
     // TODO: move market to econmanager and remove demonvalue function
     [SerializeField] private Market _market;
 
+    private void Awake()
+    {
+        if (_market == null)
+        {
+            _market = FindObjectOfType<Market>();
+        }
+    }
+
     private int DemonValue(GameObject devil)
     {
         var demoncomp = devil.GetComponent<DemonHandler>();
