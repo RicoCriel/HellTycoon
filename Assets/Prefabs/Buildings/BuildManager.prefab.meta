@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Buildings/BuildManager.prefab.meta
 guid: 1ccd926670be6b94187b1e20c427b641
 PrefabImporter:
+========
+guid: 631feaddbe683ed4383934ae4201e481
+DefaultImporter:
+>>>>>>>> 48194b4113707c44f04b0c2653cd4c6be5c26ae5:Assets/Customizable Skybox/Customizable Skybox Documentaion.pdf.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

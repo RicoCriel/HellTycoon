@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Layer/LandLayerManager.prefab.meta
 guid: f4343036c46b8da489369bc8bbc3ba23
 PrefabImporter:
+========
+guid: 0aab1b18335e60849a9f0e022e548980
+DefaultImporter:
+>>>>>>>> 48194b4113707c44f04b0c2653cd4c6be5c26ae5:Assets/Prefabs/imprted/LowPolyMedievalPropsLite/LowPolyMedievalPropsLite_2020.3.0_URP_v1.0.unitypackage.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Character/DemonManager.prefab.meta
 guid: af810fb0120413d41b8366f0ad41754d
 PrefabImporter:
+========
+guid: 518d1c1a2372e38479ca8a25bc9b0ee8
+DefaultImporter:
+>>>>>>>> 48194b4113707c44f04b0c2653cd4c6be5c26ae5:Assets/Prefabs/imprted/LowPolyMedievalPropsLite/LowPolyMedievalPropsLite_2020.3.0_HDRP_v1.0.unitypackage.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
