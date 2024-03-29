@@ -9,6 +9,14 @@ namespace Economy
     public class Market : MonoBehaviour
     {
         [SerializeField] private DemonStats _demand = new DemonStats(10);
+
+        // Threshold to switch from positive price change to negative
+        [SerializeField] private int _demandThreshold; 
+
+        // Percentage for increments when demand changes
+        [Range(0f, 1f)]
+        [SerializeField] private float _demandIncrement; 
+
         [SerializeField] private DemonStats _supply;
         [SerializeField] private DemonStats _prices;
         [Space(15)]
@@ -75,7 +83,6 @@ namespace Economy
 
         }
     }
-
 }
 
 
