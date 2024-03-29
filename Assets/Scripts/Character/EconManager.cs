@@ -66,7 +66,7 @@ public class EconManager : MonoBehaviour
             _deathTimer = 0;
             _deathTimerPassed = 0;
         }
-        if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt)
+        if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
         {
             //TODO: lose con
             Debug.Log("Lost game!");
