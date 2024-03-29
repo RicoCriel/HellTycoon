@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8105460976361090774}
+  - component: {fileID: 7618161254396766732}
   m_Layer: 0
   m_Name: Upgrader2
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 17493037039668478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7618161254396766732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913254668796905912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.211658, y: 12.395646, z: 13.017933}
+  m_Center: {x: -0.03889346, y: 6.008966, z: -1.8085232}
 --- !u!1001 &555240927031438101
 PrefabInstance:
   m_ObjectHideFlags: 0

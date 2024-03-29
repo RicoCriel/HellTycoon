@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427409186488328853}
+  - component: {fileID: 4683854691313108366}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 3048961483053092723}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4683854691313108366
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3102079881521067072}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.8499994, y: 7.2626266, z: 5.107746}
+  m_Center: {x: 2.02, y: 2.9213133, z: 2.3738732}
 --- !u!1001 &3304145888423127192
 PrefabInstance:
   m_ObjectHideFlags: 0
