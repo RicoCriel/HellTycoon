@@ -133,30 +133,26 @@ namespace Splines
         }
         private void CallBack(GameObject obj)
         {
-            if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
+            if (myBuildingNode.TryGetComponent(out MachinePart nextMachinePart))
+            {
+                int fearlevel = obj.GetComponent<DemonFear>().FearLevel;
+                if (fearlevel >= nextMachinePart.GetComponent<MachinePart>().GetReqFearLevel())
+                {
+                    nextMachinePart.AddDemon(nextMachinePart._unprocessedDemonContainer, obj);
+                }
+            }
+
+            else if (myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
             {
                 Assert.IsFalse(obj == null);
-                int fearlevel = obj.GetComponent<DemonFear>().FearLevel;
-                if (fearlevel >= nextMachine.GetComponent<MachinePart>().GetReqFearLevel())
-                {
-                    nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
-                }
-                else
-                {
-                    // Prevent the character from entering the machine
-                    Debug.Log("Character's fear level is too low to enter the machine.");
-                }
+                nextMachine.AddDemon(nextMachine._unprocessedDemonContainer, obj);
             }
 
-
-
-            
-
-            if (myBuildingNode.TryGetComponent(out BuildingPortal NextPortal))
-            {
-                //todo add opslorpcode Portal via buildingportal class.
-            }
-}
+            //if (myBuildingNode.TryGetComponent(out BuildingPortal NextPortal))
+            //{
+            //    //todo add opslorpcode Portal via buildingportal class.
+            //}
+        }
 
 
     }

@@ -27,6 +27,8 @@ namespace Buildings
 
         [SerializeField] private int _upkeepCost;
 
+        public int UkpeepCost => _upkeepCost;
+
 
         [SerializeField] private int _upkeepInterval = 60;
 

@@ -5,22 +5,27 @@ using UnityEngine;
 public class DemonFear : MonoBehaviour
 {
     private int _fearLevel = 0;
-    private int _currentLayer;
     public int FearLevel => _fearLevel;
 
+    private int _layer;
+    public int Layer => _layer;
+    [SerializeField] private int _layertHightDiff = 100;
+
+    public int DecayRate;
+
+
+
+    private void Start()
+    {
+        SetLayer();
+    }
+
+    
     public int GetFearLevel()
     {
         return _fearLevel;
     }
-    public int GetLayer()
-    {
-        return _currentLayer;
-    }
-
-    public void SetLayer(int layer)
-    {
-        _currentLayer = layer;
-    }
+  
 
     public void IncreaseFear(int amount)
     {
@@ -31,5 +36,11 @@ public class DemonFear : MonoBehaviour
     {
         _fearLevel -= amount;
     }
+
+    public void SetLayer()
+    {
+        _layer = (int)(transform.position.y) / _layertHightDiff;
+    }
+
 
 }
