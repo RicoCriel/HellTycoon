@@ -11,7 +11,6 @@ public class EconManager : MonoBehaviour
     [SerializeField] private int _startMoney = 200;
     [SerializeField] private bool _logMoney = false;
     [SerializeField] private bool _godMode = false;
-    [SerializeField] private MachineManager _machineManager;
 
     private int _money = 0;
 
@@ -20,6 +19,11 @@ public class EconManager : MonoBehaviour
     public int FaceLevelValue = 200;
     public int ArmorLevelValue = 250;
     public int WingLevelValue = 300;
+    [SerializeField] private float _deathTimer = 300f;
+    private float _deathTimerWeight = 0.05f;
+    private float _deathTimerPassed;
+    private bool _inDebt;
+
     void Start()
     {
         _money = _startMoney;
@@ -36,15 +40,7 @@ public class EconManager : MonoBehaviour
             Debug.Log("Money: " + _money);
         }
     }
-
-    public void PayUpkeep()
-    {
-        //_machineManager.Machines;
-        //loop over all machines
-        //check and sum price ukeep cost for each macihne
-        //pay upkeep (call this fucntion every x seconds)       
-    }
-
+    
     public void SubtractMoney(int amount)
     {
         if (_godMode) return;
@@ -56,5 +52,26 @@ public class EconManager : MonoBehaviour
         }
     }
 
-   
+
+    private void Update()
+    {
+        if (_money < 0)
+        {
+            _inDebt = true;
+            _deathTimerPassed += Time.deltaTime;
+        }
+        else
+        {
+            _inDebt = false;
+            _deathTimer = 0;
+            _deathTimerPassed = 0;
+        }
+        if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt)
+        {
+            //TODO: lose con
+            Debug.Log("Lost game!");
+        }
     }
+
+
+}

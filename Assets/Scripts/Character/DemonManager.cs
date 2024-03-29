@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class DemonManager : MonoBehaviour
 {
-    private List<DemonFear> _demons = new List<DemonFear>();
+    private List<GameObject> _demons = new List<GameObject>();
+
+    [SerializeField] private float _tickIntervalTime;
 
 
-
+    private void Start()
+    {
+        InvokeRepeating("TickFear", 0f, _tickIntervalTime);
+    }
     // Add enemy to the list
-    public void AddDemon(DemonFear demon)
+    public void AddDemon(GameObject demon)
     {
         _demons.Add(demon);
     }
 
     // Remove enemy from the list
-    public void RemoveDemon(DemonFear demon)
+    public void RemoveDemon(GameObject demon)
     {
         _demons.Remove(demon);
     }
@@ -28,16 +33,20 @@ public class DemonManager : MonoBehaviour
 
     public List<DemonFear> GetDemonFears()
     {
-        return _demons;
+        return _demons.ConvertAll(demon => demon.GetComponent<DemonFear>());
     }
 
-    // TODO: call this every x amount of time
+    public List<DemonHandler> GetDemonHandlers()
+    {
+        return _demons.ConvertAll(demon => demon.GetComponent<DemonHandler>());
+    }
+
     public void TickFear()
     {
-        foreach (var demon in _demons)
+        List<DemonFear> demonFears = GetDemonFears();
+        foreach (var demonFear in demonFears)
         {
-            // TODO: Cehck which layer, decrease fear accordingly
-            demon.DecreaseFear(2 * demon.GetLayer());
+            demonFear.DecreaseFear(demonFear.Layer * demonFear.DecayRate);
         }
     }
 }
