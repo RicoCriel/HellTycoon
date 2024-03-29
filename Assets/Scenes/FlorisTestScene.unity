@@ -693,6 +693,8 @@ MonoBehaviour:
     Wings: 10
     Armor: 10
     Face: 10
+  _demandThreshold: 0
+  _demandIncrement: 0.191
   _supply:
     Body: 0
     Horn: 0
