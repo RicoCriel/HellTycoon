@@ -658,6 +658,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96690d9beb493fa498f896daf2220235, type: 3}
+--- !u!1 &1533302051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1533302053}
+  - component: {fileID: 1533302052}
+  m_Layer: 0
+  m_Name: Market
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1533302052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533302051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e8c81c707fde2489b66dd8e2533513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _demand:
+    Body: 10
+    Horn: 10
+    Wings: 10
+    Armor: 10
+    Face: 10
+  _demandThreshold: 0
+  _demandIncrement: 0.191
+  _supply:
+    Body: 0
+    Horn: 0
+    Wings: 0
+    Armor: 0
+    Face: 0
+  _prices:
+    Body: 0
+    Horn: 0
+    Wings: 0
+    Armor: 0
+    Face: 0
+  _supplyTime: 2
+--- !u!4 &1533302053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533302051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 118.273026, y: -248.79437, z: 192.34758}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1556635146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1288,3 +1353,4 @@ SceneRoots:
   - {fileID: 948380976}
   - {fileID: 3115386672337772353}
   - {fileID: 7732759947768939260}
+  - {fileID: 1533302053}

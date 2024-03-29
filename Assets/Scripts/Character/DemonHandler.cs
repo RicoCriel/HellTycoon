@@ -1,3 +1,4 @@
+using System;
 using Buildings;
 using JetBrains.Annotations;
 using System.Collections;
@@ -6,11 +7,7 @@ using UnityEngine;
 
 public class DemonHandler : MonoBehaviour
 {
-    [SerializeField] private int _maxBodyLevel = 2;
-    [SerializeField] private int _maxFaceLevel = 2;
-    [SerializeField] private int _maxHornLevel = 2;
-    [SerializeField] private int _maxArmorLevel = 2;
-    [SerializeField] private int _maxWingsLevel = 2;
+    [SerializeField] private DemonStats _maxLevel;
 
     [SerializeField] private SpriteRenderer _horns;
     [SerializeField] private SpriteRenderer _head;
@@ -27,22 +24,18 @@ public class DemonHandler : MonoBehaviour
 
     private Camera _mainCamera;
 
-    public int BodyLevel;
-    public int FaceLevel;
-    public int HornLevel;
-    public int ArmorLevel;
-    public int WingsLevel;
+    public DemonStats Level;
 
     [SerializeField] private MachineNode _currentMachineNode;
 
 
     private void Start()
     {
-        BodyLevel = 0;
-        FaceLevel = 0;
-        HornLevel = 0;
-        ArmorLevel = 0;
-        WingsLevel = 0;
+        Level.Body = 0;
+        Level.Face = 0;
+        Level.Wings = 0;
+        Level.Horn = 0;
+        Level.Armor = 0;
 
     }
 
@@ -65,19 +58,19 @@ public class DemonHandler : MonoBehaviour
 
     private void UpdateSprites()
     {
-        if (_maxBodyLevel < BodyLevel) { BodyLevel = _maxBodyLevel - 1; }
-        if (_maxFaceLevel < FaceLevel) { FaceLevel = _maxFaceLevel - 1; }
-        if (_maxHornLevel < HornLevel) { HornLevel = _maxHornLevel - 1; }
-        if (_maxArmorLevel < ArmorLevel) { ArmorLevel = _maxArmorLevel - 1; }
-        if (_maxWingsLevel < WingsLevel) { WingsLevel = _maxWingsLevel - 1; }
+        if (_maxLevel.Body < Level.Body) { Level.Body = _maxLevel.Body - 1; }
+        if (_maxLevel.Face < Level.Face) { Level.Face = _maxLevel.Face - 1; }
+        if (_maxLevel.Horn < Level.Horn) { Level.Horn = _maxLevel.Horn - 1; }
+        if (_maxLevel.Armor < Level.Armor) { Level.Armor = _maxLevel.Armor - 1; }
+        if (_maxLevel.Wings < Level.Wings) { Level.Wings = _maxLevel.Wings - 1; }
 
-        _horns.sprite = _hornsSprites[HornLevel];
+        _horns.sprite = _hornsSprites[Level.Horn];
         //Debug.Log(_horns.sprite);
-        _head.sprite = _headSprites[BodyLevel];
-        _face.sprite = _faceSprites[FaceLevel];
-        _armor.sprite = _armorSprites[ArmorLevel];
-        _wings.sprite = _wingsSprites[WingsLevel];
-        _wingsL.sprite = _wingsSprites[WingsLevel];
+        _head.sprite = _headSprites[Level.Body];
+        _face.sprite = _faceSprites[Level.Face];
+        _armor.sprite = _armorSprites[Level.Armor];
+        _wings.sprite = _wingsSprites[Level.Wings];
+        _wingsL.sprite = _wingsSprites[Level.Wings];
 
     }
 
@@ -93,17 +86,50 @@ public class DemonHandler : MonoBehaviour
         {
             Debug.LogWarning("No camera assigned");
         }
+
     }
 
     public void SetStats(MachineType machineType)
     {
         _currentMachineNode = _currentMachineNode.NextNodes[(int)machineType];
 
-        BodyLevel = _currentMachineNode.Body;
-        WingsLevel = _currentMachineNode.Wings;
-        HornLevel = _currentMachineNode.Horns;
-        ArmorLevel = _currentMachineNode.Armor;
-        FaceLevel = _currentMachineNode.Face;
+        Level.Body = _currentMachineNode.Body;
+        Level.Wings = _currentMachineNode.Wings;
+        Level.Wings = _currentMachineNode.Horns;
+        Level.Armor = _currentMachineNode.Armor;
+        Level.Face = _currentMachineNode.Face;
 
     }
-}
+
+ }
+
+
+    [Serializable]
+    public struct DemonStats
+    {
+        public int Body;
+        public int Horn;
+        public int Wings;
+        public int Armor;
+        public int Face;
+
+        public DemonStats(int body, int horn, int wings, int armor, int face)
+        {
+            Body = body;
+            Horn = horn;
+            Wings = wings;
+            Armor = armor;
+            Face = face;
+        }
+
+        public DemonStats(int value)
+        {
+            Body = value;
+            Horn = value;
+            Wings = value;
+            Armor = value;
+            Face = value;
+        }
+    }
+
+

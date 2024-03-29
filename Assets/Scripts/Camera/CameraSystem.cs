@@ -46,6 +46,8 @@ public class CameraSystem : MonoBehaviour
     [SerializeField] private float _minFollowOffset = 2;
     [Range(5, 50)]
     [SerializeField] private float _maxFollowOffset = 20;
+    [Range(0.1f, 5f)]
+    [SerializeField] private float _minFollowY = 0.5f;
 
     [Header("Lower Y")]
     [Range(0, 50)]
@@ -168,7 +170,13 @@ public class CameraSystem : MonoBehaviour
     {
         Vector3 zoomDir = _followOffset.normalized;
 
-        _followOffset -= zoomDir * Input.mouseScrollDelta.y * _zoomSpeed;
+        var newOffset = _followOffset;
+
+        newOffset -= zoomDir * Input.mouseScrollDelta.y * _zoomSpeed;
+
+        if (newOffset.y <= _minFollowY) return;
+
+        _followOffset = newOffset;
 
         if (_followOffset.sqrMagnitude < _minFollowOffset * _minFollowOffset)
         {

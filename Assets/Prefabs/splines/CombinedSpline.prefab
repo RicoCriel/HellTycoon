@@ -60,6 +60,7 @@ MonoBehaviour:
   _splinePathMeshRenderer: {fileID: 5636563660150824204}
   _splinePathFilter: {fileID: 4529975421703243596}
   _splinePath: {fileID: 3315113940261105979}
+  _meshCollider: {fileID: 4342723374602401427}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}
   _popupSpline: {fileID: 7823739658469614760}
@@ -207,7 +208,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -529,6 +530,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3778724096351703848}
     m_Modifications:
+    - target: {fileID: 702430078328465353, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554548914234786372, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263139885336822944, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556394614908036838, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2750283828013783872, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3079127279538607171, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3915060397502362699, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
       propertyPath: _soulsOnSplineCounter
       value: 
@@ -536,6 +561,30 @@ PrefabInstance:
     - target: {fileID: 4927155499319095214, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
       propertyPath: m_Name
       value: SplinePopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927155499319095214, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983392767591921612, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700874201191062369, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807448678459627694, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826669062564758873, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183334745886483626, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7334402669921502140, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,6 +625,30 @@ PrefabInstance:
     - target: {fileID: 7334402669921502140, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382963876134728982, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885032316972877247, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208417512538847929, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8668372685049419293, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753791641308393504, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901599063464499521, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

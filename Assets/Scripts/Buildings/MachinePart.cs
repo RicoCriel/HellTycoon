@@ -27,16 +27,21 @@ namespace Buildings
 
         [SerializeField] private int _upkeepCost;
 
+        public int UkpeepCost => _upkeepCost;
+
 
         [SerializeField] private int _upkeepInterval = 60;
 
 
        private EconManager _econManager;
+       private MachineManager _machineManager;
 
 
         void Start()
         {
             _econManager = FindObjectOfType<EconManager>();
+            _machineManager = FindObjectOfType<MachineManager>();
+            
             StartCoroutine(PayUpkeepRoutine());
         }
         IEnumerator PayUpkeepRoutine()

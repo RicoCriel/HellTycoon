@@ -14,6 +14,7 @@ public class DemonPortal : MonoBehaviour
         if (other.CompareTag("Demon"))
         {
             other.transform.position = ExitPortal.position + _offset;
+            other.GetComponent<DemonFear>().SetLayer();
         }
 
 

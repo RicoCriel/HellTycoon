@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using static Unity.Burst.Intrinsics.Arm;
 
 namespace Buildings
 {
@@ -10,9 +11,9 @@ namespace Buildings
         private List<GameObject> _machines = new List<GameObject>();
         public List<GameObject> Machines => _machines;
 
-        public void AddMachine()
+        public void AddMachine(GameObject machine)
         {
-
+            _machines.Add(machine);
         }
 
         public void RemoveMachine(int index)
@@ -20,26 +21,21 @@ namespace Buildings
             _machines.RemoveAt(index);
         }
         
-        // Set current machine as parent
-        public void AttachToCurrentMachine(MachinePart machinePart)
+        public int SumUpkeep()
         {
-
+            int sum = 0;
+            List<MachinePart> _machineParts = _machines.ConvertAll(machine => machine.GetComponent<MachinePart>());
+            foreach (var machinePart  in _machineParts)
+            {
+                sum += machinePart.UkpeepCost;
+            }
+            return sum;
         }
-
-        public void AttachToCurrentMachine(BuildingFactoryBase building)
-        {
-
-        }
-
-        private void SelectMachineWithPart(BuildingFactoryBase building)
-        {
-
-        }
+    
     }
 
     public enum MachineType
     {
-        //TODO: change names
         Type0 = 0,
         Type1 = 1,
         Type2 = 2
