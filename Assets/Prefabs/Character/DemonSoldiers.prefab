@@ -694,11 +694,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46517b1f85f8a664d840a1ba99cdc6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxBodyLevel: 2
-  _maxFaceLevel: 2
-  _maxHornLevel: 2
-  _maxArmorLevel: 2
-  _maxWingsLevel: 2
+  _maxLevel:
+    Body: 2
+    Horn: 2
+    Wings: 2
+    Armor: 2
+    Face: 2
   _horns: {fileID: 5427084344770230518}
   _head: {fileID: 4039055392208183165}
   _face: {fileID: 8121148272788579382}
@@ -725,11 +726,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7779ec2bd11bbf744bcc2095b1f51520, type: 3}
   - {fileID: -6690504313504711966, guid: 7b1bd20fdc98c1745ae481eb562da12b, type: 3}
   - {fileID: -6071460350887120450, guid: 030b70ffe6872a24e8649ec8ff94d6fc, type: 3}
-  BodyLevel: 0
-  FaceLevel: 0
-  HornLevel: 0
-  ArmorLevel: 0
-  WingsLevel: 0
+  Level:
+    Body: 0
+    Horn: 0
+    Wings: 0
+    Armor: 0
+    Face: 0
+  _currentMachineNode: {fileID: 0}
 --- !u!95 &7675849781904450796
 Animator:
   serializedVersion: 5
