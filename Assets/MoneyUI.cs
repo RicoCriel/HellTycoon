@@ -5,8 +5,17 @@ using UnityEngine.UI;
 
 public class MoneyUI : MonoBehaviour
 {
-    [SerializeField] EconManager _economyManager;
-    [SerializeField] Text _moneyText;
+    [SerializeField] private EconManager _economyManager;
+    [SerializeField] private Text _moneyText;
+
+
+    private void Awake()
+    {
+        if (_economyManager == null)
+        {
+            _economyManager = GameObject.FindObjectOfType<EconManager>();
+        }
+    }
     void Update()
     {
         _moneyText.text = "Money: " + _economyManager.GetMoney();
