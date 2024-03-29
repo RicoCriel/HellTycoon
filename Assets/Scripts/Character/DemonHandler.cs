@@ -99,9 +99,9 @@ public class DemonHandler : MonoBehaviour
         Level.Face = _currentMachineNode.Face;
 
     }
-<<<<<<< HEAD
+
  }
-=======
+
 
     [Serializable]
     public struct DemonStats
@@ -130,5 +130,5 @@ public class DemonHandler : MonoBehaviour
             Face = value;
         }
     }
-}
->>>>>>> bf8eec412c1da1c71f45125a945cb0fe97be2a33
+
+
