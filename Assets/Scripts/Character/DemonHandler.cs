@@ -86,6 +86,7 @@ public class DemonHandler : MonoBehaviour
         {
             Debug.LogWarning("No camera assigned");
         }
+
     }
 
     public void SetStats(MachineType machineType)
