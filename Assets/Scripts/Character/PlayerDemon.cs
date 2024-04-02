@@ -21,9 +21,14 @@ public class PlayerDemon : BuildingFactoryBase
         if(_demonManager == null)
         {
             _demonManager = GameObject.FindObjectOfType<DemonManager>();
-            _econManager = GameObject.FindObjectOfType<EconManager>();
         }
-        
+        if (_econManager == null)
+        {
+            _econManager = GameObject.FindObjectOfType<EconManager>();
+
+        }
+
+
     }
 
     private int DemonValue(GameObject devil)
