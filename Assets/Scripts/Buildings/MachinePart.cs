@@ -27,10 +27,10 @@ namespace Buildings
 
         [SerializeField] private int _upkeepCost;
 
-        public int UkpeepCost => _upkeepCost;
+        public int UkpeepCost => _upkeepCost = 20;
 
 
-        [SerializeField] private int _upkeepInterval = 60;
+        [SerializeField] private int _upkeepInterval = 5;
 
 
        private EconManager _econManager;
@@ -57,6 +57,7 @@ namespace Buildings
         private void PayUpkeep()
         {
             _econManager.SubtractMoney(_upkeepCost);
+            Debug.Log("Paid upkeep for machine");
         }
 
 

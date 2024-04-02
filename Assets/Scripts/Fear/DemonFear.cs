@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DemonFear : MonoBehaviour
 {
-    private float _fearLevel = 0;
+    [SerializeField] private float _fearLevel = 0;
     public float FearLevel => _fearLevel;
 
-    private int _layer;
+    [SerializeField] private int _layer;
     public int Layer => _layer;
     [SerializeField] private int _layertHightDiff = 100;
+
+    
 
     public float DecayRate;
 
