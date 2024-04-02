@@ -732,7 +732,7 @@ MonoBehaviour:
     Wings: 0
     Armor: 0
     Face: 0
-  _currentMachineNode: {fileID: 0}
+  _currentMachineNode: {fileID: 11400000, guid: 15131694f0dd16e4da18058f73cf8ab4, type: 2}
 --- !u!95 &7675849781904450796
 Animator:
   serializedVersion: 5
@@ -814,6 +814,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba878f67aed8ec48a687679c59b5899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fearLevel: 0
+  _layer: 0
+  _layertHightDiff: 100
+  DecayRate: 0
 --- !u!1 &6712088144411519960
 GameObject:
   m_ObjectHideFlags: 0

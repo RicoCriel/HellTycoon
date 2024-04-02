@@ -69,7 +69,8 @@ public class EconManager : MonoBehaviour
         }
         if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
         {
-            SceneManager.LoadScene("Main Menu");
+            //SceneManager.LoadScene("Main Menu");
+            Debug.Log("Lost game!");
         }
     }
 
