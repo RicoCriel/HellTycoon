@@ -156,6 +156,9 @@ MonoBehaviour:
       m_Calls: []
   _machineType: 1
   Node: {fileID: 0}
+  _requiredFearLevel: 0
+  _upkeepCost: 0
+  _upkeepInterval: 10
 --- !u!114 &8855479724916118643
 MonoBehaviour:
   m_ObjectHideFlags: 0
