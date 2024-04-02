@@ -2,6 +2,7 @@ using Buildings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EconManager : MonoBehaviour
 {
@@ -68,8 +69,7 @@ public class EconManager : MonoBehaviour
         }
         if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
         {
-            //TODO: lose con
-            Debug.Log("Lost game!");
+            SceneManager.LoadScene("Main Menu");
         }
     }
 
