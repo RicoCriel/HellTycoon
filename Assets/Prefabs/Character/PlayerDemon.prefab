@@ -53,12 +53,12 @@ MonoBehaviour:
   OnDestruct:
     m_PersistentCalls:
       m_Calls: []
-  _starveApplyInterval: 0
+  _starveApplyInterval: 100
   _starveRate: 0
-  _baseFearRate: 0
-  _feedSize: 0
-  _fearApplyInterval: 0
-  _soulToSoulPowerRate: 0
+  _baseFearRate: 100
+  _feedSize: 10
+  _fearApplyInterval: 3
+  _soulToSoulPowerRate: 10
 --- !u!33 &-3007760173586812908
 MeshFilter:
   m_ObjectHideFlags: 0

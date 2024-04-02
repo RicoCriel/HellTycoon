@@ -53,9 +53,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _drainRate: 0
-  _fearRate: 0
-  _fearApplyInterval: 0
-  _soulToSoulPowerRate: 0
+  _fearRate: 100
+  _fearApplyInterval: 5
+  _soulToSoulPowerRate: 100
   _layertHightDiff: 100
 --- !u!1 &6893241427908256866
 GameObject:
