@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class DemonHandler : MonoBehaviour
 {
-    [SerializeField] private DemonStats _maxLevel;
+    [SerializeField] private DemonStatsInt _maxLevel;
 
     [SerializeField] private SpriteRenderer _horns;
     [SerializeField] private SpriteRenderer _head;
@@ -24,7 +24,7 @@ public class DemonHandler : MonoBehaviour
 
     private Camera _mainCamera;
 
-    public DemonStats Level;
+    public DemonStatsInt Level;
 
     [SerializeField] private MachineNode _currentMachineNode;
 
@@ -101,35 +101,63 @@ public class DemonHandler : MonoBehaviour
 
     }
 
- }
+}
 
 
-    [Serializable]
-    public struct DemonStats
+[Serializable]
+public struct DemonStatsInt
+{
+    public int Body;
+    public int Horn;
+    public int Wings;
+    public int Armor;
+    public int Face;
+
+    public DemonStatsInt(int body, int horn, int wings, int armor, int face)
     {
-        public int Body;
-        public int Horn;
-        public int Wings;
-        public int Armor;
-        public int Face;
-
-        public DemonStats(int body, int horn, int wings, int armor, int face)
-        {
-            Body = body;
-            Horn = horn;
-            Wings = wings;
-            Armor = armor;
-            Face = face;
-        }
-
-        public DemonStats(int value)
-        {
-            Body = value;
-            Horn = value;
-            Wings = value;
-            Armor = value;
-            Face = value;
-        }
+        Body = body;
+        Horn = horn;
+        Wings = wings;
+        Armor = armor;
+        Face = face;
     }
+
+    public DemonStatsInt(int value)
+    {
+        Body = value;
+        Horn = value;
+        Wings = value;
+        Armor = value;
+        Face = value;
+    }
+}
+
+[Serializable]
+public struct DemonStatsFloat
+{
+    public float Body;
+    public float Horn;
+    public float Wings;
+    public float Armor;
+    public float Face;
+
+    public DemonStatsFloat(float body, float horn, float wings, float armor, float face)
+    {
+        Body = body;
+        Horn = horn;
+        Wings = wings;
+        Armor = armor;
+        Face = face;
+    }
+
+    public DemonStatsFloat(float value)
+    {
+        Body = value;
+        Horn = value;
+        Wings = value;
+        Armor = value;
+        Face = value;
+    }
+}
 
 

@@ -8,17 +8,17 @@ namespace Economy
 {
     public class Market : MonoBehaviour
     {
-        [SerializeField] private DemonStats _demand = new DemonStats(10);
+        [SerializeField] private DemonStatsFloat _demand = new DemonStatsFloat(10f);
 
         // Threshold to switch from positive price change to negative
-        [SerializeField] private int _demandThreshold; 
+        [SerializeField] private int _demandThreshold;
 
-        // Percentage for increments when demand changes
-        [Range(0f, 1f)]
-        [SerializeField] private float _demandIncrement; 
+        [SerializeField] private float _supplySaturation;
+        private float _demandEventModifier;
+        private float _wealth = 1f;
 
-        [SerializeField] private DemonStats _supply;
-        [SerializeField] private DemonStats _prices;
+        [SerializeField] private DemonStatsInt _supply;
+        [SerializeField] private DemonStatsFloat _prices;
         [Space(15)]
         [SerializeField] private float _supplyTime = 10f;
 
@@ -27,12 +27,21 @@ namespace Economy
             // TODO: remove test code
             if (Input.GetKeyDown(KeyCode.F))
             {
-                var stats = new DemonStats(1, 1, 1, 1, 1);
+                var stats = new DemonStatsInt(1, 1, 1, 1, 1);
                 SupplyDemon(stats);
             }
         }
 
-        public void SupplyDemon(DemonStats demon)
+        public void CalculateDemand()
+        {
+            _demand.Wings = (1 - 1 / (1 + _supplySaturation * _supply.Wings) * _wealth * _demandEventModifier);
+            _demand.Horn = (1 - 1 / (1 + _supplySaturation * _supply.Horn) * _wealth * _demandEventModifier);
+            _demand.Armor = (1 - 1 / (1 + _supplySaturation * _supply.Armor) * _wealth * _demandEventModifier);
+            _demand.Body = (1 - 1 / (1 + _supplySaturation * _supply.Body) * _wealth * _demandEventModifier);
+            _demand.Face = (1 - 1 / (1 + _supplySaturation * _supply.Face) * _wealth * _demandEventModifier);
+        }
+
+        public void SupplyDemon(DemonStatsInt demon)
         {
             _supply.Wings += demon.Wings;
             _supply.Horn += demon.Horn;
@@ -46,7 +55,7 @@ namespace Economy
             StartCoroutine(RemoveFromSupply(demon));
         }
 
-        public void BoostDemand(DemonStats demon, float time)
+        public void BoostDemand(DemonStatsFloat demon, float time)
         {
             _demand.Wings += demon.Wings;
             _demand.Horn += demon.Horn;
@@ -57,7 +66,7 @@ namespace Economy
             StartCoroutine(RemoveFromDemand(demon, time));
         }
 
-        private IEnumerator RemoveFromDemand(DemonStats demon, float time)
+        private IEnumerator RemoveFromDemand(DemonStatsFloat demon, float time)
         {
             yield return new WaitForSeconds(time);
 
@@ -68,7 +77,7 @@ namespace Economy
             _demand.Armor -= demon.Armor;
         }
 
-        private IEnumerator RemoveFromSupply(DemonStats demon)
+        private IEnumerator RemoveFromSupply(DemonStatsInt demon)
         {
             yield return new WaitForSeconds(_supplyTime);
 
