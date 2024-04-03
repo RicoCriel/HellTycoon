@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016046885295221079}
-  - component: {fileID: 309155388181512088}
   - component: {fileID: 7875840747222845633}
   - component: {fileID: 4337853288634084136}
   - component: {fileID: 5040435678366877639}
+  - component: {fileID: 5666368689259659526}
   m_Layer: 8
   m_Name: PathRangeExtender
   m_TagString: Untagged
@@ -39,24 +39,6 @@ Transform:
   - {fileID: 4405212712030301907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &309155388181512088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6614693909367860791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f115692cd02a4275ae84073e39e298b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxDemons: 10
-  _popupFactory: {fileID: 8191605783460439488}
-  _popupActivator: {fileID: 7875840747222845633}
-  OnDestruct:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &7875840747222845633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +87,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverMaterial: {fileID: 0}
+--- !u!114 &5666368689259659526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614693909367860791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19af2f9efad6469c9481d0c38319cbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDemons: 10
+  _popupFactory: {fileID: 8191605783460439488}
+  _popupActivator: {fileID: 7875840747222845633}
+  OnDestruct:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &131656387246029298
 PrefabInstance:
   m_ObjectHideFlags: 0

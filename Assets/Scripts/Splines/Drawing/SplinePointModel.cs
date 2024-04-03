@@ -11,9 +11,11 @@ namespace Splines.Drawing
         
         public  float Size{ get; set; }
         public  Color Color{ get; set; }
+        
+        public Vector3 SplinePointForward { get; set; }
        
 
-        public SplinePointModel(Vector3 worldPosition,Vector3 worldPositionGround, int height, float size, Color color, int splinePointIndex)
+        public SplinePointModel(Vector3 worldPositionGround,Vector3 worldPosition, int height, float size, Color color, int splinePointIndex)
         {
             WorldPosition = worldPosition;
             WorldPositionGround = worldPositionGround;
@@ -21,6 +23,18 @@ namespace Splines.Drawing
             Size = size;
             Color = color;
             SplinePointIndex = splinePointIndex;
+        }
+        
+        public SplinePointModel(Vector3 worldPositionGround, float size, int splinePointIndex)
+        {
+            WorldPositionGround = worldPositionGround;
+            Size = size;
+            SplinePointIndex = splinePointIndex;
+        }
+        
+        public SplinePointModel Clone()
+        {
+            return new SplinePointModel(WorldPositionGround, WorldPosition, Height, Size, Color, SplinePointIndex);
         }
     
     }

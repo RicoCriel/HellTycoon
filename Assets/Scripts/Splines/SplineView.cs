@@ -1,6 +1,7 @@
 using Dreamteck.Splines;
 using PopupSystem;
 using PopupSystem.Inheritors;
+using Splines.Drawing;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -43,7 +44,7 @@ namespace Splines
                 Vector3 tangent = points[i].tangent.normalized;
                 Vector3 normal = points[i].normal.normalized;
                 
-                Debug.Log(tangent + " " + normal);
+                // Debug.Log(tangent + " " + normal);
 
                 // Calculate the left and right points based on the normal vector
                 Vector3 left = Vector3.Cross(tangent, normal).normalized;
@@ -258,6 +259,19 @@ namespace Splines
                 _mySplineComputer.SetPoints(points);
             }
         }
+        
+        public void UpdateLastPoint(SplinePointModel splinepoint, Color color)
+        {
+            if (_mySplineComputer.GetPoints().Length > 0)
+            {
+                SplinePoint[] points = _mySplineComputer.GetPoints();
+                points[points.Length - 1].position = splinepoint.WorldPosition;
+                // points[points.Length - 1].size = PointSize;
+                points[points.Length - 1].normal = Vector3.up;
+                points[points.Length - 1].color = color;
+                _mySplineComputer.SetPoints(points);
+            }
+        }
 
 
         /// <summary>
@@ -334,7 +348,6 @@ namespace Splines
                 else if (i > pointToRemove) newPoints[i - 1] = points[i];
             }
             _mySplineComputer.SetPoints(newPoints);
-
         }
 
         /// <summary>
@@ -410,10 +423,23 @@ namespace Splines
         {
             return _mySplineMesh.AddChannel(mesh, "Main");
         }
+        
+        public void RemoveMeshChannel(int index)
+        {
+             _mySplineMesh.RemoveChannel(index);
+        }
+        
+        public SplineMesh.Channel AddMeshToGenerate(string channel, Mesh mesh)
+        {
+            return _mySplineMesh.AddChannel(mesh, channel);
+        }
+        
         public SplineMesh.Channel GetMeshChannel(int index)
         {
             return _mySplineMesh.GetChannel(index);
         }
+        
+        
 
         public void SetMeshGenerationCount(SplineMesh.Channel channel, int count)
         {
@@ -441,6 +467,14 @@ namespace Splines
             _meshCollider.enabled = true;
         }
 
-
+        public void VisualizeSplineTangents()
+        {
+            SplinePoint[] points = _mySplineComputer.GetPoints();
+            for (int i = 0; i < points.Length; i++)
+            {
+                Debug.Log(points[i].tangent);
+                Debug.DrawRay(points[i].position, points[i].tangent * 10 , Color.red, 1f);
+            }
+        }
     }
 }

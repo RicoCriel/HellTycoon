@@ -60,14 +60,14 @@ namespace Splines
 
         public Vector3 GetConnectorPointSpline()
         {
-            Vector3 position = _connectorPoint.position;
-            return new Vector3(position.x, 0, position.z);
+            return _connectorPoint.position;
+            // return new Vector3(position.x, 0, position.z);
         }
 
         public Vector3 GetConnectorAnglePointSpline()
         {
-            Vector3 position = _connectorAnglePoint.position;
-            return new Vector3(position.x, 0, position.z);
+            return _connectorAnglePoint.position;
+            // return new Vector3(position.x, 0, position.z);
         }
 
         public Vector3 GetConnectorPointDirection()
@@ -81,7 +81,7 @@ namespace Splines
             if (!IsSplineStart && !ImConnected && _splineDrawer.HasStartedDrawing)
             {
                 Debug.Log("Literally calling the stop at machine logic");
-                _splineDrawer.StopDrawingSplineAtMachine(this, out SplineView splineConnection);
+                _splineDrawer.StopDrawingSplineAtMachine(this, out SplineView splineConnection, false);
                 Spline = splineConnection;
                 ImConnected = true;
             }

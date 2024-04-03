@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2412314784771666993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1.8280001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 7329559392262988731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.795}
+  m_LocalPosition: {x: 0, y: 0, z: 0.123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -284,6 +284,7 @@ MonoBehaviour:
   _myMeshRenderer: {fileID: 1524149994418419990}
   _splineDrawer: {fileID: 0}
   Spline: {fileID: 0}
+  myBuildingNode: {fileID: 0}
 --- !u!65 &9196083836378828215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -303,5 +304,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.022681, z: 0.7426723}
-  m_Center: {x: 0, y: 0.4749329, z: 0.60992414}
+  m_Size: {x: 1, y: 7.0090876, z: 0.7426723}
+  m_Center: {x: 0, y: -2.518271, z: 0.60992414}
