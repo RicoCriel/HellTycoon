@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 namespace Economy
 {
-    public class Market : MonoBehaviour
+    // Should only be referenced by economymanager
+    internal class Market : MonoBehaviour
     {
         [SerializeField] private SerializedDictionary<StatType, MarketStat> _marketStats = new SerializedDictionary<StatType, MarketStat>();
 
@@ -52,11 +55,6 @@ namespace Economy
             {
                 var stats = new DemonStatsInt(1, 1, 1, 1, 1);
                 SupplyDemon(stats);
-            }
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                AddModifier(StatType.Wings, 2f, 10f);
             }
 
             foreach (var stat in _marketStats)
@@ -167,7 +165,7 @@ namespace Economy
 
             public void CalculateDemand(float supplySaturation, float wealth)
             {
-                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
+                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) * Random.Range(0.8f, 1.2f);
             }
 
             public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)

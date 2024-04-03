@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Economy
 {
@@ -42,6 +43,11 @@ namespace Economy
         public void AutoCost(float amount)
         {
             _soulManager.SubtractMoney(amount);
+        }
+
+        public void StartDemandEventModifier(StatType statType, float modifier, float time)
+        {
+            _market.AddModifier(statType, modifier, time);
         }
     }
 

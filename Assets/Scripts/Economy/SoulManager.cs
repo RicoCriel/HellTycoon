@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 namespace Economy
 {
-    public class SoulManager : MonoBehaviour
+    // Should only be referenced by economymanager and moneyUI
+    internal class SoulManager : MonoBehaviour
     {
         [SerializeField] private float _startMoney = 200f;
         [SerializeField] private bool _logMoney = false;
@@ -45,28 +46,26 @@ namespace Economy
             }
         }
 
-
         private void Update()
         {
-            if (_money < 0f)
+            if (_inDebt && _money < 0f)
             {
                 _inDebt = true;
                 _deathTimerPassed += Time.deltaTime;
             }
-            else
+            else if (_inDebt)
             {
                 _inDebt = false;
                 _deathTimer = 0;
                 _deathTimerPassed = 0;
             }
+
             if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
             {
                 //SceneManager.LoadScene("Main Menu");
                 Debug.Log("Lost game!");
             }
         }
-
-
     }
 }
 
