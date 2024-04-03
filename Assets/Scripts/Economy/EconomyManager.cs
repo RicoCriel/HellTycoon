@@ -23,6 +23,15 @@ namespace Economy
             }
         }
 
+        private void Update()
+        {
+            // TODO: remove debug code
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                StartDemandEventModifier(StatType.Wings, 1.5f, 10f);
+            }
+        }
+
         public void SellDemon(DemonStatsInt demon)
         {
             _soulManager.AddMoney(_market.CalculateDemonPrice(demon));
