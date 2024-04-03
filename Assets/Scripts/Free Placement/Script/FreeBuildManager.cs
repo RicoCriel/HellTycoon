@@ -30,7 +30,7 @@ namespace FreeBuild
         [SerializeField] private GameObject _ghostObject2;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
-        [SerializeField] private EconManager _econManager;
+        [SerializeField] private SoulManager _soulManager;
         [SerializeField] private int _buildingLayer;
         [SerializeField] private LayerMask _snapLayerMask;
         [SerializeField] private float _snapThreshold = 5.5f;
@@ -353,9 +353,9 @@ namespace FreeBuild
                     }
                 }
 
-                if (_econManager != null)
+                if (_soulManager != null)
                 {
-                    _econManager.SubtractMoney(_currentCost);
+                    _soulManager.SubtractMoney(_currentCost);
                     _currentCost = 0;
                 }
 

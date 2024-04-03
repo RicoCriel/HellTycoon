@@ -12,7 +12,7 @@ public class PlayerDemon : BuildingFactoryBase
     [SerializeField] private float _fearApplyInterval;
     [SerializeField] private float _soulToSoulPowerRate;
     private DemonManager _demonManager;
-    private EconManager _econManager;
+    private SoulManager _soulManager;
 
     private void Start()
     {
@@ -22,9 +22,9 @@ public class PlayerDemon : BuildingFactoryBase
         {
             _demonManager = GameObject.FindObjectOfType<DemonManager>();
         }
-        if (_econManager == null)
+        if (_soulManager == null)
         {
-            _econManager = GameObject.FindObjectOfType<EconManager>();
+            _soulManager = GameObject.FindObjectOfType<SoulManager>();
 
         }
 
@@ -35,11 +35,11 @@ public class PlayerDemon : BuildingFactoryBase
     {
         var demoncomp = devil.GetComponent<DemonHandler>();
 
-        int sum = 5 + demoncomp.Level.Horn * _econManager.HornLevelValue +
-                    demoncomp.Level.Body * _econManager.BodyLevelValue +
-                        demoncomp.Level.Face * _econManager.FaceLevelValue +
-                            demoncomp.Level.Armor * _econManager.ArmorLevelValue +
-                                demoncomp.Level.Wings * _econManager.WingLevelValue;
+        int sum = 5 + demoncomp.Level.Horn * _soulManager.HornLevelValue +
+                    demoncomp.Level.Body * _soulManager.BodyLevelValue +
+                        demoncomp.Level.Face * _soulManager.FaceLevelValue +
+                            demoncomp.Level.Armor * _soulManager.ArmorLevelValue +
+                                demoncomp.Level.Wings * _soulManager.WingLevelValue;
 
         return sum;
     }

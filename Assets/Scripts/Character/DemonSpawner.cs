@@ -9,7 +9,7 @@ public class DemonSpawner : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private float _maxOffset = 0.5f;
     [SerializeField] private int _spawnCost = 5;
-    [SerializeField] private EconManager _econManager;
+    [SerializeField] private SoulManager _soulManager;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
     [SerializeField] private DemonManager _demonManager;
     private float _timeSinceLastSpawn = 0f;
@@ -31,11 +31,11 @@ public class DemonSpawner : MonoBehaviour
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn >= _spawnInterval)
         {
-            if (_econManager.GetMoney() >= _spawnCost)
+            if (_soulManager.GetMoney() >= _spawnCost)
             {
                 _timeSinceLastSpawn = 0f;
 
-                _econManager.SubtractMoney(_spawnCost);
+                _soulManager.SubtractMoney(_spawnCost);
                 float offsetX = Random.Range(-_maxOffset, _maxOffset);
                 float offsetZ = Random.Range(-_maxOffset, _maxOffset);
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);

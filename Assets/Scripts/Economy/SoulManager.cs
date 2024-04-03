@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EconManager : MonoBehaviour
+public class SoulManager : MonoBehaviour
 {
-   
-
-
     [SerializeField] private int _startMoney = 200;
     [SerializeField] private bool _logMoney = false;
     [SerializeField] private bool _godMode = false;
+    [SerializeField] private float _deathTimer = 300f;
 
     private int _money = 0;
 
@@ -20,7 +18,7 @@ public class EconManager : MonoBehaviour
     public int FaceLevelValue = 200;
     public int ArmorLevelValue = 250;
     public int WingLevelValue = 300;
-    [SerializeField] private float _deathTimer = 300f;
+
     private float _deathTimerWeight = 0.05f;
     private float _deathTimerPassed;
     private bool _inDebt;

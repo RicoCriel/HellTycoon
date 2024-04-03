@@ -33,13 +33,13 @@ namespace Buildings
         [SerializeField] private int _upkeepInterval = 5;
 
 
-       private EconManager _econManager;
+       private SoulManager _soulManager;
        private MachineManager _machineManager;
 
 
         void Start()
         {
-            _econManager = FindObjectOfType<EconManager>();
+            _soulManager = FindObjectOfType<SoulManager>();
             _machineManager = FindObjectOfType<MachineManager>();
             
             StartCoroutine(PayUpkeepRoutine());
@@ -56,7 +56,7 @@ namespace Buildings
 
         private void PayUpkeep()
         {
-            _econManager.SubtractMoney(_upkeepCost);
+            _soulManager.SubtractMoney(_upkeepCost);
             Debug.Log("Paid upkeep for machine");
         }
 
