@@ -1,6 +1,7 @@
 using Splines;
 using System.Collections;
 using System.Collections.Generic;
+using Economy;
 using UnityEngine;
 
 public class DemonSpawner : MonoBehaviour
@@ -9,7 +10,7 @@ public class DemonSpawner : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private float _maxOffset = 0.5f;
     [SerializeField] private int _spawnCost = 5;
-    [SerializeField] private SoulManager _soulManager;
+    [SerializeField] private EconomyManager _economyManager;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
     [SerializeField] private DemonManager _demonManager;
     private float _timeSinceLastSpawn = 0f;
@@ -24,6 +25,11 @@ public class DemonSpawner : MonoBehaviour
         {
             _demonManager = FindObjectOfType<DemonManager>();
         }
+
+        if (_economyManager == null)
+        {
+            _economyManager = FindObjectOfType<EconomyManager>();
+        }
     }
 
     void Update()
@@ -31,11 +37,9 @@ public class DemonSpawner : MonoBehaviour
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn >= _spawnInterval)
         {
-            if (_soulManager.GetMoney() >= _spawnCost)
-            {
                 _timeSinceLastSpawn = 0f;
 
-                _soulManager.SubtractMoney(_spawnCost);
+                _economyManager.AutoCost(_spawnCost);
                 float offsetX = Random.Range(-_maxOffset, _maxOffset);
                 float offsetZ = Random.Range(-_maxOffset, _maxOffset);
                 Vector3 offset = new Vector3(offsetX, 0, offsetZ);
@@ -45,18 +49,8 @@ public class DemonSpawner : MonoBehaviour
                 if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
                 _demonManager.AddDemon(demon);
 
-
-                //if (!_connector.SpawnObject(demon))
-                //{
-                //    _demonHandler.Add(demon);
-                //}
-                //else
-                //{
-                //    StartCoroutine(MoveDemonsToConnector());
-                //}
                 _demonHandler.Add(demon);
                 StartCoroutine(MoveDemonsToConnector());
-            }
         }
     }
 

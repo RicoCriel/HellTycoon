@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
+using Economy;
 
 namespace FreeBuild
 {
@@ -30,14 +31,14 @@ namespace FreeBuild
         [SerializeField] private GameObject _ghostObject2;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
-        [SerializeField] private SoulManager _soulManager;
+        [SerializeField] private EconomyManager _economyManager;
         [SerializeField] private int _buildingLayer;
         [SerializeField] private LayerMask _snapLayerMask;
         [SerializeField] private float _snapThreshold = 5.5f;
 
         private string _buildTag;
         private GameObject _ghostObject;
-        
+
         private GameObject _realObject;
         private bool _locked = false;
         private bool _isSnapped = false;
@@ -289,7 +290,7 @@ namespace FreeBuild
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                 }
 
-                
+
             }
 
             SetGhostOutline(hit.transform.gameObject);
@@ -328,6 +329,13 @@ namespace FreeBuild
 
             if (_canBuild)
             {
+                if (_economyManager != null)
+                {
+                    if (!_economyManager.BuyObject(_currentCost)) return;
+
+                    _currentCost = 0;
+                }
+
                 DestroyGhostObject();
 
                 if (_realObject.GetComponent<DemonPortal>() != null)
@@ -353,11 +361,7 @@ namespace FreeBuild
                     }
                 }
 
-                if (_soulManager != null)
-                {
-                    _soulManager.SubtractMoney(_currentCost);
-                    _currentCost = 0;
-                }
+
 
                 _locked = false;
             }

@@ -4,73 +4,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SoulManager : MonoBehaviour
+namespace Economy
 {
-    [SerializeField] private int _startMoney = 200;
-    [SerializeField] private bool _logMoney = false;
-    [SerializeField] private bool _godMode = false;
-    [SerializeField] private float _deathTimer = 300f;
-
-    private int _money = 0;
-
-    public int HornLevelValue = 100;
-    public int BodyLevelValue = 150;
-    public int FaceLevelValue = 200;
-    public int ArmorLevelValue = 250;
-    public int WingLevelValue = 300;
-
-    private float _deathTimerWeight = 0.05f;
-    private float _deathTimerPassed;
-    private bool _inDebt;
-
-    void Start()
+    public class SoulManager : MonoBehaviour
     {
-        _money = _startMoney;
-    }
-    public int GetMoney()
-    {
-        return _money;
-    }
-    public void AddMoney(int amount)
-    {
-        _money += amount;
-        if (_logMoney)
-        {
-            Debug.Log("Money: " + _money);
-        }
-    }
-    
-    public void SubtractMoney(int amount)
-    {
-        if (_godMode) return;
+        [SerializeField] private float _startMoney = 200f;
+        [SerializeField] private bool _logMoney = false;
+        [SerializeField] private bool _godMode = false;
+        [SerializeField] private float _deathTimer = 300f;
 
-        _money -= amount;
-        if (_logMoney)
-        {
-            Debug.Log("Money: " + _money);
-        }
-    }
+        private float _money = 0f;
+        public float Money => _money;
 
+        private float _deathTimerWeight = 0.05f;
+        private float _deathTimerPassed;
+        private bool _inDebt;
 
-    private void Update()
-    {
-        if (_money < 0)
+        void Start()
         {
-            _inDebt = true;
-            _deathTimerPassed += Time.deltaTime;
+            _money = _startMoney;
         }
-        else
+
+        public void AddMoney(float amount)
         {
-            _inDebt = false;
-            _deathTimer = 0;
-            _deathTimerPassed = 0;
+            _money += amount;
+            if (_logMoney)
+            {
+                Debug.Log("Money: " + _money);
+            }
         }
-        if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
+
+        public void SubtractMoney(float amount)
         {
-            //SceneManager.LoadScene("Main Menu");
-            Debug.Log("Lost game!");
+            if (_godMode) return;
+
+            _money -= amount;
+            if (_logMoney)
+            {
+                Debug.Log("Money: " + _money);
+            }
         }
-    }
 
 
+        private void Update()
+        {
+            if (_money < 0f)
+            {
+                _inDebt = true;
+                _deathTimerPassed += Time.deltaTime;
+            }
+            else
+            {
+                _inDebt = false;
+                _deathTimer = 0;
+                _deathTimerPassed = 0;
+            }
+            if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
+            {
+                //SceneManager.LoadScene("Main Menu");
+                Debug.Log("Lost game!");
+            }
+        }
+
+
+    }
 }
+

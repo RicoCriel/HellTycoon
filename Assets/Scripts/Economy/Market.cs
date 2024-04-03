@@ -54,6 +54,11 @@ namespace Economy
                 SupplyDemon(stats);
             }
 
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                AddModifier(StatType.Wings, 2f, 10f);
+            }
+
             foreach (var stat in _marketStats)
             {
                 stat.Value.UpdateDecay(_baseDecay, _decayTime, _decayThreshold);
@@ -134,12 +139,22 @@ namespace Economy
             _marketStats[StatType.Armor].Supply -= demon.Armor;
         }
 
+        public void AddModifier(StatType stat, float modifier, float time)
+        {
+            _marketStats[stat].DemandEventModifier *= modifier;
+            StartCoroutine(RemoveModifier(stat, modifier, time));
+        }
 
+        private IEnumerator RemoveModifier(StatType stat, float modifier, float time)
+        {
+            yield return new WaitForSeconds(time);
+            _marketStats[stat].DemandEventModifier *= 1f / modifier;
+        }
 
         [Serializable]
         private class MarketStat
         {
-            private float _demandEventModifier = 1f;
+            public float DemandEventModifier = 1f;
             private float _decay = 1f;
             private float _decayTimePassed = 0f;
             private float _scarcity = 1f;
@@ -152,7 +167,7 @@ namespace Economy
 
             public void CalculateDemand(float supplySaturation, float wealth)
             {
-                Demand = wealth * _demandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
+                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
             }
 
             public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)

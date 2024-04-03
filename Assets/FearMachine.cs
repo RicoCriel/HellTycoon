@@ -1,6 +1,7 @@
 using Buildings;
 using System.Collections;
 using System.Collections.Generic;
+using Economy;
 using UnityEngine;
 
 public class FearMachine : BuildingFactoryBase
@@ -10,8 +11,10 @@ public class FearMachine : BuildingFactoryBase
     [SerializeField] private float _fearApplyInterval;
     [SerializeField] private float _soulToSoulPowerRate;
     [SerializeField] private int _layertHightDiff = 100;
+    [SerializeField] private DemonStatsFloat _fearValue = new DemonStatsFloat(10f);
+
     private DemonManager _demonManager;
-    private SoulManager _soulManager;
+    private EconomyManager _economyManager;
     private int _layer;
 
     private void Start()
@@ -20,20 +23,20 @@ public class FearMachine : BuildingFactoryBase
         if (_demonManager == null)
         {
             _demonManager = GameObject.FindObjectOfType<DemonManager>();
-            _soulManager = GameObject.FindObjectOfType<SoulManager>();
+            _economyManager = GameObject.FindObjectOfType<EconomyManager>();
         }
         _layer = (int)(transform.position.y) / _layertHightDiff;
     }
 
-    private int DemonValue(GameObject devil)
+    private float DemonValue(GameObject devil)
     {
         var demoncomp = devil.GetComponent<DemonHandler>();
 
-        int sum = 5 + demoncomp.Level.Horn * _soulManager.HornLevelValue +
-                    demoncomp.Level.Body * _soulManager.BodyLevelValue +
-                        demoncomp.Level.Face * _soulManager.FaceLevelValue +
-                            demoncomp.Level.Armor * _soulManager.ArmorLevelValue +
-                                demoncomp.Level.Wings * _soulManager.WingLevelValue;
+        float sum = 5f + demoncomp.Level.Horn * _fearValue.Horn +
+                    demoncomp.Level.Body * _fearValue.Body +
+                    demoncomp.Level.Face * _fearValue.Face +
+                    demoncomp.Level.Armor * _fearValue.Armor +
+                    demoncomp.Level.Wings * _fearValue.Wings;
 
         return sum;
     }
