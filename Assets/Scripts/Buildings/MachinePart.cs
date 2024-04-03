@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Economy;
 using PopupSystem.Inheritors;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,13 +34,13 @@ namespace Buildings
         [SerializeField] private int _upkeepInterval = 5;
 
 
-       private SoulManager _soulManager;
+       private EconomyManager _economyManager;
        private MachineManager _machineManager;
 
 
         void Start()
         {
-            _soulManager = FindObjectOfType<SoulManager>();
+            _economyManager = FindObjectOfType<EconomyManager>();
             _machineManager = FindObjectOfType<MachineManager>();
             
             StartCoroutine(PayUpkeepRoutine());
@@ -56,7 +57,7 @@ namespace Buildings
 
         private void PayUpkeep()
         {
-            _soulManager.SubtractMoney(_upkeepCost);
+            _economyManager.AutoCost(_upkeepCost);
             Debug.Log("Paid upkeep for machine");
         }
 

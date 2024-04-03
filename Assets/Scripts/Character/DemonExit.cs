@@ -6,32 +6,14 @@ using UnityEngine;
 
 public class DemonExit : BuildingFactoryBase
 {
-    [SerializeField] private SoulManager _soulManager;
-
-    // TODO: move market to econmanager and remove demonvalue function
-    [SerializeField] private Market _market;
+    [SerializeField] private EconomyManager _economyManager;
 
     private void Awake()
     {
-        if (_market == null)
+        if (_economyManager == null)
         {
-            _market = FindObjectOfType<Market>();
+            _economyManager = FindObjectOfType<EconomyManager>();
         }
-    }
-
-    private int DemonValue(GameObject devil)
-    {
-        var demoncomp = devil.GetComponent<DemonHandler>();
-
-        int sum = 5 + demoncomp.Level.Horn * _soulManager.HornLevelValue +
-                    demoncomp.Level.Body * _soulManager.BodyLevelValue +
-                        demoncomp.Level.Face * _soulManager.FaceLevelValue +
-                            demoncomp.Level.Armor * _soulManager.ArmorLevelValue +
-                                demoncomp.Level.Wings * _soulManager.WingLevelValue;
-
-        _market.SupplyDemon(demoncomp.Level);
-
-        return sum;
     }
 
     protected override void ExecuteMachineProcessingBehaviour()
@@ -40,17 +22,12 @@ public class DemonExit : BuildingFactoryBase
         {
             foreach (var demon in _unprocessedDemonContainer)
             {
-                _soulManager.AddMoney(DemonValue(demon));
+                if (demon.TryGetComponent(out DemonHandler demonHandler))
+                    _economyManager.SellDemon(demonHandler.Level);
 
                 Destroy(demon);
             }
             _unprocessedDemonContainer.Clear();
         }
-
-    }
-
-    protected override void ExecuteMachineSpawningBehaviour()
-    {
-        return;
     }
 }
