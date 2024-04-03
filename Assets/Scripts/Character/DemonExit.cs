@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DemonExit : BuildingFactoryBase
 {
-    [SerializeField] private EconManager _econManager;
+    [SerializeField] private SoulManager _soulManager;
 
     // TODO: move market to econmanager and remove demonvalue function
     [SerializeField] private Market _market;
@@ -23,11 +23,11 @@ public class DemonExit : BuildingFactoryBase
     {
         var demoncomp = devil.GetComponent<DemonHandler>();
 
-        int sum = 5 + demoncomp.Level.Horn * _econManager.HornLevelValue +
-                    demoncomp.Level.Body * _econManager.BodyLevelValue +
-                        demoncomp.Level.Face * _econManager.FaceLevelValue +
-                            demoncomp.Level.Armor * _econManager.ArmorLevelValue +
-                                demoncomp.Level.Wings * _econManager.WingLevelValue;
+        int sum = 5 + demoncomp.Level.Horn * _soulManager.HornLevelValue +
+                    demoncomp.Level.Body * _soulManager.BodyLevelValue +
+                        demoncomp.Level.Face * _soulManager.FaceLevelValue +
+                            demoncomp.Level.Armor * _soulManager.ArmorLevelValue +
+                                demoncomp.Level.Wings * _soulManager.WingLevelValue;
 
         _market.SupplyDemon(demoncomp.Level);
 
@@ -40,7 +40,7 @@ public class DemonExit : BuildingFactoryBase
         {
             foreach (var demon in _unprocessedDemonContainer)
             {
-                _econManager.AddMoney(DemonValue(demon));
+                _soulManager.AddMoney(DemonValue(demon));
 
                 Destroy(demon);
             }
