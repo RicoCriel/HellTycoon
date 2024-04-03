@@ -27,7 +27,7 @@ namespace FreeBuild
         [SerializeField] private string _inputTag;
         [SerializeField] private string _outputTag;
         [SerializeField] private GameObject _ghostObjectPrefab;
-        [SerializeField] private GameObject _portalGhostObj;
+        [SerializeField] private GameObject _ghostObject2;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
         [SerializeField] private EconManager _econManager;
@@ -37,6 +37,7 @@ namespace FreeBuild
 
         private string _buildTag;
         private GameObject _ghostObject;
+        
         private GameObject _realObject;
         private bool _locked = false;
         private bool _isSnapped = false;
@@ -244,7 +245,7 @@ namespace FreeBuild
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             if (_realObject.GetComponent<DemonPortal>() != null)
             {
-                _portalGhostObj.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+                _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             }
 
 
@@ -281,12 +282,11 @@ namespace FreeBuild
                 {
                     next = _landLayerManager.NextPlot(curr.gameObject).transform;
                     _2ghostOffset = next.position.x;
-                    _portalGhostObj = Instantiate(_ghostObjectPrefab,
+                    _ghostObject2 = Instantiate(_ghostObjectPrefab,
                         new Vector3(hit.point.x + next.position.x, hit.point.y,
                             hit.point.z), Quaternion.identity);
-
-                    _portalGhostObj.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
-                    _portalGhostObj.transform.localScale = meshFilter.transform.lossyScale;
+                    _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
+                    _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                 }
 
                 
@@ -308,7 +308,7 @@ namespace FreeBuild
         {
             if (_ghostObject.GetComponent<DemonPortal>() != null)
             {
-                if (_portalGhostObj.GetComponent<Snapper>().IsColliding)
+                if (_ghostObject2.GetComponent<Snapper>().IsColliding)
                 {
                     _canBuild = false;
                 }
@@ -408,10 +408,6 @@ namespace FreeBuild
             if (_ghostObject)
             {
                 Destroy(_ghostObject);
-            }
-            if (_portalGhostObj)
-            {
-                Destroy(_portalGhostObj);
             }
         }
 
