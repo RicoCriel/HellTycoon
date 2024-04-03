@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6625954683927601274}
   - component: {fileID: 2767641254870562579}
   - component: {fileID: 8112090300793758397}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MergingMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 2}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 3.4885354, y: 4.3421507, z: 3.561433}
+  m_Center: {x: 0.09758973, y: 2.1710753, z: -0.00000011920929}
 --- !u!1001 &356726761826897042
 PrefabInstance:
   m_ObjectHideFlags: 0
