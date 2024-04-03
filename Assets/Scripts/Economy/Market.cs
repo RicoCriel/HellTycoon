@@ -3,24 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Economy
 {
     public class Market : MonoBehaviour
     {
-        [SerializeField] private DemonStatsFloat _demand = new DemonStatsFloat(10f);
+        [SerializeField] private SerializedDictionary<StatType, MarketStat> _marketStats = new SerializedDictionary<StatType, MarketStat>();
 
-        // Threshold to switch from positive price change to negative
-        [SerializeField] private int _demandThreshold;
-
+        [Space(10)]
+        // How hard the demand drops initially in response to supply
         [SerializeField] private float _supplySaturation;
-        private float _demandEventModifier;
-        private float _wealth = 1f;
+        [SerializeField] private float _demandCalculationInterval = 1f;
 
-        [SerializeField] private DemonStatsInt _supply;
-        [SerializeField] private DemonStatsFloat _prices;
-        [Space(15)]
+        [Space(20)]
+        [Header("Decay")]
+        [SerializeField] private float _baseDecay = 1f;
+        [SerializeField] private float _decayTime;
+        [SerializeField] private int _decayThreshold; // When supply is above this threshold, timer starts running to drop demand
+
+        [Space(20)]
+        [Header("Scarcity")]
+        [SerializeField] private float _baseScarcity = 1f;
+        [SerializeField] private float _scarcityCoefficient = 0.5f; // Maximum supply threshold at which demand starts to increase significantly
+        [SerializeField] private float _midpoint = 5;
+
+        [Space(20)]
         [SerializeField] private float _supplyTime = 10f;
+
+        private float _wealth = 5f;
+
+        private void Awake()
+        {
+            _marketStats.Add(StatType.Wings, new MarketStat());
+            _marketStats.Add(StatType.Horns, new MarketStat());
+            _marketStats.Add(StatType.Face, new MarketStat());
+            _marketStats.Add(StatType.Armor, new MarketStat());
+            _marketStats.Add(StatType.Body, new MarketStat());
+
+            StartCoroutine(CalculateDemand());
+        }
 
         private void Update()
         {
@@ -30,38 +52,48 @@ namespace Economy
                 var stats = new DemonStatsInt(1, 1, 1, 1, 1);
                 SupplyDemon(stats);
             }
+
+            foreach (var stat in _marketStats)
+            {
+                stat.Value.UpdateDecay(_baseDecay, _decayTime, _decayThreshold);
+            }
         }
 
-        public void CalculateDemand()
+        public IEnumerator CalculateDemand()
         {
-            _demand.Wings = (1 - 1 / (1 + _supplySaturation * _supply.Wings) * _wealth * _demandEventModifier);
-            _demand.Horn = (1 - 1 / (1 + _supplySaturation * _supply.Horn) * _wealth * _demandEventModifier);
-            _demand.Armor = (1 - 1 / (1 + _supplySaturation * _supply.Armor) * _wealth * _demandEventModifier);
-            _demand.Body = (1 - 1 / (1 + _supplySaturation * _supply.Body) * _wealth * _demandEventModifier);
-            _demand.Face = (1 - 1 / (1 + _supplySaturation * _supply.Face) * _wealth * _demandEventModifier);
+            while (true)
+            {
+                foreach (var stat in _marketStats)
+                {
+                    stat.Value.CalculateScarcity(_baseScarcity, _scarcityCoefficient, _midpoint);
+                    stat.Value.CalculateDemand(_supplySaturation, _wealth);
+
+                    Debug.Log("Demand: " + stat.Value.Demand);
+                }
+
+                yield return new WaitForSeconds(_demandCalculationInterval);
+            }
+
         }
 
         public void SupplyDemon(DemonStatsInt demon)
         {
-            _supply.Wings += demon.Wings;
-            _supply.Horn += demon.Horn;
-            _supply.Face += demon.Face;
-            _supply.Body += demon.Body;
-            _supply.Armor += demon.Armor;
-
-            Debug.Log("Wings: " + _supply.Wings + " Horn: " + _supply.Horn + "  Face: " + _supply.Face + "  Body: " +
-                      _supply.Body + "  Armor: " + _supply.Armor);
+            _marketStats[StatType.Wings].Supply += demon.Wings;
+            _marketStats[StatType.Horns].Supply += demon.Horn;
+            _marketStats[StatType.Face].Supply += demon.Face;
+            _marketStats[StatType.Body].Supply += demon.Body;
+            _marketStats[StatType.Armor].Supply += demon.Armor;
 
             StartCoroutine(RemoveFromSupply(demon));
         }
 
         public void BoostDemand(DemonStatsFloat demon, float time)
         {
-            _demand.Wings += demon.Wings;
-            _demand.Horn += demon.Horn;
-            _demand.Face += demon.Face;
-            _demand.Body += demon.Body;
-            _demand.Armor += demon.Armor;
+            _marketStats[StatType.Wings].Demand += demon.Wings;
+            _marketStats[StatType.Horns].Demand += demon.Horn;
+            _marketStats[StatType.Face].Demand += demon.Face;
+            _marketStats[StatType.Body].Demand += demon.Body;
+            _marketStats[StatType.Armor].Demand += demon.Armor;
 
             StartCoroutine(RemoveFromDemand(demon, time));
         }
@@ -70,27 +102,72 @@ namespace Economy
         {
             yield return new WaitForSeconds(time);
 
-            _demand.Wings -= demon.Wings;
-            _demand.Horn -= demon.Horn;
-            _demand.Face -= demon.Face;
-            _demand.Body -= demon.Body;
-            _demand.Armor -= demon.Armor;
+            _marketStats[StatType.Wings].Demand -= demon.Wings;
+            _marketStats[StatType.Horns].Demand -= demon.Horn;
+            _marketStats[StatType.Face].Demand -= demon.Face;
+            _marketStats[StatType.Body].Demand -= demon.Body;
+            _marketStats[StatType.Armor].Demand -= demon.Armor;
         }
 
         private IEnumerator RemoveFromSupply(DemonStatsInt demon)
         {
             yield return new WaitForSeconds(_supplyTime);
 
-            _supply.Wings -= demon.Wings;
-            _supply.Horn -= demon.Horn;
-            _supply.Face -= demon.Face;
-            _supply.Body -= demon.Body;
-            _supply.Armor -= demon.Armor;
-
-            Debug.Log("Wings: " + _supply.Wings + " Horn: " + _supply.Horn + "  Face: " + _supply.Face + "  Body: " +
-                      _supply.Body + "  Armor: " + _supply.Armor);
-
+            _marketStats[StatType.Wings].Supply -= demon.Wings;
+            _marketStats[StatType.Horns].Supply -= demon.Horn;
+            _marketStats[StatType.Face].Supply -= demon.Face;
+            _marketStats[StatType.Body].Supply -= demon.Body;
+            _marketStats[StatType.Armor].Supply -= demon.Armor;
         }
+
+
+
+        [Serializable]
+        private class MarketStat
+        {
+            private float _demandEventModifier = 1f;
+            private float _decay = 1f;
+            private float _decayTimePassed = 0f;
+            private float _scarcity = 1f;
+
+            public int Supply = 0;
+            public float Demand = 10f;
+
+            [SerializeField] private float _price;
+            public float Price => _price;
+
+            public void CalculateDemand(float supplySaturation, float wealth)
+            {
+                Demand = /*(1f - 1f / (1f + supplySaturation * Mathf.Max((float)Supply, 1f))) **/ wealth * _demandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
+            }
+
+            public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)
+            {
+                if (Supply > decayThreshold)
+                {
+                    _decay = Mathf.Max(baseDecay * (1f - _decayTimePassed / decayTime), 0.0001f);
+                }
+                else
+                {
+                    _decayTimePassed = 0f;
+                    _decay = 1f;
+                }
+            }
+
+            public void CalculateScarcity(float baseScarcity, float scarcityCoefficient, float midpoint)
+            {
+                _scarcity = baseScarcity * (1f / (1f + Mathf.Exp(scarcityCoefficient * ((float)Supply - midpoint))));
+            }
+        }
+    }
+
+    public enum StatType
+    {
+        Wings,
+        Horns,
+        Face,
+        Armor,
+        Body
     }
 }
 
