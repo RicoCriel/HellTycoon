@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MoneyUI : MonoBehaviour
 {
-    [SerializeField] private EconManager _economyManager;
+    [SerializeField] private SoulManager _economyManager;
     [SerializeField] private Text _moneyText;
 
 
@@ -13,7 +13,7 @@ public class MoneyUI : MonoBehaviour
     {
         if (_economyManager == null)
         {
-            _economyManager = GameObject.FindObjectOfType<EconManager>();
+            _economyManager = GameObject.FindObjectOfType<SoulManager>();
         }
     }
     void Update()
