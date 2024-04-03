@@ -55,7 +55,7 @@ MonoBehaviour:
   _inputTag: Input
   _outputTag: Output
   _ghostObjectPrefab: {fileID: 4568936789089618933, guid: 932dec010fe925247b6d306910b552a6, type: 3}
-  _portalGhostObj: {fileID: 5935795807527634739, guid: 1f51a648710a50a499aca5b2a27c6c40, type: 3}
+  _ghostObject2: {fileID: 5935795807527634739, guid: 1f51a648710a50a499aca5b2a27c6c40, type: 3}
   _goodMaterial: {fileID: 2100000, guid: 28f547c349914ae43abf427836eef5c6, type: 2}
   _badMaterial: {fileID: 2100000, guid: a217caa33e1f358498d35df9e371d6f1, type: 2}
   _econManager: {fileID: 0}
