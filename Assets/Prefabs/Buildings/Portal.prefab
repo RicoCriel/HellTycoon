@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 5935795807527634739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.22, y: 1.99, z: -1.278}
+  m_LocalPosition: {x: 13.127792, y: 3.7999964, z: 12.65601}
   m_LocalScale: {x: 1, y: 3.5754, z: 6.4034}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -284,10 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cafc0961cabcb4598113066f158515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapPoints: []
-  _snapRange: 5.5
-  snapLayer:
+  SnapPoints: []
+  SnapLayer:
     serializedVersion: 2
     m_Bits: 0
-  _freeBuild: {fileID: 0}
-  _isPlaced: 0
+  IsPlaced: 0
+  IsColliding: 0

@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7683432935382232647, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -1781148124987322744, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3293655779175579809, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -142,6 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   IsPlaced: 0
+  IsColliding: 0
 --- !u!114 &3538964197410046200
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ namespace FreeBuild
         [SerializeField] private string _inputTag;
         [SerializeField] private string _outputTag;
         [SerializeField] private GameObject _ghostObjectPrefab;
+        [SerializeField] private GameObject _ghostObject2;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
         [SerializeField] private EconManager _econManager;
@@ -36,7 +37,7 @@ namespace FreeBuild
 
         private string _buildTag;
         private GameObject _ghostObject;
-        private GameObject _ghostObject2;
+        
         private GameObject _realObject;
         private bool _locked = false;
         private bool _isSnapped = false;
@@ -284,10 +285,11 @@ namespace FreeBuild
                     _ghostObject2 = Instantiate(_ghostObjectPrefab,
                         new Vector3(hit.point.x + next.position.x, hit.point.y,
                             hit.point.z), Quaternion.identity);
+                    _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
+                    _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                 }
 
-                _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
-                _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
+                
             }
 
             SetGhostOutline(hit.transform.gameObject);
@@ -304,7 +306,7 @@ namespace FreeBuild
 
         private void CheckForCollision()
         {
-            if (_ghostObject2 != null)
+            if (_ghostObject.GetComponent<DemonPortal>() != null)
             {
                 if (_ghostObject2.GetComponent<Snapper>().IsColliding)
                 {
@@ -406,10 +408,6 @@ namespace FreeBuild
             if (_ghostObject)
             {
                 Destroy(_ghostObject);
-            }
-            if (_ghostObject2)
-            {
-                Destroy(_ghostObject2);
             }
         }
 
