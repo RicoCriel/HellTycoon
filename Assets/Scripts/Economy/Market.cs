@@ -30,8 +30,9 @@ namespace Economy
 
         [Space(20)]
         [SerializeField] private float _supplyTime = 10f;
+        [SerializeField] private float _priceMultiplier = 10f;
 
-        private float _wealth = 5f;
+        private float _wealth = 1f;
 
         private void Awake()
         {
@@ -67,13 +68,26 @@ namespace Economy
                 {
                     stat.Value.CalculateScarcity(_baseScarcity, _scarcityCoefficient, _midpoint);
                     stat.Value.CalculateDemand(_supplySaturation, _wealth);
+                    stat.Value.CalculatePrice(_priceMultiplier);
 
-                    Debug.Log("Demand: " + stat.Value.Demand);
+                    Debug.Log("Price: " + stat.Value.Price);
                 }
 
                 yield return new WaitForSeconds(_demandCalculationInterval);
             }
+        }
 
+        public float CalculateDemonPrice(DemonStatsInt demon)
+        {
+            float price = 0f;
+
+            price += _marketStats[StatType.Wings].Price * demon.Wings;
+            price += _marketStats[StatType.Horns].Price * demon.Horn;
+            price += _marketStats[StatType.Face].Price * demon.Face;
+            price += _marketStats[StatType.Body].Price * demon.Body;
+            price += _marketStats[StatType.Armor].Price * demon.Armor;
+
+            return price;
         }
 
         public void SupplyDemon(DemonStatsInt demon)
@@ -138,7 +152,7 @@ namespace Economy
 
             public void CalculateDemand(float supplySaturation, float wealth)
             {
-                Demand = /*(1f - 1f / (1f + supplySaturation * Mathf.Max((float)Supply, 1f))) **/ wealth * _demandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
+                Demand = wealth * _demandEventModifier * _decay * Mathf.Max(_scarcity, 1f);
             }
 
             public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)
@@ -157,6 +171,11 @@ namespace Economy
             public void CalculateScarcity(float baseScarcity, float scarcityCoefficient, float midpoint)
             {
                 _scarcity = baseScarcity * (1f / (1f + Mathf.Exp(scarcityCoefficient * ((float)Supply - midpoint))));
+            }
+
+            public void CalculatePrice(float priceMultiplier)
+            {
+                _price = Demand * priceMultiplier;
             }
         }
     }
