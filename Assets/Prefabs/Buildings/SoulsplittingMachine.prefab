@@ -330,10 +330,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6775733192004656955, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ec578fbbf6a6f2d43be38dc61cac4b32, type: 2}
+    - target: {fileID: -4311038983690763162, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 060fb317ae0a27541baa9164fae90f41, type: 2}
+    - target: {fileID: -3548086425709932394, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ec578fbbf6a6f2d43be38dc61cac4b32, type: 2}
     - target: {fileID: 919132149155446097, guid: aff73511d828633418c1cbda0046275b, type: 3}
       propertyPath: m_Name
       value: SM_SoulSplitter
       objectReference: {fileID: 0}
+    - target: {fileID: 1804476234810999557, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54e923f2966d3424b99b61be1989447f, type: 2}
+    - target: {fileID: 3729195814562452290, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 060fb317ae0a27541baa9164fae90f41, type: 2}
+    - target: {fileID: 8568223610573618121, guid: aff73511d828633418c1cbda0046275b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ec578fbbf6a6f2d43be38dc61cac4b32, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
