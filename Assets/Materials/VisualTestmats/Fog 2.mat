@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fog 1
+  m_Name: Fog 2
   m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,16 +79,16 @@ Material:
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 1
-    - _CameraFarFadeDistance: 52.3
-    - _CameraNearFadeDistance: 0
+    - _CameraFarFadeDistance: 151.3
+    - _CameraNearFadeDistance: 23.1
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0
     - _DistortionEnabled: 0
-    - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0.1
+    - _DistortionStrength: 43.6
+    - _DistortionStrengthScaled: 4.36
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _FlipbookBlending: 0
@@ -104,7 +104,7 @@ Material:
     - _SampleGI: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 1
-    - _SoftParticlesFarFadeDistance: 285.3
+    - _SoftParticlesFarFadeDistance: 202.41
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
@@ -113,12 +113,12 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.55345905, g: 0.20644666, b: 0.13401361, a: 1}
+    - _BaseColor: {r: 0.13181831, g: 0.1514214, b: 0.27044016, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _CameraFadeParams: {r: 0, g: 0.019120459, b: 0, a: 0}
-    - _Color: {r: 0.55345905, g: 0.20644666, b: 0.13401361, a: 1}
-    - _EmissionColor: {r: 0.2578616, g: 0.03277255, b: 0.0040544015, a: 1}
-    - _SoftParticleFadeParams: {r: 0, g: 0.0035050826, b: 0, a: 0}
+    - _CameraFadeParams: {r: 23.1, g: 0.007800312, b: 0, a: 0}
+    - _Color: {r: 0.13181831, g: 0.1514214, b: 0.27044016, a: 1}
+    - _EmissionColor: {r: 0.19496846, g: 0.00061306724, b: 0.00061306724, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0.0049404674, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3568236313413768987
 MonoBehaviour:
