@@ -10,6 +10,10 @@ public class FogFollow : MonoBehaviour
     private int currentColorIndex = 0;
     private Color targetColor;
 
+    private void Start()
+    {
+        ChangeColor(0);
+    }
     void Update()
     {
         // Update position of FogPlane to follow the camera
