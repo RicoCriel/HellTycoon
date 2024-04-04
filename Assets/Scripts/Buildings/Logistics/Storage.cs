@@ -1,37 +1,51 @@
 using Splines;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
+using PopupSystem.Inheritors;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Storage : MonoBehaviour
+public class Storage : BuildingFactoryBase
 {
-    [SerializeField] private Transform _output;
-    [SerializeField] private Transform _input;
-    [SerializeField] private PlaceholderConnectorHitBox _outputHitbox;
-    [SerializeField] private PlaceholderConnectorHitBox _inputHitbox;
-    [SerializeField] private bool _shouldStore = true;
-    
-    private List<GameObject> _items;
+    private WorldSpacePopupStorage _popup;
 
-    private void Start()
+    protected new void Awake()
     {
-        _items = new List<GameObject>();
+        base.Awake();
+
+        _popup = GetComponentInChildren<WorldSpacePopupStorage>();
+
+        StopAllCoroutines();
+
+        _popup.SoulProcessingPaused += PopupOnSoulProcessingPaused;
+        _popup.SoulProcessingResumed += PopupOnSoulProcessingResumed;
+        _popup.DestroyButtonClicked += OnDestroyButtonClicked;
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void PopupOnSoulProcessingResumed(object sender, PopupClickedEventArgs e)
     {
-        if (other.CompareTag("Resource"))
+        ResumeProcessing();
+    }
+
+    private void PopupOnSoulProcessingPaused(object sender, PopupClickedEventArgs e)
+    {
+        StopSpawning();
+    }
+
+    public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
+    {
+        base.AddDemon(DemonList, demon);
+        if (DemonList.Count > MaxDemons)
         {
-            if (_shouldStore)
-            {
-                _items.Add(other.gameObject);
-            }
-            else
-            {
-                other.transform.position = _output.position;
-                _outputHitbox.SpawnObject(other.gameObject);
-            }
+            ResumeProcessing();
         }
+        _popup.SetSouls(_unprocessedDemonContainer.Count + _processedDemonContainer.Count);
+    }
+
+    private void OnDestroyButtonClicked(object sender, PopupSystem.PopupClickedEventArgs e)
+    {
+        Destroy(gameObject);
     }
 }
 

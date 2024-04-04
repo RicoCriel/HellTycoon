@@ -100,7 +100,7 @@ namespace PopupSystem
 
         public void ButtonClose()
         {
-            ClosePopup();
+            PopupInstanceTracker.CurrentPopupInstance = null;
         }
 
         public void ButtonDestroy()
