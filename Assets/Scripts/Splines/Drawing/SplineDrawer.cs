@@ -340,7 +340,7 @@ namespace Splines.Drawing
 
             if (MaxsizeCheck() && !isMAxSizeSplineAllowed)
             {
-                spline = null;
+                spline = _instanciatedSpline;
                 return 0;
             }
 

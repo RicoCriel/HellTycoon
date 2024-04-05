@@ -104,7 +104,7 @@ namespace Splines.Drawing
         public List<Vector3> CreateSupportBeamPositions(float offset)
         {
             List<Vector3> _supportBeamPositions = new List<Vector3>();
-        
+
             List<SplinePointModel> points = SplinePointModels;
             for (int i = 0; i < points.Count; i++)
             {
@@ -128,7 +128,7 @@ namespace Splines.Drawing
 
             return _supportBeamPositions;
         }
-        
+
         public void RemoveRandomPointsSupportBeams(float percentageToRemove, List<Vector3> positions)
         {
             int totalPointsToRemove = Mathf.RoundToInt(positions.Count * percentageToRemove);
@@ -161,9 +161,8 @@ namespace Splines.Drawing
             Meshtype currentMeshType = Meshtype.flatground;
             List<SplinePointModel> currentList = new List<SplinePointModel>();
 
-            SplinePointModel LastExPoint = null;
-
             int lastHeight = 0;
+            SplinePointModel LastExPoint = null;
             foreach (SplinePointModel splinepoint in SplinePointModelsList)
             {
                 int currentHeight = splinepoint.Height;
@@ -175,6 +174,12 @@ namespace Splines.Drawing
                         SplinePointModelLists.Add((currentMeshType, currentList));
                         currentList = new List<SplinePointModel>();
                         currentMeshType = Meshtype.flatground;
+                        if (LastExPoint != null)
+                        {
+                            currentList.Add(LastExPoint);
+
+                        }
+
                     }
                 }
                 else
@@ -185,6 +190,12 @@ namespace Splines.Drawing
                         {
                             SplinePointModelLists.Add((currentMeshType, currentList));
                             currentList = new List<SplinePointModel>();
+                            if (LastExPoint != null)
+                            {
+                                currentList.Add(LastExPoint);
+
+                            }
+
                         }
                         currentMeshType = Meshtype.slope;
                     }
@@ -198,21 +209,106 @@ namespace Splines.Drawing
                         {
                             SplinePointModelLists.Add((currentMeshType, currentList));
                             currentList = new List<SplinePointModel>();
+                            if (LastExPoint != null)
+                            {
+                                currentList.Add(LastExPoint);
+
+                            }
+
                         }
                         currentMeshType = Meshtype.flatAir;
                     }
                 }
 
-
                 currentList.Add(splinepoint);
                 lastHeight = currentHeight;
+                LastExPoint = splinepoint;
             }
 
             // Add the last list
             SplinePointModelLists.Add((currentMeshType, currentList));
 
             return SplinePointModelLists;
+        }
 
+
+
+
+        public List<(Meshtype, List<SplinePointModel>)> findMeshDivisions()
+        {
+            List<SplinePointModel> SplinePointModelsList = SplinePointModels;
+
+            List<(Meshtype, List<SplinePointModel>)> SplinePointModelLists = new List<(Meshtype, List<SplinePointModel>)>();
+
+            Meshtype currentMeshType = Meshtype.flatground;
+            List<SplinePointModel> currentList = new List<SplinePointModel>();
+
+            SplinePointModel LastExPoint = null;
+
+            //handle first point
+            if (SplinePointModelsList[0].Height == 0 && SplinePointModelsList[0].SplinePointForward.y == 0)
+            {
+                currentMeshType = Meshtype.flatground;
+            }
+            else if (SplinePointModelsList[0].Height > 0 && SplinePointModelsList[0].SplinePointForward.y != 0)
+            {
+                currentMeshType = Meshtype.slope;
+            }
+            else if (SplinePointModelsList[0].Height > 0 && SplinePointModelsList[0].SplinePointForward.y == 0)
+            {
+                currentMeshType = Meshtype.flatAir;
+            }
+            LastExPoint = SplinePointModelsList[0];
+
+            //handle rest of points
+            for (int index = 0; index < SplinePointModelsList.Count; index++)
+            {
+                SplinePointModel splinepoint = SplinePointModelsList[index];
+
+                if (index == 0)
+                {
+                    continue;
+                }
+
+                //check if true ground point
+                if (splinepoint.Height == 0 && splinepoint.SplinePointForward.y < 0.1f)
+                {
+                    if (splinepoint.Height != LastExPoint.Height)
+                    {
+                        SplinePointModelLists.Add((currentMeshType, currentList));
+                        currentList = new List<SplinePointModel>();
+                        currentList.Add(splinepoint);
+                        currentMeshType = Meshtype.flatground;
+                    }
+                }
+                //check if slope point
+                else if (splinepoint.Height > 0 && splinepoint.SplinePointForward.y is > 0.1f or < -0.1f)
+                {
+                    if (splinepoint.Height == LastExPoint.Height)
+                    {
+                        SplinePointModelLists.Add((currentMeshType, currentList));
+                        currentList = new List<SplinePointModel>();
+                        currentList.Add(splinepoint);
+                        currentMeshType = Meshtype.slope;
+                    }
+                }
+
+                //check if air point
+                else if (splinepoint.Height > 0 && splinepoint.SplinePointForward.y < 0.1f)
+                {
+                    if (splinepoint.Height != LastExPoint.Height)
+                    {
+                        SplinePointModelLists.Add((currentMeshType, currentList));
+                        currentList = new List<SplinePointModel>();
+                        currentList.Add(splinepoint);
+                        currentMeshType = Meshtype.flatAir;
+                    }
+                }
+
+                currentList.Add(splinepoint);
+                LastExPoint = splinepoint;
+            }
+            return SplinePointModelLists;
         }
 
         public enum Meshtype
