@@ -4,7 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using PopupSystem;
+using Splines.Data;
+using Splines.Drawing;
 using Splines.Obstacles;
+using Splines.SplineMEsh;
 using Splines.Utillity;
 using Unity.Mathematics;
 using UnityEngine;
@@ -37,15 +40,23 @@ namespace Splines.Drawing
         [SerializeField]
         private bool AddIndicationPath;
         [FormerlySerializedAs("_materialToUse")]
-        [SerializeField] private Material _materialToUseMesh;
         [SerializeField] private Material _materialToUsePath;
+        [FormerlySerializedAs("_splineViewPrefab")]
         [Header("SplineReferences Mesh")]
-        [SerializeField] private SplineView _splineViewPrefab;
+        [SerializeField] private SplineView _ConstructingSplinePrefab;
+        [SerializeField] private SplineMeshPart MeshLayerPrefab;
 
+        [FormerlySerializedAs("_materialToUseMesh")]
+        [FormerlySerializedAs("_meshToUseElevated")]
         [FormerlySerializedAs("_meshToUse")]
-        [SerializeField] private Mesh _meshToUseElevated;
-        [SerializeField] private Mesh _meshToUseGround;
-        [SerializeField] private Mesh _constructingMesh;
+        [SerializeField] private Material _materialToUseConstructing;
+        [SerializeField] private Mesh _meshToUseConstructing;
+
+        [Space]
+        [Header("Mesh Layer Data Settings")]
+        [SerializeField]
+        private MeshDataList _meshDataList;
+        private Dictionary<SplineType, SplineMeshPart> MeshLayers = new Dictionary<SplineType, SplineMeshPart>();
 
         // [Header("SplineReferences Path")]
         [SerializeField]
@@ -194,8 +205,14 @@ namespace Splines.Drawing
                     Vector3 newPoint = lastPoint.WorldPosition + direction * 2f;
                     Quaternion rotation = Quaternion.LookRotation(direction);
 
+                    float yRotation = rotation.eulerAngles.y;
 
-                    BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, rotation);
+
+                    Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
+
+
+                    Quaternion finalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yRotation, transform.rotation.eulerAngles.z);
+                    BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
 
                     StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out var foundSpline, true);
                     spawnedExtender._entryBoxes[0].Spline = foundSpline;
@@ -267,7 +284,7 @@ namespace Splines.Drawing
                 _currentStartingBox = placeholderConnectorHitBox;
                 _currentSplineConnected = false;
                 _hasStartedDrawing = true;
-                _instanciatedSpline = Instantiate(_splineViewPrefab);
+                _instanciatedSpline = Instantiate(_ConstructingSplinePrefab);
 
                 //add start Box to spline
                 _instanciatedSpline.StartConnector = placeholderConnectorHitBox;
@@ -295,12 +312,12 @@ namespace Splines.Drawing
 
                 // if (UsingPathSpline)
                 // {
-                SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUseElevated);
+                SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUseConstructing);
                 float splineSize = _instanciatedSpline.GetSplineUniformSize();
                 _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
                 _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
 
-                _instanciatedSpline.SetMaterialMesh(_materialToUseMesh);
+                _instanciatedSpline.SetMaterialMesh(_materialToUseConstructing);
 
                 if (AddIndicationPath)
                     _instanciatedSpline.SetMaterialPath(_materialToUsePath);
@@ -357,7 +374,7 @@ namespace Splines.Drawing
             List<Vector3> result = SplinePointModels.CreateSupportBeamPositions(0.2f);
             SplinePointModels.RemoveRandomPointsSupportBeams(0.6f, result);
             CreateSupportBeams(result);
-         
+
 
             _hasStartedDrawing = false;
             _currentSplineConnected = true;
@@ -376,15 +393,16 @@ namespace Splines.Drawing
 
             _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPositionGround, 1, Vector3.zero);
 
-            // instanciatedSpline.AddOnePoint(mostRecentPoint, 1, Vector3.zero);
-            // instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorAnglePointSpline(), 1, Vector3.zero);
-            // _instanciatedSpline.AddOnePoint(placeholderConnectorHitBox.GetConnectorPointSpline(), 1, Vector3.zero);
+           
+            List<(SplineType, List<SplinePointModel>)> meshDivisions = SplinePointModels.findMeshDivisions();
+            ConstructPartualMeshes(meshDivisions);
+      
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
 
             // SetLayer(_instanciatedSpline.transform, SplineLayer);
 
-            
+
             _instanciatedSpline.TurnOnMeshcollider();
 
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
@@ -409,6 +427,10 @@ namespace Splines.Drawing
             _instanciatedSpline = null;
 
             return splineSizetoReturn;
+        }
+        private void ConstructPartualMeshes(List<(SplineType, List<SplinePointModel>)> meshDivisions)
+        {
+           
         }
 
         public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
@@ -458,7 +480,7 @@ namespace Splines.Drawing
         public void CreateSupportBeams(List<Vector3> positions)
         {
             if (_instanciatedSpline == null) return;
-          
+
 
             foreach (Vector3 point in positions)
             {
@@ -723,9 +745,11 @@ namespace Splines.Drawing
 
 }
 
-public enum SplineType
-{
-    MeshOnly,
-    PathOnly,
-    MeshAndPath
-}
+// public enum SplineType
+// {
+//     MeshOnly,
+//     PathOnly,
+//     MeshAndPath
+// }
+
+

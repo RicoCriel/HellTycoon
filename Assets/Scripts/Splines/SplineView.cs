@@ -112,8 +112,6 @@ namespace Splines
         public int splineRiders = 0;
 
         public void AddSplineRider()
-
-
         {
             splineRiders++;
             if (_popupSpline.IsPopupActive())
