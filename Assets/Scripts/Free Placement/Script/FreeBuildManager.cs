@@ -387,6 +387,8 @@ namespace FreeBuild
             if (next != null)
             {
                 _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
+
+
             }
         }
 
@@ -412,6 +414,11 @@ namespace FreeBuild
             if (_ghostObject)
             {
                 Destroy(_ghostObject);
+            }
+
+            if (_ghostObject2)
+            {
+                Destroy(_ghostObject2);
             }
         }
 

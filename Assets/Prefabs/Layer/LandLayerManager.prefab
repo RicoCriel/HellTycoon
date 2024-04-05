@@ -48,7 +48,7 @@ MonoBehaviour:
   AllLayers: []
   _ignoreLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 6176
 --- !u!114 &7811953062523072159
 MonoBehaviour:
   m_ObjectHideFlags: 0
