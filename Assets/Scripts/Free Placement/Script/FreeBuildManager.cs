@@ -61,6 +61,11 @@ namespace FreeBuild
         private void Awake()
         {
             BuildingPanelUI._onPartChosen += CreateGhostObject;
+
+            if (_landLayerManager == null)
+            {
+                _landLayerManager = FindObjectOfType<LandLayerManager>();
+            }
         }
 
         void OnEnable()
