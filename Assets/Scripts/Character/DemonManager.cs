@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DemonManager : MonoBehaviour
@@ -33,12 +34,22 @@ public class DemonManager : MonoBehaviour
 
     public List<DemonFear> GetDemonFears()
     {
-        return _demons.ConvertAll(demon => demon.GetComponent<DemonFear>());
+        List<DemonFear> existingDemons = _demons
+    .Where(demon => demon != null)
+    .Select(demon => demon.GetComponent<DemonFear>())
+    .Where(demonFear => demonFear != null)
+    .ToList();
+        return existingDemons.ConvertAll(rdemon => rdemon.GetComponent<DemonFear>());
     }
 
     public List<DemonHandler> GetDemonHandlers()
     {
-        return _demons.ConvertAll(demon => demon.GetComponent<DemonHandler>());
+        List<DemonHandler> existingDemons = _demons
+   .Where(demon => demon != null)
+   .Select(demon => demon.GetComponent<DemonHandler>())
+   .Where(demonFear => demonFear != null)
+   .ToList();
+        return existingDemons.ConvertAll(rdemon => rdemon.GetComponent<DemonHandler>());
     }
 
     public void TickFear()

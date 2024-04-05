@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Merger
   m_EditorClassIdentifier: 
   _displayName: Merger
-  _icon: {fileID: 0}
-  _prefab: {fileID: 0}
+  _icon: {fileID: -5406060108134986641, guid: f322255883d3ad345bd6b208dce12f14, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: 7b00596d939938e4899f1c2f1ae00dee, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 10
   _partType: 0
-  _buildTag: 
+  _buildTag: Map

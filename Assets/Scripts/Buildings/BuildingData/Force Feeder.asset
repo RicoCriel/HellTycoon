@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Output
+  m_Name: Force Feeder
   m_EditorClassIdentifier: 
-  _displayName: Output
-  _icon: {fileID: 21300000, guid: e51891c2f0a73f44089479d075cec7c6, type: 3}
-  _prefab: {fileID: 1674316090822045255, guid: c9cb6ebb749dd7c43ba69c72ab795421, type: 3}
+  _displayName: Force Feeder
+  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: 8482de2993cd4994db17d0c87cae1d33, type: 3}
   _buildingSize: {x: 0, y: 0}
-  _price: 50
+  _price: 100
   _partType: 0
   _buildTag: Map

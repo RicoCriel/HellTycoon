@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
   m_Name: Upgrader
   m_EditorClassIdentifier: 
-  _displayName: Upgrader
+  _displayName: Upgrader 1
   _icon: {fileID: 21300000, guid: a7ed8ac3d7c45de4b91c4f65f3e618e8, type: 3}
-  _prefab: {fileID: 6298030720978647833, guid: be71ef1a61817ca4b839435fbc25c943, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: 2126584c932d6b147af005aac9e701a2, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 100
   _partType: 0

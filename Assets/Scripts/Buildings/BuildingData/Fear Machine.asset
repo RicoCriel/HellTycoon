@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Conveyer
+  m_Name: Fear Machine
   m_EditorClassIdentifier: 
-  _displayName: Conveyer
-  _icon: {fileID: 21300000, guid: abd0b21825e951a428b0a5feba873dfe, type: 3}
-  _prefab: {fileID: 40883363927123835, guid: c710c71c2347642488e6a1b0a2aa6792, type: 3}
-  _buildingSize: {x: 1, y: 1}
-  _price: 10
-  _partType: 2
+  _displayName: Fear Machine
+  _icon: {fileID: 21300000, guid: c12c00cf5b095a049a33f0f90335d980, type: 3}
+  _prefab: {fileID: 3057848996510622594, guid: fe43b65fa6f0152469771df97fde40dd, type: 3}
+  _buildingSize: {x: 0, y: 0}
+  _price: 50
+  _partType: 0
   _buildTag: Map

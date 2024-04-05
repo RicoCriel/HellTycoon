@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Splitter
   m_EditorClassIdentifier: 
   _displayName: Splitter
-  _icon: {fileID: 0}
-  _prefab: {fileID: 0}
+  _icon: {fileID: 2964849558974954589, guid: 7b1bd20fdc98c1745ae481eb562da12b, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: e6922b7d09f988b4a96d8821dd639852, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 10
   _partType: 0
-  _buildTag: 
+  _buildTag: Map

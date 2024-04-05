@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80908c5e97b910459638b28caa3dd53, type: 3}
-  m_Name: Extractor
+  m_Name: Storage
   m_EditorClassIdentifier: 
-  _displayName: Extractor
-  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
-  _prefab: {fileID: 5723718042826909117, guid: 517e8634d3073d74ea799f9166e2ed74, type: 3}
+  _displayName: Storage
+  _icon: {fileID: 6635359689621397305, guid: 674e8db93f57f3448a78a27004a7bd98, type: 3}
+  _prefab: {fileID: 6298030720978647833, guid: efe3f5926e41d9940ad43b8437188c88, type: 3}
   _buildingSize: {x: 0, y: 0}
-  _price: 100
+  _price: 10
   _partType: 0
   _buildTag: Map

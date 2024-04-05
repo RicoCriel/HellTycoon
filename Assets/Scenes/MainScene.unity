@@ -752,12 +752,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
       propertyPath: _knownBuildingParts.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d256c2982db9b4b4caada16d9a40029a, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dfeecdce55cadf4eb32473268fde719, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d2bf9c1f27bdbe4893cc1cd8771ce49, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cdeac9059b1fd341992cdf0e08bf62b, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: a891e4857080e1e4e86b9bfc9ece88a7, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 319bbc17bcc9b3443a6859ed330f70c6, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: f7f49db8e7b17484097bc22daf29ede1, type: 2}
     - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
       propertyPath: _knownBuildingParts.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: bc27c2fa04bb40446848ef0f7d49015e, type: 2}
+      objectReference: {fileID: 11400000, guid: 725676416ccbd574db2305a13d7d4a5e, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 34eb7a2feb0b0e4489c297b40fda86c9, type: 2}
+    - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
+      propertyPath: _knownBuildingParts.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: fde76a8449c0b294e8aeab8bd37b5c5b, type: 2}
     - target: {fileID: 4961102501278677704, guid: 6ecbf4576015eee4fb6c42ec4ed997d8, type: 3}
       propertyPath: _onPartClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
