@@ -213,7 +213,7 @@ public class CameraSystem : MonoBehaviour
 
     private void HandleZoomMoveForward()
     {
-        Vector3 zoomDir = _followOffset.normalized;
+         Vector3 zoomDir = _followOffset.normalized;
 
         var newOffset = _followOffset;
 
@@ -230,6 +230,13 @@ public class CameraSystem : MonoBehaviour
         else if (_followOffset.sqrMagnitude > _maxFollowOffset * _maxFollowOffset)
         {
             _followOffset = zoomDir * _maxFollowOffset;
+        }
+
+        // Clamp according to min Y
+        if (_followOffset.y > _minY - float.Epsilon)
+        {
+            _followOffset *= _minY / _followOffset.y;
+            _followOffset.y += 0.001f;
         }
 
         var transposer = _camera.GetCinemachineComponent<CinemachineTransposer>();

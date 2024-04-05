@@ -73,7 +73,7 @@ namespace Economy
                     stat.Value.CalculateDemand(_supplySaturation, _wealth);
                     stat.Value.CalculatePrice(_priceMultiplier);
 
-                    Debug.Log("Price: " + stat.Value.Price);
+                    //Debug.Log("Price: " + stat.Value.Price);
                 }
 
                 yield return new WaitForSeconds(_demandCalculationInterval);

@@ -1648,6 +1648,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1737572904954236185, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
+      propertyPath: _maxFollowOffset
+      value: 40.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737572904954236185, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: _snapPoints.Array.data[0]
       value: 
       objectReference: {fileID: 350926150}
@@ -1657,11 +1661,11 @@ PrefabInstance:
       objectReference: {fileID: 804201155}
     - target: {fileID: 2554982613153248316, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 2677162675356613692, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 4270931287833525963, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_Name
