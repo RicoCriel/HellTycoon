@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7683432935382232647, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7683432935382232647, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1781148124987322744, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3293655779175579809, guid: e3ea8e55c986319479f1a27c97b37f7e, type: 3}
       propertyPath: m_LocalPosition.x

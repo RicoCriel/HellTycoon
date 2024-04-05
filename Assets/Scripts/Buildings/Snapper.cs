@@ -1,8 +1,4 @@
 using UnityEngine;
-//using static UnityEditor.Experimental.GraphView.GraphView;
-using UnityEngine.UI;
-using FreeBuild;
-using static Snapper;
 
 public class Snapper : MonoBehaviour
 {
@@ -30,10 +26,10 @@ public class Snapper : MonoBehaviour
         if (other.gameObject.tag != "Map")
         {
             IsColliding = true;
-        }    
-        
+        }
+
     }
-        private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag != "Map")
         {
