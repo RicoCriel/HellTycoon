@@ -28,7 +28,6 @@ namespace FreeBuild
         [SerializeField] private string _inputTag;
         [SerializeField] private string _outputTag;
         [SerializeField] private GameObject _ghostObjectPrefab;
-        [SerializeField] private GameObject _ghostObject2;
         [SerializeField] private Material _goodMaterial;
         [SerializeField] private Material _badMaterial;
         [SerializeField] private EconomyManager _economyManager;
@@ -38,6 +37,7 @@ namespace FreeBuild
 
         private string _buildTag;
         private GameObject _ghostObject;
+        private GameObject _ghostObject2;
 
         private GameObject _realObject;
         private bool _locked = false;
@@ -424,6 +424,7 @@ namespace FreeBuild
             if (_ghostObject2)
             {
                 Destroy(_ghostObject2);
+                _ghostObject2 = null;
             }
         }
 
