@@ -44,7 +44,7 @@ namespace FreeBuild
         private bool _isSnapped = false;
         private bool _canBuild = false;
         private int _currentCost = 0;
-        private float _2ghostOffset;
+        private Vector3 _2ghostOffset;
         private bool _startTracking = false;
         private Vector3 _startPosition;
         private float _trackedDist = 0f;
@@ -248,16 +248,21 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
-            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+            if(_ghostObject2 != null)
+            {
+                
+            
+            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + 3 /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             if (_realObject.GetComponent<DemonPortal>() != null)
             {
-                _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+                _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset.x, hit.point.y + 3 + +_2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + +_2ghostOffset.z);
             }
 
 
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
             CheckForCollision();
             SetGhostOutline(hit.transform.gameObject);
+            }
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
@@ -268,7 +273,8 @@ namespace FreeBuild
 
         private void InstantiateGhostObject(RaycastHit hit)
         {
-            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y, hit.point.z),
+            float heightOffset = 3f;
+            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y + heightOffset, hit.point.z),
                 Quaternion.identity);
 
             var meshFilter = _realObject.GetComponent<MeshFilter>();
@@ -287,9 +293,11 @@ namespace FreeBuild
                 if (_landLayerManager.NextPlot(curr.gameObject) != null)
                 {
                     next = _landLayerManager.NextPlot(curr.gameObject).transform;
-                    _2ghostOffset = next.position.x;
+                    _2ghostOffset.x = next.position.x;
+                    _2ghostOffset.y = next.position.y;
+                    _2ghostOffset.z = next.position.z;
                     _ghostObject2 = Instantiate(_ghostObjectPrefab,
-                        new Vector3(hit.point.x + next.position.x, hit.point.y,
+                        new Vector3(hit.point.x + next.position.x, hit.point.y + heightOffset,
                             hit.point.z), Quaternion.identity);
                     _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;

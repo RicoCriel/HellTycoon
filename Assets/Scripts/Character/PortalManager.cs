@@ -22,16 +22,15 @@ public class PortalManager : MonoBehaviour
 
     public void PlacePortal(Vector3 pos, Transform currLayer, Transform nextLayer)
     {
-        
         _portal1 =  Instantiate(_portal, Vector3.zero, Quaternion.identity);
         _portal1.transform.SetParent(currLayer);
         _portal1.transform.localPosition = pos;
         _portal2 = Instantiate(_portal, Vector3.zero, Quaternion.identity);
         _portal2.transform.SetParent(nextLayer);
         _portal2.transform.localPosition = pos;
-        
-        _portal1.GetComponent<DemonPortal>().ExitPortal = _portal2.transform;
-        _portal2.GetComponent<DemonPortal>().ExitPortal = _portal1.transform;
+
+        _portal1.GetComponent<DemonPortal>().ExitPortal = _portal2.GetComponent<DemonPortal>();
+        _portal2.GetComponent<DemonPortal>().ExitPortal = _portal1.GetComponent<DemonPortal>();
 
     }
 
