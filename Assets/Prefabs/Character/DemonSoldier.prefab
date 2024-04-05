@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7933014165238078399}
@@ -142,6 +142,7 @@ MonoBehaviour:
   _layer: 0
   _layertHightDiff: 100
   DecayRate: 0
+  InitHellLayer: 0
 --- !u!1001 &375435496947461110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,6 +191,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 55a53674d0ac3cb49ad952b7bf644f07, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed56299617e688d4e8b34a3f6e15a19b, type: 2}
     - target: {fileID: 919132149155446097, guid: 55a53674d0ac3cb49ad952b7bf644f07, type: 3}
       propertyPath: m_Name
       value: SM_LargeHorns
@@ -252,6 +257,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: af361d57cc2834543ab7ba21902a3b0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7899a56ed6726048971ca0af1679802, type: 2}
     - target: {fileID: 919132149155446097, guid: af361d57cc2834543ab7ba21902a3b0a, type: 3}
       propertyPath: m_Name
       value: SM_LargeWings
@@ -314,6 +323,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f57275368719bd540b3e0dbd446ea07a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8400e8893d1c38419959df4437581a3, type: 2}
     - target: {fileID: 919132149155446097, guid: f57275368719bd540b3e0dbd446ea07a, type: 3}
       propertyPath: m_Name
       value: SM_Body
@@ -376,6 +389,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5e0cf774dffa9a049992b7c6e7db1f70, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ec578fbbf6a6f2d43be38dc61cac4b32, type: 2}
     - target: {fileID: 919132149155446097, guid: 5e0cf774dffa9a049992b7c6e7db1f70, type: 3}
       propertyPath: m_Name
       value: SM_Fork
@@ -438,6 +455,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a2052e688fff6d849b7f7d2aa70ce09d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed56299617e688d4e8b34a3f6e15a19b, type: 2}
     - target: {fileID: 919132149155446097, guid: a2052e688fff6d849b7f7d2aa70ce09d, type: 3}
       propertyPath: m_Name
       value: SM_MediumHorns
@@ -500,6 +521,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6f83e48bf237a974ca50da01378028a1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed56299617e688d4e8b34a3f6e15a19b, type: 2}
     - target: {fileID: 919132149155446097, guid: 6f83e48bf237a974ca50da01378028a1, type: 3}
       propertyPath: m_Name
       value: SM_SmallHorns
@@ -562,6 +587,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 74a4ed2ce4bccaf429fa78d8162fe47a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8400e8893d1c38419959df4437581a3, type: 2}
     - target: {fileID: 919132149155446097, guid: 74a4ed2ce4bccaf429fa78d8162fe47a, type: 3}
       propertyPath: m_Name
       value: SM_Head
