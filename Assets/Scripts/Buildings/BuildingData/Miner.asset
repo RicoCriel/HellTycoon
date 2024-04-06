@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Miner
   m_EditorClassIdentifier: 
   _displayName: Miner
-  _icon: {fileID: 21300000, guid: bedcc01044bd4d24794638a4a97e237f, type: 3}
+  _icon: {fileID: 21300000, guid: 9ef8e9da3044a574c8c3a8fbd22c06e5, type: 3}
   _prefab: {fileID: 6298030720978647833, guid: ffce44454fcc94a49932e96d5b370104, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Force Feeder
   m_EditorClassIdentifier: 
   _displayName: Force Feeder
-  _icon: {fileID: 21300000, guid: 66e3e883d1afe80449bee0f29f875630, type: 3}
+  _icon: {fileID: 21300000, guid: 52435da95c6e5a149b229d5fb206dbb3, type: 3}
   _prefab: {fileID: 6298030720978647833, guid: 8482de2993cd4994db17d0c87cae1d33, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 100

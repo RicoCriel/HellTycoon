@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fear Machine
   m_EditorClassIdentifier: 
   _displayName: Fear Machine
-  _icon: {fileID: 21300000, guid: c12c00cf5b095a049a33f0f90335d980, type: 3}
+  _icon: {fileID: 21300000, guid: f843a3bc0b737864aafd4910e9de3787, type: 3}
   _prefab: {fileID: 3057848996510622594, guid: fe43b65fa6f0152469771df97fde40dd, type: 3}
   _buildingSize: {x: 0, y: 0}
   _price: 50
