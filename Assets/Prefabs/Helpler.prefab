@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: _portalManager
       value: 
       objectReference: {fileID: 3247573749863658741}
+    - target: {fileID: 6894121302633217947, guid: 1ccd926670be6b94187b1e20c427b641, type: 3}
+      propertyPath: _economyManager
+      value: 
+      objectReference: {fileID: 7399499609532340228}
     - target: {fileID: 9175694086670545937, guid: 1ccd926670be6b94187b1e20c427b641, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -623,6 +627,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9002807665103673810, guid: 261abc22170a8664dadd1baed35b6c32, type: 3}
   m_PrefabInstance: {fileID: 6620334261746485263}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7399499609532340228 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4418149292639670283, guid: 261abc22170a8664dadd1baed35b6c32, type: 3}
+  m_PrefabInstance: {fileID: 6620334261746485263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1085cbe4a5b6546a1edf1f8b91350c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7101215920646562148
 PrefabInstance:
   m_ObjectHideFlags: 0

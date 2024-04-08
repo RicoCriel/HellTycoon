@@ -9,6 +9,7 @@ namespace Economy
     {
         [SerializeField] private Market _market;
         [SerializeField] private SoulManager _soulManager;
+        [SerializeField] private TimeManager _timeManager;
 
         private void Awake()
         {
@@ -20,6 +21,11 @@ namespace Economy
             if (_soulManager == null)
             {
                 _soulManager = FindObjectOfType<SoulManager>();
+            }
+
+            if (_timeManager == null)
+            {
+                _timeManager = FindObjectOfType<TimeManager>();
             }
         }
 
@@ -34,8 +40,10 @@ namespace Economy
 
         public void SellDemon(DemonStatsInt demon)
         {
-            _soulManager.AddMoney(_market.CalculateDemonPrice(demon));
+            var price = _market.CalculateDemonPrice(demon);
+            _soulManager.AddMoney(price);
             _market.SupplyDemon(demon);
+            _timeManager.CurrentYear.AddTransaction(price, TransactionType.Sale);
         }
 
         public bool BuyObject(float amount)
@@ -43,6 +51,7 @@ namespace Economy
             if (_soulManager.Money > 0f)
             {
                 _soulManager.SubtractMoney(amount);
+                _timeManager.CurrentYear.AddTransaction(amount, TransactionType.Investment);
                 return true;
             }
             return false;
@@ -52,6 +61,7 @@ namespace Economy
         public void AutoCost(float amount)
         {
             _soulManager.SubtractMoney(amount);
+            _timeManager.CurrentYear.AddTransaction(amount, TransactionType.Upkeep);
         }
 
         public void StartDemandEventModifier(StatType statType, float modifier, float time)
@@ -60,5 +70,13 @@ namespace Economy
         }
     }
 
+
+    public enum TransactionType
+    {
+        Sale,
+        Investment,
+        Bonus,
+        Upkeep
+    }
 }
 
