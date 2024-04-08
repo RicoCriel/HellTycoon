@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bbe4d7da764dabb553ef3a850f765f, type: 3}
+  m_Name: BaseDataList
+  m_EditorClassIdentifier: 
+  MeshDataParts:
+  - MeshType: 0
+    Mesh: {fileID: 8321685774571456786, guid: adf8aa5dfed9b5c46908948b1551ee1a, type: 3}
+    Material: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
+    Size: 28
+  - MeshType: 1
+    Mesh: {fileID: 8321685774571456786, guid: adf8aa5dfed9b5c46908948b1551ee1a, type: 3}
+    Material: {fileID: 2100000, guid: dd7c88de0b9391740abc5c92cd75fbbe, type: 2}
+    Size: 28
+  - MeshType: 2
+    Mesh: {fileID: 8321685774571456786, guid: adf8aa5dfed9b5c46908948b1551ee1a, type: 3}
+    Material: {fileID: 2100000, guid: d150e207ba96be047988eff4759cad94, type: 2}
+    Size: 28
