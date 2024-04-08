@@ -12,13 +12,6 @@ namespace FreeBuild
 {
     public class FreeBuildManager : MonoBehaviour
     {
-
-
-        // can select outline Color.
-        //public Color AbleAreaColor = new Color(0, 255, 0);
-        //public Color NotAbleAreaColor = new Color(255, 0, 0);
-        public static bool DestructionMode = false;
-
         [SerializeField] private Material _transParentMaterial;
         [SerializeField] private GameObject _rootObject;
         [SerializeField] private PortalManager _portalManager;
@@ -90,13 +83,10 @@ namespace FreeBuild
             _isSnapped = true;
         }
 
-        public static void ToggleDestruct()
-        {
-            DestructionMode = !DestructionMode;
-        }
-
         public void SetLocked(bool locked)
-        { _locked = locked; }
+        {
+            _locked = locked;
+        }
 
         public void CreateGhostObject(BuildingData data)
         {
@@ -248,20 +238,20 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
-            if(_ghostObject2 != null)
+            if (_ghostObject2 != null)
             {
-                
-            
-            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + 3 /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-            if (_realObject.GetComponent<DemonPortal>() != null)
-            {
-                _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset.x, hit.point.y + 3 + +_2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + +_2ghostOffset.z);
-            }
 
 
-            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-            CheckForCollision();
-            SetGhostOutline(hit.transform.gameObject);
+                _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + 3 /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+                if (_realObject.GetComponent<DemonPortal>() != null)
+                {
+                    _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset.x, hit.point.y + 3 + +_2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + +_2ghostOffset.z);
+                }
+
+
+                _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
+                CheckForCollision();
+                SetGhostOutline(hit.transform.gameObject);
             }
         }
 

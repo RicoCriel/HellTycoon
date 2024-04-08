@@ -152,7 +152,7 @@ MonoBehaviour:
   - {fileID: 4413374539582580652}
   SnapLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2176
   IsPlaced: 0
   IsColliding: 0
 --- !u!114 &3538964197410046200

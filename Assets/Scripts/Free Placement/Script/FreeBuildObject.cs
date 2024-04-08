@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace FreeBuild
 {
-    public class FreeBuildObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+    public class FreeBuildObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Material _hoverMaterial;
 
@@ -34,21 +34,12 @@ namespace FreeBuild
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (!FreeBuildManager.DestructionMode) return;
             _renderer.material = _hoverMaterial;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (!FreeBuildManager.DestructionMode) return;
             _renderer.material = _defaultMaterial;
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (!FreeBuildManager.DestructionMode) return;
-
-            Destroy(gameObject);
         }
     }
 }
