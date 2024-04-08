@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fearLevel: 0
   _layer: 0
-  _layertHightDiff: 100
+  _layertHightDiff: 0
   DecayRate: 0
   InitHellLayer: 0
 --- !u!1001 &375435496947461110
