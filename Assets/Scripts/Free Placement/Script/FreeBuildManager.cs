@@ -238,12 +238,11 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
-            if (_ghostObject2 != null)
-            {
 
 
                 _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + 3 /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-                if (_realObject.GetComponent<DemonPortal>() != null)
+                if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
+
                 {
                     _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset.x, hit.point.y + 3 + +_2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + +_2ghostOffset.z);
                 }
@@ -252,7 +251,6 @@ namespace FreeBuild
                 _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
                 CheckForCollision();
                 SetGhostOutline(hit.transform.gameObject);
-            }
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
