@@ -48,12 +48,12 @@ MonoBehaviour:
     m_Keys: 
     m_Values: []
   _supplySaturation: 0
-  _demandCalculationInterval: 1
+  _demandCalculationInterval: 3
   _baseDecay: 1
-  _decayTime: 0
-  _decayThreshold: 0
-  _baseScarcity: 1
+  _decayTime: 15
+  _decayThreshold: 15
+  _baseScarcity: 4
   _scarcityCoefficient: 0.5
-  _midpoint: 5
+  _midpoint: 10
   _supplyTime: 10
   _priceMultiplier: 10

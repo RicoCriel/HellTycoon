@@ -16,7 +16,7 @@ public class Storage : BuildingFactoryBase
 
         _popup = GetComponentInChildren<WorldSpacePopupStorage>();
 
-        StopAllCoroutines();
+        StopSpawning();
 
         _popup.SoulProcessingPaused += PopupOnSoulProcessingPaused;
         _popup.SoulProcessingResumed += PopupOnSoulProcessingResumed;

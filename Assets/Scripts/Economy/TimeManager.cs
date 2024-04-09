@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Economy
@@ -8,13 +9,15 @@ namespace Economy
     {
         [SerializeField] private float _yearDuration;
         [SerializeField] private Queue<YearData> _years;
-        [SerializeField] private int _maxYearsStored = 3;
+        [SerializeField] private List<YearUI> _yearUI;
 
         private YearData _currentYear;
-        public YearData CurrentYear => _currentYear;
+        private int _maxYearsStored = 3;
 
         private void Awake()
         {
+            _maxYearsStored = _yearUI.Count;
+
             _years = new Queue<YearData>();
 
             _currentYear = new YearData();
@@ -44,7 +47,35 @@ namespace Economy
                     _years.Dequeue();
                 }
 
-                Debug.Log(_currentYear.YearNumber);
+                for (int i = 0; i != _years.Count; ++i)
+                {
+                    _yearUI[i].SetAll(_years.ElementAt(i));
+                }
+
+                //Debug.Log(_currentYear.YearNumber);
+            }
+        }
+
+        public void AddTransaction(float amount, TransactionType type)
+        {
+            _currentYear.AddTransaction(amount, type);
+
+            var idx = _years.Count - 1;
+
+            switch (type)
+            {
+                case TransactionType.Sale:
+                    _yearUI[idx].SetSales(ref _currentYear);
+                    break;
+                case TransactionType.Investment:
+                    _yearUI[idx].SetInvestments(ref _currentYear);
+                    break;
+                case TransactionType.Bonus:
+                    _yearUI[idx].SetBonus(ref _currentYear);
+                    break;
+                case TransactionType.Upkeep:
+                    _yearUI[idx].SetUpkeep(ref _currentYear);
+                    break;
             }
         }
     }

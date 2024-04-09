@@ -35,7 +35,7 @@ namespace PopupSystem.Inheritors
             }
             else
             {
-                OnSoulProcessingPaused(new PopupClickedEventArgs());
+                OnSoulProcessingResumed(new PopupClickedEventArgs());
                 _statusText.text = "Emptying";
             }
 

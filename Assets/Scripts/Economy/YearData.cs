@@ -20,7 +20,7 @@ namespace Economy
         private float _bonus = 0f;
         public float Bonus => _bonus;
 
-        public float total
+        public float Total
         {
             get
             {

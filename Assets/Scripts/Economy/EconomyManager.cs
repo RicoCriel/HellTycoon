@@ -43,7 +43,7 @@ namespace Economy
             var price = _market.CalculateDemonPrice(demon);
             _soulManager.AddMoney(price);
             _market.SupplyDemon(demon);
-            _timeManager.CurrentYear.AddTransaction(price, TransactionType.Sale);
+            _timeManager.AddTransaction(price, TransactionType.Sale);
         }
 
         public bool BuyObject(float amount)
@@ -51,7 +51,7 @@ namespace Economy
             if (_soulManager.Money > 0f)
             {
                 _soulManager.SubtractMoney(amount);
-                _timeManager.CurrentYear.AddTransaction(amount, TransactionType.Investment);
+                _timeManager.AddTransaction(amount, TransactionType.Investment);
                 return true;
             }
             return false;
@@ -61,7 +61,7 @@ namespace Economy
         public void AutoCost(float amount)
         {
             _soulManager.SubtractMoney(amount);
-            _timeManager.CurrentYear.AddTransaction(amount, TransactionType.Upkeep);
+            _timeManager.AddTransaction(amount, TransactionType.Upkeep);
         }
 
         public void StartDemandEventModifier(StatType statType, float modifier, float time)

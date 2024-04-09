@@ -14,14 +14,14 @@ public class DemonSpawner : MonoBehaviour
     [SerializeField] private PlaceholderConnectorHitBox _connector;
     [SerializeField] private DemonManager _demonManager;
     private float _timeSinceLastSpawn = 0f;
-  
+
 
     private List<GameObject> _demonHandler;
 
     private void Awake()
     {
         _demonHandler = new List<GameObject>();
-        if(_demonManager == null)
+        if (_demonManager == null)
         {
             _demonManager = FindObjectOfType<DemonManager>();
         }
@@ -35,44 +35,40 @@ public class DemonSpawner : MonoBehaviour
     void Update()
     {
         _timeSinceLastSpawn += Time.deltaTime;
-        if (_timeSinceLastSpawn >= _spawnInterval)
+        if (_timeSinceLastSpawn >= _spawnInterval && _connector.ImConnected)
         {
-                _timeSinceLastSpawn = 0f;
+            _timeSinceLastSpawn = 0f;
 
-                _economyManager.AutoCost(_spawnCost);
-                float offsetX = Random.Range(-_maxOffset, _maxOffset);
-                float offsetZ = Random.Range(-_maxOffset, _maxOffset);
-                Vector3 offset = new Vector3(offsetX, 0, offsetZ);
+            _economyManager.AutoCost(_spawnCost);
+            float offsetX = Random.Range(-_maxOffset, _maxOffset);
+            float offsetZ = Random.Range(-_maxOffset, _maxOffset);
+            Vector3 offset = new Vector3(offsetX, 0, offsetZ);
 
-                if (_demonPrefab == null) return;
-                GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
-                if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
-                _demonManager.AddDemon(demon);
+            if (_demonPrefab == null) return;
+            GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+            if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
+            _demonManager.AddDemon(demon);
 
-                _demonHandler.Add(demon);
-                StartCoroutine(MoveDemonsToConnector());
+            _demonHandler.Add(demon);
+            StartCoroutine(MoveDemonToConnector(demon));
         }
     }
 
-    IEnumerator MoveDemonsToConnector()
+    IEnumerator MoveDemonToConnector(GameObject demon)
     {
-        for (int i = 0; i < _demonHandler.Count; ++i)
+        Vector3 targetPosition = _connector.transform.position;
+
+        while (Vector3.Distance(demon.transform.position, targetPosition) > 0.1f)
         {
-            GameObject demon = _demonHandler[i];
-            Vector3 targetPosition = _connector.transform.position;
-
-            while (Vector3.Distance(demon.transform.position, targetPosition) > 0.1f)
-            {
-                demon.transform.position = Vector3.MoveTowards(demon.transform.position, targetPosition, Time.deltaTime * 2);
-                yield return null;
-            }
-
-            // At this point, the demon has reached the connector
-            // Put the demon in the connector
-            _connector.SpawnObject(demon);
-            _demonHandler.RemoveAt(i);
+            demon.transform.position = Vector3.MoveTowards(demon.transform.position, targetPosition, Time.deltaTime * 2);
+            yield return null;
         }
 
-        //_demonHandler.Clear();
+        // At this point, the demon has reached the connector
+        // Put the demon in the connector
+        if (!_connector.SpawnObject(demon))
+        {
+            Destroy(demon);
+        }
     }
 }

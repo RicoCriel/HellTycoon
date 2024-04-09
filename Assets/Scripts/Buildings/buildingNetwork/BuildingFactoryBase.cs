@@ -76,13 +76,14 @@ namespace Buildings
         {
             if (_mySpawningRoutine == null)
             {
-                StartCoroutine(MachineRoutine());
+                _mySpawningRoutine = StartCoroutine(MachineRoutine());
             }
         }
 
         protected void StopSpawning()
         {
-            StopCoroutine(MachineRoutine());
+            StopCoroutine(_mySpawningRoutine);
+            _mySpawningRoutine = null;
         }
 
         private IEnumerator MachineRoutine()
