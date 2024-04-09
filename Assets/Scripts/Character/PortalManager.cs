@@ -26,8 +26,8 @@ public class PortalManager : MonoBehaviour
         _portal1.transform.SetParent(currLayer);
         _portal1.transform.localPosition = pos;
         _portal2 = Instantiate(_portal, Vector3.zero, Quaternion.identity);
-        //_portal2.transform.SetParent(nextLayer);
-        _portal2.transform.localPosition = pos2;
+        _portal2.transform.SetParent(nextLayer);
+        _portal2.transform.localPosition = pos;
 
         _portal1.GetComponent<DemonPortal>().ExitPortal = _portal2.GetComponent<DemonPortal>();
         _portal2.GetComponent<DemonPortal>().ExitPortal = _portal1.GetComponent<DemonPortal>();
