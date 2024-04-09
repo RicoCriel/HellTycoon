@@ -97,8 +97,7 @@ namespace Economy
             _playerSoulManager.AddMoney(price);
             _market.SupplyDemon(demon);
 
-            _playerTimeManager.AddTransaction(price, TransactionType.Sale);
-
+            // _playerTimeManager.AddTransaction(price, TransactionType.Sale);
             _playerTimeManager.CurrentYear.AddTransaction(price, TransactionType.Sale);
 
         }
@@ -123,10 +122,6 @@ namespace Economy
         {
             if (_playerSoulManager.Money > 0f)
             {
-
-                _playerSoulManager.SubtractMoney(amount);
-                _playerTimeManager.AddTransaction(amount, TransactionType.Investment);
-
                 Debug.Log("buying for: " + amount);
                 _playerSoulManager.SubtractMoney(amount);
                 _playerTimeManager.CurrentYear.AddTransaction(amount, TransactionType.Investment);
@@ -154,8 +149,6 @@ namespace Economy
         public void AutoCost(float amount)
         {
 
-            _playerSoulManager.SubtractMoney(amount);
-            _playerTimeManager.AddTransaction(amount, TransactionType.Upkeep);
 
             _playerSoulManager.SubtractMoney(amount);
             _playerTimeManager.CurrentYear.AddTransaction(amount, TransactionType.Upkeep);
