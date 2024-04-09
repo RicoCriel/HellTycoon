@@ -1,54 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2211177217648771961
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1293098278400684652}
-  - component: {fileID: 1485661693728179985}
-  m_Layer: 0
-  m_Name: TimeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1293098278400684652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2211177217648771961}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.9821486, y: 24.662724, z: -18.79845}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1782217652254476171}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1485661693728179985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2211177217648771961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d02da82c1a3f4d4f8c337d3abee69fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _yearDuration: 5
-  _yearUI:
-  - {fileID: 3244846714398552257}
-  - {fileID: 2368246556497202429}
-  - {fileID: 4528793549197446811}
 --- !u!1 &5747752792833852449
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,10 +387,99 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3237115157684219603, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
   m_PrefabInstance: {fileID: 3653408425766379517}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3500365411549475458 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 153201898017598847, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
+  m_PrefabInstance: {fileID: 3653408425766379517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: face3caa8e0157141a38e32b87e17b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3902111234483781486 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 330054583404339347, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
   m_PrefabInstance: {fileID: 3653408425766379517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4511282600990508536
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1782217652254476171}
+    m_Modifications:
+    - target: {fileID: 2320733048260576897, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_Name
+      value: TimeManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027943902803018473, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: _yearHUD
+      value: 
+      objectReference: {fileID: 3500365411549475458}
+    - target: {fileID: 3027943902803018473, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: _yearUI.Array.data[0]
+      value: 
+      objectReference: {fileID: 3244846714398552257}
+    - target: {fileID: 3027943902803018473, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: _yearUI.Array.data[1]
+      value: 
+      objectReference: {fileID: 2368246556497202429}
+    - target: {fileID: 3027943902803018473, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: _yearUI.Array.data[2]
+      value: 
+      objectReference: {fileID: 4528793549197446811}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.9821486
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 24.662724
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.79845
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+--- !u!4 &1293098278400684652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3416342708561475476, guid: 4293ea0269dc2b044aa1ecffc46ee10c, type: 3}
+  m_PrefabInstance: {fileID: 4511282600990508536}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5362643407449347411
 PrefabInstance:

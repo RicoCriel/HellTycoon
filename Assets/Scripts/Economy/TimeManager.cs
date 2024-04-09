@@ -9,9 +9,11 @@ namespace Economy
     {
         [SerializeField] private float _yearDuration;
         [SerializeField] private Queue<YearData> _years;
-        [SerializeField] private List<YearUI> _yearUI;
+        [SerializeField] private List<YearOverviewUI> _yearUI;
+        [SerializeField] private YearHUD _yearHUD;
 
         private YearData _currentYear;
+
         private int _maxYearsStored = 3;
 
         private void Awake()
@@ -22,6 +24,12 @@ namespace Economy
 
             _currentYear = new YearData();
             _years.Enqueue(_currentYear);
+
+            if (_yearHUD)
+            {
+                _yearHUD.SetYear(_currentYear.YearNumber);
+            }
+
 
             StartCoroutine(Timer());
         }
@@ -52,7 +60,10 @@ namespace Economy
                     _yearUI[i].SetAll(_years.ElementAt(i));
                 }
 
-                //Debug.Log(_currentYear.YearNumber);
+                if (_yearHUD)
+                {
+                    _yearHUD.SetYear(_currentYear.YearNumber);
+                }
             }
         }
 
