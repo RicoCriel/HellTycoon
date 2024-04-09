@@ -9,18 +9,18 @@ public class DemonHandler : MonoBehaviour
 {
     [SerializeField] private DemonStatsInt _maxLevel;
 
-    [SerializeField] private SpriteRenderer _horns;
-    [SerializeField] private SpriteRenderer _head;
-    [SerializeField] private SpriteRenderer _face;
-    [SerializeField] private SpriteRenderer _armor;
-    [SerializeField] private SpriteRenderer _wings;
-    [SerializeField] private SpriteRenderer _wingsL;
+    [SerializeField] private MeshFilter _horns;
+    [SerializeField] private MeshFilter _head;
+    [SerializeField] private MeshFilter _face;
+    [SerializeField] private MeshFilter _armor;
+    [SerializeField] private MeshFilter _wings;
+    //[SerializeField] private MeshFilter _wingsL;
 
-    [SerializeField] private Sprite[] _hornsSprites;
-    [SerializeField] private Sprite[] _headSprites;
-    [SerializeField] private Sprite[] _faceSprites;
-    [SerializeField] private Sprite[] _armorSprites;
-    [SerializeField] private Sprite[] _wingsSprites;
+    [SerializeField] private Mesh[] _hornsMeshes;
+    [SerializeField] private Mesh[] _headMeshes;
+    [SerializeField] private Mesh[] _faceMeshes;
+    [SerializeField] private Mesh[] _armorMeshes;
+    [SerializeField] private Mesh[] _wingsMeshes;
 
     private Camera _mainCamera;
 
@@ -64,13 +64,13 @@ public class DemonHandler : MonoBehaviour
         if (_maxLevel.Armor < Level.Armor) { Level.Armor = _maxLevel.Armor - 1; }
         if (_maxLevel.Wings < Level.Wings) { Level.Wings = _maxLevel.Wings - 1; }
 
-        _horns.sprite = _hornsSprites[Level.Horn];
+        _horns.sharedMesh = _hornsMeshes[Level.Horn];
         //Debug.Log(_horns.sprite);
-        _head.sprite = _headSprites[Level.Body];
-        _face.sprite = _faceSprites[Level.Face];
-        _armor.sprite = _armorSprites[Level.Armor];
-        _wings.sprite = _wingsSprites[Level.Wings];
-        _wingsL.sprite = _wingsSprites[Level.Wings];
+        _head.sharedMesh = _headMeshes[Level.Body];
+        //_face.sharedMesh = _faceMeshes[Level.Face];
+        _armor.sharedMesh = _armorMeshes[Level.Armor];
+        _wings.sharedMesh = _wingsMeshes[Level.Wings];
+        //_wingsL.sharedMesh = _wingsMeshes[Level.Wings];
 
     }
 
@@ -95,7 +95,7 @@ public class DemonHandler : MonoBehaviour
 
         Level.Body = _currentMachineNode.Body;
         Level.Wings = _currentMachineNode.Wings;
-        Level.Wings = _currentMachineNode.Horns;
+        Level.Horn = _currentMachineNode.Horns;
         Level.Armor = _currentMachineNode.Armor;
         Level.Face = _currentMachineNode.Face;
 

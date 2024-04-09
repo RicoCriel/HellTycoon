@@ -239,19 +239,15 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
+            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y/* + 3*/ /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+            if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
+            {
+                _ghostObject2.transform.position = new Vector3(hit.point.x - (_2ghostOffset.x / 3), hit.point.y /*+ 3*/ + _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
+            }
 
-
-                _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y + 3 /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-                if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
-
-                {
-                    _ghostObject2.transform.position = new Vector3(hit.point.x - (_2ghostOffset.x/3), hit.point.y + 3 +  _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
-                }
-
-
-                _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-                CheckForCollision();
-                SetGhostOutline(hit.transform.gameObject);
+            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
+            CheckForCollision();
+            SetGhostOutline(hit.transform.gameObject);
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
@@ -263,7 +259,7 @@ namespace FreeBuild
         private void InstantiateGhostObject(RaycastHit hit)
         {
             float heightOffset = 3f;
-            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y + heightOffset, hit.point.z),
+            _ghostObject = Instantiate(_ghostObjectPrefab, new Vector3(hit.point.x, hit.point.y/* + heightOffset*/, hit.point.z),
                 Quaternion.identity);
 
             var meshFilter = _realObject.GetComponent<MeshFilter>();
@@ -338,7 +334,7 @@ namespace FreeBuild
                     _currentCost = 0;
                 }
 
-               
+
 
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {

@@ -1275,6 +1275,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 945a28e554e1d8440b33488395340544, type: 2}
     - target: {fileID: 8613079177050448776, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
+      propertyPath: _demonPrefab
+      value: 
+      objectReference: {fileID: 431430388848228903, guid: 5d918643ded598247b68e611c8c072b3, type: 3}
+    - target: {fileID: 8613079177050448776, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
       propertyPath: _econManager
       value: 
       objectReference: {fileID: 1770478770}
@@ -1675,11 +1679,11 @@ PrefabInstance:
       objectReference: {fileID: 804201155}
     - target: {fileID: 2554982613153248316, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169413
+      value: 0.11169412
       objectReference: {fileID: 0}
     - target: {fileID: 2677162675356613692, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169413
+      value: 0.11169412
       objectReference: {fileID: 0}
     - target: {fileID: 4270931287833525963, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_Name

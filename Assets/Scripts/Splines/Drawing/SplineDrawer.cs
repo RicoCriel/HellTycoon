@@ -412,6 +412,7 @@ namespace Splines.Drawing
             if (nextBuilding != null)
             {
                 _currentStartingBox.myBuildingNode = nextBuilding;
+                placeholderConnectorHitBox.myBuildingNode = nextBuilding;
             }
 
             _currentStartingBox.ImConnected = true;
