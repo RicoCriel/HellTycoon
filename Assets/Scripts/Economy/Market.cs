@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +11,7 @@ using Random = UnityEngine.Random;
 namespace Economy
 {
     // Should only be referenced by economymanager
-    internal class Market : MonoBehaviour
+    public class Market : MonoBehaviour
     {
         [SerializeField] private SerializedDictionary<StatType, MarketStat> _marketStats = new SerializedDictionary<StatType, MarketStat>();
 
@@ -37,6 +38,8 @@ namespace Economy
 
         private float _wealth = 1f;
 
+        private MarketView _marketView;
+
         private void Awake()
         {
             _marketStats.Add(StatType.Wings, new MarketStat());
@@ -44,6 +47,20 @@ namespace Economy
             _marketStats.Add(StatType.Face, new MarketStat());
             _marketStats.Add(StatType.Armor, new MarketStat());
             _marketStats.Add(StatType.Body, new MarketStat());
+
+            if (_marketView == null)
+            {
+                _marketView = FindObjectOfType<MarketView>();
+                if (_marketView == null)
+                {
+                    _marketView.toggleMarketStatsLayoutGroup(true);
+                    foreach (KeyValuePair<StatType, MarketStat> marketStatKvp in _marketStats)
+                    {
+                        _marketView.Init(marketStatKvp.Key, marketStatKvp.Value.Price, marketStatKvp.Value.Supply);
+                    }
+                    _marketView.toggleMarketStatsLayoutGroup(false);
+                }
+            }
 
             StartCoroutine(CalculateDemand());
         }
@@ -53,11 +70,11 @@ namespace Economy
             // TODO: remove test code
             if (Input.GetKeyDown(KeyCode.F))
             {
-                var stats = new DemonStatsInt(1, 1, 1, 1, 1);
+                DemonStatsInt stats = new DemonStatsInt(1, 1, 1, 1, 1);
                 SupplyDemon(stats);
             }
 
-            foreach (var stat in _marketStats)
+            foreach (KeyValuePair<StatType, MarketStat> stat in _marketStats)
             {
                 stat.Value.UpdateDecay(_baseDecay, _decayTime, _decayThreshold);
             }
@@ -67,12 +84,17 @@ namespace Economy
         {
             while (true)
             {
-                foreach (var stat in _marketStats)
+                foreach (KeyValuePair<StatType, MarketStat> stat in _marketStats)
                 {
                     stat.Value.CalculateScarcity(_baseScarcity, _scarcityCoefficient, _midpoint);
                     stat.Value.CalculateDemand(_supplySaturation, _wealth);
                     stat.Value.CalculatePrice(_priceMultiplier);
 
+                    if (_marketView != null)
+                    {
+                        _marketView.UpdateMarketStat(stat.Key, stat.Value.Price, stat.Value.Supply);
+                    }
+                   
                     //Debug.Log("Price: " + stat.Value.Price);
                 }
 
@@ -155,6 +177,7 @@ namespace Economy
             public float DemandEventModifier = 1f;
             private float _decay = 1f;
             private float _decayTimePassed = 0f;
+            [SerializeField]
             private float _scarcity = 1f;
 
             public int Supply = 0;
@@ -165,13 +188,16 @@ namespace Economy
 
             public void CalculateDemand(float supplySaturation, float wealth)
             {
-                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) * Random.Range(0.8f, 1.2f);
+                // Debug.Log("wealth: " + wealth + "demandeventmod" + DemandEventModifier + "decay: " + _decay + "scarcity: " + _scarcity + "random: " + Random.Range(0.8f, 1.2f) + "supplysaturation: " + supplySaturation );
+                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) /** Random.Range(0.8f, 1.2f)*/;
+
             }
 
             public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)
             {
                 if (Supply > decayThreshold)
                 {
+
                     _decay = Mathf.Max(baseDecay * (1f - _decayTimePassed / decayTime), 0.0001f);
                 }
                 else
@@ -202,5 +228,3 @@ namespace Economy
         Body
     }
 }
-
-
