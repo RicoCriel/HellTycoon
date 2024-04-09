@@ -7,6 +7,7 @@ using System;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 using Economy;
+using static UnityEditor.PlayerSettings;
 
 namespace FreeBuild
 {
@@ -239,15 +240,20 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
-            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y/* + 3*/ /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-            if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
-            {
-                _ghostObject2.transform.position = new Vector3(hit.point.x - (_2ghostOffset.x / 3), hit.point.y /*+ 3*/ + _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
+
+
+                _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+                if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
+
+                {
+                _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;   
+                //_ghostObject2.transform.position = new Vector3(hit.point.x - _2ghostOffset.x, hit.point.y +  _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
             }
 
-            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-            CheckForCollision();
-            SetGhostOutline(hit.transform.gameObject);
+
+                _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
+                CheckForCollision();
+                SetGhostOutline(hit.transform.gameObject);
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
@@ -275,6 +281,8 @@ namespace FreeBuild
             {
                 Transform curr = _landLayerManager.GetCurrPlot().transform;
                 Transform next;
+                _ghostObject.transform.SetParent(curr);
+                
                 if (_landLayerManager.NextPlot(curr.gameObject) != null)
                 {
                     next = _landLayerManager.NextPlot(curr.gameObject).transform;
@@ -282,10 +290,11 @@ namespace FreeBuild
                     _2ghostOffset.y = next.position.y;
                     _2ghostOffset.z = next.position.z;
                     _ghostObject2 = Instantiate(_ghostObjectPrefab,
-                        new Vector3(hit.point.x + next.position.x, hit.point.y + heightOffset,
-                            hit.point.z + next.position.z), Quaternion.identity);
+                        new Vector3(0,0,0), Quaternion.identity);
                     _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
+                    _ghostObject2.transform.SetParent(next);
+                    _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;
                 }
 
 

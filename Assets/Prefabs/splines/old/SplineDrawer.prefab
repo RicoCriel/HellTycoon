@@ -57,12 +57,12 @@ MonoBehaviour:
   _maxpointDistanceOfSet: 0.5
   _minpointDistanceOfSet: 0.15
   AddIndicationPath: 1
-  _materialToUseMesh: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
   _materialToUsePath: {fileID: 2100000, guid: 479a0e159eeabc4458794c51946b29ba, type: 2}
-  _splineViewPrefab: {fileID: 1131511274195049740, guid: 08b6753cd1fe3524590092dcf16d8482, type: 3}
-  _meshToUseElevated: {fileID: 4068373912626513877, guid: 7311408505ddc9e42ac81bac62f45c48, type: 3}
-  _meshToUseGround: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-  _constructingMesh: {fileID: 8321685774571456786, guid: adf8aa5dfed9b5c46908948b1551ee1a, type: 3}
+  _ConstructingSplinePrefab: {fileID: 1131511274195049740, guid: 08b6753cd1fe3524590092dcf16d8482, type: 3}
+  MeshLayerPrefab: {fileID: 0}
+  _materialToUseConstructing: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
+  _meshToUseConstructing: {fileID: 4068373912626513877, guid: 7311408505ddc9e42ac81bac62f45c48, type: 3}
+  _meshDataList: {fileID: 11400000, guid: 56061b788e820ec4bb3bafd1efd87bdf, type: 2}
   _splinePathOffset: 0.1
   _splinePathOffsetMinMAx: 0
   _sizeTester: 8
