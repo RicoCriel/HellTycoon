@@ -4,6 +4,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 public class CameraSystem : MonoBehaviour
 {
@@ -90,7 +91,6 @@ public class CameraSystem : MonoBehaviour
             HandleLerp();
 
         HandleRotation();
-
 
         switch (_zoomType)
         {
@@ -213,7 +213,7 @@ public class CameraSystem : MonoBehaviour
 
     private void HandleZoomMoveForward()
     {
-         Vector3 zoomDir = _followOffset.normalized;
+        Vector3 zoomDir = _followOffset.normalized;
 
         var newOffset = _followOffset;
 

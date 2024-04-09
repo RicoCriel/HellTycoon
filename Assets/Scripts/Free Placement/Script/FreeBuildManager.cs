@@ -215,6 +215,7 @@ namespace FreeBuild
                             }
                         }
                     }
+
                 }
             }
         }
@@ -244,7 +245,7 @@ namespace FreeBuild
                 if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
 
                 {
-                    _ghostObject2.transform.position = new Vector3(hit.point.x + _2ghostOffset.x, hit.point.y + 3 + +_2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + +_2ghostOffset.z);
+                    _ghostObject2.transform.position = new Vector3(hit.point.x - (_2ghostOffset.x/3), hit.point.y + 3 +  _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
                 }
 
 
@@ -286,7 +287,7 @@ namespace FreeBuild
                     _2ghostOffset.z = next.position.z;
                     _ghostObject2 = Instantiate(_ghostObjectPrefab,
                         new Vector3(hit.point.x + next.position.x, hit.point.y + heightOffset,
-                            hit.point.z), Quaternion.identity);
+                            hit.point.z + next.position.z), Quaternion.identity);
                     _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                 }
@@ -337,7 +338,7 @@ namespace FreeBuild
                     _currentCost = 0;
                 }
 
-                DestroyGhostObject();
+               
 
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {
@@ -363,7 +364,7 @@ namespace FreeBuild
                 }
 
 
-
+                DestroyGhostObject();
                 _locked = false;
             }
             else
@@ -387,7 +388,7 @@ namespace FreeBuild
             _ghostObject.transform.SetParent(curr);
             if (next != null)
             {
-                _portalManager.PlacePortal(_ghostObject.transform.localPosition, curr, next);
+                _portalManager.PlacePortal(_ghostObject.transform.localPosition, _ghostObject2.transform.localPosition, curr, next);
 
 
             }

@@ -59,6 +59,10 @@ namespace Economy
                 _deathTimer = 0;
                 _deathTimerPassed = 0;
             }
+            else if (_money < 0f)
+            {
+                _inDebt = true;
+            }
 
             if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
             {
