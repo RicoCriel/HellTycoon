@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 namespace Economy
 {
     // Should only be referenced by economymanager and moneyUI
-    internal class SoulManager : MonoBehaviour
+    public class SoulManager : MonoBehaviour
     {
         [SerializeField] private float _startMoney = 200f;
         [SerializeField] private bool _logMoney = false;
@@ -21,6 +21,13 @@ namespace Economy
         private float _deathTimerPassed;
         private bool _inDebt;
 
+        private bool IsAIAgent{ get; set; } = true;
+        public void Init(TycoonData tycoonData)
+        {
+            _startMoney = tycoonData._startMoney;
+            IsAIAgent = false;
+            _godMode = false;
+        }
         void Start()
         {
             _money = _startMoney;
@@ -46,30 +53,37 @@ namespace Economy
             }
         }
 
+        public bool isInDebt()
+        {
+            return _inDebt;
+        }
+
         private void Update()
         {
-            if (_inDebt && _money < 0f)
+            if (!IsAIAgent)
             {
-                _inDebt = true;
-                _deathTimerPassed += Time.deltaTime;
-            }
-            else if (_inDebt)
-            {
-                _inDebt = false;
-                _deathTimer = 0;
-                _deathTimerPassed = 0;
-            }
-            else if (_money < 0f)
-            {
-                _inDebt = true;
-            }
+                if (_inDebt && _money < 0f)
+                {
+                    _inDebt = true;
+                    _deathTimerPassed += Time.deltaTime;
+                }
+                else if (_inDebt)
+                {
+                    _inDebt = false;
+                    _deathTimer = 0;
+                    _deathTimerPassed = 0;
+                }
+                else if (_money < 0f)
+                {
+                    _inDebt = true;
+                }
 
-            if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
-            {
-                //SceneManager.LoadScene("Main Menu");
-                Debug.Log("Lost game!");
+                if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
+                {
+                    //SceneManager.LoadScene("Main Menu");
+                    Debug.Log("Lost game!");
+                }
             }
         }
     }
 }
-

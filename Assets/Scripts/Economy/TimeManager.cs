@@ -13,6 +13,7 @@ namespace Economy
         [SerializeField] private YearHUD _yearHUD;
 
         private YearData _currentYear;
+        public YearData CurrentYear => _currentYear;
 
         private int _maxYearsStored = 3;
 

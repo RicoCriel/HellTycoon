@@ -95,7 +95,6 @@ namespace PopupSystem.Inheritors
             EventHandler<PopupClickedEventArgs> handler = SoulProcessingPaused;
             handler?.Invoke(this, e);
         }
-        
         private void OnSoulProcessingResumed(PopupClickedEventArgs e)
         {
             EventHandler<PopupClickedEventArgs> handler = SoulProcessingResumed;
