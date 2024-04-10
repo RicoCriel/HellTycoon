@@ -17,7 +17,8 @@ namespace FreeBuild
         [SerializeField] private GameObject _rootObject;
         [SerializeField] private PortalManager _portalManager;
         [SerializeField] private LandLayerManager _landLayerManager;
-        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private LayerMask _raycastLayer;
+        [SerializeField] private int _groundLayer;
         [SerializeField] private MachineManager _machineManager;
         [SerializeField] private string _inputTag;
         [SerializeField] private string _outputTag;
@@ -28,6 +29,7 @@ namespace FreeBuild
         [SerializeField] private int _buildingLayer;
         [SerializeField] private LayerMask _snapLayerMask;
         [SerializeField] private float _snapThreshold = 5.5f;
+        [SerializeField] private string _spawnerTag = "Spawner";
 
         private string _buildTag;
         private GameObject _ghostObject;
@@ -43,6 +45,7 @@ namespace FreeBuild
         private Vector3 _startPosition;
         private float _trackedDist = 0f;
         private float _maxDist = 150f;
+        private bool _buildOnGround = false;
 
         // Rotation speed
         public float RotateSpeed = 100.0f;
@@ -99,11 +102,11 @@ namespace FreeBuild
                 Debug.LogError("You have to list the objects you're trying to build on.");
                 return;
             }
-            if (null == _realObject.GetComponent<FreeBuildObject>())
-            {
-                Debug.LogError("The object you are trying to build must have a ConstructionObject Component.");
-                return;
-            }
+            //if (null == _realObject.GetComponent<FreeBuildObject>())
+            //{
+            //    Debug.LogError("The object you are trying to build must have a ConstructionObject Component.");
+            //    return;
+            //}
 
             if (_ghostObject)
                 Destroy(_ghostObject);
@@ -136,7 +139,7 @@ namespace FreeBuild
                         // Move
                         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hit;
-                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer);
+                        bool isHit = Physics.Raycast(ray, out hit, Mathf.Infinity, _raycastLayer);
 
                         if (isHit && _ghostObject)
                         {
@@ -242,18 +245,19 @@ namespace FreeBuild
         {
 
 
-                _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
-                if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
+            _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
+            if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
 
-                {
-                _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;   
+            {
+                _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;
                 //_ghostObject2.transform.position = new Vector3(hit.point.x - _2ghostOffset.x, hit.point.y +  _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
             }
 
 
-                _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
-                CheckForCollision();
-                SetGhostOutline(hit.transform.gameObject);
+            _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
+            _buildOnGround = hit.transform.gameObject.layer == _groundLayer;
+            CheckForCollision();
+            SetGhostOutline(hit.transform.gameObject);
         }
 
         private void SetGhostOutline(GameObject areaToBeBuilt)
@@ -282,7 +286,7 @@ namespace FreeBuild
                 Transform curr = _landLayerManager.GetCurrPlot().transform;
                 Transform next;
                 _ghostObject.transform.SetParent(curr);
-                
+
                 if (_landLayerManager.NextPlot(curr.gameObject) != null)
                 {
                     next = _landLayerManager.NextPlot(curr.gameObject).transform;
@@ -290,7 +294,7 @@ namespace FreeBuild
                     _2ghostOffset.y = next.position.y;
                     _2ghostOffset.z = next.position.z;
                     _ghostObject2 = Instantiate(_ghostObjectPrefab,
-                        new Vector3(0,0,0), Quaternion.identity);
+                        new Vector3(0, 0, 0), Quaternion.identity);
                     _ghostObject2.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                     _ghostObject2.transform.SetParent(next);
@@ -319,11 +323,26 @@ namespace FreeBuild
                 if (_ghostObject2.GetComponent<Snapper>().IsColliding)
                 {
                     _canBuild = false;
+                    return;
                 }
             }
-            if (_ghostObject.GetComponent<Snapper>() != null)
+            if (_ghostObject.TryGetComponent(out Snapper snapper))
             {
-                if (_ghostObject.GetComponent<Snapper>().IsColliding)
+                if (snapper.OnWater)
+                {
+                    if (!_realObject.CompareTag(_spawnerTag))
+                    {
+                        _canBuild = false;
+                        return;
+                    }
+                    else if (!_buildOnGround)
+                    {
+                        _canBuild = false;
+                        return;
+                    }
+                }
+
+                if (snapper.IsColliding)
                 {
                     _canBuild = false;
                 }
@@ -342,8 +361,6 @@ namespace FreeBuild
 
                     _currentCost = 0;
                 }
-
-
 
                 if (_realObject.GetComponent<DemonPortal>() != null)
                 {

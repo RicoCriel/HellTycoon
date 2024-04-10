@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cafc0961cabcb4598113066f158515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _waterLayer: 4
   SnapPoints:
   - {fileID: 8755050780505574229}
   - {fileID: 8728130566612157172}
@@ -155,6 +156,7 @@ MonoBehaviour:
     m_Bits: 2176
   IsPlaced: 0
   IsColliding: 0
+  OnWater: 0
 --- !u!114 &3538964197410046200
 MonoBehaviour:
   m_ObjectHideFlags: 0

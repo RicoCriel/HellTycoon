@@ -12,6 +12,7 @@ TagManager:
   - Map
   - Input
   - Output
+  - Spawner
   layers:
   - Default
   - TransparentFX

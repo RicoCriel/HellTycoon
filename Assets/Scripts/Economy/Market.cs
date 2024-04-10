@@ -189,7 +189,7 @@ namespace Economy
             public void CalculateDemand(float supplySaturation, float wealth)
             {
                 // Debug.Log("wealth: " + wealth + "demandeventmod" + DemandEventModifier + "decay: " + _decay + "scarcity: " + _scarcity + "random: " + Random.Range(0.8f, 1.2f) + "supplysaturation: " + supplySaturation );
-                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) /** Random.Range(0.8f, 1.2f)*/;
+                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) /* * Random.Range(0.8f, 1.2f)*/;
 
             }
 

@@ -26,13 +26,18 @@ namespace Economy
             _currentYear = new YearData();
             _years.Enqueue(_currentYear);
 
+            
+
+
+            StartCoroutine(Timer());
+        }
+
+        private void Start()
+        {
             if (_yearHUD)
             {
                 _yearHUD.SetYear(_currentYear.YearNumber);
             }
-
-
-            StartCoroutine(Timer());
         }
 
         private IEnumerator Timer()

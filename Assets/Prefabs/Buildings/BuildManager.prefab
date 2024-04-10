@@ -48,21 +48,22 @@ MonoBehaviour:
   _rootObject: {fileID: 0}
   _portalManager: {fileID: 0}
   _landLayerManager: {fileID: 0}
-  _groundLayer:
+  _raycastLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 80
+  _groundLayer: 6
   _machineManager: {fileID: 0}
   _inputTag: Input
   _outputTag: Output
   _ghostObjectPrefab: {fileID: 4568936789089618933, guid: 932dec010fe925247b6d306910b552a6, type: 3}
-  _ghostObject2: {fileID: 5935795807527634739, guid: 1f51a648710a50a499aca5b2a27c6c40, type: 3}
   _goodMaterial: {fileID: 2100000, guid: 28f547c349914ae43abf427836eef5c6, type: 2}
   _badMaterial: {fileID: 2100000, guid: a217caa33e1f358498d35df9e371d6f1, type: 2}
-  _econManager: {fileID: 0}
+  _economyManager: {fileID: 0}
   _buildingLayer: 0
   _snapLayerMask:
     serializedVersion: 2
     m_Bits: 2048
   _snapThreshold: 0.5
+  _spawnerTag: Spawner
   RotateSpeed: 100
   HeightChangeSpeed: 1

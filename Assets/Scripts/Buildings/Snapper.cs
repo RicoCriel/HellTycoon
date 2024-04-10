@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Snapper : MonoBehaviour
 {
+    [SerializeField] private int _waterLayer;
     // Array to hold snap points. You can manually assign these in the Unity Editor.
     public Transform[] SnapPoints;
 
@@ -12,6 +13,8 @@ public class Snapper : MonoBehaviour
     public bool IsPlaced = false;
 
     public bool IsColliding = false;
+    public bool OnWater = false;
+    public bool OnGround = false;
 
     private void Awake()
     {
@@ -27,13 +30,28 @@ public class Snapper : MonoBehaviour
         {
             IsColliding = true;
         }
-
+        else if (other.gameObject.layer == _waterLayer)
+        {
+            OnWater = true;
+        }
+        else
+        {
+            OnGround = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag != "Map")
         {
             IsColliding = false;
+        }
+        else if (other.gameObject.layer == _waterLayer)
+        {
+            OnWater = false;
+        }
+        else
+        {
+            OnGround = true;
         }
     }
 
