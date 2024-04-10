@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DemonManager : MonoBehaviour
 {
-    private List<GameObject> _demons = new List<GameObject>();
+    private List<DemonBase> _demons = new List<DemonBase>();
 
     [SerializeField] private float _tickIntervalTime;
 
@@ -17,11 +17,11 @@ public class DemonManager : MonoBehaviour
     // Add enemy to the list
     public void AddDemon(GameObject demon)
     {
-        _demons.Add(demon);
+        _demons.Add(demon.GetComponent<DemonBase>());
     }
 
     // Remove enemy from the list
-    public void RemoveDemon(GameObject demon)
+    public void RemoveDemon(DemonBase demon)
     {
         _demons.Remove(demon);
     }
@@ -34,22 +34,12 @@ public class DemonManager : MonoBehaviour
 
     public List<DemonFear> GetDemonFears()
     {
-        List<DemonFear> existingDemons = _demons
-    .Where(demon => demon != null)
-    .Select(demon => demon.GetComponent<DemonFear>())
-    .Where(demonFear => demonFear != null)
-    .ToList();
-        return existingDemons.ConvertAll(rdemon => rdemon.GetComponent<DemonFear>());
+        return _demons.Select(demon => demon.DemonFear).ToList();
     }
 
     public List<DemonHandler> GetDemonHandlers()
     {
-        List<DemonHandler> existingDemons = _demons
-   .Where(demon => demon != null)
-   .Select(demon => demon.GetComponent<DemonHandler>())
-   .Where(demonFear => demonFear != null)
-   .ToList();
-        return existingDemons.ConvertAll(rdemon => rdemon.GetComponent<DemonHandler>());
+        return _demons.Select(demon => demon.DemonHandler).ToList();
     }
 
     public void TickFear()
