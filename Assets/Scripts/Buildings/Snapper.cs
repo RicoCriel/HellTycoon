@@ -14,7 +14,6 @@ public class Snapper : MonoBehaviour
 
     public bool IsColliding = false;
     public bool OnWater = false;
-    public bool OnGround = false;
 
     private void Awake()
     {
@@ -34,10 +33,6 @@ public class Snapper : MonoBehaviour
         {
             OnWater = true;
         }
-        else
-        {
-            OnGround = true;
-        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -48,10 +43,6 @@ public class Snapper : MonoBehaviour
         else if (other.gameObject.layer == _waterLayer)
         {
             OnWater = false;
-        }
-        else
-        {
-            OnGround = true;
         }
     }
 

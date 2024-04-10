@@ -243,8 +243,6 @@ namespace FreeBuild
 
         private void MoveGhostObject(RaycastHit hit)
         {
-
-
             _ghostObject.transform.position = new Vector3(hit.point.x, hit.point.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z);
             if (_realObject.GetComponent<DemonPortal>() != null && _ghostObject2 != null)
 
@@ -252,7 +250,6 @@ namespace FreeBuild
                 _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;
                 //_ghostObject2.transform.position = new Vector3(hit.point.x - _2ghostOffset.x, hit.point.y +  _2ghostOffset.y /*+ GetObjectHeight(hit.transform)*/, hit.point.z + _2ghostOffset.z);
             }
-
 
             _canBuild = hit.transform.gameObject.transform.gameObject.tag == _buildTag;
             _buildOnGround = hit.transform.gameObject.layer == _groundLayer;
