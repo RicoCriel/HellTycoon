@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3100196403923307790}
   - component: {fileID: 5142417637037071786}
   - component: {fileID: 4985500093670558462}
+  - component: {fileID: 1509847488940498193}
+  - component: {fileID: 1704575743101603249}
   m_Layer: 0
   m_Name: DemonSoldier
   m_TagString: Demon
@@ -162,6 +164,32 @@ MonoBehaviour:
   _layertHightDiff: 1
   DecayRate: 0
   InitHellLayer: 0
+--- !u!114 &1509847488940498193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431430388848228903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b27d67b2e9266242ae5a0b469fc9ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1704575743101603249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431430388848228903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efefed97090c36488f090e5c4c1fc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _demonHandler: {fileID: 0}
+  _demonFear: {fileID: 0}
 --- !u!1001 &375435496947461110
 PrefabInstance:
   m_ObjectHideFlags: 0

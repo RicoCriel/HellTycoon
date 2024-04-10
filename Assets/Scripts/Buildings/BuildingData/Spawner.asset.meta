@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Buildings/BuildingData/Spawner.asset.meta
 guid: 5867ce5b53fb3ae4f9a82a5edb366a29
 NativeFormatImporter:
+========
+guid: 19f8f1dbc6e0e2a45aa2e518452ffa62
+DefaultImporter:
+>>>>>>>> 5ab659781a636289d6f6fec7708ab4c32c6c0cf1:Assets/TerrainSampleAssets/README.pdf.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

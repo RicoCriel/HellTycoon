@@ -46,14 +46,15 @@ public class DemonSpawner : MonoBehaviour
 
             if (_demonPrefab == null) return;
             GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+            
             if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
             _demonManager.AddDemon(demon);
 
-            _demonHandler.Add(demon);
+            //_demonHandler.Add(demon);
             StartCoroutine(MoveDemonToConnector(demon));
         }
     }
-
+    
     IEnumerator MoveDemonToConnector(GameObject demon)
     {
         Vector3 targetPosition = _connector.transform.position;

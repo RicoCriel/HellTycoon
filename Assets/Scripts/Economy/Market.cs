@@ -48,10 +48,10 @@ namespace Economy
             _marketStats.Add(StatType.Armor, new MarketStat());
             _marketStats.Add(StatType.Body, new MarketStat());
 
-            if (_marketView == null)
+            if (_marketView != null)
             {
                 _marketView = FindObjectOfType<MarketView>();
-                if (_marketView == null)
+                if (_marketView != null)
                 {
                     _marketView.toggleMarketStatsLayoutGroup(true);
                     foreach (KeyValuePair<StatType, MarketStat> marketStatKvp in _marketStats)

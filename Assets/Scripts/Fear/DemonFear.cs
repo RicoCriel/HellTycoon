@@ -24,7 +24,8 @@ public class DemonFear : MonoBehaviour
     {
         SetLayer();
         LayerEffectManager.CheckInitLayer(this);
-        ApplyLayerEffect();
+        this.gameObject.GetComponent<DemonBase>().InitEffect(InitHellLayer);
+        //ApplyLayerEffect();
     }
 
     private void ApplyLayerEffect() 
@@ -69,8 +70,11 @@ public class DemonFear : MonoBehaviour
                 break;
         }
     }
+
     
-    public float GetFearLevel()
+
+
+        public float GetFearLevel()
     {
         return _fearLevel;
     }
