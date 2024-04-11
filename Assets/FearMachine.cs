@@ -7,6 +7,7 @@ using UnityEngine;
 public class FearMachine : BuildingFactoryBase
 {
     [SerializeField] private float _drainRate;
+    [SerializeField] private float _drainApplyInterval;
     [SerializeField] private float _fearRate;
     [SerializeField] private float _fearApplyInterval;
     [SerializeField] private float _soulToSoulPowerRate;
@@ -20,6 +21,7 @@ public class FearMachine : BuildingFactoryBase
     private void Start()
     {
         InvokeRepeating("ApplyFear", 1f, _fearApplyInterval);
+        InvokeRepeating("Drain", 1f, _drainApplyInterval);
         if (_demonManager == null)
         {
             _demonManager = GameObject.FindObjectOfType<DemonManager>();
@@ -39,6 +41,15 @@ public class FearMachine : BuildingFactoryBase
                     demoncomp.Level.Wings * _fearValue.Wings;
 
         return sum;
+    }
+
+    private void Drain()
+    {
+        _fearRate -= _drainRate;
+        if (_fearRate <= 0.0001f)
+        {
+            _fearRate = 0.0001f;
+        }
     }
 
     protected override void ExecuteMachineProcessingBehaviour()

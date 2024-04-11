@@ -131,7 +131,7 @@ namespace Splines
 
             return true;
         }
-        private void CallBack(GameObject obj)
+        private void CallBack(GameObject obj, GameObject grandparent)
         {
             if (myBuildingNode.TryGetComponent(out MachinePart nextMachinePart))
             {
@@ -142,6 +142,11 @@ namespace Splines
                 {
                     nextMachinePart.AddDemon(nextMachinePart._unprocessedDemonContainer, obj);
                 }
+                else
+                    {
+                        Destroy(grandparent);
+                        Destroy(obj.gameObject);
+                    }
                 }
             }
 

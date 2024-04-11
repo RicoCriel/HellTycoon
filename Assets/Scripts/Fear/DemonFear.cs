@@ -92,7 +92,8 @@ public class DemonFear : MonoBehaviour
 
     public void SetLayer()
     {
-        _layer = (int)(transform.position.y) / _layertHightDiff;
+        //_layer = (int)(transform.position.y) / _layertHightDiff;
+        _layer = 0;
     }
 
 

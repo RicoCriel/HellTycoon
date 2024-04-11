@@ -435,7 +435,7 @@ namespace Splines.Drawing
 
         }
 
-        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject,GameObject> callBack)
         {
             //get relevant data
             SplineComputer splineComputer = computer.GetSplinecomputer();
@@ -469,9 +469,10 @@ namespace Splines.Drawing
                 DemonHandler demonHandler = args.GameObject.GetComponentInChildren<DemonHandler>();
                 if (demonHandler != null)
                 {
+                    GameObject grandParent = demonHandler.gameObject.transform.parent.parent.gameObject;
                     demonHandler.gameObject.transform.parent = null;
 
-                    callBack(demonHandler.gameObject);
+                    callBack(demonHandler.gameObject, grandParent);
                 }
 
                 Destroy(args.GameObject);

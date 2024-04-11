@@ -65,6 +65,10 @@ public class PlayerDemon : BuildingFactoryBase
     private void Starve()
     {
         _feedSize -= _starveRate;
+        if(_feedSize <= 0.0001f)
+            {
+            _feedSize = 0.0001f;
+        }
         ScaleWithFeed();
     }
 
