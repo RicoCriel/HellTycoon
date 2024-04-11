@@ -777,10 +777,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SplineDrawer
       objectReference: {fileID: 0}
-    - target: {fileID: 547976462628252207, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7338459849359280560, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -820,30 +816,6 @@ PrefabInstance:
     - target: {fileID: 7338459849359280560, guid: 96690d9beb493fa498f896daf2220235, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _sizeTester
-      value: 6.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _spawnAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: GroundLayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _selfCollisionRange
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _BeltPlacementColor.a
-      value: 0.5568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511934950118850884, guid: 96690d9beb493fa498f896daf2220235, type: 3}
-      propertyPath: _BeltPlacementColor.g
-      value: 0.5176471
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1705,11 +1677,11 @@ PrefabInstance:
       objectReference: {fileID: 804201155}
     - target: {fileID: 2554982613153248316, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 2677162675356613692, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 4270931287833525963, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_Name
