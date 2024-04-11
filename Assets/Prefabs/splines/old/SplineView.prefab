@@ -57,6 +57,7 @@ MonoBehaviour:
   _splinePathMeshRenderer: {fileID: 0}
   _splinePathFilter: {fileID: 0}
   _splinePath: {fileID: 0}
+  _meshCollider: {fileID: 0}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}
   _popupSpline: {fileID: 0}

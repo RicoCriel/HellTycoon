@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -16,8 +17,8 @@ namespace Economy
 
         //private dictionaries
         private Dictionary<StatType, MarketStatView> _marketStatViews = new Dictionary<StatType, MarketStatView>();
-        
-       
+
+
         public void Init(StatType stat, float partPriceText, float partAmountText)
         {
             MarketStatView marketStatView = Instantiate(_marketStatViewPrefab, _marketStatsParent);
