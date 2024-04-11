@@ -112,7 +112,7 @@ namespace Splines.Drawing
         private bool _currentSplineConnected = false;
         private PlaceholderConnectorHitBox _currentStartingBox;
         private SplineView _instanciatedSpline;
-        private bool PlaceConnectorWhenMouseUp = true;
+        private bool PlaceConnectorWhenMouseUp = false;
 
         //point stuff
         [HideInInspector]
