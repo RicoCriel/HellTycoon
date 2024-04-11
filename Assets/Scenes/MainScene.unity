@@ -3280,7 +3280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2475314435737229038, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
       propertyPath: _fearPerInterval
-      value: 1000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2475314435737229038, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
       propertyPath: _fearApplyInterval
