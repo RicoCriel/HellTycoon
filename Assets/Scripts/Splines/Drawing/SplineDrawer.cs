@@ -521,6 +521,14 @@ namespace Splines.Drawing
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
             {
                 Vector3 hitPoint = hit.point;
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    
+                }
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Water"))
+                {
+                    hitPoint.y += 0.5f;
+                }
 
                 SelfCollisionDistanceCheck(hitPoint);
 

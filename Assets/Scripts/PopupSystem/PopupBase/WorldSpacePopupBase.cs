@@ -23,24 +23,32 @@ namespace PopupSystem
 
             if (_popupCanvas == null)
                 _popupCanvas = transform.GetChild(0).GetComponent<Canvas>();
-                                
+
             //find maincam
             _mainCamera = Camera.main;
-        
+
             //hook up canves to camera
             _popupCanvas.worldCamera = _mainCamera;
-        
-            AnglePopupToCamera();
-        
+
+            // AnglePopupToCamera();
+
             _popupTransform.localScale = Vector3.zero;
             _popupTransform.gameObject.SetActive(false);
         }
-    
+
+        private void Update()
+        {
+            if (this.isActiveAndEnabled)
+            {
+                AnglePopupToCamera();
+            }
+        }
+
         public bool IsPopupActive()
         {
             return _popupTransform.gameObject.activeSelf;
         }
-        
+
         public bool IsPopupTweeningOpen()
         {
             return _currentTween != null && _currentTween.IsActive();
@@ -49,7 +57,7 @@ namespace PopupSystem
         {
             _popupTransform.localPosition = position;
         }
-        
+
         //only angled once since it doesnt move?
         private void AnglePopupToCamera()
         {
@@ -83,11 +91,11 @@ namespace PopupSystem
 
         [HideInInspector]
         public void ClosePopup()
-        { 
+        {
             killCurrentTween();
             _popupTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() => _popupTransform.gameObject.SetActive(false));
         }
-    
+
         private void killCurrentTween()
         {
             if (_currentTween != null)
@@ -120,6 +128,6 @@ namespace PopupSystem
     public class PopupClickedEventArgs : EventArgs
     {
         public PopupClickedEventArgs() { }
-        
+
     }
 }

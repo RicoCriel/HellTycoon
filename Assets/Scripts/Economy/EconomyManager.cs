@@ -148,8 +148,6 @@ namespace Economy
         //Upkeep
         public void AutoCost(float amount)
         {
-
-
             _playerSoulManager.SubtractMoney(amount);
             _playerTimeManager.CurrentYear.AddTransaction(amount, TransactionType.Upkeep);
         }
