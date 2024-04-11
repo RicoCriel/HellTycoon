@@ -42,7 +42,7 @@ public class DemonHandler : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
-        AngleToCamera();
+        //AngleToCamera();
     }
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class DemonHandler : MonoBehaviour
 
     private void Update()
     {
-        AngleToCamera();
+        //AngleToCamera();
     }
 
     private void UpdateSprites()

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Economy;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MoneyUI : MonoBehaviour
 {
     [SerializeField] private SoulManager _soulManager;
-    [SerializeField] private Text _moneyText;
+    [SerializeField] private TextMeshProUGUI _moneyText;
 
 
     private void Awake()
