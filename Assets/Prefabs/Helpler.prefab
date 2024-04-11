@@ -319,16 +319,12 @@ PrefabInstance:
       objectReference: {fileID: 6181139984300803159}
     - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1191212255451296651}
     - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -339,11 +335,11 @@ PrefabInstance:
       objectReference: {fileID: 1191212255451296651}
     - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ToggleDestruct
+      value: ShowUI
       objectReference: {fileID: 0}
     - target: {fileID: 4186678298512891853, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: FreeBuild.FreeBuildManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6990016549036430360, guid: 0397720b8d618ce4cafacde2fde87611, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -742,6 +738,10 @@ PrefabInstance:
       objectReference: {fileID: 929318439010860568}
     - target: {fileID: 4418149292639670283, guid: 261abc22170a8664dadd1baed35b6c32, type: 3}
       propertyPath: _soulManager
+      value: 
+      objectReference: {fileID: 6181139984300803159}
+    - target: {fileID: 4418149292639670283, guid: 261abc22170a8664dadd1baed35b6c32, type: 3}
+      propertyPath: _playerSoulManager
       value: 
       objectReference: {fileID: 6181139984300803159}
     - target: {fileID: 9002807665103673810, guid: 261abc22170a8664dadd1baed35b6c32, type: 3}
