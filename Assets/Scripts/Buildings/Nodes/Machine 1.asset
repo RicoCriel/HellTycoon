@@ -16,8 +16,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02a2895c4b540e34393c8870c328e83b, type: 2}
   - {fileID: 11400000, guid: dcc57a91e5d544b40ae6fb02b779e848, type: 2}
   - {fileID: 11400000, guid: 972933317b55b7349bf3452487cc99e2, type: 2}
-  _stat0: 0
-  _stat1: 1
-  _stat2: 0
-  _stat3: 0
+  _body: 0
+  _wings: 0
+  _horns: 1
+  _armor: 0
+  _face: 0
   _processTime: 3

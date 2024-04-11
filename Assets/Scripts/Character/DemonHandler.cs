@@ -91,6 +91,9 @@ public class DemonHandler : MonoBehaviour
 
     public void SetStats(MachineType machineType)
     {
+        if (_currentMachineNode.NextNodes.Count == 0) 
+            return;
+
         _currentMachineNode = _currentMachineNode.NextNodes[(int)machineType];
 
         Level.Body = _currentMachineNode.Body;

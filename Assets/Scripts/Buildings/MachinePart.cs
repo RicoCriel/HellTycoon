@@ -34,15 +34,15 @@ namespace Buildings
         [SerializeField] private int _upkeepInterval = 5;
 
 
-       private EconomyManager _economyManager;
-       private MachineManager _machineManager;
+        private EconomyManager _economyManager;
+        private MachineManager _machineManager;
 
 
         void Start()
         {
             _economyManager = FindObjectOfType<EconomyManager>();
             _machineManager = FindObjectOfType<MachineManager>();
-            
+
             StartCoroutine(PayUpkeepRoutine());
         }
         IEnumerator PayUpkeepRoutine()
@@ -108,7 +108,7 @@ namespace Buildings
         {
             base.ExecuteMachineSpawningBehaviour();
 
-            if(_unprocessedDemonContainer.Count > 0)
+            if (_unprocessedDemonContainer.Count > 0)
                 StartUIProcessing(1, MachineRatePerSecond);
         }
 
@@ -116,14 +116,10 @@ namespace Buildings
         {
             if (_unprocessedDemonContainer.Count > 0 && _unprocessedDemonContainer.Count < MaxDemons)
             {
-                foreach (var demon in _unprocessedDemonContainer)
-                {
-                    if(demon == null) continue;
 
-                    if (demon.TryGetComponent<DemonHandler>(out DemonHandler handler))
-                    {
-                        handler.SetStats(_machineType);
-                    }
+                if (_unprocessedDemonContainer.Peek().TryGetComponent<DemonHandler>(out DemonHandler handler))
+                {
+                    handler.SetStats(_machineType);
                 }
                 base.ExecuteMachineProcessingBehaviour();
             }
@@ -158,7 +154,7 @@ namespace Buildings
 
         }
 
- 
+
 
         public void DoneUIProcessing()
         {

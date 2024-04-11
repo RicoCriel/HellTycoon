@@ -501,6 +501,177 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &462315910
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.63632
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045303345
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.470056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+--- !u!1001 &506856991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.3282776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045297623
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1859856
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+--- !u!1001 &569340682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.353592
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045301437
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.628715
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!4 &588009216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6478518109528217408, guid: b0b0192722f03894f95d8d2bab123108, type: 3}
@@ -712,6 +883,120 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4267232898016334976, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
   m_PrefabInstance: {fileID: 1895071113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1089241753
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.47929
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045297623
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.589945
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (9)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+--- !u!1001 &1100614082
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.2388687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04529953
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.92085
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!114 &1121796547 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6368554900265058588, guid: 6f33e72194d9d0e42a29818d890da7ab, type: 3}
@@ -744,6 +1029,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7540965373638461412, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
   m_PrefabInstance: {fileID: 1895071113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1293344205
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.2527027
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045303345
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.063559
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!1001 &1346356861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -812,6 +1154,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1085cbe4a5b6546a1edf1f8b91350c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1525426767
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.162867
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04529953
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.257769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+--- !u!1001 &1548949940
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.872097
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045301437
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.533184
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!1001 &1556635146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1002,6 +1458,120 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af810fb0120413d41b8366f0ad41754d, type: 3}
+--- !u!1001 &1687450049
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.229551
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04529953
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.7579727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+--- !u!1001 &1766486583
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.041809
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.045295715
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.73013
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_Name
+      value: FearMonument (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!114 &1770478770 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6181139984300803159, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
@@ -1413,3 +1983,13 @@ SceneRoots:
   - {fileID: 7732759947768939260}
   - {fileID: 1575612360}
   - {fileID: 39562428}
+  - {fileID: 506856991}
+  - {fileID: 1525426767}
+  - {fileID: 569340682}
+  - {fileID: 462315910}
+  - {fileID: 1548949940}
+  - {fileID: 1293344205}
+  - {fileID: 1766486583}
+  - {fileID: 1687450049}
+  - {fileID: 1100614082}
+  - {fileID: 1089241753}

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Machine 2222
   m_EditorClassIdentifier: 
   _nextNodes: []
-  _stat0: 0
-  _stat1: 0
-  _stat2: 2
-  _stat3: 2
+  _body: 0
+  _wings: 0
+  _horns: 0
+  _armor: 2
+  _face: 2
   _processTime: 12
