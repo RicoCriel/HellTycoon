@@ -10,7 +10,7 @@ public class DemonBase : MonoBehaviour
 
     [SerializeField] private DemonSettings _demonSettings;
 
-    private DemonBehaviourBase _demonBehaviourBase;
+    public DemonBehaviourBase _demonBehaviourBase;
 
 
 
@@ -27,6 +27,14 @@ public class DemonBase : MonoBehaviour
         get
         {
             return _demonFear;
+        }
+    }
+
+    public DemonSettings DemonSettings
+    {
+        get
+        {
+            return _demonSettings;
         }
     }
 

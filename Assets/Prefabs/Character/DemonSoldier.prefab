@@ -188,8 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efefed97090c36488f090e5c4c1fc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _demonHandler: {fileID: 0}
-  _demonFear: {fileID: 0}
+  _demonHandler: {fileID: 5142417637037071786}
+  _demonFear: {fileID: 4985500093670558462}
+  _demonSettings: {fileID: 1509847488940498193}
 --- !u!1001 &375435496947461110
 PrefabInstance:
   m_ObjectHideFlags: 0
