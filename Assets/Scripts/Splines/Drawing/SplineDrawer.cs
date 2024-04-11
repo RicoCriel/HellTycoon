@@ -214,7 +214,7 @@ namespace Splines.Drawing
                     Quaternion finalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yRotation, transform.rotation.eulerAngles.z);
                     BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
 
-                    StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out var foundSpline, true);
+                    StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out SplineView foundSpline, true);
                     spawnedExtender._entryBoxes[0].Spline = foundSpline;
                     spawnedExtender._entryBoxes[0].ImConnected = true;
                 }
@@ -288,19 +288,20 @@ namespace Splines.Drawing
 
                 //add start Box to spline
                 _instanciatedSpline.StartConnector = placeholderConnectorHitBox;
+                HeightBalanceTimer = 0;
                 _heightPref = 0;
                 //replace with the actual points
 
 
                 //find connector in and out
                 _heightPref = foundheight;
-                SplinePointModels.AddSplinePointModel(
-                    new SplinePointModel(foundGroundPoint,
-                        connectorPointSpline,
-                        foundheight, 1, Color.white, SplinePointModels.GetSplinePointModelCount()));
-
-                _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPosition, 1, Vector3.zero);
-                _mostRecentPointModel = SplinePointModels.GetLastSplinePointModel();
+                // SplinePointModels.AddSplinePointModel(
+                //     new SplinePointModel(foundGroundPoint,
+                //         connectorPointSpline,
+                //         foundheight, 1, Color.white, SplinePointModels.GetSplinePointModelCount()));
+                //
+                // _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPosition, 1, Vector3.zero);
+                // _mostRecentPointModel = SplinePointModels.GetLastSplinePointModel();
 
                 SplinePointModels.AddSplinePointModel(
                     new SplinePointModel(foundGroundPoint,
@@ -393,10 +394,10 @@ namespace Splines.Drawing
 
             _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPositionGround, 1, Vector3.zero);
 
-           
+
             List<(SplineType, List<SplinePointModel>)> meshDivisions = SplinePointModels.findMeshDivisions();
             ConstructPartualMeshes(meshDivisions);
-      
+
             UpdateMeshWhileDrawing();
             Debug.Log("Completing spline");
 
@@ -408,7 +409,7 @@ namespace Splines.Drawing
             // instanciatedSpline.SetSplineUpdateMode(SplineComputer.UpdateMode.None);
             spline = _instanciatedSpline;
 
-            var nextBuilding = placeholderConnectorHitBox.GetComponentInParent<BuildingFactoryBase>();
+            BuildingFactoryBase nextBuilding = placeholderConnectorHitBox.GetComponentInParent<BuildingFactoryBase>();
             if (nextBuilding != null)
             {
                 _currentStartingBox.myBuildingNode = nextBuilding;
@@ -431,7 +432,7 @@ namespace Splines.Drawing
         }
         private void ConstructPartualMeshes(List<(SplineType, List<SplinePointModel>)> meshDivisions)
         {
-           
+
         }
 
         public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject> callBack)
@@ -518,16 +519,30 @@ namespace Splines.Drawing
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            
+            // Ray newray = new Ray(_mostRecentPointModel.WorldPosition, Vector3.down * 100);
+            // _mostRecentPointModel.WorldPosition
+
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+
+
+
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
             {
+                float camdistance = Vector3.Distance(_camera.transform.position, hit.point);
+                
+                Vector3 normalizedYDirectionCameraPoint =  (hit.point - _camera.transform.position);
+                normalizedYDirectionCameraPoint.y = 0;
+                
+
                 Vector3 hitPoint = hit.point;
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                // if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                // {
+                //     
+                // }
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Water"))
                 {
-                    
-                }
-                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Water"))
-                {
-                    hitPoint.y += 0.5f;
+                    hitPoint.y += 0.3f;
                 }
 
                 SelfCollisionDistanceCheck(hitPoint);
@@ -535,14 +550,25 @@ namespace Splines.Drawing
                 SplineHeightBalancer();
                 List<int> checkableLayers = DistanceBasedSelfCollisionCheck();
                 if (!ValidHeightFound(out int index, checkableLayers, HeightPref)) return;
+                
+                //
+                // Vector3 point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camdistance*0.7f));
+                // point.y = _mostRecentPointModel.WorldPositionGround.y + SelfCollisionRange(index);
+                // Debug.DrawRay(point, normalizedYDirectionCameraPoint.normalized * 10, Color.blue);
+                // Debug.DrawRay(hit.point, Vector3.up * 10, Color.green);
+                
+                
                 _mostRecentPointModel.Height = index;
-                _mostRecentPointModel.WorldPosition = _mostRecentPointModel.WorldPositionGround + new Vector3(0, CurrentPointOffset + (_selfCollisionRange * index * 2), 0);
-
-
+                _mostRecentPointModel.WorldPosition = _mostRecentPointModel.WorldPositionGround + new Vector3(0, SelfCollisionRange(index), 0);
 
                 _instanciatedSpline.UpdateLastPoint(_mostRecentPointModel, Color.white);
 
             }
+        }
+        private float SelfCollisionRange(int index)
+        {
+
+            return CurrentPointOffset + (_selfCollisionRange * index * 2);
         }
         private void SelfCollisionDistanceCheck(Vector3 hitPoint)
         {
@@ -760,5 +786,3 @@ namespace Splines.Drawing
 //     PathOnly,
 //     MeshAndPath
 // }
-
-
