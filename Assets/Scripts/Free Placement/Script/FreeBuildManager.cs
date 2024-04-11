@@ -127,6 +127,14 @@ namespace FreeBuild
         {
             if (!EventSystem.current.IsPointerOverGameObject() && _ghostObject)
             {
+                if (Input.GetMouseButtonDown(1))
+                {
+                    DestroyGhostObject();
+                    _locked = false;
+                    _currentCost = 0;
+                    return;
+                }
+                
                 if (Input.GetMouseButtonDown(0))
                 {
                     Build();
@@ -186,9 +194,6 @@ namespace FreeBuild
                 }
             }
         }
-
-
-
 
         void AttemptSnapping()
         {
