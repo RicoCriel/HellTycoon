@@ -1,3 +1,4 @@
+using Buildings;
 using DG.Tweening;
 using System;
 using TMPro;
@@ -23,15 +24,25 @@ namespace PopupSystem.Inheritors
         // [SerializeField]
         // private Image MachineTypeImage;
         [SerializeField] private TextMeshProUGUI _machineTypeText;
-
-        private bool _isPaused = false;
         
+        private bool _isPaused = false;
+
+        private MachinePart _fearNeededCount;
+        [SerializeField] private TextMeshProUGUI _fearNeededText;
+
         protected override void Awake()
         {
             base.Awake();
             _soulsProcessingBar.fillAmount = 0;
 
+
+            
             _processedSoulsText = null;
+            _fearNeededCount = gameObject.GetComponentInParent<MachinePart>();
+            if (_fearNeededCount != null)
+            {
+                _fearNeededText.SetText(_fearNeededCount.GetReqFearLevel().ToString());
+            }
         }
 
         //callable public methods

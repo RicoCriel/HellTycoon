@@ -62,7 +62,7 @@ MonoBehaviour:
       m_Calls: []
   _machineType: 0
   Node: {fileID: 0}
-  _requiredFearLevel: 0
+  _requiredFearLevel: 20
   _upkeepCost: 2
   _upkeepInterval: 2
 --- !u!114 &6625954683927601274
