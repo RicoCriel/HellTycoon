@@ -8,8 +8,10 @@ public class DemonExit : BuildingFactoryBase
 {
     [SerializeField] private EconomyManager _economyManager;
 
-    private void Awake()
+    protected new void Awake()
     {
+        base.Awake();
+
         if (_economyManager == null)
         {
             _economyManager = FindObjectOfType<EconomyManager>();
@@ -29,5 +31,10 @@ public class DemonExit : BuildingFactoryBase
             }
             _unprocessedDemonContainer.Clear();
         }
+    }
+
+    protected override void ExecuteMachineSpawningBehaviour()
+    {
+        
     }
 }

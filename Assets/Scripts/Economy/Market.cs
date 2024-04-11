@@ -36,9 +36,12 @@ namespace Economy
         [SerializeField] private float _supplyTime = 10f;
         [SerializeField] private float _priceMultiplier = 10f;
 
+        [SerializeField] private MarketHUD _marketHUD;
+
         private float _wealth = 1f;
 
         private MarketView _marketView;
+
 
         private void Awake()
         {
@@ -80,7 +83,7 @@ namespace Economy
             }
         }
 
-        public IEnumerator CalculateDemand()
+        private IEnumerator CalculateDemand()
         {
             while (true)
             {
@@ -94,7 +97,12 @@ namespace Economy
                     {
                         _marketView.UpdateMarketStat(stat.Key, stat.Value.Price, stat.Value.Supply);
                     }
-                   
+
+                    if (_marketHUD != null)
+                    {
+                        _marketHUD.UpdateMarketStat(stat.Key, stat.Value.Price);
+                    }
+
                     //Debug.Log("Price: " + stat.Value.Price);
                 }
 

@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9119ef075a9749daa6c42efd58f1e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _marketStatViewPrefab: {fileID: 0}
-  _marketStatsLayoutGroup: {fileID: 0}
-  _marketStatsParent: {fileID: 0}
+  _marketStatViewPrefab: {fileID: 3695694966542044712, guid: d5bdffb835b1b9341ac90b92d3e4557f, type: 3}
+  _marketStatsLayoutGroup: {fileID: 500069908623659827}
+  _marketStatsParent: {fileID: 2653980833040605897}
 --- !u!1 &5569608186572955054
 GameObject:
   m_ObjectHideFlags: 0
