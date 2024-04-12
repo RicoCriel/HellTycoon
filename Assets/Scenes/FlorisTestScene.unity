@@ -1276,6 +1276,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 736561862204190590, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 120.3999
+      objectReference: {fileID: 0}
+    - target: {fileID: 736561862204190590, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 179.69995
+      objectReference: {fileID: 0}
     - target: {fileID: 1191212255451296651, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _machineManager
       value: 
@@ -1380,6 +1388,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1125914530}
+    - target: {fileID: 6102549119716887858, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 120.3999
+      objectReference: {fileID: 0}
     - target: {fileID: 6570936011130969895, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1850,11 +1862,11 @@ PrefabInstance:
       objectReference: {fileID: 804201155}
     - target: {fileID: 2554982613153248316, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169413
+      value: 0.11169412
       objectReference: {fileID: 0}
     - target: {fileID: 2677162675356613692, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169413
+      value: 0.11169412
       objectReference: {fileID: 0}
     - target: {fileID: 4270931287833525963, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_Name

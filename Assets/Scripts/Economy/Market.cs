@@ -16,8 +16,8 @@ namespace Economy
         [SerializeField] private SerializedDictionary<StatType, MarketStat> _marketStats = new SerializedDictionary<StatType, MarketStat>();
 
         [Space(10)]
-        // How hard the demand drops initially in response to supply
-        [SerializeField] private float _supplySaturation;
+        // Value is scaled when it is decreasing to slow down curve
+        [SerializeField] private float _decreaseScale = 0.1f;
         [SerializeField] private float _demandCalculationInterval = 1f;
 
         [Space(20)]
@@ -90,7 +90,7 @@ namespace Economy
                 foreach (KeyValuePair<StatType, MarketStat> stat in _marketStats)
                 {
                     stat.Value.CalculateScarcity(_baseScarcity, _scarcityCoefficient, _midpoint);
-                    stat.Value.CalculateDemand(_supplySaturation, _wealth);
+                    stat.Value.CalculateDemand(_decreaseScale, _wealth);
                     stat.Value.CalculatePrice(_priceMultiplier);
 
                     if (_marketView != null)
@@ -194,10 +194,17 @@ namespace Economy
             [SerializeField] private float _price;
             public float Price => _price;
 
-            public void CalculateDemand(float supplySaturation, float wealth)
+            public void CalculateDemand(float scaleFactor, float wealth)
             {
                 // Debug.Log("wealth: " + wealth + "demandeventmod" + DemandEventModifier + "decay: " + _decay + "scarcity: " + _scarcity + "random: " + Random.Range(0.8f, 1.2f) + "supplysaturation: " + supplySaturation );
-                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) /* * Random.Range(0.8f, 1.2f)*/;
+                var prevDemand = Demand;
+                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) * Random.Range(0.8f, 1.2f);
+
+                if (Demand > prevDemand)
+                {
+                    // Decrease speed at wich demand drops
+                    Demand *= 1 + (prevDemand - Demand) * scaleFactor;
+                }
 
             }
 
