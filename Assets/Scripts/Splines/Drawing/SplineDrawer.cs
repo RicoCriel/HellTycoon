@@ -84,7 +84,7 @@ namespace Splines.Drawing
         [SerializeField] private SplineFollowerView _followerViewPrefab;
 
         [Header("PlacementVariables")]
-        [Range(0, 100)]
+        [Range(0, 500)]
         [SerializeField] private float _maxBeltLenght = 50;
         private float _currentMaxBeltLenght = 0;
         [SerializeField] private Color _BeltPlacementColor;
@@ -451,7 +451,7 @@ namespace Splines.Drawing
             //set up follower logic
             follower.SetComputer(splineComputer);
             follower.SetFollow(true);
-            follower.SetSpeed(1);
+            follower.SetSpeed(4);
             follower.SetFollowMode(SplineFollower.FollowMode.Uniform);
 
             //hook up events
