@@ -63,7 +63,7 @@ namespace Buildings
 
         protected void OnDisable()
         {
-            if(_popupFactory == null) return;
+            if (_popupFactory == null) return;
             _popupFactory.DestroyButtonClicked -= OnDestroyButtonClicked;
         }
 
@@ -101,6 +101,19 @@ namespace Buildings
         public bool ContainerHasSpace(Queue<GameObject> DemonList)
         {
             return DemonList.Count < MaxDemons;
+        }
+
+        public bool BuildingHasSpace()
+        {
+            int count = _unprocessedDemonContainer.Count;
+
+            foreach (var entryBox in _entryBoxes)
+            {
+                if(entryBox.Spline == null) continue;
+
+                count += entryBox.Spline.splineRiders;
+            }
+            return count < MaxDemons;
         }
 
         public virtual void AddDemon(Queue<GameObject> DemonList, GameObject demon)
@@ -141,7 +154,7 @@ namespace Buildings
             {
                 if (OutNode.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
                 {
-                    if (nextMachine.ContainerHasSpace(nextMachine._unprocessedDemonContainer))
+                    if (nextMachine.BuildingHasSpace())
                     {
                         //if this machine still has demons
                         if (OutNode.SpawnObject(_processedDemonContainer.Peek()))

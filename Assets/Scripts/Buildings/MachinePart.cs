@@ -128,14 +128,15 @@ namespace Buildings
 
         protected override void ExecuteMachineProcessingBehaviour()
         {
-            if (_unprocessedDemonContainer.Count > 0 && _unprocessedDemonContainer.Count < MaxDemons)
+            if (_unprocessedDemonContainer.Count > 0 && ContainerHasSpace(_processedDemonContainer))
             {
 
-                if (_unprocessedDemonContainer.Peek().TryGetComponent<DemonHandler>(out DemonHandler handler))
+                if (_unprocessedDemonContainer.Peek().TryGetComponent(out DemonHandler handler))
                 {
                     handler.SetStats(_machineType);
                 }
-                base.ExecuteMachineProcessingBehaviour();
+                AddDemon(_processedDemonContainer, _unprocessedDemonContainer.Dequeue());
+                PlayProcessingAnimation();
             }
 
             if (_popup)

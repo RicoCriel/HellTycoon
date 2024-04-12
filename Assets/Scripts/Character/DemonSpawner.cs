@@ -1,6 +1,7 @@
 using Splines;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
 using Economy;
 using UnityEngine;
 
@@ -37,21 +38,33 @@ public class DemonSpawner : MonoBehaviour
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn >= _spawnInterval && _connector.ImConnected)
         {
-            _timeSinceLastSpawn = 0f;
-
-            _economyManager.AutoCost(_spawnCost);
-            float offsetX = Random.Range(-_maxOffset, _maxOffset);
-            float offsetZ = Random.Range(-_maxOffset, _maxOffset);
-            Vector3 offset = new Vector3(offsetX, 0, offsetZ);
-
-            if (_demonPrefab == null) return;
-            GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
-            
-            if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
-            _demonManager.AddDemon(demon);
-
             //_demonHandler.Add(demon);
-            StartCoroutine(MoveDemonToConnector(demon));
+            if (_connector.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))
+            {
+                if (nextMachine.BuildingHasSpace())
+                {
+                    _timeSinceLastSpawn = 0f;
+
+                    _economyManager.AutoCost(_spawnCost);
+                    float offsetX = Random.Range(-_maxOffset, _maxOffset);
+                    float offsetZ = Random.Range(-_maxOffset, _maxOffset);
+                    Vector3 offset = new Vector3(offsetX, 0, offsetZ);
+
+                    if (_demonPrefab == null) return;
+                    GameObject demon = Instantiate(_demonPrefab, transform.position + offset, Quaternion.identity);
+            
+                    if (_demonManager == null) { Debug.Log("Demon Manager is null"); return; }
+                    _demonManager.AddDemon(demon);
+
+                    //StartCoroutine(MoveDemonToConnector(demon));
+
+                    if (!_connector.SpawnObject(demon))
+                    {
+                        Destroy(demon);
+                    }
+                }
+            }
+            
         }
     }
     
