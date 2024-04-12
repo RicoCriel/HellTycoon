@@ -283,6 +283,11 @@ namespace FreeBuild
             _ghostObject.GetComponent<MeshFilter>().sharedMesh = meshFilter.sharedMesh;
             _ghostObject.transform.localScale = meshFilter.transform.lossyScale;
 
+            if (_ghostObject.TryGetComponent(out BoxCollider boxCollider))
+            {
+                boxCollider.size = meshFilter.sharedMesh.bounds.size;
+            }
+
             if (_realObject.GetComponent<DemonPortal>() != null)
             {
                 Transform curr = _landLayerManager.GetCurrPlot().transform;
@@ -301,6 +306,11 @@ namespace FreeBuild
                     _ghostObject2.transform.localScale = meshFilter.transform.lossyScale;
                     _ghostObject2.transform.SetParent(next);
                     _ghostObject2.transform.localPosition = _ghostObject.transform.localPosition;
+
+                    if (_ghostObject2.TryGetComponent(out BoxCollider collider2))
+                    {
+                        collider2.size = meshFilter.sharedMesh.bounds.size;
+                    }
                 }
 
 
@@ -342,6 +352,11 @@ namespace FreeBuild
                         _canBuild = false;
                         return;
                     }
+                }
+                else if (_realObject.CompareTag(_spawnerTag))
+                {
+                    _canBuild = false;
+                    return;
                 }
 
                 if (snapper.IsColliding)
