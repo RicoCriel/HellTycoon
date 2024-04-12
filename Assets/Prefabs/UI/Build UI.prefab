@@ -1082,10 +1082,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fde76a8449c0b294e8aeab8bd37b5c5b, type: 2}
   - {fileID: 11400000, guid: a891e4857080e1e4e86b9bfc9ece88a7, type: 2}
   - {fileID: 11400000, guid: d256c2982db9b4b4caada16d9a40029a, type: 2}
-  - {fileID: 11400000, guid: 725676416ccbd574db2305a13d7d4a5e, type: 2}
+  - {fileID: 11400000, guid: 34eb7a2feb0b0e4489c297b40fda86c9, type: 2}
   - {fileID: 11400000, guid: 9cdeac9059b1fd341992cdf0e08bf62b, type: 2}
   - {fileID: 11400000, guid: 4dfeecdce55cadf4eb32473268fde719, type: 2}
-  - {fileID: 11400000, guid: 07785dbce847bcb448c0f183577ce3b2, type: 2}
+  - {fileID: 11400000, guid: 5867ce5b53fb3ae4f9a82a5edb366a29, type: 2}
+  - {fileID: 11400000, guid: f7f49db8e7b17484097bc22daf29ede1, type: 2}
+  - {fileID: 11400000, guid: 6d2bf9c1f27bdbe4893cc1cd8771ce49, type: 2}
+  - {fileID: 11400000, guid: 319bbc17bcc9b3443a6859ed330f70c6, type: 2}
   _buildingButtonPrefab: {fileID: 6673496259469296111, guid: c41bf739684b0094a9682bc95303bb1b, type: 3}
   _itemWindow: {fileID: 4149311974564163036}
   _onPartClick:

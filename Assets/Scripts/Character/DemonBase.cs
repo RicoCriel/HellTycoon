@@ -107,23 +107,23 @@ public class DemonBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void AngleFearCounterToCam()
     {
-        if (_mainCamera != null)
-        {
-            //Quaternion parentRotation = transform.rotation;
-            //Quaternion cameraRotation = _mainCamera.transform.rotation;
+    //    if (_mainCamera != null)
+    //    {
+    //        //Quaternion parentRotation = transform.rotation;
+    //        //Quaternion cameraRotation = _mainCamera.transform.rotation;
 
-            //Quaternion combinedRotation = parentRotation * cameraRotation;
-            //Vector3 eulerRotation = combinedRotation.eulerAngles;
+    //        //Quaternion combinedRotation = parentRotation * cameraRotation;
+    //        //Vector3 eulerRotation = combinedRotation.eulerAngles;
 
-            //_fearCounter.gameObject.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
+    //        //_fearCounter.gameObject.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
 
-            Vector3 lookAtDirection = _mainCamera.transform.position - transform.position;
+    //        Vector3 lookAtDirection = _mainCamera.transform.position - transform.position;
 
-            transform.rotation = Quaternion.LookRotation(lookAtDirection);
-        }
-        else
-        {
-            Debug.LogWarning("Main camera not found. Make sure there is an active camera in the scene.");
-        }
+    //        transform.rotation = Quaternion.LookRotation(lookAtDirection);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("Main camera not found. Make sure there is an active camera in the scene.");
+    //    }
     }
 }

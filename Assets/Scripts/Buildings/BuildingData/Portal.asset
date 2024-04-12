@@ -19,3 +19,4 @@ MonoBehaviour:
   _price: 1000
   _partType: 2
   _buildTag: Map
+  _desc: Transport to other layers

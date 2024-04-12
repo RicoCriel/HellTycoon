@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 4092246737062947464}
   - component: {fileID: 8692089501166782558}
   - component: {fileID: 1098565412353461614}
+  - component: {fileID: 6145784182286917037}
   m_Layer: 8
   m_Name: FearValue
   m_TagString: Untagged
@@ -364,6 +365,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8692089501166782558}
   m_maskType: 0
+--- !u!114 &6145784182286917037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272225657499219727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3e894f458313b45808415a9fbdb239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &375435496947461110
 PrefabInstance:
   m_ObjectHideFlags: 0

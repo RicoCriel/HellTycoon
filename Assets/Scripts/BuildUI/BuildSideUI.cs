@@ -13,6 +13,7 @@ public class BuildSideUI : MonoBehaviour
 
     public Image BuildingImage;
     public TMP_Text BuildingText;
+    public TMP_Text BuildingDesc;
     public TMP_Text BuildingPriceText;
     //public static UnityAction<BuildingData> _onBuild;
 
@@ -33,6 +34,7 @@ public class BuildSideUI : MonoBehaviour
         BuildingImage.sprite = _data.Icon;
         BuildingImage.color = Color.white;
         BuildingText.text = _data.DisplayName;
+        BuildingDesc.text = _data.Desc;
         BuildingPriceText.text = _data.Price.ToString();
     }
 
