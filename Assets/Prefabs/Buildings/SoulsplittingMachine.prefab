@@ -59,9 +59,9 @@ MonoBehaviour:
   OnDestruct:
     m_PersistentCalls:
       m_Calls: []
-  _machineType: 0
+  _machineType: 2
   Node: {fileID: 0}
-  _requiredFearLevel: 30
+  _requiredFearLevel: 3000
   _upkeepCost: 2
   _upkeepInterval: 2
 --- !u!114 &6625954683927601274
