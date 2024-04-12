@@ -92,8 +92,8 @@ public class DemonFear : MonoBehaviour
 
     public void SetLayer()
     {
-        //_layer = (int)(transform.position.y) / _layertHightDiff;
-        _layer = 0;
+        float result = (transform.position.y) / _layertHightDiff;
+        _layer = Mathf.Abs(Mathf.RoundToInt(result));
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,8 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private float _fearPerInterval = 5f;
     [SerializeField] private Material _indicatorMaterial;
     private GameObject _visualIndicator;
+
+    [SerializeField] private GameObject _mesh;
 
     void Start()
     {
@@ -26,6 +29,12 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _visualIndicator.GetComponent<Renderer>().material = _indicatorMaterial;
         _visualIndicator.gameObject.SetActive(false);
 
+
+        CapsuleCollider capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
+        capsuleCollider.radius = GetComponentInChildren<CapsuleCollider>().radius * _mesh.transform.localScale.x * 2;
+        capsuleCollider.height = GetComponentInChildren<CapsuleCollider>().height * _mesh.transform.localScale.x;
+
+
     }
 
     private void Update()
@@ -34,6 +43,11 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         
         List<DemonBase> demons = FindGameObjectsInRangeWithScript();
         demons.ForEach(demon => demon.DemonFear.IncreaseFear(_fearPerInterval));
+
+
+
+        
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
