@@ -1,22 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class FearMonument : MonoBehaviour
+public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private float _searchRadius = 10f;
     [SerializeField] private float _fearApplyInterval = 3f;
     [SerializeField] private float _fearPerInterval = 5f;
+    [SerializeField] private Material _indicatorMaterial;
+    private GameObject _visualIndicator;
 
     void Start()
     {
+        
         InvokeRepeating("ApplyFear", _fearApplyInterval, _fearApplyInterval);
+        // Create a sphere to represent the radius
+        _visualIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        _visualIndicator.transform.parent = transform;
+        _visualIndicator.transform.localScale = new Vector3(_searchRadius * 2, _searchRadius * 2, _searchRadius * 2);
+        _visualIndicator.transform.localPosition = Vector3.zero;
+
+        // Adjust color and transparency
+        _visualIndicator.GetComponent<Renderer>().material = _indicatorMaterial;
+        _visualIndicator.gameObject.SetActive(false);
+
     }
 
     private void Update()
     {
+        _visualIndicator.transform.localScale = new Vector3(_searchRadius * 2, _searchRadius * 2, _searchRadius * 2);
+        
         List<DemonBase> demons = FindGameObjectsInRangeWithScript();
         demons.ForEach(demon => demon.DemonFear.IncreaseFear(_fearPerInterval));
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _visualIndicator.gameObject.SetActive(true);
+    }
+
+    // Called when the mouse pointer exits the GameObject's collider
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _visualIndicator.gameObject.SetActive(false);
     }
 
     private List<DemonBase> FindGameObjectsInRangeWithScript()
