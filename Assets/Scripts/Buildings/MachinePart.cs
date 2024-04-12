@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Buildings
 {
@@ -32,6 +33,9 @@ namespace Buildings
 
 
         [SerializeField] private int _upkeepInterval = 5;
+        /*[SerializeField] */ private float _fearMultiPerLayer = 1.2f;
+        private float _layertHightDiff = 100f;
+        private int _layer;
 
 
         private EconomyManager _economyManager;
@@ -77,10 +81,20 @@ namespace Buildings
             {
                 Debug.LogWarning("Popup is not factory type");
             }
+
+            float result = (transform.position.y - 50) / _layertHightDiff;
+            _layer = Mathf.Abs(Mathf.RoundToInt(result));
         }
         public float GetReqFearLevel()
         {
-            return _requiredFearLevel;
+            if (_layer == 0)
+            {
+                return _requiredFearLevel;
+            }
+            else
+            {
+                return _requiredFearLevel * (_fearMultiPerLayer * _layer);
+            }
         }
         protected new void OnDisable()
         {

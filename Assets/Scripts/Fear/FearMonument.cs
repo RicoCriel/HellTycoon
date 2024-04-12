@@ -33,7 +33,7 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         CapsuleCollider capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
         capsuleCollider.radius = GetComponentInChildren<CapsuleCollider>().radius * _mesh.transform.localScale.x * 2;
         capsuleCollider.height = GetComponentInChildren<CapsuleCollider>().height * _mesh.transform.localScale.x;
-
+        _visualIndicator.layer = 2;
 
     }
 
