@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class DemonManager : MonoBehaviour
 {
@@ -47,7 +48,8 @@ public class DemonManager : MonoBehaviour
         List<DemonFear> demonFears = GetDemonFears();
         foreach (var demonFear in demonFears)
         {
-            demonFear.DecreaseFear(demonFear.Layer * demonFear.DecayRate);
+            //TODO: Make decy rate depeond on layer
+            demonFear.DecreaseFear(demonFear.DecayRate);
         }
     }
 }
