@@ -1284,6 +1284,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 179.69995
       objectReference: {fileID: 0}
+    - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _midpoint
+      value: 8.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _scarcityCoefficient
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1191212255451296651, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _machineManager
       value: 
