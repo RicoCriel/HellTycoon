@@ -23,14 +23,14 @@ namespace Economy
         private float _deathTimerPassed;
         private bool _inDebt;
 
-        private bool IsAIAgent { get; set; } = false;
+        private bool _isAIAgent = false;
 
         public UnityAction OnLost;
 
         public void Init(TycoonData tycoonData)
         {
             _startMoney = tycoonData.StartMoney;
-            IsAIAgent = true;
+            _isAIAgent = true;
         }
         void Start()
         {
@@ -84,7 +84,7 @@ namespace Economy
 
             if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
             {
-                if (IsAIAgent)
+                if (_isAIAgent)
                 {
                     OnLost?.Invoke();
                     return;

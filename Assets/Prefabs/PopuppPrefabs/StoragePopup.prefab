@@ -120,7 +120,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8089184898873989371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7641177608808188162}
+        m_TargetAssemblyTypeName: PopupSystem.Inheritors.WorldSpacePopupStorage,
+          Assembly-CSharp
+        m_MethodName: ButtonTogglePauseProcessing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &125470894339101329
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +634,10 @@ PrefabInstance:
     - target: {fileID: 3176283096800173901, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 7641177608808188162}
+    - target: {fileID: 3176283096800173901, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PopupSystem.WorldSpacePopupBase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6023655270331433490, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -628,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023655270331433490, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 11.34
       objectReference: {fileID: 0}
     - target: {fileID: 6023655270331433490, guid: efa3071d93aa8eb4daa4e8e39aaa6a0c, type: 3}
       propertyPath: m_LocalPosition.z
