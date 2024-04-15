@@ -7,7 +7,7 @@ namespace Economy
     public class Tycoon : MonoBehaviour
     {
         // private tyCoonType  _tycoonType;
-        public tycoonType TycoonType{ get; private set; }
+        public TycoonType TycoonType{ get; private set; }
 
         public SoulManager SoulManager{ get; private set; }
 
@@ -31,7 +31,7 @@ namespace Economy
         public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour)
         {
             TycoonData = tycoonData;
-            TycoonType = tycoonData._tycoonType;
+            TycoonType = tycoonData.TycoonType;
             AIBehaviour = aiBehaviour;
             SoulManager.Init(tycoonData);
 
@@ -41,17 +41,17 @@ namespace Economy
         }
         private void ResetAutoCostTimer(TycoonData tycoonData)
         {
-            currentAutoCostTimer = Random.Range(tycoonData.minAutoCostTime, tycoonData.maxAutoCostTime);
+            currentAutoCostTimer = Random.Range(tycoonData.MinAutoCostTime, tycoonData.MaxAutoCostTime);
         }
         private void ResetSellTimer(TycoonData tycoonData)
         {
 
-            currentSellTimer = Random.Range(tycoonData.minSellTime, tycoonData.maxSellTime);
+            currentSellTimer = Random.Range(tycoonData.MinSellTime, tycoonData.MaxSellTime);
         }
         private void ResetBuyTimer(TycoonData tycoonData)
         {
 
-            currentBuyTimer = Random.Range(tycoonData.minBuyTime, tycoonData.maxBuyTime);
+            currentBuyTimer = Random.Range(tycoonData.MinBuyTime, tycoonData.MaxBuyTime);
         }
 
         private void Sell(EconomyManager economyManager, Market market)
@@ -117,18 +117,18 @@ namespace Economy
     }
     public class TycoonEventArgs : EventArgs
     {
-        public tycoonType TycoonType{ get; }
-        public TycoonEventArgs(tycoonType tycoonType)
+        public TycoonType TycoonType{ get; }
+        public TycoonEventArgs(TycoonType tycoonType)
         {
             TycoonType = tycoonType;
         }
     }
 
 
-    public enum tycoonType
+    public enum TycoonType
     {
-        tycoonOne,
-        tycoonTwo,
-        tycoonThree
+        TycoonOne,
+        TycoonTwo,
+        TycoonThree
     }
 }

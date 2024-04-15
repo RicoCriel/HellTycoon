@@ -7,7 +7,7 @@ namespace Economy
         public override List<DemonStatsInt> SellBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
         {
             List<DemonStatsInt> demons = new List<DemonStatsInt>();
-            int howmanyToSell = Random.Range(tycoon.TycoonData.minSellAmount, tycoon.TycoonData.maxSellAmount);
+            int howmanyToSell = Random.Range(tycoon.TycoonData.MinSellAmount, tycoon.TycoonData.MaxSellAmount);
 
             for (int i = 0; i < howmanyToSell; i++)
             {
@@ -27,7 +27,7 @@ namespace Economy
 
         public override float BuyBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
         {
-            float hoManyToBuy = Random.Range(tycoon.TycoonData.minBuyAmount, tycoon.TycoonData.maxBuyAmount);
+            float hoManyToBuy = Random.Range(tycoon.TycoonData.MinBuyAmount, tycoon.TycoonData.MaxBuyAmount);
 
             return hoManyToBuy;
             
@@ -36,7 +36,7 @@ namespace Economy
 
         public override float AutoCostBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
         {
-            float autoCost = Random.Range(tycoon.TycoonData.minAutoCostAmount, tycoon.TycoonData.maxAutoCostAmount);
+            float autoCost = Random.Range(tycoon.TycoonData.MinAutoCostAmount, tycoon.TycoonData.MaxAutoCostAmount);
 
             return autoCost;
             

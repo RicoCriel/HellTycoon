@@ -19,7 +19,7 @@ namespace Economy
 
         [SerializeField]
         private List<TycoonData> _thisGameTycoons = new List<TycoonData>();
-        private Dictionary<tycoonType, AIBehaviourBase> _aiBehaviours = new Dictionary<tycoonType, AIBehaviourBase>();
+        private Dictionary<TycoonType, AIBehaviourBase> _aiBehaviours = new Dictionary<TycoonType, AIBehaviourBase>();
 
         private void Awake()
         {
@@ -45,9 +45,9 @@ namespace Economy
         }
         private void InitTycoonBehaviours()
         {
-            _aiBehaviours.Add(tycoonType.tycoonOne, new AIBehaviourTycoon1());
-            _aiBehaviours.Add(tycoonType.tycoonTwo, new AIBehaviourTycoon2());
-            _aiBehaviours.Add(tycoonType.tycoonThree, new AIBehaviourTycoon3());
+            _aiBehaviours.Add(TycoonType.TycoonOne, new AIBehaviourTycoon1());
+            _aiBehaviours.Add(TycoonType.TycoonTwo, new AIBehaviourTycoon2());
+            _aiBehaviours.Add(TycoonType.TycoonThree, new AIBehaviourTycoon3());
         }
         private void InitTycoons()
         {
@@ -63,7 +63,7 @@ namespace Economy
         private bool InitializeTycoon(TycoonData tycoonType, Tycoon tycoon)
         {
 
-            if (_aiBehaviours.TryGetValue(tycoonType._tycoonType, out AIBehaviourBase aiBehaviour))
+            if (_aiBehaviours.TryGetValue(tycoonType.TycoonType, out AIBehaviourBase aiBehaviour))
             {
                 tycoon.Init(tycoonType, aiBehaviour);
             }
@@ -98,7 +98,7 @@ namespace Economy
             _market.SupplyDemon(demon);
 
             // _playerTimeManager.AddTransaction(price, TransactionType.Sale);
-            _playerTimeManager.CurrentYear.AddTransaction(price, TransactionType.Sale);
+            _playerTimeManager.AddTransaction(price, TransactionType.Sale);
 
         }
 
@@ -112,7 +112,7 @@ namespace Economy
                 Debug.Log("DemonPrice: " + price);
                 tycoon.SoulManager.AddMoney(price);
                 _market.SupplyDemon(demon);
-                tycoon.TimeManager.CurrentYear.AddTransaction(price, TransactionType.Sale);
+                tycoon.TimeManager.AddTransaction(price, TransactionType.Sale);
             }
 
         }
@@ -124,7 +124,7 @@ namespace Economy
             {
                 Debug.Log("buying for: " + amount);
                 _playerSoulManager.SubtractMoney(amount);
-                _playerTimeManager.CurrentYear.AddTransaction(amount, TransactionType.Investment);
+                _playerTimeManager.AddTransaction(amount, TransactionType.Investment);
 
                 return true;
             }
@@ -138,7 +138,7 @@ namespace Economy
             if (tycoon.SoulManager.Money > 0f)
             {
                 tycoon.SoulManager.SubtractMoney(buyAmount);
-                tycoon.TimeManager.CurrentYear.AddTransaction(buyAmount, TransactionType.Investment);
+                tycoon.TimeManager.AddTransaction(buyAmount, TransactionType.Investment);
                 return true;
             }
 
@@ -149,7 +149,7 @@ namespace Economy
         public void AutoCost(float amount)
         {
             _playerSoulManager.SubtractMoney(amount);
-            _playerTimeManager.CurrentYear.AddTransaction(amount, TransactionType.Upkeep);
+            _playerTimeManager.AddTransaction(amount, TransactionType.Upkeep);
         }
 
         public void AutoCost(Tycoon tycoon)
@@ -157,7 +157,7 @@ namespace Economy
             float autoCostAmount = tycoon.AIBehaviour.AutoCostBehaviour(this, _market, tycoon.SoulManager, tycoon);
 
             tycoon.SoulManager.SubtractMoney(autoCostAmount);
-            tycoon.TimeManager.CurrentYear.AddTransaction(autoCostAmount, TransactionType.Upkeep);
+            tycoon.TimeManager.AddTransaction(autoCostAmount, TransactionType.Upkeep);
 
         }
 

@@ -24,7 +24,7 @@ namespace Economy
         private bool IsAIAgent{ get; set; } = true;
         public void Init(TycoonData tycoonData)
         {
-            _startMoney = tycoonData._startMoney;
+            _startMoney = tycoonData.StartMoney;
             IsAIAgent = false;
             _godMode = false;
         }
@@ -53,7 +53,7 @@ namespace Economy
             }
         }
 
-        public bool isInDebt()
+        public bool IsInDebt()
         {
             return _inDebt;
         }
