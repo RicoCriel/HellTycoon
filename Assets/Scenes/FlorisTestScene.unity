@@ -611,7 +611,8 @@ PrefabInstance:
       value: FearMonument
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
@@ -993,7 +994,8 @@ PrefabInstance:
       value: FearMonument (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
@@ -1082,7 +1084,8 @@ PrefabInstance:
       value: FearMonument (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
@@ -1286,16 +1289,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _midpoint
-      value: 8.3
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _baseScarcity
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _decreaseScale
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _priceMultiplier
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 929318439010860568, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _scarcityCoefficient
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1191212255451296651, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _machineManager
       value: 
       objectReference: {fileID: 1121796547}
+    - target: {fileID: 1485661693728179985, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _yearDuration
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1782217652254476171, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1870,11 +1889,11 @@ PrefabInstance:
       objectReference: {fileID: 804201155}
     - target: {fileID: 2554982613153248316, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 2677162675356613692, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11169412
+      value: 0.11169413
       objectReference: {fileID: 0}
     - target: {fileID: 4270931287833525963, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
       propertyPath: m_Name
