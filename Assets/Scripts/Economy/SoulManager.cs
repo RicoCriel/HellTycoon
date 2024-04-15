@@ -1,7 +1,9 @@
 using Buildings;
 using System.Collections;
 using System.Collections.Generic;
+using Tycoons;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Economy
@@ -21,12 +23,14 @@ namespace Economy
         private float _deathTimerPassed;
         private bool _inDebt;
 
-        private bool IsAIAgent{ get; set; } = true;
+        private bool IsAIAgent { get; set; } = false;
+
+        public UnityAction OnLost;
+
         public void Init(TycoonData tycoonData)
         {
             _startMoney = tycoonData.StartMoney;
-            IsAIAgent = false;
-            _godMode = false;
+            IsAIAgent = true;
         }
         void Start()
         {
@@ -60,30 +64,35 @@ namespace Economy
 
         private void Update()
         {
-            if (!IsAIAgent)
+            //if (!IsAIAgent)
+            //{
+            if (_inDebt && _money < 0f)
             {
-                if (_inDebt && _money < 0f)
-                {
-                    _inDebt = true;
-                    _deathTimerPassed += Time.deltaTime;
-                }
-                else if (_inDebt)
-                {
-                    _inDebt = false;
-                    _deathTimer = 0;
-                    _deathTimerPassed = 0;
-                }
-                else if (_money < 0f)
-                {
-                    _inDebt = true;
-                }
-
-                if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
-                {
-                    //SceneManager.LoadScene("Main Menu");
-                    Debug.Log("Lost game!");
-                }
+                _inDebt = true;
+                _deathTimerPassed += Time.deltaTime;
             }
+            else if (_inDebt)
+            {
+                _inDebt = false;
+                _deathTimer = 0;
+                _deathTimerPassed = 0;
+            }
+            else if (_money < 0f)
+            {
+                _inDebt = true;
+            }
+
+            if (_deathTimerPassed >= _deathTimer - Mathf.Abs(_money * _deathTimerWeight) && _inDebt && !_godMode)
+            {
+                if (IsAIAgent)
+                {
+                    OnLost?.Invoke();
+                    return;
+                }
+                //SceneManager.LoadScene("Main Menu");
+                Debug.Log("Lost game!");
+            }
+            //}
         }
     }
 }

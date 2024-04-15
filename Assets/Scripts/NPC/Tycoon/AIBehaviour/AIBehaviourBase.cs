@@ -1,17 +1,19 @@
 using System.Collections.Generic;
-namespace Economy
+using Economy;
+
+namespace Tycoons
 {
     public abstract class AIBehaviourBase
     {
-        public virtual List<DemonStatsInt> SellBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public virtual List<DemonStatsInt> SellBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             return new List<DemonStatsInt>();
         }
-        public virtual float BuyBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public virtual float BuyBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             return 0;
         }
-        public virtual float AutoCostBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public virtual float AutoCostBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             return 0;
         }

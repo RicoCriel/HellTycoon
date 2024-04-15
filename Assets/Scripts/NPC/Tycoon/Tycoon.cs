@@ -1,15 +1,17 @@
 using JetBrains.Annotations;
 using System;
+using Economy;
 using UnityEngine;
 using Random = UnityEngine.Random;
-namespace Economy
+
+namespace Tycoons
 {
     public class Tycoon : MonoBehaviour
     {
         // private tyCoonType  _tycoonType;
         public TycoonType TycoonType{ get; private set; }
 
-        public SoulManager SoulManager{ get; private set; }
+        public EconomyManager EconomyManager{ get; protected set; }
 
         public TimeManager TimeManager{ get; private set; }
 
@@ -19,26 +21,30 @@ namespace Economy
 
         private void Awake()
         {
-            if (SoulManager == null)
-            {
-                SoulManager = GetComponentInChildren<SoulManager>();
-            }
+
             if (TimeManager == null)
             {
                 TimeManager = GetComponentInChildren<TimeManager>();
             }
         }
-        public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour)
+
+        public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour, EconomyManager economyManager)
         {
             TycoonData = tycoonData;
             TycoonType = tycoonData.TycoonType;
             AIBehaviour = aiBehaviour;
-            SoulManager.Init(tycoonData);
+            EconomyManager = economyManager;
 
             ResetBuyTimer(tycoonData);
             ResetSellTimer(tycoonData);
             ResetAutoCostTimer(tycoonData);
         }
+
+        public void LoseLogic()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void ResetAutoCostTimer(TycoonData tycoonData)
         {
             currentAutoCostTimer = Random.Range(tycoonData.MinAutoCostTime, tycoonData.MaxAutoCostTime);
@@ -54,19 +60,19 @@ namespace Economy
             currentBuyTimer = Random.Range(tycoonData.MinBuyTime, tycoonData.MaxBuyTime);
         }
 
-        private void Sell(EconomyManager economyManager, Market market)
+        private void Sell()
         {
-            AIBehaviour.SellBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.SellBehaviour(EconomyManager, this);
         }
 
-        private void Buy(EconomyManager economyManager, Market market)
+        private void Buy()
         {
-            AIBehaviour.BuyBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.BuyBehaviour(EconomyManager, this);
         }
 
-        private void AutoCost(EconomyManager economyManager, Market market)
+        private void AutoCost()
         {
-            AIBehaviour.AutoCostBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.AutoCostBehaviour(EconomyManager, this);
         }
 
         private float currentSellTimer;
@@ -80,7 +86,7 @@ namespace Economy
             currentAutoCostTimer -= Time.deltaTime;
             if (currentSellTimer <= 0)
             {
-                OnSellTriggered(new TycoonEventArgs(TycoonType));;
+                OnSellTriggered(new TycoonEventArgs(TycoonType));
                 ResetSellTimer(TycoonData);
             }
             if (currentBuyTimer <= 0)

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Economy;
 using UnityEngine;
-namespace Economy
+
+namespace Tycoons
 {
     public class AIBehaviourTycoon1 : AIBehaviourBase
     {
-        public override List<DemonStatsInt> SellBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public override List<DemonStatsInt> SellBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             List<DemonStatsInt> demons = new List<DemonStatsInt>();
             int howmanyToSell = Random.Range(tycoon.TycoonData.MinSellAmount, tycoon.TycoonData.MaxSellAmount);
@@ -21,26 +23,20 @@ namespace Economy
             }
             
             return demons;
-
-            return base.SellBehaviour(economyManager, market, soulManager, tycoon);
         }
 
-        public override float BuyBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public override float BuyBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             float hoManyToBuy = Random.Range(tycoon.TycoonData.MinBuyAmount, tycoon.TycoonData.MaxBuyAmount);
 
             return hoManyToBuy;
-            
-            return base.BuyBehaviour(economyManager, market, soulManager, tycoon);
         }
 
-        public override float AutoCostBehaviour(EconomyManager economyManager, Market market, SoulManager soulManager, Tycoon tycoon)
+        public override float AutoCostBehaviour(EconomyManager economyManager, Tycoon tycoon)
         {
             float autoCost = Random.Range(tycoon.TycoonData.MinAutoCostAmount, tycoon.TycoonData.MaxAutoCostAmount);
 
             return autoCost;
-            
-            return base.AutoCostBehaviour(economyManager, market, soulManager, tycoon);
         }
     }
 

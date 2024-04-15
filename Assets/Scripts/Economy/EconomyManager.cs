@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tycoons;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -14,12 +15,9 @@ namespace Economy
         [FormerlySerializedAs("_timeManager")]
         [SerializeField] private TimeManager _playerTimeManager;
 
-        [SerializeField]
-        private Tycoon tycoonPrefab;
+        [SerializeField] private SoulManager _soulManagerPrefab;
 
-        [SerializeField]
-        private List<TycoonData> _thisGameTycoons = new List<TycoonData>();
-        private Dictionary<TycoonType, AIBehaviourBase> _aiBehaviours = new Dictionary<TycoonType, AIBehaviourBase>();
+        private Dictionary<TycoonType, SoulManager> _tycoonSoulManagers = new Dictionary<TycoonType, SoulManager>();
 
         private void Awake()
         {
@@ -39,41 +37,25 @@ namespace Economy
             {
                 _playerTimeManager = FindObjectOfType<TimeManager>();
             }
-
-            InitTycoonBehaviours();
-            InitTycoons();
-        }
-        private void InitTycoonBehaviours()
-        {
-            _aiBehaviours.Add(TycoonType.TycoonOne, new AIBehaviourTycoon1());
-            _aiBehaviours.Add(TycoonType.TycoonTwo, new AIBehaviourTycoon2());
-            _aiBehaviours.Add(TycoonType.TycoonThree, new AIBehaviourTycoon3());
-        }
-        private void InitTycoons()
-        {
-            foreach (TycoonData tycoonType in _thisGameTycoons)
-            {
-                Tycoon tycoon = Instantiate(tycoonPrefab, transform);
-                tycoon.gameObject.name = tycoonType.ToString();
-                if (InitializeTycoon(tycoonType, tycoon)) return;
-                HookUpTycoonEvents(tycoon);
-            }
         }
 
-        private bool InitializeTycoon(TycoonData tycoonType, Tycoon tycoon)
+        public void SetupTycoonEconomy(Tycoon tycoon)
         {
+            SoulManager soulManager = Instantiate(_soulManagerPrefab, tycoon.transform);
 
-            if (_aiBehaviours.TryGetValue(tycoonType.TycoonType, out AIBehaviourBase aiBehaviour))
+            if (!_tycoonSoulManagers.TryAdd(tycoon.TycoonType, soulManager))
             {
-                tycoon.Init(tycoonType, aiBehaviour);
+                Debug.Log("Tycoon of this type already registered.");
+                Destroy(soulManager.gameObject);
+                return;
             }
-            else
-            {
-                Debug.LogError("AI Behaviour not found");
-                return true;
-            }
-            return false;
+
+            soulManager.Init(tycoon.TycoonData);
+            soulManager.OnLost += tycoon.LoseLogic;
+
+            HookUpTycoonEvents(tycoon);
         }
+
         private void HookUpTycoonEvents(Tycoon tycoon)
         {
             tycoon.SellTriggered += (s, e) => SellDemon(tycoon);
@@ -84,10 +66,10 @@ namespace Economy
         private void Update()
         {
             // TODO: remove debug code
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                StartDemandEventModifier(StatType.Wings, 1.5f, 10f);
-            }
+            //if (Input.GetKeyDown(KeyCode.G))
+            //{
+            //    StartDemandEventModifier(StatType.Wings, 1.5f, 10f);
+            //}
         }
 
         //Selling
@@ -104,16 +86,15 @@ namespace Economy
 
         public void SellDemon(Tycoon tycoon)
         {
-            List<DemonStatsInt> sales = tycoon.AIBehaviour.SellBehaviour(this, _market, tycoon.SoulManager, tycoon);
+            List<DemonStatsInt> sales = tycoon.AIBehaviour.SellBehaviour(this, tycoon);
 
             foreach (DemonStatsInt demon in sales)
             {
                 float price = _market.CalculateDemonPrice(demon);
-                Debug.Log("DemonPrice: " + price);
-                tycoon.SoulManager.AddMoney(price);
+                _tycoonSoulManagers[tycoon.TycoonType].AddMoney(price);
                 _market.SupplyDemon(demon);
-                tycoon.TimeManager.AddTransaction(price, TransactionType.Sale);
             }
+
 
         }
 
@@ -133,12 +114,11 @@ namespace Economy
 
         public bool BuyObject(Tycoon tycoon)
         {
-            float buyAmount = tycoon.AIBehaviour.BuyBehaviour(this, _market, tycoon.SoulManager, tycoon);
-
-            if (tycoon.SoulManager.Money > 0f)
+            if (_tycoonSoulManagers[tycoon.TycoonType].Money > 0f)
             {
-                tycoon.SoulManager.SubtractMoney(buyAmount);
-                tycoon.TimeManager.AddTransaction(buyAmount, TransactionType.Investment);
+                float buyAmount = tycoon.AIBehaviour.BuyBehaviour(this, tycoon);
+                _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(buyAmount);
+
                 return true;
             }
 
@@ -154,11 +134,8 @@ namespace Economy
 
         public void AutoCost(Tycoon tycoon)
         {
-            float autoCostAmount = tycoon.AIBehaviour.AutoCostBehaviour(this, _market, tycoon.SoulManager, tycoon);
-
-            tycoon.SoulManager.SubtractMoney(autoCostAmount);
-            tycoon.TimeManager.AddTransaction(autoCostAmount, TransactionType.Upkeep);
-
+            float autoCostAmount = tycoon.AIBehaviour.AutoCostBehaviour(this, tycoon);
+            _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(autoCostAmount);
         }
 
         public void StartDemandEventModifier(StatType statType, float modifier, float time)

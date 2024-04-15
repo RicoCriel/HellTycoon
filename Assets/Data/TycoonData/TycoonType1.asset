@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121456d2e0534d3e8f3fddc53fc7814e, type: 3}
   m_Name: TycoonType1
   m_EditorClassIdentifier: 
-  _tycoonType: 0
-  _startMoney: 0
-  minBuyTime: 0
-  maxBuyTime: 0
-  minBuyAmount: 0
-  maxBuyAmount: 0
-  minSellTime: 0
-  maxSellTime: 0
-  minSellAmount: 0
-  maxSellAmount: 0
-  minAutoCostTime: 0
-  maxAutoCostTime: 0
-  minAutoCostAmount: 0
-  maxAutoCostAmount: 0
+  TycoonType: 0
+  StartMoney: 0
+  MinBuyTime: 3.4
+  MaxBuyTime: 5.8
+  MinBuyAmount: 50
+  MaxBuyAmount: 500
+  MinSellTime: 11.5
+  MaxSellTime: 13.1
+  MinSellAmount: 1
+  MaxSellAmount: 2
+  MinAutoCostTime: 5
+  MaxAutoCostTime: 5
+  MinAutoCostAmount: 5
+  MaxAutoCostAmount: 434

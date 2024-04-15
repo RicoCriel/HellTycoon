@@ -553,66 +553,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: FearMonument (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
---- !u!1001 &506856991
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.3282776
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.045297623
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.1859856
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_Name
-      value: FearMonument
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
@@ -667,6 +613,10 @@ PrefabInstance:
     - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
       propertyPath: m_Name
       value: FearMonument (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -936,66 +886,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: FearMonument (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
---- !u!1001 &1100614082
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.2388687
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.04529953
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5.92085
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_Name
-      value: FearMonument (8)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
@@ -1031,64 +927,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7540965373638461412, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
   m_PrefabInstance: {fileID: 1895071113}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1293344205
-PrefabInstance:
+--- !u!1 &1239894145
+GameObject:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239894147}
+  - component: {fileID: 1239894146}
+  m_Layer: 0
+  m_Name: TycoonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1239894146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239894145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f13b6ba017e874c932c32c640bc1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _economyManager: {fileID: 1409934866}
+  _tycoonPrefab: {fileID: 7139999733900139119, guid: 9be407617e66c73489f3ae37b9e584b0, type: 3}
+  _thisGameTycoons:
+  - {fileID: 11400000, guid: 1a4958dd656c60a42b3d3dc3cc00db43, type: 2}
+--- !u!4 &1239894147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239894145}
   serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.2527027
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.045303345
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.063559
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_Name
-      value: FearMonument (5)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6348255310595862774, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.446573, y: -61.2581, z: 80.32879}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1346356861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1157,63 +1043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1085cbe4a5b6546a1edf1f8b91350c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1525426767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -11.162867
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.04529953
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -19.257769
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1439037554441708361, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
-      propertyPath: m_Name
-      value: FearMonument (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
 --- !u!1001 &1548949940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1265,6 +1094,10 @@ PrefabInstance:
     - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
       propertyPath: m_Name
       value: FearMonument (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1427,6 +1260,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helpler
       objectReference: {fileID: 0}
+    - target: {fileID: 7399499609532340228, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _soulManagerPrefab
+      value: 
+      objectReference: {fileID: -6941104939822395132, guid: c54ae586ff094b44c8669132c934d433, type: 3}
     - target: {fileID: 7938188976846808446, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: AllLayers.Array.data[0]
       value: 
@@ -1549,6 +1386,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FearMonument (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1605,6 +1446,10 @@ PrefabInstance:
     - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
       propertyPath: m_Name
       value: FearMonument (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405393126861041499, guid: b1303c20a94030c47b1e83e9a1727580, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2022,13 +1867,10 @@ SceneRoots:
   - {fileID: 7732759947768939260}
   - {fileID: 1575612360}
   - {fileID: 39562428}
-  - {fileID: 506856991}
-  - {fileID: 1525426767}
   - {fileID: 569340682}
   - {fileID: 462315910}
   - {fileID: 1548949940}
-  - {fileID: 1293344205}
   - {fileID: 1766486583}
   - {fileID: 1687450049}
-  - {fileID: 1100614082}
   - {fileID: 1089241753}
+  - {fileID: 1239894147}

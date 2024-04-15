@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-namespace Economy
+
+namespace Tycoons
 {
-    
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/TycoonData", order = 1)]
     public class TycoonData : ScriptableObject
     {
