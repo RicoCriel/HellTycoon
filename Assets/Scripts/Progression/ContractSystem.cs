@@ -1,4 +1,6 @@
 using Economy;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
@@ -33,11 +35,12 @@ public class ContractSystem : MonoBehaviour
         public float elapsedTime;
         public int goalAmount;
         public int progressTracker;
+        public string info;
 
     }
 
     [SerializeField] private Contract[] initContracts;
-    static public Contract[] contracts;
+    static public List<Contract> contracts;
 
     private SoulManager _soulManager;
 
@@ -45,7 +48,7 @@ public class ContractSystem : MonoBehaviour
     private void Start()
     {
         _soulManager = FindObjectOfType<SoulManager>();
-        contracts = initContracts;
+        contracts = new List<Contract>(initContracts);
     }
 
     void Update()
