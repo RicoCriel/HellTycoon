@@ -44,46 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00a5caecefa0af48b773daa33c58ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initContracts:
-  - type: 0
-    difficulty: 0
-    baseReward: 100
-    basePenalty: 100
-    difficultyMultipliers:
-    - 0.5
-    - 1
-    - 1.5
-    timeLimit: 70
-    isCompleted: 0
-    isFailed: 0
-    elapsedTime: 0
-    goalAmount: 3
-    progressTracker: 0
-  - type: 1
-    difficulty: 1
-    baseReward: 100
-    basePenalty: 100
-    difficultyMultipliers:
-    - 0.5
-    - 1
-    - 1.5
-    timeLimit: 80
-    isCompleted: 0
-    isFailed: 0
-    elapsedTime: 0
-    goalAmount: 2
-    progressTracker: 0
-  - type: 2
-    difficulty: 2
-    baseReward: 100
-    basePenalty: 100
-    difficultyMultipliers:
-    - 0.5
-    - 1
-    - 1.5
-    timeLimit: 70
-    isCompleted: 0
-    isFailed: 0
-    elapsedTime: 0
-    goalAmount: 10
-    progressTracker: 0
+  initContracts: []

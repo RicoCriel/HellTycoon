@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static ContractSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ContractUI : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class ContractUI : MonoBehaviour
     public TMP_Text Reward;
     public TMP_Text Punishment;
     public TMP_Text Info;
+    public TMP_Text AmountActive;
 
     public void StartContract()
     {
@@ -52,5 +54,18 @@ public class ContractUI : MonoBehaviour
         Reward.text = (contract.baseReward * multi).ToString();
     Punishment.text = (contract.basePenalty * multi).ToString();
         Info.text = contract.info;
+
+        int count = 0;
+        foreach (Contract contractCurr in ContractSystem.contracts)
+        {
+            if (!contractCurr.isCompleted && !contractCurr.isFailed)
+            {
+                ++count;
+            }
+        }
+
+        AmountActive.text = "Current active contracts: " + count.ToString();
+
+
     }
 }
