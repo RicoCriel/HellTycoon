@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
+using static ContractSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Buildings
@@ -134,6 +135,7 @@ namespace Buildings
                 if (_unprocessedDemonContainer.Peek().TryGetComponent(out DemonHandler handler))
                 {
                     handler.SetStats(_machineType);
+                    ContractSystem.UpdateConProgress(ContractType.TortureCon, 1);
                 }
                 AddDemon(_processedDemonContainer, _unprocessedDemonContainer.Dequeue());
                 PlayProcessingAnimation();

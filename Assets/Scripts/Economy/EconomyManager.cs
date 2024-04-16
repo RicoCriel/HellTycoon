@@ -4,6 +4,7 @@ using Tycoons;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using static ContractSystem;
 
 namespace Economy
 {
@@ -75,8 +76,10 @@ namespace Economy
         //Selling
         public void SellDemon(DemonStatsInt demon)
         {
+            ContractSystem.UpdateConProgress(ContractType.SellCon,1);
             float price = _market.CalculateDemonPrice(demon);
             _playerSoulManager.AddMoney(price);
+            ContractSystem.UpdateConProgress(ContractType.EarnCon, (int)price);
             _market.SupplyDemon(demon);
 
             // _playerTimeManager.AddTransaction(price, TransactionType.Sale);
