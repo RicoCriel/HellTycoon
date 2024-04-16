@@ -7,12 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 50b5be3c405c8b04ea9b2af470d39ac0, type: 3}
+  m_Name: OutlineMaterial 1
+  m_Shader: {fileID: -6465566751694194690, guid: 0eb47e76a62fb6242a874b45edba6a9e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _OVERLAY
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -96,15 +95,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fade_Distance: 75
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NormalTHreshold: 1.05
-    - _OVERLAY: 1
     - _OcclusionStrength: 1
-    - _Outline_Thickness: 0.57
+    - _Outline_Thickness: 0.51
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -117,6 +113,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _thickness: 1.1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
