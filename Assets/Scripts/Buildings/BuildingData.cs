@@ -28,6 +28,9 @@ public class BuildingData : ScriptableObject
 
     [SerializeField] private string _buildTag;
     public string BuildTag => _buildTag;
+
+    [SerializeField] private string _desc;
+    public string Desc => _desc;
 }
 
 public enum PartType

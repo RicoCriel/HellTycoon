@@ -198,14 +198,14 @@ namespace Economy
             {
                 // Debug.Log("wealth: " + wealth + "demandeventmod" + DemandEventModifier + "decay: " + _decay + "scarcity: " + _scarcity + "random: " + Random.Range(0.8f, 1.2f) + "supplysaturation: " + supplySaturation );
                 var prevDemand = Demand;
-                Demand = wealth * DemandEventModifier * _decay * Mathf.Max(_scarcity, 1f) * Random.Range(0.8f, 1.2f);
+                Demand = wealth * DemandEventModifier * _decay * _scarcity;
 
                 if (Demand > prevDemand)
                 {
                     // Decrease speed at wich demand drops
-                    Demand *= 1 + (prevDemand - Demand) * scaleFactor;
+                    Demand *= Mathf.Max(1 + (prevDemand - Demand) * scaleFactor, 0.001f);
+                    //Demand = prevDemand + (Demand - prevDemand) * scaleFactor;
                 }
-
             }
 
             public void UpdateDecay(float baseDecay, float decayTime, int decayThreshold)
@@ -229,7 +229,7 @@ namespace Economy
 
             public void CalculatePrice(float priceMultiplier)
             {
-                _price = Demand * priceMultiplier;
+                _price = Demand * priceMultiplier * Random.Range(0.9f, 1.1f);
             }
         }
     }

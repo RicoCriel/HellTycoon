@@ -35,10 +35,10 @@ public class Storage : BuildingFactoryBase
 
     public override void AddDemon(Queue<GameObject> DemonList, GameObject demon)
     {
-        base.AddDemon(DemonList, demon);
-        if (DemonList.Count > MaxDemons)
+        base.AddDemon(_processedDemonContainer, demon);
+        if (_processedDemonContainer.Count > MaxDemons)
         {
-            ResumeProcessing();
+            ExecuteMachineSpawningBehaviour();
         }
         _popup.SetSouls(_unprocessedDemonContainer.Count + _processedDemonContainer.Count);
     }

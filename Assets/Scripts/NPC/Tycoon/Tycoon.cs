@@ -1,15 +1,17 @@
 using JetBrains.Annotations;
 using System;
+using Economy;
 using UnityEngine;
 using Random = UnityEngine.Random;
-namespace Economy
+
+namespace Tycoons
 {
     public class Tycoon : MonoBehaviour
     {
         // private tyCoonType  _tycoonType;
-        public tycoonType TycoonType{ get; private set; }
+        public TycoonType TycoonType{ get; private set; }
 
-        public SoulManager SoulManager{ get; private set; }
+        public EconomyManager EconomyManager{ get; protected set; }
 
         public TimeManager TimeManager{ get; private set; }
 
@@ -19,54 +21,58 @@ namespace Economy
 
         private void Awake()
         {
-            if (SoulManager == null)
-            {
-                SoulManager = GetComponentInChildren<SoulManager>();
-            }
+
             if (TimeManager == null)
             {
                 TimeManager = GetComponentInChildren<TimeManager>();
             }
         }
-        public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour)
+
+        public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour, EconomyManager economyManager)
         {
             TycoonData = tycoonData;
-            TycoonType = tycoonData._tycoonType;
+            TycoonType = tycoonData.TycoonType;
             AIBehaviour = aiBehaviour;
-            SoulManager.Init(tycoonData);
+            EconomyManager = economyManager;
 
             ResetBuyTimer(tycoonData);
             ResetSellTimer(tycoonData);
             ResetAutoCostTimer(tycoonData);
         }
+
+        public void LoseLogic()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void ResetAutoCostTimer(TycoonData tycoonData)
         {
-            currentAutoCostTimer = Random.Range(tycoonData.minAutoCostTime, tycoonData.maxAutoCostTime);
+            currentAutoCostTimer = Random.Range(tycoonData.MinAutoCostTime, tycoonData.MaxAutoCostTime);
         }
         private void ResetSellTimer(TycoonData tycoonData)
         {
 
-            currentSellTimer = Random.Range(tycoonData.minSellTime, tycoonData.maxSellTime);
+            currentSellTimer = Random.Range(tycoonData.MinSellTime, tycoonData.MaxSellTime);
         }
         private void ResetBuyTimer(TycoonData tycoonData)
         {
 
-            currentBuyTimer = Random.Range(tycoonData.minBuyTime, tycoonData.maxBuyTime);
+            currentBuyTimer = Random.Range(tycoonData.MinBuyTime, tycoonData.MaxBuyTime);
         }
 
-        private void Sell(EconomyManager economyManager, Market market)
+        private void Sell()
         {
-            AIBehaviour.SellBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.SellBehaviour(EconomyManager, this);
         }
 
-        private void Buy(EconomyManager economyManager, Market market)
+        private void Buy()
         {
-            AIBehaviour.BuyBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.BuyBehaviour(EconomyManager, this);
         }
 
-        private void AutoCost(EconomyManager economyManager, Market market)
+        private void AutoCost()
         {
-            AIBehaviour.AutoCostBehaviour(economyManager, market, SoulManager, this);
+            AIBehaviour.AutoCostBehaviour(EconomyManager, this);
         }
 
         private float currentSellTimer;
@@ -80,7 +86,7 @@ namespace Economy
             currentAutoCostTimer -= Time.deltaTime;
             if (currentSellTimer <= 0)
             {
-                OnSellTriggered(new TycoonEventArgs(TycoonType));;
+                OnSellTriggered(new TycoonEventArgs(TycoonType));
                 ResetSellTimer(TycoonData);
             }
             if (currentBuyTimer <= 0)
@@ -117,18 +123,18 @@ namespace Economy
     }
     public class TycoonEventArgs : EventArgs
     {
-        public tycoonType TycoonType{ get; }
-        public TycoonEventArgs(tycoonType tycoonType)
+        public TycoonType TycoonType{ get; }
+        public TycoonEventArgs(TycoonType tycoonType)
         {
             TycoonType = tycoonType;
         }
     }
 
 
-    public enum tycoonType
+    public enum TycoonType
     {
-        tycoonOne,
-        tycoonTwo,
-        tycoonThree
+        TycoonOne,
+        TycoonTwo,
+        TycoonThree
     }
 }

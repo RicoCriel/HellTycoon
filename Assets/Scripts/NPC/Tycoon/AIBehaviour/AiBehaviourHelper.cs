@@ -1,4 +1,4 @@
-namespace Economy
+namespace Tycoons
 {
     public class AiBehaviourHelper
     {
