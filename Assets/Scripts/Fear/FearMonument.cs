@@ -15,10 +15,12 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     [SerializeField] private GameObject _mesh;
 
+    private float _fearApplyCounter;
+
     void Start()
     {
         
-        InvokeRepeating("ApplyFear", _fearApplyInterval, _fearApplyInterval);
+        
         // Create a sphere to represent the radius
         _visualIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         _visualIndicator.transform.parent = transform;
@@ -40,13 +42,15 @@ public class FearMonument : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private void Update()
     {
         _visualIndicator.transform.localScale = new Vector3(_searchRadius * 2, _searchRadius * 2, _searchRadius * 2);
-        
-        List<DemonBase> demons = FindGameObjectsInRangeWithScript();
-        demons.ForEach(demon => demon.DemonFear.IncreaseFear(_fearPerInterval));
 
-
-
-        
+        _fearApplyCounter += Time.deltaTime;
+        if (_fearApplyCounter >= _fearApplyInterval)
+        {
+            List<DemonBase> demons = FindGameObjectsInRangeWithScript();
+            demons.ForEach(demon => demon.DemonFear.IncreaseFear(_fearPerInterval));
+            _fearApplyCounter = 0;
+        }
+       
 
     }
 
