@@ -62,4 +62,12 @@ public class DemonPortal : BuildingFactoryBase
     //{
     //    return _isColliding;
     //}
+
+    private void OnDestroy()
+    {
+        if (ExitPortal != null)
+        {
+            Destroy(ExitPortal.gameObject);
+        }
+    }
 }
