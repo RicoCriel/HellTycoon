@@ -63,6 +63,8 @@ public class ContractSystem : MonoBehaviour
                 if (contract.elapsedTime > contract.timeLimit)
                 {
                     // Contract failed due to exceeding time limit
+
+                    //TODO: check which type to decide punishment
                     contract.isFailed = true;
                     int punishment = Mathf.RoundToInt(contract.basePenalty * contract.difficultyMultipliers[(int)contract.difficulty]);
                     PunishPlayer(punishment, contract);
@@ -74,6 +76,9 @@ public class ContractSystem : MonoBehaviour
                     if (CheckCompleted(contract))
                     {
                         // Contract successfully completed
+
+
+                        //TODO: check which type to decdie reward
                         contract.isCompleted = true;
                         int reward = Mathf.RoundToInt(contract.baseReward * contract.difficultyMultipliers[(int)contract.difficulty]);
                         RewardPlayer(reward, contract);
