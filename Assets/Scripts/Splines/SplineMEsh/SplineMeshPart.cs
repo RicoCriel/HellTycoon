@@ -1,4 +1,5 @@
 using Dreamteck.Splines;
+using Splines.Drawing;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Splines.SplineMEsh
@@ -28,7 +29,7 @@ namespace Splines.SplineMEsh
             if (_splineMeshMeshFilter == null)
                 _splineMeshMeshFilter = GetComponent<MeshFilter>();
         }
-        
+
         public void AddPoints(List<Vector3> points, float pointSize, Vector3 offset)
         {
             SplinePoint[] newPoints = new SplinePoint[points.Count];
@@ -39,6 +40,22 @@ namespace Splines.SplineMEsh
                 newPoints[i].position = points[i] + offset;
                 newPoints[i].normal = Vector3.up;
                 newPoints[i].size = pointSize;
+                newPoints[i].color = Color.white;
+            }
+
+            _mySplineComputer.SetPoints(newPoints);
+        }
+
+        public void AddPoints(List<SplinePointModel> points)
+        {
+            SplinePoint[] newPoints = new SplinePoint[points.Count];
+
+            for (int i = 0; i < newPoints.Length; i++)
+            {
+                newPoints[i] = new SplinePoint();
+                newPoints[i].position = points[i].WorldPosition;
+                newPoints[i].normal = Vector3.up;
+                newPoints[i].size = points[i].Size;
                 newPoints[i].color = Color.white;
             }
 

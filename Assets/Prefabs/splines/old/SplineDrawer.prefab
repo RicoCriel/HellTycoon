@@ -44,12 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bc3ec545054f669fda6c56f3f9d28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SplineBuildingModeActive: 1
+  PlaceConnectorWhenMouseUp: 1
   GroundLayer:
     serializedVersion: 2
     m_Bits: 80
   Buildings:
     serializedVersion: 2
     m_Bits: 128
+  BuildingsAndConnectors:
+    serializedVersion: 2
+    m_Bits: 384
   SupportBeamLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -59,17 +64,19 @@ MonoBehaviour:
   AddIndicationPath: 1
   _materialToUsePath: {fileID: 2100000, guid: 479a0e159eeabc4458794c51946b29ba, type: 2}
   _ConstructingSplinePrefab: {fileID: 1131511274195049740, guid: 08b6753cd1fe3524590092dcf16d8482, type: 3}
-  MeshLayerPrefab: {fileID: 0}
-  _materialToUseConstructing: {fileID: 2100000, guid: 8a2c44660e54a364b95a55e9a31c4403, type: 2}
-  _meshToUseConstructing: {fileID: 4068373912626513877, guid: 7311408505ddc9e42ac81bac62f45c48, type: 3}
+  MeshLayerPrefab: {fileID: 2643247391083065511, guid: d1b6dc4e26f87d249946f1282fa97352, type: 3}
+  CreateInstantMesh: 0
+  _materialToUseMesh: {fileID: -8169913744261156915, guid: 7a1d22531ea7d384c90b782f8f3d565b, type: 3}
+  _meshToUse: {fileID: -1703750613899975255, guid: 3555b39eee62ca145904bdc9d94ff752, type: 3}
   _meshDataList: {fileID: 11400000, guid: 56061b788e820ec4bb3bafd1efd87bdf, type: 2}
   _splinePathOffset: 0.1
   _splinePathOffsetMinMAx: 0
-  _sizeTester: 8
+  _sizeTester: 7
+  MeshSampleRateModifyer: 1.6
   _selfCollisionRange: 0.7
   SelfColisionMultiplier: 1.7
   _followerViewPrefab: {fileID: 3668791474713164969, guid: fbca92f290601c8428756bbedd98f679, type: 3}
-  _maxBeltLenght: 100
+  _maxBeltLenght: 500
   _BeltPlacementColor: {r: 1, g: 0.4198113, b: 0.4198113, a: 1}
   _BeltPlacementColorMax: {r: 1, g: 0, b: 0, a: 1}
   _splineObstacleLayer:
