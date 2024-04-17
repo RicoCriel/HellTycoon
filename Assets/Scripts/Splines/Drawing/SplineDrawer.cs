@@ -50,13 +50,16 @@ namespace Splines.Drawing
         [FormerlySerializedAs("_splineViewPrefab")]
         [Header("SplineReferences Mesh")]
         [SerializeField] private SplineView _ConstructingSplinePrefab;
-        [SerializeField] private SplineMeshPart MeshLayerPrefab;
+        [SerializeField] private SplineViewMesh MeshLayerPrefab;
 
-        [FormerlySerializedAs("_materialToUseMesh")]
+        [SerializeField]
+        private bool CreateInstantMesh = false;
+        [FormerlySerializedAs("_materialToUseConstructing")]
         [FormerlySerializedAs("_meshToUseElevated")]
         [FormerlySerializedAs("_meshToUse")]
-        [SerializeField] private Material _materialToUseConstructing;
-        [SerializeField] private Mesh _meshToUseConstructing;
+        [SerializeField] private Material _materialToUseMesh;
+        [FormerlySerializedAs("_meshToUseConstructing")]
+        [SerializeField] private Mesh _meshToUse;
 
         [Space]
         [Header("Mesh Layer Data Settings")]
@@ -420,15 +423,16 @@ namespace Splines.Drawing
                 _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPosition, 1, Vector3.zero);
                 _mostRecentPointModel = SplinePointModels.GetLastSplinePointModel();
 
-                // if (UsingPathSpline)
-                // {
-                SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUseConstructing);
-                float splineSize = _instanciatedSpline.GetSplineUniformSize();
-                _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
-                _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+                if (CreateInstantMesh)
+                {
+                    SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUse);
+                    float splineSize = _instanciatedSpline.GetSplineUniformSize();
+                    _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
+                    _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
 
-                _instanciatedSpline.SetMaterialMesh(_materialToUseConstructing);
+                    _instanciatedSpline.SetMaterialMesh(_materialToUseMesh);
 
+                }
                 if (AddIndicationPath)
                     _instanciatedSpline.SetMaterialPath(_materialToUsePath);
             }
@@ -480,10 +484,6 @@ namespace Splines.Drawing
 
             // _instanciatedSpline.VisualizeSplineTangents();
 
-            SplinePointModels.SetsplinepointForwards();
-            List<Vector3> result = SplinePointModels.CreateSupportBeamPositions(0.2f);
-            SplinePointModels.RemoveRandomPointsSupportBeams(0.6f, result);
-            CreateSupportBeams(result);
 
 
             _hasStartedDrawing = false;
@@ -504,10 +504,17 @@ namespace Splines.Drawing
             _instanciatedSpline.AddOnePoint(SplinePointModels.GetLastSplinePointModel().WorldPositionGround, 1, Vector3.zero);
 
 
-            List<(SplineType, List<SplinePointModel>)> meshDivisions = SplinePointModels.findMeshDivisions();
-            ConstructPartualMeshes(meshDivisions);
+            // List<(SplineType, List<SplinePointModel>)> meshDivisions = SplinePointModels.findMeshDivisions();
+            // ConstructPartualMeshes(meshDivisions);
 
-            UpdateMeshWhileDrawing();
+            // UpdateMeshWhileDrawing();
+
+            CreateCumulativeSplineView();
+
+            SplinePointModels.SetsplinepointForwards();
+            List<Vector3> result = SplinePointModels.CreateSupportBeamPositions(0.2f);
+            SplinePointModels.RemoveRandomPointsSupportBeams(0.6f, result);
+            CreateSupportBeams(result);
             Debug.Log("Completing spline");
 
             // SetLayer(_instanciatedSpline.transform, SplineLayer);
@@ -539,7 +546,92 @@ namespace Splines.Drawing
 
             return splineSizetoReturn;
         }
+        private void CreateCumulativeSplineView()
+        {
+            SplineView splineView = _instanciatedSpline;
+
+            SplinePointModelList splinePointModels = SplinePointModels.cloneSplinePointModelList();
+            splinePointModels.SetsplinepointForwards();
+
+            int usedMeshChunkVertAmount = _meshDataList.MeshDataParts[0].Mesh.vertexCount;
+            float splineSize = splineView.GetSplineUniformSize();
+            int meshSampleRate = Mathf.RoundToInt(splineSize * MeshSampleRateModifyer);
+
+            int splinepointamount = splinePointModels.GetSplinePointModelCount();
+            int AmountOfVerticies = meshSampleRate * usedMeshChunkVertAmount;
+            int MinAmountOfSplineChuncks = Mathf.CeilToInt((float)AmountOfVerticies / 65000);
+            int AmountOfSplineChuncks = Mathf.Max(MinAmountOfSplineChuncks, 1);
+            int amountofVertPerPoint = AmountOfVerticies / splinePointModels.GetSplinePointModelCount();
+
+            Debug.Log("splinepointamount: " + splinepointamount + " AmountOfVerticies: " + AmountOfVerticies + " MinAmountOfSplineChuncks: " + MinAmountOfSplineChuncks + " AmountOfSplineChuncks: " + AmountOfSplineChuncks + " amountofVertPerPoint: " + amountofVertPerPoint);
+
+            int vertexThreshold = 30000; // Change this value as needed
+
+            // Track current vertex count
+            int currentVertexCount = 0;
+            float similarityThreshold = 0.9f; // Adjust as needed
+
+            // Determine chunk boundaries based on forward vector similarity
+            List<List<SplinePointModel>> splineChunks = new List<List<SplinePointModel>>();
+            List<SplinePointModel> currentChunk = new List<SplinePointModel>();
+            currentChunk.Add(splinePointModels.GetSplinePointModel(0));
+            for (int i = 1; i < splinepointamount; i++)
+            {
+                // Check forward vector similarity
+                float forwardSimilarity = Vector3.Dot(splinePointModels.GetSplinePointModel(i - 1).SplinePointForward, splinePointModels.GetSplinePointModel(i).SplinePointForward);
+
+                // Add vertex count for current spline point
+                currentVertexCount += amountofVertPerPoint;
+
+                // If similarity drops below threshold or vertex count exceeds threshold,
+                // start a new chunk
+                if (forwardSimilarity < similarityThreshold && currentVertexCount > vertexThreshold)
+                {
+                    splineChunks.Add(currentChunk);
+                    currentChunk = new List<SplinePointModel>();
+                    currentChunk.Add(splinePointModels.GetSplinePointModel(i - 1));
+                    currentChunk.Add(splinePointModels.GetSplinePointModel(i));
+                    currentVertexCount = 0; // Reset vertex count for new chunk
+                }
+                else
+                {
+                    currentChunk.Add(splinePointModels.GetSplinePointModel(i));
+                }
+            }
+
+            // Add the last chunk
+            splineChunks.Add(currentChunk);
+
+            foreach (List<SplinePointModel> SplineChunk in splineChunks)
+            {
+                SplineViewMesh splineviewMesh = Instantiate(MeshLayerPrefab, splineView.transform);
+                splineView.AddSplineMeshPart(splineviewMesh);
+                splineviewMesh.AddPoints(SplineChunk);
+                splineviewMesh.RebuildComputerImmidiate();
+                splineviewMesh.SetMaterialMesh(_materialToUseMesh);
+                
+                SplineMesh.Channel channel = splineviewMesh.AddMeshToGenerate(_meshDataList.MeshDataParts[0].Mesh);
+                splineviewMesh.RandomizeSeed(channel);
+                for (int index = 1; index < _meshDataList.MeshDataParts.Count; index++)
+                {
+                    MeshDataPart meshData = _meshDataList.MeshDataParts[index];
+                    splineviewMesh.AddMeshToChannel(channel, meshData.Mesh);
+                }
+                splineviewMesh.SetChannelRandomOrder(channel, true);
+                float splineSizeChunk = splineviewMesh.GetSplineUniformSize();
+                int meshSampleRateChunk = Mathf.RoundToInt(splineSizeChunk * MeshSampleRateModifyer);
+                splineviewMesh.SetMeshGenerationCount(channel, meshSampleRateChunk);
+                splineviewMesh.SetMeshSCale(channel, new Vector3(_sizeTester * 0.9f, _sizeTester * 0.9f, _sizeTester * 0.9f),
+                    new Vector3(_sizeTester * 1.1f, _sizeTester * 1.1f, _sizeTester * 1.1f));
+                splineviewMesh.SetChannelYRandomRotation(channel, 12);
+            }
+        }
         private void ConstructPartualMeshes(List<(SplineType, List<SplinePointModel>)> meshDivisions)
+
+            // SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
+            // float splineSize = _instanciatedSpline.GetSplineUniformSize();
+            // _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
+            // _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
         {
 
         }
@@ -699,11 +791,13 @@ namespace Splines.Drawing
 
         private void UpdateMeshWhileDrawing()
         {
-
-            SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
-            float splineSize = _instanciatedSpline.GetSplineUniformSize();
-            _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
-            _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            if (CreateInstantMesh)
+            {
+                SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
+                float splineSize = _instanciatedSpline.GetSplineUniformSize();
+                _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
+                _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
+            }
         }
 
         //spline drawing logic / new point calling

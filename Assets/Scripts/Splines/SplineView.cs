@@ -2,6 +2,7 @@ using Dreamteck.Splines;
 using PopupSystem;
 using PopupSystem.Inheritors;
 using Splines.Drawing;
+using Splines.SplineMEsh;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -33,6 +34,8 @@ namespace Splines
         public PlaceholderConnectorHitBox EndConnector;
 
         private List<Vector3> _supportBeamPositions = new List<Vector3>();
+
+        private List<SplineViewMesh> SplineMeshes = new List<SplineViewMesh>();
 
         // private void CreateSupportBeamPositions()
         // {
@@ -493,6 +496,10 @@ namespace Splines
                 Debug.Log(points[i].tangent);
                 Debug.DrawRay(points[i].position, points[i].tangent * 10 , Color.red, 1f);
             }
+        }
+        public void AddSplineMeshPart(SplineViewMesh splineviewMesh)
+        {
+            SplineMeshes.Add(splineviewMesh);
         }
     }
 }

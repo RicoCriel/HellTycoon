@@ -11,6 +11,16 @@ namespace Splines.Drawing
         {
             SplinePointModels = new List<SplinePointModel>();
         }
+        
+       public SplinePointModelList cloneSplinePointModelList()
+        {
+            SplinePointModelList newSplinePointModelList = new SplinePointModelList();
+            foreach (SplinePointModel splinePointModel in SplinePointModels)
+            {
+                newSplinePointModelList.AddSplinePointModel(splinePointModel);
+            }
+            return newSplinePointModelList;
+        }
 
         public void AddSplinePointModel(SplinePointModel splinePointModel)
         {

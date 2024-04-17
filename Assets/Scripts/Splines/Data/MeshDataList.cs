@@ -9,17 +9,17 @@ namespace Splines.Data
     {
         public List<MeshDataPart> MeshDataParts = new List<MeshDataPart>();
 
-        public Dictionary<SplineType, MeshDataPart> MeshDataDictionary = new Dictionary<SplineType, MeshDataPart>();
+        // public Dictionary<SplineType, MeshDataPart> MeshDataDictionary = new Dictionary<SplineType, MeshDataPart>();
 
         private void OnValidate()
         {
             MeshDataParts ??= new List<MeshDataPart>();
 
-            MeshDataDictionary.Clear();
-            foreach (MeshDataPart meshDataPart in MeshDataParts)
-            {
-                MeshDataDictionary.TryAdd(meshDataPart.MeshType, meshDataPart);
-            }
+            // MeshDataDictionary.Clear();
+            // foreach (MeshDataPart meshDataPart in MeshDataParts)
+            // {
+            //     MeshDataDictionary.TryAdd(meshDataPart.MeshType, meshDataPart);
+            // }
         }
 
     }
