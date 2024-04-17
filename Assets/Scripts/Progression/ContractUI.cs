@@ -35,7 +35,7 @@ public class ContractUI : MonoBehaviour
         newContract.isCompleted = contract.isCompleted;
         newContract.isFailed = contract.isFailed;
         newContract.elapsedTime = contract.elapsedTime;
-        newContract.goalAmount = contract.goalAmount;
+        newContract.goalAmount = (int)(contract.goalAmount * multi);
         newContract.progressTracker = contract.progressTracker;
         newContract.info = contract.info;
 
