@@ -8,13 +8,14 @@ using UnityEngine;
 public class DemonSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _demonPrefab;
-    [SerializeField] private float _spawnInterval = 5f;
+    [SerializeField] public float SpawnInterval = 5f;
     [SerializeField] private float _maxOffset = 0.5f;
     [SerializeField] private int _spawnCost = 5;
     [SerializeField] private EconomyManager _economyManager;
     [SerializeField] private PlaceholderConnectorHitBox _connector;
     [SerializeField] private DemonManager _demonManager;
     private float _timeSinceLastSpawn = 0f;
+
 
 
     private List<GameObject> _demonHandler;
@@ -36,7 +37,7 @@ public class DemonSpawner : MonoBehaviour
     void Update()
     {
         _timeSinceLastSpawn += Time.deltaTime;
-        if (_timeSinceLastSpawn >= _spawnInterval && _connector.ImConnected)
+        if (_timeSinceLastSpawn >= SpawnInterval && _connector.ImConnected)
         {
             //_demonHandler.Add(demon);
             if (_connector.Spline.EndConnector.myBuildingNode.TryGetComponent(out BuildingFactoryBase nextMachine))

@@ -118,7 +118,7 @@ public class ContractSystem : MonoBehaviour
         switch (contract.type)
         {
             case ContractType.SellCon:
-                _soulManager.AddMoney(reward);
+                ChangeAllSpawnRate(2f);
                 return;
             case ContractType.TortureCon:
                 _soulManager.AddMoney(reward);
@@ -136,7 +136,7 @@ public class ContractSystem : MonoBehaviour
         switch (contract.type)
         {
             case ContractType.SellCon:
-                _soulManager.SubtractMoney(penalty);
+                ChangeAllSpawnRate(0.5f);
                 return;
             case ContractType.TortureCon:
                 _soulManager.SubtractMoney(penalty);
@@ -146,6 +146,15 @@ public class ContractSystem : MonoBehaviour
                 return;
             default:
                 return;
+        }
+    }
+
+    void ChangeAllSpawnRate(float rate)
+    {
+        List<DemonSpawner> test = FindObjectsOfType<DemonSpawner>().ToList();
+        foreach (DemonSpawner spawner in test)
+        {
+            spawner.SpawnInterval = spawner.SpawnInterval / rate;
         }
     }
 }
