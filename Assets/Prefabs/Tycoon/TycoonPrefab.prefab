@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5763751624846417220}
+  - component: {fileID: 6114784998219454223}
   - component: {fileID: 7139999733900139119}
+  - component: {fileID: 7576146974248250998}
+  - component: {fileID: 476122887402343813}
   m_Layer: 0
   m_Name: TycoonPrefab
   m_TagString: Untagged
@@ -26,12 +29,69 @@ Transform:
   m_GameObject: {fileID: 2417829622553214887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9821486, y: 24.662724, z: -18.79845}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3271986305092749981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6114784998219454223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417829622553214887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827f8e1b053082648a268d51c264723d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UtilityPlanner: {fileID: 7576146974248250998}
+  State: 0
+  MoveSystem: {fileID: 0}
+  Events:
+    OnStateChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    OnActionSkipped:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMove:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPlanFound:
+      m_PersistentCalls:
+        m_Calls: []
+    OnNoPlanFound:
+      m_PersistentCalls:
+        m_Calls: []
+    OnIdle:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+    OnFailed:
+      m_PersistentCalls:
+        m_Calls: []
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
 --- !u!114 &7139999733900139119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,3 +104,493 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460456c77a0c4bd5b11330d2640eafed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _agent: {fileID: 6114784998219454223}
+--- !u!114 &7576146974248250998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417829622553214887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f6fd81c2e4de94fb75a70f60834465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paused: 0
+  UpdateType: 0
+  IdleDuration: 0
+  StartPlanOnAwake: 1
+  StartPlanDelay: 0
+  FindActionsOnAwake: 1
+  IncludeInActiveActions: 0
+  ExecuteEvenZeroScoreActions: 0
+  ShowLogs: 0
+  LogTypes: 0
+--- !u!114 &476122887402343813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417829622553214887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f27cb6d2148b442927ab29d30ee748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EconomyManager: {fileID: 0}
+  Preference: 0
+  CurrentProduction: 0
+  TycoonType: 0
+--- !u!1 &4824162874285288077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1951971312270993118}
+  - component: {fileID: 6014600178883988638}
+  m_Layer: 0
+  m_Name: ProduceArmor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1951971312270993118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824162874285288077}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6014600178883988638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824162874285288077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a909c61ffd5dc9e448b1354888515011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Produce Armor
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 63f1ac675e0f6d74197438ff54f813ee, type: 2}
+  - {fileID: 11400000, guid: 71c6e1ae883a1e441a420b8f75d9cb35, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+--- !u!1 &5079866806131460532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3271986305092749981}
+  m_Layer: 0
+  m_Name: Actions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3271986305092749981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079866806131460532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1946580847186472680}
+  - {fileID: 7701978468915840825}
+  - {fileID: 7271949057559779912}
+  - {fileID: 1011911189812168374}
+  - {fileID: 1951971312270993118}
+  m_Father: {fileID: 5763751624846417220}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5495477519114331578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1946580847186472680}
+  - component: {fileID: 4714355665850836386}
+  m_Layer: 0
+  m_Name: ProduceWings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1946580847186472680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495477519114331578}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4714355665850836386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495477519114331578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccec1a86592d8c1449bd582d8629adbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Produce Wings
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 126801f5d8302d64e97d99051642b24f, type: 2}
+  - {fileID: 11400000, guid: bf50fd0710a56f84285aa5040f07d666, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+--- !u!1 &5866546961833560856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7701978468915840825}
+  - component: {fileID: 6002890472818255918}
+  m_Layer: 0
+  m_Name: ProduceHorns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7701978468915840825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5866546961833560856}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6002890472818255918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5866546961833560856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f431cf81b1db4f84eab4d70bcb6286e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Produce Horns
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 477b32602e2a2d84b9c4e950fa207c54, type: 2}
+  - {fileID: 11400000, guid: b99c7e8382c53ce41936c9a96eb9252c, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+--- !u!1 &7656200513092197079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011911189812168374}
+  - component: {fileID: 5519581105865430563}
+  m_Layer: 0
+  m_Name: ProduceBody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1011911189812168374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7656200513092197079}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5519581105865430563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7656200513092197079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fa0e82de123f241af637c49674b98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Produce Body
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: f4cb842e43df7044ba1dd507d780d173, type: 2}
+  - {fileID: 11400000, guid: 5cc17ca458d06ac468360b1b488b5964, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+--- !u!1 &7823650318010950759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7271949057559779912}
+  - component: {fileID: 5004752566310907428}
+  m_Layer: 0
+  m_Name: ProduceFace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7271949057559779912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7823650318010950759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5004752566310907428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7823650318010950759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc71b6ac51fe114a8481c165cfac518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Produce Face
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 3c03e10fe1e16394397ff2f6004ccf0f, type: 2}
+  - {fileID: 11400000, guid: 8dc874726afa37f4292594a5bf3dbf23, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
