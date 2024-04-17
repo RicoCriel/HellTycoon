@@ -28,6 +28,7 @@ namespace Splines.Drawing
 
         [FormerlySerializedAs("SplineLayer")]
         public LayerMask Buildings; // Ground layer to interact with
+        public LayerMask BuildingsAndConnectors; // Ground layer to interact with
 
         public LayerMask SupportBeamLayer; // Ground layer to interact with
 
@@ -204,7 +205,7 @@ namespace Splines.Drawing
 
         private void LateUpdate()
         {
-            if (Input.GetMouseButtonUp(0) && _hasStartedDrawing && !_currentSplineConnected)
+            if (Input.GetMouseButtonDown(1) && _hasStartedDrawing && !_currentSplineConnected)
             {
                 if (PlaceConnectorWhenMouseUp)
                 {
@@ -212,9 +213,9 @@ namespace Splines.Drawing
                     SplinePointModel lastPoint = SplinePointModels.GetLastSplinePointModel();
                     SplinePointModel firstToLastPoint = SplinePointModels.GetFirsttoLastSplinePointModel();
 
-                    // if (lastPoint.Height == 0)
-                    // {
-
+                    if (lastPoint.Height == 0)
+                    {
+                        Debug.Log("Creating extender");
                         //calculate Flat Rotation
                         Vector3 direction = lastPoint.WorldPosition - firstToLastPoint.WorldPosition;
                         direction.Normalize();
@@ -222,33 +223,113 @@ namespace Splines.Drawing
                         Quaternion rotation = Quaternion.LookRotation(direction);
 
                         float yRotation = rotation.eulerAngles.y;
-
-
-                        Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
-
-
+                        // Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
                         Quaternion finalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yRotation, transform.rotation.eulerAngles.z);
-                        BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
 
-                        StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out SplineView foundSpline, true);
-                        spawnedExtender._entryBoxes[0].Spline = foundSpline;
-                        spawnedExtender._entryBoxes[0].ImConnected = true;
-                    // }
-                    // else
-                    // {
-                    //     DeleteSpline();
-                    // }
-                }
-                else
-                {
-                    DeleteSpline();
-                }
-                // CurrentSplineConnected = false;
+                        Vector3 cumulativeSize = GetPrefabCumulativeSize(_extenderPrefab.gameObject, finalRotation);
+                        // DrawBounds(newPoint, cumulativeSize);
+                        if (!CheckExtenderCollision(newPoint, cumulativeSize, finalRotation))
+                        {
+                            if (!CheckForDistanceBasedSelfCollisionAtPoint(newPoint))
+                            {
+                                BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
+
+                                StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out SplineView foundSpline, true);
+                                spawnedExtender._entryBoxes[0].Spline = foundSpline;
+                                spawnedExtender._entryBoxes[0].ImConnected = true;
+                            }
+                            else
+                            {
+                                Debug.Log("No Space For Extender Here due to SelfCollision");
+                            }
+                        }
+                        Debug.Log("No Space For Extender Here");
+                    }
+                    Debug.Log("Not on ground");
+                } // CurrentSplineConnected = false;
+            }
+            else if (Input.GetMouseButtonUp(0) && _hasStartedDrawing && !_currentSplineConnected)
+            {
+                Debug.Log("DeletingSpline");
+                DeleteSpline();
             }
         }
+
+        // void DrawBounds(Vector3 center, Vector3 size)
+        // {
+        //     center.y += size.y / 2;
+        //     Vector3 halfSize = size * 0.5f;
+        //
+        //     // Calculate the corners of the bounds
+        //     Vector3[] corners = new Vector3[8];
+        //     corners[0] = center + new Vector3(-halfSize.x, -halfSize.y, -halfSize.z);
+        //     corners[1] = center + new Vector3(-halfSize.x, -halfSize.y, halfSize.z);
+        //     corners[2] = center + new Vector3(halfSize.x, -halfSize.y, halfSize.z);
+        //     corners[3] = center + new Vector3(halfSize.x, -halfSize.y, -halfSize.z);
+        //     corners[4] = center + new Vector3(-halfSize.x, halfSize.y, -halfSize.z);
+        //     corners[5] = center + new Vector3(-halfSize.x, halfSize.y, halfSize.z);
+        //     corners[6] = center + new Vector3(halfSize.x, halfSize.y, halfSize.z);
+        //     corners[7] = center + new Vector3(halfSize.x, halfSize.y, -halfSize.z);
+        //
+        //     // Draw lines between the corners to visualize the bounds
+        //     Debug.DrawLine(corners[0], corners[1], Color.red, 50f);
+        //     Debug.DrawLine(corners[1], corners[2], Color.red, 50f);
+        //     Debug.DrawLine(corners[2], corners[3], Color.red, 50f);
+        //     Debug.DrawLine(corners[3], corners[0], Color.red, 50f);
+        //
+        //     Debug.DrawLine(corners[4], corners[5], Color.red, 50f);
+        //     Debug.DrawLine(corners[5], corners[6], Color.red, 50f);
+        //     Debug.DrawLine(corners[6], corners[7], Color.red, 50f);
+        //     Debug.DrawLine(corners[7], corners[4], Color.red, 50f);
+        //
+        //     Debug.DrawLine(corners[0], corners[4], Color.red, 50f);
+        //     Debug.DrawLine(corners[1], corners[5], Color.red, 50f);
+        //     Debug.DrawLine(corners[2], corners[6], Color.red, 50f);
+        //     Debug.DrawLine(corners[3], corners[7], Color.red, 50f);
+        // }
+        Vector3 GetPrefabCumulativeSize(GameObject prefab, Quaternion rotation)
+        {
+            // Get all renderers in the prefab and its children
+            Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>();
+
+            // Initialize the cumulative bounds
+            Bounds cumulativeBounds = new Bounds(prefab.transform.position, Vector3.zero);
+
+            // Combine the bounds of all renderers
+            foreach (Renderer renderer in renderers)
+            {
+                // Get the bounds of the renderer
+                Bounds rendererBounds = renderer.bounds;
+
+                // Transform the bounds by the rotation quaternion
+                // Bounds transformedBounds = RotateBounds(rendererBounds, rotation, prefab.transform.position);
+
+                // Encapsulate the transformed bounds
+                cumulativeBounds.Encapsulate(rendererBounds);
+            }
+
+            // Return the size of the cumulative bounds
+            return cumulativeBounds.size;
+        }
+
+        Bounds RotateBounds(Bounds bounds, Quaternion rotation, Vector3 center)
+        {
+            Vector3 extents = bounds.extents;
+            Vector3 rotatedExtents = rotation * extents;
+            return new Bounds(center, rotatedExtents * 2);
+        }
+
+        bool CheckExtenderCollision(Vector3 Position, Vector3 size, quaternion rotation)
+        {
+            // Perform a collision check using an overlap box
+            var numColliders = Physics.OverlapBox(Position + new Vector3(0, size.y / 2, 0), size / 2, rotation, BuildingsAndConnectors);
+
+            // Check if any colliders were found
+            return numColliders.Length > 0;
+        }
+
         private void DeleteSpline()
         {
-
             _currentStartingBox = null;
             _hasStartedDrawing = false;
             Debug.Log("destroying spline");
@@ -688,6 +769,23 @@ namespace Splines.Drawing
                 }
             }
             return selfcollisionLayers;
+        }
+
+        private bool CheckForDistanceBasedSelfCollisionAtPoint(Vector3 checkPoint)
+        {
+            int endIndex = SplinePointModels.GetSplinePointModelCount() - 3;
+
+            for (int y = 0; y < endIndex; y++)
+            {
+                Vector3 point = SplinePointModels.GetSplinePointModel(y).WorldPosition;
+                float distance = Vector3.Distance(checkPoint, point);
+                if (distance < _selfCollisionRange * SelfColisionMultiplier)
+                {
+                    Debug.DrawLine(checkPoint, point, Color.red, 0f);
+                    return true;
+                }
+            }
+            return false;
         }
         // private bool ValidHeightFound(out int index, List<int> CantCheck = null, int preferredHeight = 0)
         // {
