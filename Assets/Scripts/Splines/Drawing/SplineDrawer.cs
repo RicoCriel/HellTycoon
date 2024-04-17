@@ -22,7 +22,7 @@ namespace Splines.Drawing
         public bool SplineBuildingModeActive = false;
         [SerializeField]
         private bool PlaceConnectorWhenMouseUp = true;
-        
+
         [Header("LayerMasks")]
         public LayerMask GroundLayer; // Ground layer to interact with
 
@@ -77,9 +77,9 @@ namespace Splines.Drawing
         [Header("size")]
         [Range(0.1f, 100)]
         [SerializeField] private float _sizeTester;
-        
+
         [Range(0.2f, 10)]
-        [SerializeField] 
+        [SerializeField]
         private float MeshSampleRateModifyer = 3;
 
         [Header("selfCollision")]
@@ -122,8 +122,8 @@ namespace Splines.Drawing
         private PlaceholderConnectorHitBox _currentStartingBox;
         private SplineView _instanciatedSpline;
 
-   
-    
+
+
 
         //point stuff
         [HideInInspector]
@@ -208,36 +208,51 @@ namespace Splines.Drawing
             {
                 if (PlaceConnectorWhenMouseUp)
                 {
+                    //find last splinePoints
                     SplinePointModel lastPoint = SplinePointModels.GetLastSplinePointModel();
                     SplinePointModel firstToLastPoint = SplinePointModels.GetFirsttoLastSplinePointModel();
 
-                    Vector3 direction = lastPoint.WorldPosition - firstToLastPoint.WorldPosition;
-                    direction.Normalize();
-                    Vector3 newPoint = lastPoint.WorldPosition + direction * 2f;
-                    Quaternion rotation = Quaternion.LookRotation(direction);
+                    // if (lastPoint.Height == 0)
+                    // {
 
-                    float yRotation = rotation.eulerAngles.y;
+                        //calculate Flat Rotation
+                        Vector3 direction = lastPoint.WorldPosition - firstToLastPoint.WorldPosition;
+                        direction.Normalize();
+                        Vector3 newPoint = lastPoint.WorldPosition + direction * 2f;
+                        Quaternion rotation = Quaternion.LookRotation(direction);
+
+                        float yRotation = rotation.eulerAngles.y;
 
 
-                    Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
+                        Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
 
 
-                    Quaternion finalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yRotation, transform.rotation.eulerAngles.z);
-                    BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
+                        Quaternion finalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yRotation, transform.rotation.eulerAngles.z);
+                        BuildingFactoryExtender spawnedExtender = Instantiate(_extenderPrefab, newPoint, finalRotation);
 
-                    StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out SplineView foundSpline, true);
-                    spawnedExtender._entryBoxes[0].Spline = foundSpline;
-                    spawnedExtender._entryBoxes[0].ImConnected = true;
+                        StopDrawingSplineAtMachine(spawnedExtender._entryBoxes[0], out SplineView foundSpline, true);
+                        spawnedExtender._entryBoxes[0].Spline = foundSpline;
+                        spawnedExtender._entryBoxes[0].ImConnected = true;
+                    // }
+                    // else
+                    // {
+                    //     DeleteSpline();
+                    // }
                 }
                 else
                 {
-                    _currentStartingBox = null;
-                    _hasStartedDrawing = false;
-                    Debug.Log("destroying spline");
-                    Destroy(_instanciatedSpline.gameObject);
+                    DeleteSpline();
                 }
                 // CurrentSplineConnected = false;
             }
+        }
+        private void DeleteSpline()
+        {
+
+            _currentStartingBox = null;
+            _hasStartedDrawing = false;
+            Debug.Log("destroying spline");
+            Destroy(_instanciatedSpline.gameObject);
         }
 
         private float HeightBalanceTimer = 0;
@@ -284,7 +299,7 @@ namespace Splines.Drawing
         public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
         {
             if (!SplineBuildingModeActive) return null;
-         
+
             PopupInstanceTracker.CurrentPopupInstance = null;
             Vector3 connectorPointSpline = placeholderConnectorHitBox.GetConnectorPointSpline();
 
@@ -674,16 +689,56 @@ namespace Splines.Drawing
             }
             return selfcollisionLayers;
         }
+        // private bool ValidHeightFound(out int index, List<int> CantCheck = null, int preferredHeight = 0)
+        // {
+        //     // Check preferred height first
+        //     if (preferredHeight >= 0 && preferredHeight < MaxSplineLayers)
+        //     {
+        //         // If the preferred height is not in the list of heights to avoid, and it's clear, return it
+        //         Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * preferredHeight), 0);
+        //         if ((CantCheck == null || !CantCheck.Contains(preferredHeight)) &&
+        //             Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings).Length == 0)
+        //         {
+        //             index = preferredHeight;
+        //             return true;
+        //         }
+        //     }
+        //
+        //     // Search other heights
+        //     for (int i = 0; i < MaxSplineLayers; i++)
+        //     {
+        //         if (i == preferredHeight || (CantCheck != null && CantCheck.Contains(i)))
+        //         {
+        //             continue; // Skip the preferred height and any heights in the CantCheck list
+        //         }
+        //
+        //         Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * i), 0);
+        //         Collider[] colliders = Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings);
+        //
+        //         if (colliders.Length == 0)
+        //         {
+        //             index = i;
+        //             return true;
+        //         }
+        //     }
+        //
+        //     index = 5; // If no valid height found, set a default index (you might want to handle this differently)
+        //     return false;
+        // }
 
         private bool ValidHeightFound(out int index, List<int> CantCheck = null, int preferredHeight = 0)
         {
+            // Buffer for storing colliders found by OverlapSphereNonAlloc
+            Collider[] buffer = new Collider[MaxSplineLayers];
+
             // Check preferred height first
             if (preferredHeight >= 0 && preferredHeight < MaxSplineLayers)
             {
                 // If the preferred height is not in the list of heights to avoid, and it's clear, return it
                 Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * preferredHeight), 0);
-                if ((CantCheck == null || !CantCheck.Contains(preferredHeight)) &&
-                    Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings).Length == 0)
+                int count = Physics.OverlapSphereNonAlloc(worldPositionGround, _selfCollisionRange, buffer, Buildings);
+
+                if ((CantCheck == null || !CantCheck.Contains(preferredHeight)) && count == 0)
                 {
                     index = preferredHeight;
                     return true;
@@ -699,9 +754,9 @@ namespace Splines.Drawing
                 }
 
                 Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * i), 0);
-                Collider[] colliders = Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings);
+                int count = Physics.OverlapSphereNonAlloc(worldPositionGround, _selfCollisionRange, buffer, Buildings);
 
-                if (colliders.Length == 0)
+                if (count == 0)
                 {
                     index = i;
                     return true;
@@ -711,6 +766,7 @@ namespace Splines.Drawing
             index = 5; // If no valid height found, set a default index (you might want to handle this differently)
             return false;
         }
+
 
         //helper methods
         private float GetNewYOffset()
