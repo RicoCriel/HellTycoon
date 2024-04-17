@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System;
 using Economy;
+using TinnyStudios.AIUtility;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,15 +10,17 @@ namespace Tycoons
     public class Tycoon : MonoBehaviour
     {
         // private tyCoonType  _tycoonType;
-        public TycoonType TycoonType{ get; private set; }
+        public TycoonType TycoonType { get; private set; }
 
-        public EconomyManager EconomyManager{ get; protected set; }
+        public EconomyManager EconomyManager { get; protected set; }
 
-        public TimeManager TimeManager{ get; private set; }
+        public TimeManager TimeManager { get; private set; }
 
-        public AIBehaviourBase AIBehaviour{ get; private set; }
+        //public AIBehaviourBase AIBehaviour{ get; private set; }
 
-        public TycoonData TycoonData{ get; private set; }
+        public TycoonData TycoonData { get; private set; }
+
+        [SerializeField] private Agent _agent;
 
         private void Awake()
         {
@@ -31,8 +34,17 @@ namespace Tycoons
         public void Init(TycoonData tycoonData, AIBehaviourBase aiBehaviour, EconomyManager economyManager)
         {
             TycoonData = tycoonData;
-            TycoonType = tycoonData.TycoonType;
-            AIBehaviour = aiBehaviour;
+
+            var context = _agent.GetContext<TycoonDataContext>();
+            if (context != null)
+            {
+                context.TycoonType = TycoonData.TycoonType;
+                context.EconomyManager = economyManager;
+                //context.Preference = tycoonData.
+            }
+
+            TycoonType = TycoonData.TycoonType;
+            //AIBehaviour = aiBehaviour;
             EconomyManager = economyManager;
 
             ResetBuyTimer(tycoonData);
@@ -62,17 +74,17 @@ namespace Tycoons
 
         private void Sell()
         {
-            AIBehaviour.SellBehaviour(EconomyManager, this);
+            //AIBehaviour.SellBehaviour(EconomyManager, this);
         }
 
         private void Buy()
         {
-            AIBehaviour.BuyBehaviour(EconomyManager, this);
+            //AIBehaviour.BuyBehaviour(EconomyManager, this);
         }
 
         private void AutoCost()
         {
-            AIBehaviour.AutoCostBehaviour(EconomyManager, this);
+            //AIBehaviour.AutoCostBehaviour(EconomyManager, this);
         }
 
         private float currentSellTimer;
@@ -81,24 +93,24 @@ namespace Tycoons
 
         private void Update()
         {
-            currentSellTimer -= Time.deltaTime;
-            currentBuyTimer -= Time.deltaTime;
-            currentAutoCostTimer -= Time.deltaTime;
-            if (currentSellTimer <= 0)
-            {
-                OnSellTriggered(new TycoonEventArgs(TycoonType));
-                ResetSellTimer(TycoonData);
-            }
-            if (currentBuyTimer <= 0)
-            {
-                OnBuyTriggered(new TycoonEventArgs(TycoonType));
-                ResetBuyTimer(TycoonData);
-            }
-            if (currentAutoCostTimer <= 0)
-            {
-                OnAutoCostTriggered(new TycoonEventArgs(TycoonType));
-                ResetAutoCostTimer(TycoonData);
-            }
+            //currentSellTimer -= Time.deltaTime;
+            //currentBuyTimer -= Time.deltaTime;
+            //currentAutoCostTimer -= Time.deltaTime;
+            //if (currentSellTimer <= 0)
+            //{
+            //    OnSellTriggered(new TycoonEventArgs(TycoonType));
+            //    ResetSellTimer(TycoonData);
+            //}
+            //if (currentBuyTimer <= 0)
+            //{
+            //    OnBuyTriggered(new TycoonEventArgs(TycoonType));
+            //    ResetBuyTimer(TycoonData);
+            //}
+            //if (currentAutoCostTimer <= 0)
+            //{
+            //    OnAutoCostTriggered(new TycoonEventArgs(TycoonType));
+            //    ResetAutoCostTimer(TycoonData);
+            //}
         }
 
         public event EventHandler<TycoonEventArgs> SellTriggered;
@@ -123,7 +135,7 @@ namespace Tycoons
     }
     public class TycoonEventArgs : EventArgs
     {
-        public TycoonType TycoonType{ get; }
+        public TycoonType TycoonType { get; }
         public TycoonEventArgs(TycoonType tycoonType)
         {
             TycoonType = tycoonType;

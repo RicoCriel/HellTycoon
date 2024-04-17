@@ -59,9 +59,9 @@ namespace Economy
 
         private void HookUpTycoonEvents(Tycoon tycoon)
         {
-            tycoon.SellTriggered += (s, e) => SellDemon(tycoon);
-            tycoon.BuyTriggered += (s, e) => BuyObject(tycoon);
-            tycoon.AutoCostTriggered += (s, e) => AutoCost(tycoon);
+            //tycoon.SellTriggered += (s, e) => SellDemon(tycoon);
+            //tycoon.BuyTriggered += (s, e) => BuyObject(tycoon);
+            //tycoon.AutoCostTriggered += (s, e) => AutoCost(tycoon);
         }
 
         private void Update()
@@ -76,7 +76,7 @@ namespace Economy
         //Selling
         public void SellDemon(DemonStatsInt demon)
         {
-            ContractSystem.UpdateConProgress(ContractType.SellCon,1);
+            ContractSystem.UpdateConProgress(ContractType.SellCon, 1);
             float price = _market.CalculateDemonPrice(demon);
             _playerSoulManager.AddMoney(price);
             ContractSystem.UpdateConProgress(ContractType.EarnCon, (int)price);
@@ -89,16 +89,21 @@ namespace Economy
 
         public void SellDemon(Tycoon tycoon)
         {
-            List<DemonStatsInt> sales = tycoon.AIBehaviour.SellBehaviour(this, tycoon);
+            //List<DemonStatsInt> sales = tycoon.AIBehaviour.SellBehaviour(this, tycoon);
 
-            foreach (DemonStatsInt demon in sales)
-            {
-                float price = _market.CalculateDemonPrice(demon);
-                _tycoonSoulManagers[tycoon.TycoonType].AddMoney(price);
-                _market.SupplyDemon(demon);
-            }
+            //foreach (DemonStatsInt demon in sales)
+            //{
+            //    float price = _market.CalculateDemonPrice(demon);
+            //    _tycoonSoulManagers[tycoon.TycoonType].AddMoney(price);
+            //    _market.SupplyDemon(demon);
+            //}
+        }
 
-
+        public void SellDemon(DemonStatsInt demon, TycoonType tycoon)
+        {
+            float price = _market.CalculateDemonPrice(demon);
+            _tycoonSoulManagers[tycoon].AddMoney(price);
+            _market.SupplyDemon(demon);
         }
 
         //Buying
@@ -115,18 +120,18 @@ namespace Economy
             return false;
         }
 
-        public bool BuyObject(Tycoon tycoon)
-        {
-            if (_tycoonSoulManagers[tycoon.TycoonType].Money > 0f)
-            {
-                float buyAmount = tycoon.AIBehaviour.BuyBehaviour(this, tycoon);
-                _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(buyAmount);
+        //public bool BuyObject(Tycoon tycoon)
+        //{
+        //    if (_tycoonSoulManagers[tycoon.TycoonType].Money > 0f)
+        //    {
+        //        float buyAmount = tycoon.AIBehaviour.BuyBehaviour(this, tycoon);
+        //        _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(buyAmount);
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         //Upkeep
         public void AutoCost(float amount)
@@ -137,13 +142,18 @@ namespace Economy
 
         public void AutoCost(Tycoon tycoon)
         {
-            float autoCostAmount = tycoon.AIBehaviour.AutoCostBehaviour(this, tycoon);
-            _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(autoCostAmount);
+            //float autoCostAmount = tycoon.AIBehaviour.AutoCostBehaviour(this, tycoon);
+            //_tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(autoCostAmount);
         }
 
         public void StartDemandEventModifier(StatType statType, float modifier, float time)
         {
             _market.AddModifier(statType, modifier, time);
+        }
+
+        public float GetDemand(StatType statType)
+        {
+            return _market.GetDemand(statType);
         }
     }
 
