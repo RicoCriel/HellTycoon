@@ -179,6 +179,11 @@ namespace Economy
             _marketStats[stat].DemandEventModifier *= 1f / modifier;
         }
 
+        public float GetDemand(StatType statType)
+        {
+            return _marketStats[statType].Demand;
+        }
+
         [Serializable]
         private class MarketStat
         {
