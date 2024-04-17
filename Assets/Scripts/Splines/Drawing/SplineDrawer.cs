@@ -18,6 +18,11 @@ namespace Splines.Drawing
     public class SplineDrawer : MonoBehaviour
 
     {
+        [Header("splineBuildingMode")]
+        public bool SplineBuildingModeActive = false;
+        [SerializeField]
+        private bool PlaceConnectorWhenMouseUp = true;
+        
         [Header("LayerMasks")]
         public LayerMask GroundLayer; // Ground layer to interact with
 
@@ -72,6 +77,10 @@ namespace Splines.Drawing
         [Header("size")]
         [Range(0.1f, 100)]
         [SerializeField] private float _sizeTester;
+        
+        [Range(0.2f, 10)]
+        [SerializeField] 
+        private float MeshSampleRateModifyer = 3;
 
         [Header("selfCollision")]
         [Header("size")]
@@ -112,7 +121,9 @@ namespace Splines.Drawing
         private bool _currentSplineConnected = false;
         private PlaceholderConnectorHitBox _currentStartingBox;
         private SplineView _instanciatedSpline;
-        private bool PlaceConnectorWhenMouseUp = false;
+
+   
+    
 
         //point stuff
         [HideInInspector]
@@ -272,6 +283,8 @@ namespace Splines.Drawing
         //public methods
         public SplineView StartDrawingSpline(PlaceholderConnectorHitBox placeholderConnectorHitBox)
         {
+            if (!SplineBuildingModeActive) return null;
+         
             PopupInstanceTracker.CurrentPopupInstance = null;
             Vector3 connectorPointSpline = placeholderConnectorHitBox.GetConnectorPointSpline();
 
@@ -315,7 +328,7 @@ namespace Splines.Drawing
                 // {
                 SplineMesh.Channel meshChannel = _instanciatedSpline.AddMeshToGenerate(_meshToUseConstructing);
                 float splineSize = _instanciatedSpline.GetSplineUniformSize();
-                _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
+                _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
                 _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
 
                 _instanciatedSpline.SetMaterialMesh(_materialToUseConstructing);
@@ -435,7 +448,7 @@ namespace Splines.Drawing
 
         }
 
-        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject,GameObject> callBack)
+        public void SpawnSplineFollower(GameObject gameObject, SplineView computer, Action<GameObject, GameObject> callBack)
         {
             //get relevant data
             SplineComputer splineComputer = computer.GetSplinecomputer();
@@ -520,7 +533,7 @@ namespace Splines.Drawing
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            
+
             // Ray newray = new Ray(_mostRecentPointModel.WorldPosition, Vector3.down * 100);
             // _mostRecentPointModel.WorldPosition
 
@@ -531,10 +544,10 @@ namespace Splines.Drawing
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
             {
                 float camdistance = Vector3.Distance(_camera.transform.position, hit.point);
-                
-                Vector3 normalizedYDirectionCameraPoint =  (hit.point - _camera.transform.position);
+
+                Vector3 normalizedYDirectionCameraPoint = (hit.point - _camera.transform.position);
                 normalizedYDirectionCameraPoint.y = 0;
-                
+
 
                 Vector3 hitPoint = hit.point;
                 // if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -551,14 +564,14 @@ namespace Splines.Drawing
                 SplineHeightBalancer();
                 List<int> checkableLayers = DistanceBasedSelfCollisionCheck();
                 if (!ValidHeightFound(out int index, checkableLayers, HeightPref)) return;
-                
+
                 //
                 // Vector3 point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camdistance*0.7f));
                 // point.y = _mostRecentPointModel.WorldPositionGround.y + SelfCollisionRange(index);
                 // Debug.DrawRay(point, normalizedYDirectionCameraPoint.normalized * 10, Color.blue);
                 // Debug.DrawRay(hit.point, Vector3.up * 10, Color.green);
-                
-                
+
+
                 _mostRecentPointModel.Height = index;
                 _mostRecentPointModel.WorldPosition = _mostRecentPointModel.WorldPositionGround + new Vector3(0, SelfCollisionRange(index), 0);
 
@@ -593,7 +606,7 @@ namespace Splines.Drawing
 
             SplineMesh.Channel meshChannel = _instanciatedSpline.GetMeshChannel(0);
             float splineSize = _instanciatedSpline.GetSplineUniformSize();
-            _instanciatedSpline.SetMeshGenerationCount(meshChannel, (int)splineSize * 3);
+            _instanciatedSpline.SetMeshGenerationCount(meshChannel, Mathf.RoundToInt(splineSize * MeshSampleRateModifyer));
             _instanciatedSpline.SetMeshSCale(meshChannel, new Vector3(_sizeTester, _sizeTester, _sizeTester));
         }
 
@@ -668,8 +681,9 @@ namespace Splines.Drawing
             if (preferredHeight >= 0 && preferredHeight < MaxSplineLayers)
             {
                 // If the preferred height is not in the list of heights to avoid, and it's clear, return it
+                Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * preferredHeight), 0);
                 if ((CantCheck == null || !CantCheck.Contains(preferredHeight)) &&
-                    Physics.OverlapSphere(_mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * preferredHeight), 0), _selfCollisionRange, Buildings).Length == 0)
+                    Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings).Length == 0)
                 {
                     index = preferredHeight;
                     return true;
@@ -684,7 +698,8 @@ namespace Splines.Drawing
                     continue; // Skip the preferred height and any heights in the CantCheck list
                 }
 
-                Collider[] colliders = Physics.OverlapSphere(_mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * i), 0), _selfCollisionRange, Buildings);
+                Vector3 worldPositionGround = _mostRecentPointModel.WorldPositionGround + new Vector3(0, _selfCollisionRange * (2 * i), 0);
+                Collider[] colliders = Physics.OverlapSphere(worldPositionGround, _selfCollisionRange, Buildings);
 
                 if (colliders.Length == 0)
                 {
