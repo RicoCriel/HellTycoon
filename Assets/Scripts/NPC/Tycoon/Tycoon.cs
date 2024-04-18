@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Collections;
 using Economy;
 using TinnyStudios.AIUtility;
 using UnityEngine;
@@ -41,6 +42,8 @@ namespace Tycoons
                 context.TycoonType = TycoonData.TycoonType;
                 context.EconomyManager = economyManager;
                 //context.Preference = tycoonData.
+
+                context.OnChangeProduction += () => StartCoroutine(ChangeProductionCooldown());
             }
 
             TycoonType = TycoonData.TycoonType;
@@ -50,6 +53,17 @@ namespace Tycoons
             ResetBuyTimer(tycoonData);
             ResetSellTimer(tycoonData);
             ResetAutoCostTimer(tycoonData);
+        }
+
+        private IEnumerator ChangeProductionCooldown()
+        {
+            yield return new WaitForSeconds(10f);
+            var context = _agent.GetContext<TycoonDataContext>();
+
+            if (context != null)
+            {
+                context.CanChangeProduction = true;
+            }
         }
 
         public void LoseLogic()

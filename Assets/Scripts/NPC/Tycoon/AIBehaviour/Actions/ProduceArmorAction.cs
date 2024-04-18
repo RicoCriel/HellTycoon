@@ -27,8 +27,6 @@ namespace Tycoons
 
                 var demon = new DemonStatsInt(bodyInt, hornInt, wingInt, tailInt, eyeInt);
                 context.EconomyManager.SellDemon(demon, context.TycoonType);
-
-                context.CurrentProduction = StatType.Armor;
             }
         }
     }

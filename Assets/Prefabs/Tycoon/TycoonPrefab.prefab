@@ -1,5 +1,89 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1234302026129988212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3989774119324610831}
+  - component: {fileID: 2675711590060241193}
+  m_Layer: 0
+  m_Name: ChangeToBody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3989774119324610831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234302026129988212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2675711590060241193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234302026129988212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b9f36433c99d04799fdc63bc19226b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Change to Body
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: f4cb842e43df7044ba1dd507d780d173, type: 2}
+  - {fileID: 11400000, guid: d4f8f78b48c42ae47a2f3192a7c7fc72, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: 086cdd6a476721e498dcf5f5cf6af1e9, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+  _statType: 4
 --- !u!1 &2417829622553214887
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +227,90 @@ MonoBehaviour:
   Preference: 0
   CurrentProduction: 0
   TycoonType: 0
+--- !u!1 &3656451931299768744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3600224060419087382}
+  - component: {fileID: 719209858942351792}
+  m_Layer: 0
+  m_Name: ChangeToFace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3600224060419087382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656451931299768744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &719209858942351792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656451931299768744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b9f36433c99d04799fdc63bc19226b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Change to Face
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 3c03e10fe1e16394397ff2f6004ccf0f, type: 2}
+  - {fileID: 11400000, guid: e6edb888181784a4ea36f4a987a006f3, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: 086cdd6a476721e498dcf5f5cf6af1e9, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+  _statType: 2
 --- !u!1 &4824162874285288077
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,9 +359,7 @@ MonoBehaviour:
   Weight: 1
   MinScore: 0
   Considerations:
-  - {fileID: 11400000, guid: 63f1ac675e0f6d74197438ff54f813ee, type: 2}
   - {fileID: 11400000, guid: 71c6e1ae883a1e441a420b8f75d9cb35, type: 2}
-  - {fileID: 11400000, guid: bd7325b37db1ac4448e0e0749dafd432, type: 2}
   PerformData:
     Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
   MoveData:
@@ -256,11 +422,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1946580847186472680}
+  - {fileID: 1951971312270993118}
+  - {fileID: 1011911189812168374}
   - {fileID: 7701978468915840825}
   - {fileID: 7271949057559779912}
-  - {fileID: 1011911189812168374}
-  - {fileID: 1951971312270993118}
+  - {fileID: 1946580847186472680}
+  - {fileID: 2409227521032279840}
+  - {fileID: 3989774119324610831}
+  - {fileID: 7733300767044908713}
+  - {fileID: 3600224060419087382}
+  - {fileID: 4447086191628643691}
   m_Father: {fileID: 5763751624846417220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5495477519114331578
@@ -311,9 +482,7 @@ MonoBehaviour:
   Weight: 1
   MinScore: 0
   Considerations:
-  - {fileID: 11400000, guid: 126801f5d8302d64e97d99051642b24f, type: 2}
   - {fileID: 11400000, guid: bf50fd0710a56f84285aa5040f07d666, type: 2}
-  - {fileID: 11400000, guid: 3c657db20efee894c93aff0664141074, type: 2}
   PerformData:
     Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
   MoveData:
@@ -395,9 +564,7 @@ MonoBehaviour:
   Weight: 1
   MinScore: 0
   Considerations:
-  - {fileID: 11400000, guid: 477b32602e2a2d84b9c4e950fa207c54, type: 2}
   - {fileID: 11400000, guid: b99c7e8382c53ce41936c9a96eb9252c, type: 2}
-  - {fileID: 11400000, guid: 3e3cb2f9bd931a44b91859f496a11013, type: 2}
   PerformData:
     Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
   MoveData:
@@ -431,6 +598,90 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   State: 0
+--- !u!1 &7224334673175946793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4447086191628643691}
+  - component: {fileID: 741816737147820266}
+  m_Layer: 0
+  m_Name: ChangeToWings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4447086191628643691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224334673175946793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741816737147820266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224334673175946793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b9f36433c99d04799fdc63bc19226b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Change to Wings
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 126801f5d8302d64e97d99051642b24f, type: 2}
+  - {fileID: 11400000, guid: 3c657db20efee894c93aff0664141074, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: 086cdd6a476721e498dcf5f5cf6af1e9, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+  _statType: 0
 --- !u!1 &7656200513092197079
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,9 +730,7 @@ MonoBehaviour:
   Weight: 1
   MinScore: 0
   Considerations:
-  - {fileID: 11400000, guid: f4cb842e43df7044ba1dd507d780d173, type: 2}
   - {fileID: 11400000, guid: 5cc17ca458d06ac468360b1b488b5964, type: 2}
-  - {fileID: 11400000, guid: d4f8f78b48c42ae47a2f3192a7c7fc72, type: 2}
   PerformData:
     Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
   MoveData:
@@ -563,9 +812,7 @@ MonoBehaviour:
   Weight: 1
   MinScore: 0
   Considerations:
-  - {fileID: 11400000, guid: 3c03e10fe1e16394397ff2f6004ccf0f, type: 2}
   - {fileID: 11400000, guid: 8dc874726afa37f4292594a5bf3dbf23, type: 2}
-  - {fileID: 11400000, guid: e6edb888181784a4ea36f4a987a006f3, type: 2}
   PerformData:
     Properties: {fileID: 11400000, guid: e36d627ca54b39a48964bf88d3c416ca, type: 2}
   MoveData:
@@ -599,3 +846,171 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   State: 0
+--- !u!1 &8918858077939429926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2409227521032279840}
+  - component: {fileID: 2631469679751217103}
+  m_Layer: 0
+  m_Name: ChangeToArmor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2409227521032279840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918858077939429926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2631469679751217103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918858077939429926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b9f36433c99d04799fdc63bc19226b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Change to Armor
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 63f1ac675e0f6d74197438ff54f813ee, type: 2}
+  - {fileID: 11400000, guid: bd7325b37db1ac4448e0e0749dafd432, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: 086cdd6a476721e498dcf5f5cf6af1e9, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+  _statType: 3
+--- !u!1 &9025545149002367056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7733300767044908713}
+  - component: {fileID: 6676942776455005201}
+  m_Layer: 0
+  m_Name: ChangeToHorns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7733300767044908713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025545149002367056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3271986305092749981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6676942776455005201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025545149002367056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b9f36433c99d04799fdc63bc19226b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Change to Horns
+  Weight: 1
+  MinScore: 0
+  Considerations:
+  - {fileID: 11400000, guid: 477b32602e2a2d84b9c4e950fa207c54, type: 2}
+  - {fileID: 11400000, guid: 3e3cb2f9bd931a44b91859f496a11013, type: 2}
+  PerformData:
+    Properties: {fileID: 11400000, guid: 086cdd6a476721e498dcf5f5cf6af1e9, type: 2}
+  MoveData:
+    Required: 0
+    DestinationTransform: {fileID: 0}
+    Properties: {fileID: 0}
+  PropertySet:
+    Original: {fileID: 0}
+    _instance: {fileID: 0}
+    Clone: 1
+  Events:
+    OnSetUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoveBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnMoving:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerformBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPerform:
+      m_PersistentCalls:
+        m_Calls: []
+    OnCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAbort:
+      m_PersistentCalls:
+        m_Calls: []
+  State: 0
+  _statType: 1

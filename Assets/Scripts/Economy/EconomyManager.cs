@@ -120,18 +120,17 @@ namespace Economy
             return false;
         }
 
-        //public bool BuyObject(Tycoon tycoon)
-        //{
-        //    if (_tycoonSoulManagers[tycoon.TycoonType].Money > 0f)
-        //    {
-        //        float buyAmount = tycoon.AIBehaviour.BuyBehaviour(this, tycoon);
-        //        _tycoonSoulManagers[tycoon.TycoonType].SubtractMoney(buyAmount);
+        public bool BuyObject(float amount, TycoonType tycoon)
+        {
+            if (_tycoonSoulManagers[tycoon].Money > 0f)
+            {
+                _tycoonSoulManagers[tycoon].SubtractMoney(amount);
 
-        //        return true;
-        //    }
+                return true;
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
 
         //Upkeep
         public void AutoCost(float amount)

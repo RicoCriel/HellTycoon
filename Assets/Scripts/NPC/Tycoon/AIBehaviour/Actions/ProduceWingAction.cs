@@ -8,8 +8,6 @@ namespace Tycoons
 {
     public class ProduceWingAction : UtilityAction
     {
- 
-
         public override EActionStatus Perform(Agent agent)
         {
             return PerformByDuration(agent);
@@ -29,8 +27,6 @@ namespace Tycoons
 
                 var demon = new DemonStatsInt(bodyInt, hornInt, wingInt, tailInt, eyeInt);
                 context.EconomyManager.SellDemon(demon, context.TycoonType);
-
-                context.CurrentProduction = StatType.Wings;
             }
         }
     }

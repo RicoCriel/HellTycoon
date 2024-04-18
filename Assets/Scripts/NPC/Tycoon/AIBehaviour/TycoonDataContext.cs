@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Economy;
 using TinnyStudios.AIUtility;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tycoons
 {
@@ -12,6 +13,9 @@ namespace Tycoons
         public StatType Preference;
         public StatType CurrentProduction;
         public TycoonType TycoonType;
+        public bool CanChangeProduction = true;
+
+        public UnityAction OnChangeProduction;
     }
 }
 

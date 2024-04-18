@@ -19,7 +19,7 @@ namespace Tycoons
                 return ResponseCurve.Evaluate(1);
             }
 
-            return ResponseCurve.Evaluate(0.1f);
+            return ResponseCurve.Evaluate(0f);
         }
     }
 }
