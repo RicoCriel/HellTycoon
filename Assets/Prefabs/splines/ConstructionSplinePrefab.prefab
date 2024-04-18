@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4342723374602401427}
   - component: {fileID: 4529975421703243596}
   - component: {fileID: 5636563660150824204}
-  - component: {fileID: 3315113940261105979}
   - component: {fileID: 917350109304222471}
+  - component: {fileID: 6313964380504465259}
   m_Layer: 7
   m_Name: ConstructionSplinePrefab
   m_TagString: Untagged
@@ -59,7 +59,7 @@ MonoBehaviour:
   _splineMeshMeshFilter: {fileID: 9064356671344408234}
   _splinePathMeshRenderer: {fileID: 5636563660150824204}
   _splinePathFilter: {fileID: 4529975421703243596}
-  _splinePath: {fileID: 3315113940261105979}
+  _splinePath: {fileID: 0}
   _meshCollider: {fileID: 4342723374602401427}
   StartConnector: {fileID: 0}
   EndConnector: {fileID: 0}
@@ -187,8 +187,8 @@ MonoBehaviour:
   _space: 1
   _sampleMode: 1
   _subscribers:
-  - {fileID: 3315113940261105979}
   - {fileID: 5727877919354249339}
+  - {fileID: 6313964380504465259}
   _rawSamples: []
   _nodes: []
 --- !u!64 &4342723374602401427
@@ -263,7 +263,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3315113940261105979
+--- !u!114 &917350109304222471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +272,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 766134034805232652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e1690bb01d509a439fc991a10f8278f, type: 3}
+  m_Script: {fileID: 11500000, guid: a93e09337a6998e47afb4af20f7ae668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popup: {fileID: 7823739658469614760}
+  _popupDelay: 0.8
+--- !u!114 &6313964380504465259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766134034805232652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77ab80dc0820f9d4a8cd9fddbbc89057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateMethod: 0
@@ -328,43 +342,19 @@ MonoBehaviour:
   _rotation: 0
   _flipFaces: 0
   _doubleSided: 0
-  _uvMode: 1
-  _uvScale: {x: 1, y: 1}
+  _uvMode: 3
+  _uvScale: {x: 1, y: 0.05}
   _uvOffset: {x: 0, y: 0}
   _uvRotation: 0
   _meshIndexFormat: 0
   _bakedMesh: {fileID: 0}
-  colliderUpdateRate: 0.1
-  _slices: 1
-  _compensateCorners: 0
-  _useShapeCurve: 0
-  _shape:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _lastShape:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _shapeExposure: 1
---- !u!114 &917350109304222471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766134034805232652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a93e09337a6998e47afb4af20f7ae668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _popup: {fileID: 7823739658469614760}
-  _popupDelay: 0.8
+  colliderUpdateRate: 0.2
+  _sides: 8
+  _roundCapLatitude: 6
+  _capMode: 0
+  _revolve: 360
+  _capUVScale: 1
+  _uvTwist: 2
 --- !u!1 &2076275131186198493
 GameObject:
   m_ObjectHideFlags: 0
