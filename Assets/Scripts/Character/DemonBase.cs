@@ -61,34 +61,34 @@ public class DemonBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void InitEffect(HellLayer hellLayer)
     {
-        switch (hellLayer)
+        switch (hellLayer + 1)
         {
             case HellLayer.Limbo:
-                _demonBehaviourBase = new LimboBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<LimboBehaviour>();
                 break;
             case HellLayer.Lust:
-                _demonBehaviourBase = new LustBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<LustBehaviour>();
                 break;
             case HellLayer.Gluttony:
-                _demonBehaviourBase = new GluttonyBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<GluttonyBehaviour>();
                 break;
             case HellLayer.Greed:
-                _demonBehaviourBase = new GreedBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<GreedBehaviour>();
                 break;
             case HellLayer.Wrath:
-                _demonBehaviourBase = new WrathBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<WrathBehaviour>();
                 break;
             case HellLayer.Heresy:
-                _demonBehaviourBase = new HeresyBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<HeresyBehaviour>();
                 break;
             case HellLayer.Violence:
-                _demonBehaviourBase = new ViolenceBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<ViolenceBehaviour>();
                 break;
             case HellLayer.Fraud:
-                _demonBehaviourBase = new FraudBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<FraudBehaviour>();
                 break;
             case HellLayer.Treachery:
-                _demonBehaviourBase = new TreacheryBehaviour();
+                _demonBehaviourBase = gameObject.AddComponent<TreacheryBehaviour>();
                 break;
         }
     }

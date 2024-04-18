@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class FraudBehaviour : DemonBehaviourBase
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Material newMaterial = new Material(CoreUtils.CreateEngineMaterial("Universal Render Pipeline/Lit"));
+        newMaterial.color = Color.blue;
+        List<Renderer> renderers = gameObject.GetComponentsInChildren<Renderer>().ToList<Renderer>();
+        for (int i = 0; i < renderers.Count; i++)
+        {
+            renderers[i].sharedMaterial = newMaterial;
+        }
     }
 }
+
