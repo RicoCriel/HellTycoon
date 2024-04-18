@@ -16,6 +16,8 @@ namespace Economy
         [SerializeField] private bool _godMode = false;
         [SerializeField] private float _deathTimer = 300f;
 
+        [SerializeField] private GameObject _deathTimerDisplay;
+        
         private float _money = 0f;
         public float Money => _money;
 
@@ -89,9 +91,21 @@ namespace Economy
                     OnLost?.Invoke();
                     return;
                 }
-                //SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Main Menu");
                 Debug.Log("Lost game!");
             }
+            if (_deathTimerPassed != 0)
+            {
+                _deathTimerDisplay.SetActive(true);
+                _deathTimerDisplay.GetComponent<TMPro.TMP_Text>().text = "Bankrupt!! (In: " + ((int)(_deathTimer - _deathTimerPassed)).ToString() + " sec)";
+            }
+            else 
+            { 
+                _deathTimerDisplay.SetActive(false);
+
+            }
+
+
             //}
         }
     }
