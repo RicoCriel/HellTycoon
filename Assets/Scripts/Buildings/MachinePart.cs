@@ -26,7 +26,7 @@ namespace Buildings
 
 
         //TODO : calcualte this required fear depending on which layer machine is on
-        [SerializeField] private float _requiredFearLevel;
+        [SerializeField] public float RequiredFearLevel;
 
         [SerializeField] private int _upkeepCost;
 
@@ -90,11 +90,11 @@ namespace Buildings
         {
             if (_layer == 0)
             {
-                return _requiredFearLevel;
+                return RequiredFearLevel;
             }
             else
             {
-                return _requiredFearLevel * (_fearMultiPerLayer * _layer);
+                return RequiredFearLevel * (_fearMultiPerLayer * _layer);
             }
         }
         protected new void OnDisable()
