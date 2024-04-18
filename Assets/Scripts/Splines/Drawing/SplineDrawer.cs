@@ -248,10 +248,18 @@ namespace Splines.Drawing
                                 // Debug.Log("No Space For Extender Here due to SelfCollision");
                             }
                         }
-                        MessagePopupHUD.TriggerPopup("No Space For Extender Here");
+                        else
+                        {
+
+                            MessagePopupHUD.TriggerPopup("No Space For Extender Here");
+                        }
                         // Debug.Log("No Space For Extender Here");
                     }
-                    MessagePopupHUD.TriggerPopup("Conveyor belt currently not on ground");
+                    else
+                    {
+                        MessagePopupHUD.TriggerPopup("Conveyor belt currently not on ground");
+
+                    }
                 } // CurrentSplineConnected = false;
             }
             else if (Input.GetMouseButtonUp(0) && _hasStartedDrawing && !_currentSplineConnected)

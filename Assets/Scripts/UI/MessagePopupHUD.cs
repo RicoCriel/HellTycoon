@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 namespace UI
 {
-    public class MessagePopupHUD : MonoBehaviour
+    public class MessagePopupHUD : MonoBehaviour, IPointerClickHandler
     {
-          [SerializeField]
+        [SerializeField]
         private TextMeshProUGUI MessageText;
         [SerializeField]
         private CanvasGroup MessageCanvasGroup;
@@ -17,15 +18,8 @@ namespace UI
         private Transform MessageTextScalar;
 
         Sequence TurnMessageSequence;
-        
- 
 
-        // private void Awake()
-        // {
-        //     TurnMessageSequence = DOTween.Sequence();
-        // }
-        
-        public static event Action<string> OnPopupTriggered;
+        private static event Action<string> OnPopupTriggered;
 
         public static void TriggerPopup(string message)
         {
@@ -43,30 +37,17 @@ namespace UI
             OnPopupTriggered += DisplayPopupText;
         }
 
-        public void closePopup()
-        {
-            TurnMessageSequence.Append(MessageTextScalar.DOScale(Vector3.zero, 0.3f));
-            TurnMessageSequence.Insert(0, MessageCanvasGroup.DOFade(0, 0.2f));
-        }
 
-        public void DisplayPopupText(string Text/*, bool untillclosed = false*/)
+        private void DisplayPopupText(string Text /*, bool untillclosed = false*/)
         {
             Debug.Log(Text);
             TurnMessageSequence.Kill();
             StopAllCoroutines();
-            /*if (untillclosed)
-            {
 
-                StartCoroutine(DisplayMessageTextRoutineUntillClosed(Text));
-            }
-            else
-            {*/
-                StartCoroutine(DisplayMessageTextRoutine(Text));
-            // }
+            StartCoroutine(DisplayMessageTextRoutine(Text));
         }
 
-
-        IEnumerator DisplayMessageTextRoutine(string TextToDisplay)
+        private IEnumerator DisplayMessageTextRoutine(string TextToDisplay)
         {
             MessageText.text = TextToDisplay;
             MessageTextScalar.localScale = Vector3.zero;
@@ -80,24 +61,21 @@ namespace UI
 
             TurnMessageSequence.Append(MessageTextScalar.DOScale(Vector3.zero, 0.3f));
             TurnMessageSequence.Insert(0, MessageCanvasGroup.DOFade(0, 0.2f));
-
         }
-        //
-        // IEnumerator DisplayMessageTextRoutineUntillClosed(string TextToDisplay)
-        // {
-        //     MessageText.text = TextToDisplay;
-        //     MessageTextScalar.localScale = Vector3.zero;
-        //     MessageCanvasGroup.alpha = 0;
-        //
-        //
-        //     TurnMessageSequence.Append(MessageTextScalar.DOScale(Vector3.one, 0.3f));
-        //     TurnMessageSequence.Insert(0, MessageCanvasGroup.DOFade(1, 0.2f));
-        //
-        //     yield return null;
-        //
-        // }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ForceClosePopup();
+        }
+        private void ForceClosePopup()
+        {
+            TurnMessageSequence.Kill();
+            StopAllCoroutines();
+
+            TurnMessageSequence.Append(MessageTextScalar.DOScale(Vector3.zero, 0.3f));
+            TurnMessageSequence.Insert(0, MessageCanvasGroup.DOFade(0, 0.2f));
+        }
     }
-    
+
     // public class PopupEventArgs : EventArgs
     // {
     //     public string DisplayText{ get; }
