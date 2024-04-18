@@ -593,9 +593,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathTimer
       objectReference: {fileID: 0}
-    - target: {fileID: 2503922872718046182, guid: 1f8e8fa31e4f3e84bbe9f4a7198a1a34, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 0
+    - target: {fileID: 3540177289150374057, guid: 1f8e8fa31e4f3e84bbe9f4a7198a1a34, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1018,11 +1018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8f1ae5381206248bfaa532ff0ed6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1169222711 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2189918809742814652, guid: 1f8e8fa31e4f3e84bbe9f4a7198a1a34, type: 3}
-  m_PrefabInstance: {fileID: 399272555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1180751402 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6238585844268856777, guid: 2228d8801debdc34296296e8bdea1489, type: 3}
@@ -1033,54 +1028,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7540965373638461412, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
   m_PrefabInstance: {fileID: 1895071113}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1239894145
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1239894147}
-  - component: {fileID: 1239894146}
-  m_Layer: 0
-  m_Name: TycoonManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1239894146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239894145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90f13b6ba017e874c932c32c640bc1a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _economyManager: {fileID: 1409934866}
-  _tycoonPrefab: {fileID: 7139999733900139119, guid: 9be407617e66c73489f3ae37b9e584b0, type: 3}
-  _thisGameTycoons:
-  - {fileID: 11400000, guid: 1a4958dd656c60a42b3d3dc3cc00db43, type: 2}
---- !u!4 &1239894147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239894145}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.446573, y: -61.2581, z: 80.32879}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1346356861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1361,7 +1308,7 @@ PrefabInstance:
     - target: {fileID: 6181139984300803159, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _deathTimerDisplay
       value: 
-      objectReference: {fileID: 1169222711}
+      objectReference: {fileID: 1948457970}
     - target: {fileID: 6570936011130969895, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1765,6 +1712,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 207d382fd46c25543a5bb8f14d0d0f4b, type: 3}
+--- !u!114 &1948457970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7408527116622738467, guid: 1f8e8fa31e4f3e84bbe9f4a7198a1a34, type: 3}
+  m_PrefabInstance: {fileID: 399272555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &438412968188448566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1983,5 +1941,4 @@ SceneRoots:
   - {fileID: 1766486583}
   - {fileID: 1687450049}
   - {fileID: 1089241753}
-  - {fileID: 1239894147}
   - {fileID: 399272555}

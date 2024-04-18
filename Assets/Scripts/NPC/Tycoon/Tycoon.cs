@@ -10,6 +10,8 @@ namespace Tycoons
 {
     public class Tycoon : MonoBehaviour
     {
+        [SerializeField] private float _productionChangeInterval = 10f;
+
         // private tyCoonType  _tycoonType;
         public TycoonType TycoonType { get; private set; }
 
@@ -57,7 +59,7 @@ namespace Tycoons
 
         private IEnumerator ChangeProductionCooldown()
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(_productionChangeInterval);
             var context = _agent.GetContext<TycoonDataContext>();
 
             if (context != null)
