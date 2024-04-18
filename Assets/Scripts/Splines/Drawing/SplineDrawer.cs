@@ -9,6 +9,7 @@ using Splines.Drawing;
 using Splines.Obstacles;
 using Splines.SplineMEsh;
 using Splines.Utillity;
+using UI;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -243,17 +244,19 @@ namespace Splines.Drawing
                             }
                             else
                             {
-                                Debug.Log("No Space For Extender Here due to SelfCollision");
+                                MessagePopupHUD.TriggerPopup("No Space For Extender Here due to SelfCollision");
+                                // Debug.Log("No Space For Extender Here due to SelfCollision");
                             }
                         }
-                        Debug.Log("No Space For Extender Here");
+                        MessagePopupHUD.TriggerPopup("No Space For Extender Here");
+                        // Debug.Log("No Space For Extender Here");
                     }
-                    Debug.Log("Not on ground");
+                    MessagePopupHUD.TriggerPopup("Conveyor belt currently not on ground");
                 } // CurrentSplineConnected = false;
             }
             else if (Input.GetMouseButtonUp(0) && _hasStartedDrawing && !_currentSplineConnected)
             {
-                Debug.Log("DeletingSpline");
+                MessagePopupHUD.TriggerPopup("Deleting Conveyor Belt");
                 DeleteSpline();
             }
         }
@@ -609,7 +612,7 @@ namespace Splines.Drawing
                 splineviewMesh.AddPoints(SplineChunk);
                 splineviewMesh.RebuildComputerImmidiate();
                 splineviewMesh.SetMaterialMesh(_materialToUseMesh);
-                
+
                 SplineMesh.Channel channel = splineviewMesh.AddMeshToGenerate(_meshDataList.MeshDataParts[0].Mesh);
                 splineviewMesh.RandomizeSeed(channel);
                 for (int index = 1; index < _meshDataList.MeshDataParts.Count; index++)
