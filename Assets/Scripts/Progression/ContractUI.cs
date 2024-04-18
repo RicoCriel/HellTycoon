@@ -22,6 +22,8 @@ public class ContractUI : MonoBehaviour
 
     [SerializeField] private int _maxContracts = 1;
 
+    [SerializeField] private GameObject _uiObject;
+
     private int _count;
 
     public void StartContract()
@@ -75,5 +77,10 @@ public class ContractUI : MonoBehaviour
         AmountActive.text = "Current active contracts: " + _count.ToString();
 
 
+    }
+
+    public void ToggleUI()
+    {
+        _uiObject.SetActive(!_uiObject.activeSelf);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 
 public class HeresyBehaviour : DemonBehaviourBase
 {
-    [SerializeField] private Material _testMat;
     // Start is called before the first frame update
     protected override void Start()
     {
