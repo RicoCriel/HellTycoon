@@ -1,6 +1,8 @@
+using Buildings;
 using Economy;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
@@ -118,10 +120,10 @@ public class ContractSystem : MonoBehaviour
         switch (contract.type)
         {
             case ContractType.SellCon:
-                ChangeAllSpawnRate(2f);
+                ChangeAllSpawnRate(2f, contract.difficultyMultipliers[(int)contract.difficulty]);
                 return;
             case ContractType.TortureCon:
-                _soulManager.AddMoney(reward);
+                ChangeAllFearReq(2f, contract.difficultyMultipliers[(int)contract.difficulty]);
                 return;
             case ContractType.EarnCon:
                 _soulManager.AddMoney(reward);
@@ -135,11 +137,12 @@ public class ContractSystem : MonoBehaviour
     {
         switch (contract.type)
         {
+            
             case ContractType.SellCon:
-                ChangeAllSpawnRate(0.5f);
+                ChangeAllSpawnRate(0.5f, contract.difficultyMultipliers[(int)contract.difficulty]);
                 return;
             case ContractType.TortureCon:
-                _soulManager.SubtractMoney(penalty);
+                ChangeAllFearReq(0.5f, contract.difficultyMultipliers[(int)contract.difficulty]);
                 return;
             case ContractType.EarnCon:
                 _soulManager.SubtractMoney(penalty);
@@ -149,12 +152,20 @@ public class ContractSystem : MonoBehaviour
         }
     }
 
-    void ChangeAllSpawnRate(float rate)
+    void ChangeAllSpawnRate(float rate, float difmutli)
     {
         List<DemonSpawner> test = FindObjectsOfType<DemonSpawner>().ToList();
         foreach (DemonSpawner spawner in test)
         {
-            spawner.SpawnInterval = spawner.SpawnInterval / rate;
+            spawner.SpawnInterval = spawner.SpawnInterval / (rate / difmutli);
+        }
+    }
+    void ChangeAllFearReq(float rate,float difmulti)
+    {
+        List<MachinePart> machines = FindObjectsOfType<MachinePart>().ToList();
+        foreach (MachinePart machine in machines)
+        {
+            machine.RequiredFearLevel = machine.GetReqFearLevel() / (rate / difmulti);
         }
     }
 }
