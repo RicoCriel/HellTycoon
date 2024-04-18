@@ -6,10 +6,8 @@ using UnityEngine;
 
 namespace Tycoons
 {
-    public class ProduceWingAction : UtilityAction
+    public class ProduceHornsAction : UtilityAction
     {
- 
-
         public override EActionStatus Perform(Agent agent)
         {
             return PerformByDuration(agent);
@@ -22,17 +20,16 @@ namespace Tycoons
             if (context != null)
             {
                 int bodyInt = Random.Range(0, 1);
-                int hornInt = Random.Range(0, 1);
-                int wingInt = Random.Range(2, 4);
+                int hornInt = Random.Range(2, 4);
+                int wingInt = Random.Range(0, 1);
                 int tailInt = Random.Range(0, 1);
                 int eyeInt = Random.Range(0, 1);
 
                 var demon = new DemonStatsInt(bodyInt, hornInt, wingInt, tailInt, eyeInt);
                 context.EconomyManager.SellDemon(demon, context.TycoonType);
 
-                context.CurrentProduction = StatType.Wings;
+                context.CurrentProduction = StatType.Horns;
             }
         }
     }
 }
-
