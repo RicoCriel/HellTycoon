@@ -16,6 +16,8 @@ namespace PopupSystem
 
         private Vector3 LocalPositionOverride;
 
+        public bool isRotatableObject = true;
+
         protected virtual void Awake()
         {
             if (_popupTransform == null)
@@ -65,11 +67,20 @@ namespace PopupSystem
             {
                 Quaternion parentRotation = transform.parent.rotation;
                 Quaternion cameraRotation = _mainCamera.transform.rotation;
+                // Quaternion objectRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); // Get only the Y-axis rotation of the objectn of the object itself
 
-                Quaternion combinedRotation = parentRotation * cameraRotation;
+                // Quaternion combinedRotation = parentRotation * cameraRotation;
+                Quaternion combinedRotation = parentRotation * cameraRotation /** objectRotation*/;
                 Vector3 eulerRotation = combinedRotation.eulerAngles;
+                if (isRotatableObject)
+                {
+                    _popupTransform.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y - transform.rotation.eulerAngles.y, 0);
+                }
+                else
+                {
+                    _popupTransform.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
+                }
 
-                _popupTransform.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
             }
             else
             {

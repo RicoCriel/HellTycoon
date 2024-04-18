@@ -28,6 +28,8 @@ namespace UI
 
         private void OnEnable()
         {
+            MessageTextScalar.localScale = Vector3.zero;
+            MessageCanvasGroup.alpha = 0;
             TurnMessageSequence = DOTween.Sequence();
             OnPopupTriggered += DisplayPopupText;
         }

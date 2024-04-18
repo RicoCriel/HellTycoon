@@ -555,6 +555,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3915060397502362699, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
+      propertyPath: isRotatableObject
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915060397502362699, guid: 9f90a11e7507ca245828a2633700c8d5, type: 3}
       propertyPath: _soulsOnSplineCounter
       value: 
       objectReference: {fileID: 4684921843229455719}

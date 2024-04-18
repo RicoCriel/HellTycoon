@@ -66,7 +66,7 @@ namespace Splines.Drawing
         public void SetMaterialMesh(Material material)
         {
             _splineMeshMeshRenderer.material = material;
-            _splineMeshMeshRenderer.material.color = Random.ColorHSV();
+            // _splineMeshMeshRenderer.material.color = Random.ColorHSV();
         }
         
         public void SetSplineType(Spline.Type type)
