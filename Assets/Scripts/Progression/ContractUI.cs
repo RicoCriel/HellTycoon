@@ -20,26 +20,34 @@ public class ContractUI : MonoBehaviour
     public TMP_Text Info;
     public TMP_Text AmountActive;
 
+    [SerializeField] private int _maxContracts = 1;
+
+    private int _count;
+
     public void StartContract()
     {
-        ContractSystem.Contract contract = contracts[conDropdown.value];
-        
-        Contract newContract = new Contract();
-        newContract.type = contract.type;
-        newContract.difficulty = (Difficulty)difDropdown.value;
-        newContract.baseReward = contract.baseReward;
-        newContract.basePenalty = contract.basePenalty;
-        newContract.difficultyMultipliers = contract.difficultyMultipliers;
-        float multi = contract.difficultyMultipliers[difDropdown.value];
-        newContract.timeLimit = contract.timeLimit / multi;
-        newContract.isCompleted = contract.isCompleted;
-        newContract.isFailed = contract.isFailed;
-        newContract.elapsedTime = contract.elapsedTime;
-        newContract.goalAmount = (int)(contract.goalAmount * multi);
-        newContract.progressTracker = contract.progressTracker;
-        newContract.info = contract.info;
+        if (_maxContracts >  _count)
+        {
+            ContractSystem.Contract contract = contracts[conDropdown.value];
 
-    ContractSystem.contracts.Add(newContract);
+            Contract newContract = new Contract();
+            newContract.type = contract.type;
+            newContract.difficulty = (Difficulty)difDropdown.value;
+            newContract.baseReward = contract.baseReward;
+            newContract.basePenalty = contract.basePenalty;
+            newContract.difficultyMultipliers = contract.difficultyMultipliers;
+            float multi = contract.difficultyMultipliers[difDropdown.value];
+            newContract.timeLimit = contract.timeLimit / multi;
+            newContract.isCompleted = contract.isCompleted;
+            newContract.isFailed = contract.isFailed;
+            newContract.elapsedTime = contract.elapsedTime;
+            newContract.goalAmount = (int)(contract.goalAmount * multi);
+            newContract.progressTracker = contract.progressTracker;
+            newContract.info = contract.info;
+
+            ContractSystem.contracts.Add(newContract);
+        }
+       
         
     }
 
@@ -55,16 +63,16 @@ public class ContractUI : MonoBehaviour
     Punishment.text = (contract.basePenalty * multi).ToString();
         Info.text = contract.info;
 
-        int count = 0;
+        _count = 0;
         foreach (Contract contractCurr in ContractSystem.contracts)
         {
             if (!contractCurr.isCompleted && !contractCurr.isFailed)
             {
-                ++count;
+                ++_count;
             }
         }
 
-        AmountActive.text = "Current active contracts: " + count.ToString();
+        AmountActive.text = "Current active contracts: " + _count.ToString();
 
 
     }
