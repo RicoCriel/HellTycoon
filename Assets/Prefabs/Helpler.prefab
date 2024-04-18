@@ -405,8 +405,57 @@ Transform:
   - {fileID: 1293098278400684652}
   - {fileID: 3285825654709616612}
   - {fileID: 4499219428827050752}
+  - {fileID: 351176507486372743}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7258780609863348755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 351176507486372743}
+  - component: {fileID: 4647175603343950560}
+  m_Layer: 0
+  m_Name: TycoonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &351176507486372743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258780609863348755}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.446573, y: -61.2581, z: 80.32879}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1782217652254476171}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4647175603343950560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258780609863348755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f13b6ba017e874c932c32c640bc1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _economyManager: {fileID: 7399499609532340228}
+  _tycoonPrefab: {fileID: 7139999733900139119, guid: 9be407617e66c73489f3ae37b9e584b0, type: 3}
+  _thisGameTycoons:
+  - {fileID: 11400000, guid: 1a4958dd656c60a42b3d3dc3cc00db43, type: 2}
 --- !u!1 &7430156108994751295
 GameObject:
   m_ObjectHideFlags: 0
