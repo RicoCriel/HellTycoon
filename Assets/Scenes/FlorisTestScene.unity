@@ -595,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3540177289150374057, guid: 1f8e8fa31e4f3e84bbe9f4a7198a1a34, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1281,6 +1281,10 @@ PrefabInstance:
       propertyPath: _testingLayer2
       value: 
       objectReference: {fileID: 873512151}
+    - target: {fileID: 4308901431280926697, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _soulManager
+      value: 
+      objectReference: {fileID: 1770478770}
     - target: {fileID: 5283111179102071829, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1317,6 +1321,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helpler
       objectReference: {fileID: 0}
+    - target: {fileID: 7017394333081076967, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
+      propertyPath: _soulManager
+      value: 
+      objectReference: {fileID: 1770478770}
     - target: {fileID: 7399499609532340228, guid: 0273e1424d074da44bbf8694767cdf6a, type: 3}
       propertyPath: _soulManagerPrefab
       value: 
